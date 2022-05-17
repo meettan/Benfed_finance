@@ -245,7 +245,8 @@ class Report_model extends CI_Model
 	function f_get_acheaddeatil(){
   $this->db->select("sl_no,ac_name");
   $this->db->from("md_achead");
-  $this->db->where('br_id',$this->session->userdata('loggedin')['branch_id']);
+  $br_id=$this->session->userdata('loggedin')['branch_id'];
+  $this->db->where_in('br_id', array($br_id,0));
   $this->db->order_by('ac_name'); 
  return $this->db->get()->result();
 } 
@@ -383,6 +384,7 @@ order by ac_name";
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
         and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;
         $query  = $this->db->query($sql);
+        
         return $query->result();
 	}
 	function get_ope_gl($ope_date,$acc_head){

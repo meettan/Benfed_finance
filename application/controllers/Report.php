@@ -313,10 +313,13 @@ public function jrnlprn()
 
         }else{
             $where=array(
-                'br_id'=> $this->session->userdata('loggedin')['branch_id'],
+                //'br_id'=> $this->session->userdata('loggedin')['branch_id'],
+                'br_id in('.$this->session->userdata('loggedin')['branch_id'].',0)' => Null
+                //'br_id in 0'=> null,
             );
 		    $select = array('sl_no','ac_name');
 			$data['acc_head'] = $this->master_model->f_select("md_achead", $select, $where, 2);
+            
             $this->load->view('post_login/finance_main');
             $this->load->view('report/gl/gl_ip.php',$data);
             $this->load->view('post_login/footer');
@@ -374,6 +377,7 @@ public function jrnlprn()
         }else{
             // $where=array(,"ORDER BY ac_name"  => NULL);
             $data['acc_head'] = $this->Report_Model->f_get_acheaddeatil();
+           
 		    // $select = array('sl_no','ac_name');
 
 			// $data['acc_head'] = $this->master_model->f_select("md_achead ORDER BY 'ac_name'" , $select, $where = null, 2);

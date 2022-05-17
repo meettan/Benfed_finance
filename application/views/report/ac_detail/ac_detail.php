@@ -132,18 +132,49 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td colspan="4"></td>
 									 <td >Closing Balance</td>
-                                     <td><?php if($type == 1 || $type == 3){ ?>
-									       <?=$ope_bal+$tot_cre-$tot_debit?>
-								         <?php }  ?>
+                                     <td><?php if($type == 1 || $type == 3){
+                                         $clBl=$ope_bal+$tot_cre-$tot_debit;
+                                        if($clBl>0){
+                                            echo abs($clBl);
+                                        }
+                                    }
+
+
+                                        if($type == 2 || $type == 4){ 
+                                            $clbala=$ope_bal+$tot_debit-$tot_cre;
+                                            if($clbala>0){
+                                              echo '';
+                                            }else{
+                                              echo abs($clbala);
+                                            }
+                                        }
+                                            
+                                        ?>
 									 </td>
-                                     <td><?php if($type == 2 || $type == 4){ ?>
-										  <?=$ope_bal+$tot_debit-$tot_cre?>
-										 <?php } ?></td>
+                                     <td>
+                                         <?php if($type == 1 || $type == 3){
+                                         $clBl=$ope_bal+$tot_cre-$tot_debit;
+                                        if($clBl>0){
+                                            echo '';
+                                        }else{
+                                            echo abs($clBl);
+                                        }
+                                    }
+
+
+                                        if($type == 2 || $type == 4){ 
+                                            $clbala=$ope_bal+$tot_debit-$tot_cre;
+                                            if($clbala>0){
+                                                echo abs($clbala);
+                                            }
+                                        }
+                                            
+                                        ?></td>
                                      
                                 </tr>
  
                                 <?php 
-                                       }
+                                     }
                                 else{
                                     echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
