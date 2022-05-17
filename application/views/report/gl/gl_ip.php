@@ -70,7 +70,7 @@ tr:hover {background-color: #f5f5f5;}
                 <div class="form-group row">
                     <label for="to_date" class="col-sm-2 col-form-label">Acount Head:</label>
                     <div class="col-sm-6">
-						<select class="form-control"  name="acc_head" required>
+						<select class="form-control select2"  name="acc_head" required>
 						   <option value="">Select</option>
 						  <?php foreach($acc_head as $key){?>
 						   <option value="<?php if(isset($key->sl_no)){ echo $key->sl_no; }?>"><?php if(isset($key->ac_name)){ echo $key->ac_name; }?></option>
@@ -94,3 +94,7 @@ tr:hover {background-color: #f5f5f5;}
         </div>
 
     </div>
+    <script>
+    $(".select_2").select2();
+    // $("#sch_cd").select2();
+</script>

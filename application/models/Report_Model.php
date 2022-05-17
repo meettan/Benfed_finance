@@ -245,6 +245,7 @@ class Report_model extends CI_Model
 	function f_get_acheaddeatil(){
   $this->db->select("sl_no,ac_name");
   $this->db->from("md_achead");
+  $this->db->where('br_id',$this->session->userdata('loggedin')['branch_id']);
   $this->db->order_by('ac_name'); 
  return $this->db->get()->result();
 } 

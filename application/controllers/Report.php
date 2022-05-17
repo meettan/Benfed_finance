@@ -312,9 +312,11 @@ public function jrnlprn()
             $this->load->view('post_login/footer');
 
         }else{
-		
+            $where=array(
+                'br_id'=> $this->session->userdata('loggedin')['branch_id'],
+            );
 		    $select = array('sl_no','ac_name');
-			$data['acc_head'] = $this->master_model->f_select("md_achead", $select, $where = null, 2);
+			$data['acc_head'] = $this->master_model->f_select("md_achead", $select, $where, 2);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/gl/gl_ip.php',$data);
             $this->load->view('post_login/footer');
