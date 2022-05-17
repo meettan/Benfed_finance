@@ -381,7 +381,7 @@ order by ac_name";
         a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type from td_vouchers a,md_achead b,mda_mngroup c 
         where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
-        and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no" ;
+        and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;
         $query  = $this->db->query($sql);
         return $query->result();
 	}

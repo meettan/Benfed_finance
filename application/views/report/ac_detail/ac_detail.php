@@ -80,28 +80,26 @@ tr:hover {background-color: #f5f5f5;}
 									
                                     $i = 1;
                                     $total = 0.00;$ope_bal = 0.00;$cls_bal = 0.00;$opdr=0.00;$opcr=0.00;
-									$tot_debit = 0.00;$tot_cre =0.00;$val =0; $type =0;
+									$tot_debit = 0.00;$tot_cre =0.00;
+                                    $val =0;
+									$type =0;
 									
 								    if($opebalcal){
 										$opdr =$opebalcal->dr_amt;
 										$opcr =$opebalcal->cr_amt;
-										// if($opebalcal->type == 1 || $opebalcal->type == 3){
-										// $ope_bal = $ope_bal+$opcr-$opdr;
-										// }else if($opebalcal->type == 2 || $opebalcal->type == 4){
-										// $ope_bal = $ope_bal+$opdr-$opcr;										
-										// }
+										if($opebalcal->type == 1 || $opebalcal->type == 3){
+										$ope_bal = $ope_bal+$opcr-$opdr;
+										}else if($opebalcal->type == 2 || $opebalcal->type == 4){
+										$ope_bal = $ope_bal+$opdr-$opcr;										
+										}
 									}
+                                    
 							        ?>
 								<tr class="rep">
 									 <td></td>
-									 <td>Opening Balance</td>
-                                     <td></td>
-                                     <td></td>
-                                     <td></td>
+									 <td colspan="4">Opening Balance</td>
                                      <td><?php echo $ope_bal?></td>
                                      <td></td>
-                                     <td></td>
-                                     <td></td><td></td>
                                 </tr>
                                <?php   foreach($trail_balnce as $tb){
                                            $type = $tb->type;
@@ -134,13 +132,14 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td colspan="4"></td>
 									 <td >Closing Balance</td>
-                                     <td><?php if($type == 2 || $type == 4){ ?>
-										  <?php echo $ope_bal+$tot_debit-$tot_cre ?>
-										 <?php } ?></td>
                                      <td><?php if($type == 1 || $type == 3){ ?>
-									       <?php echo $ope_bal+$tot_cre-$tot_debit ?>
+									       <?=$ope_bal+$tot_cre-$tot_debit?>
 								         <?php }  ?>
 									 </td>
+                                     <td><?php if($type == 2 || $type == 4){ ?>
+										  <?=$ope_bal+$tot_debit-$tot_cre?>
+										 <?php } ?></td>
+                                     
                                 </tr>
  
                                 <?php 
