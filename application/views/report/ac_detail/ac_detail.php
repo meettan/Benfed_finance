@@ -98,8 +98,19 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td></td>
 									 <td colspan="4">Opening Balance</td>
-                                     <td><?php echo $ope_bal?></td>
-                                     <td></td>
+                                     <td><?php   if($ope_bal>0){
+                                             echo"";
+                                            }else{
+                                                echo abs($ope_bal);
+                                            }?></td>
+                                     <td>
+                                     <?php   if($ope_bal>0){
+                                          echo abs($ope_bal);
+                                            }else{
+                                               
+                                             echo"";
+                                            }?>
+                                     </td>
                                 </tr>
                                <?php   foreach($trail_balnce as $tb){
                                            $type = $tb->type;
