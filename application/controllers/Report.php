@@ -366,7 +366,12 @@ public function jrnlprn()
 			$acc_head     =   $this->input->post('acc_head');
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
-			$data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
+			// $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
+            if( date('d-m',strtotime($frm_date))=='01-04'){
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($opeto_dt,$acc_head);
+            }else{
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
+            }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head);
             $this->load->view('post_login/finance_main');
