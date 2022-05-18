@@ -400,6 +400,20 @@ order by ac_name";
         $query  = $this->db->query($sql);
         return $query->row();
 	}
+    function get_ope_gl_re($ope_date,$acc_head){
+		
+		$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,
+		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.type,c.name
+               FROM td_vouchers a,md_achead b,mda_mngroup c
+               WHERE a.acc_code=b.sl_no
+			   and   b.mngr_id   =c.sl_no
+			   and   b.sl_no   ='$acc_head'
+               AND a.voucher_date <= '$ope_date'
+               AND c.type in(1,2)
+               group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  
+        $query  = $this->db->query($sql);
+        return $query->row();
+	}
 	function f_get_daybook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
