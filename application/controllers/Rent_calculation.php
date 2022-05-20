@@ -231,10 +231,13 @@ class Rent_calculation extends CI_Controller{
     }
     public function rent_collection(){
         
-       
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $mode=$this->input->post('mode');
             $last_invoice_no=$this->Rent_calculation_model->invoice_no();
+
+            $select	=	array("acchead");
+            $where = array('id' =>$this->input->post('customer'));
+            $dr_acccd =$this->Transaction_model->f_select("md_rent_customer", $select, $where , 1);
            
             if(empty($last_invoice_no)){
                 $trans_no=0;
@@ -257,20 +260,143 @@ class Rent_calculation extends CI_Controller{
                     "sgst_rt"       =>  $this->input->post('sgst_rt'),
                     "sgst_amt"      =>  $this->input->post('sgst'),
                     "total_amt"     =>  $this->input->post('totalAmount'),
-
                     "irn"           =>  '',
                     "ack_no"        =>  '',
                     "ack_dt"        =>  '',
                     "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
-
-                    // "cr_bnk"        =>$this->input->post('crBank'),
-                    // "rf_date"       =>$this->input->post('rfDate'),
-                    // "rf_no"         =>$this->input->post('rfNo'),
-
                     "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
                     "created_dt"    =>  date("Y-m-d h:i:s"),
                 );
                 $this->Rent_calculation_model->f_insert('td_rent_collection', $data);
+
+                $sl_no    = $this->Transaction_model->f_get_voucher_id($this->session->userdata('loggedin')['fin_id']);
+     
+                $v_srl=$sl_no->sl_no;
+                $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
+            
+                $vouchersDr = array(
+                    'voucher_date'   => date("Y-m-d"),
+                    'sl_no'          =>  $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => 342,
+                     'trans_no'       => $trans_no+1,
+                    'trans_no'       =>  $this->input->post('invoice_no'),
+                    'trans_dt'       => $this->input->post('effectiveDate'),  
+                    'voucher_type'   => 'RNTCOL',
+                    'transfer_type'  => 'T',
+                    'voucher_mode'   => 'B',
+                    'voucher_through'=> 'A',
+                    'acc_code'       => $dr_acccd->acchead,
+                    'dr_cr_flag'     => 'DR',
+                    'amount'         => $this->input->post('totalAmount'),
+                    'ins_no'         => $this->input->post('rfNo'),
+                    'ins_dt'         => $this->input->post('rfDate'),
+                    'bank_name'      => '',
+                    'remarks'        => 'Rent Collection ',
+                    'approval_status'=> 'U',
+                    'user_flag'      => '',
+                    'created_dt'     => date("Y-m-d"),
+                    'created_by'     =>  $this->session->userdata("loggedin")["user_id"],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $this->session->userdata('loggedin')['fin_id']    
+                );
+
+                $vouchersCr = array(
+                    'voucher_date'   => date("Y-m-d"),
+                    'sl_no'          =>  $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => 342,
+                    'trans_no'       => $trans_no+1,
+                    'trans_no'       =>  $this->input->post('invoice_no'),
+                    'trans_dt'       => $this->input->post('effectiveDate'),  
+                    'voucher_type'   => 'RNTCOL',
+                    'transfer_type'  =>  'T',
+                    'voucher_mode'   => 'B',
+                    'voucher_through'=> 'A',
+                    'acc_code'       =>8171,
+                    'dr_cr_flag'     => 'CR',
+                    'amount'         => $this->input->post('amount'),
+                    'ins_no'         => $this->input->post('rfNo'),
+                    'ins_dt'         => $this->input->post('rfDate'),
+                    'bank_name'      => '',
+                    'remarks'        => 'Rent Collection ',
+                    'approval_status'=> 'U',
+                    'user_flag'      => '',
+                    'created_dt'     => date("Y-m-d"),
+                    'created_by'     =>  $this->session->userdata("loggedin")["user_id"],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $this->session->userdata('loggedin')['fin_id']    
+                );
+                $vouchersCgst = array(
+                    'voucher_date'   => date("Y-m-d"),
+                    'sl_no'          =>  $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => 342,
+                    'trans_no'       => $trans_no+1,
+                    'trans_no'       => $this->input->post('invoice_no'),
+                    'trans_dt'       => $this->input->post('effectiveDate'),  
+                    'voucher_type'   => 'RNTCOL',
+                    'transfer_type'  =>  'T',
+                    'voucher_mode'   => 'B',
+                    'voucher_through'=> 'A',
+                    'acc_code'       => 2205,
+                    'dr_cr_flag'     => 'CR',
+                    'amount'         => $this->input->post('cgst'),
+                    'ins_no'         => $this->input->post('rfNo'),
+                    'ins_dt'         => $this->input->post('rfDate'),
+                    'bank_name'      => '',
+                    'remarks'        => 'Rent Collection ',
+                    'approval_status'=> 'U',
+                    'user_flag'      => '',
+                    'created_dt'     => date("Y-m-d"),
+                    'created_by'     =>  $this->session->userdata("loggedin")["user_id"],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $this->session->userdata('loggedin')['fin_id']    
+                );
+                $vouchersSgst = array(
+                    'voucher_date'   => date("Y-m-d"),
+                    'sl_no'          =>  $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => 342,
+                    'trans_no'       => $trans_no+1,
+                    'trans_no'       =>  $this->input->post('invoice_no'),
+                    'trans_dt'       => $this->input->post('effectiveDate'),  
+                    'voucher_type'   => 'RNTCOL',
+                    'transfer_type'  =>  'T',
+                    'voucher_mode'   => 'B',
+                    'voucher_through'=> 'A',
+                    'acc_code'       => 2206,
+                    'dr_cr_flag'     => 'CR',
+                    'amount'         => $this->input->post('sgst'),
+                    'ins_no'         => $this->input->post('rfNo'),
+                    'ins_dt'         => $this->input->post('rfDate'),
+                    'bank_name'      => '',
+                    'remarks'        => 'Rent Collection ',
+                    'approval_status'=> 'U',
+                    'user_flag'      => '',
+                    'created_dt'     => date("Y-m-d"),
+                    'created_by'     =>  $this->session->userdata("loggedin")["user_id"],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $this->session->userdata('loggedin')['fin_id']    
+                );
+              
+                $this->Transaction_model->f_insert('td_vouchers', $vouchersDr);
+                $this->Transaction_model->f_insert('td_vouchers', $vouchersCr);
+                $this->Transaction_model->f_insert('td_vouchers', $vouchersCgst);
+                $this->Transaction_model->f_insert('td_vouchers', $vouchersSgst);
+                $this->session->set_flashdata('msg', 'Successfully Added');
                 return redirect('/rent_collection');
                 // print_r($data);
             

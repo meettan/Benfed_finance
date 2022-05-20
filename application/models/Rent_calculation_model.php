@@ -4,9 +4,13 @@
         $q=$this->db->get();
         return $q->result();
     }
+
+    
     public function addGodown($data){
         $this->db->insert('md_godown',$data);
     }
+
+    
     public function godownData(){
         $this->db->select()->from('md_godown');
         $this->db->join('md_district', 'md_district.district_code = md_godown.gdn_dist')->order_by('md_godown.id','DESC');
@@ -91,6 +95,10 @@
         return $q->result();
         
     }
+    // function f_rentjnl($data){
+        
+        
+    // }
 
     public function fetch_rent_collectreport($where=null,$first_date=null,$second_date=null){
         $this->db->select('')->from('td_rent_collection');
