@@ -79,7 +79,8 @@
                 </div>
 
             </div>
-			 <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
+			 
+                <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
             <div class="dropdown">
                 <div class="dropbtn">
                     <i class="fa fa-bar-chart" aria-hidden="true"></i>
