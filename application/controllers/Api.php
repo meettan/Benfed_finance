@@ -93,7 +93,7 @@ class Api extends CI_Controller{
         $curl = curl_init();
             curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
-            //CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+          //  CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -177,13 +177,13 @@ class Api extends CI_Controller{
                 "Qty": '.$dt->qty.',
                 
                 "FreeQty": "0",
-                "Unit": "",
+                "Unit": "UNT",
                 "UnitPrice": '.$dt->taxable_amt.',
-                "TotAmt": '.$dt->total_amt.',
+                "TotAmt": '.$dt->taxable_amt.',
                 "Discount": "",
                 "PreTaxVal": 0,
-                "AssAmt": '.$dt->total_amt.',
-                "GstRt": '.($dt->cgst_rt+$dt->sgst_amt).',
+                "AssAmt": '.$dt->taxable_amt.',
+                "GstRt": '.($dt->cgst_rt+$dt->sgst_rt).',
                 "IgstAmt": 0,
 
                 "CgstAmt":'.$dt->cgst_amt.',
@@ -196,7 +196,7 @@ class Api extends CI_Controller{
                 "StateCesAmt": 0,
                 "StateCesNonAdvlAmt":0,
                 "OthChrg": 0,
-                "TotItemVal": '.$dt->total_amt.',
+                "TotItemVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
                 "OrdLineRef": 0,
                 "OrgCntry": "IN",
                 "PrdSlNo": 0,
@@ -221,9 +221,9 @@ class Api extends CI_Controller{
                 "CesVal": 0,
                 "StCesVal": 0,
                 "Discount": 0,
-                "OthChrg": ,
+                "OthChrg": 0,
                 "RndOffAmt": 0,
-                "TotInvVal": '.$dt->total_amt.',
+                "TotInvVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
                 "TotInvValFc": 0
             },
             "PayDtls": {
@@ -260,8 +260,8 @@ class Api extends CI_Controller{
                     "ContrRefr": "",
                     "ExtRefr": "",
                     "ProjRefr": "",
-                    "PORefr": 0,
-                    "PORefDt": 0
+                    "PORefr": null,
+                    "PORefDt": null
                 }
                 ]
             },
