@@ -97,10 +97,6 @@
                     <td><?php echo $rent_list->invoice_no; ?></td>
                     <!-- <td><?php echo $rent_list->product_desc; ?></td> -->
                     <td><?php echo $rent_list->cust_name; ?></td>
-                    <!-- <td><?php echo $rent_list->gdn_name; ?></td> -->
-                    <!-- <td><?php echo $rent_list->taxable_amt	; ?></td> -->
-                    <!-- <td><?php echo $rent_list->cgst_amt	; ?></td> -->
-                    <!-- <td><?php echo $rent_list->sgst_amt	; ?></td> -->
                     <td><?php echo $rent_list->total_amt; ?></td>
                
 					

@@ -263,6 +263,7 @@ class Rent_calculation extends CI_Controller{
                     "irn"           =>  '',
                     "ack_no"        =>  '',
                     "ack_dt"        =>  '',
+                    "remarks"        =>  $this->input->post('remarks'),
                     "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
                     "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
                     "created_dt"    =>  date("Y-m-d h:i:s"),
@@ -446,6 +447,7 @@ class Rent_calculation extends CI_Controller{
                 "irn"           =>  '',
                 "ack_no"        =>  '',
                 "ack_dt"        =>  '',
+                "remarks"        =>  $this->input->post('remarks'),
                 "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
 
                 // "cr_bnk"        =>$this->input->post('crBank'),

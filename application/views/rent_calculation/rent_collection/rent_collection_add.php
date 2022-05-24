@@ -67,10 +67,16 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="trans_dt" class="col-sm-2 col-form-label">Total Amount:</label>
+                <label for="totalAmount" class="col-sm-2 col-form-label">Total Amount:</label>
                 <div class="col-sm-4">
                     <input type="text" name="totalAmount" id="totalAmount" class="form-control totalAmount" readonly>
                 </div>
+
+                <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
+                <div class="col-sm-4">
+                          <textarea id="remarks" name="remarks" class="form-control"></textarea>
+                       
+                        </div>
             </div>
 
             <!-- <div class="form-group row">
