@@ -85,6 +85,9 @@
                 if ($listData) {
                     $i = 1;
                     foreach ($listData as $rent_list) {
+						$disable_prnt=$rent_list->irn? 'hidden' : '';
+                                $disable_btn = $rent_list->irn ? 'hidden' : '';
+                                $enable_btn = $rent_list->irn ? '' : 'hidden';
                         
                 ?>
 
@@ -99,13 +102,24 @@
                     <!-- <td><?php echo $rent_list->cgst_amt	; ?></td> -->
                     <!-- <td><?php echo $rent_list->sgst_amt	; ?></td> -->
                     <td><?php echo $rent_list->total_amt; ?></td>
-                    <td>
-                        <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?=$rent_list->invoice_no ?>')">
-                            <i class="fa fa-upload fa-2x" aria-hidden="true" style="color: blue" ></i>
-                        </button></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+               
+					
+					<td id="irn_clk_td_<?= $i ?>">
+                                    <?php if($rent_list->irn ){echo ' <i class="fa fa-check fa-2x"  aria-hidden="true" style="color: green"></i>'; }
+ else{ ?>
+  <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?= $rent_list->invoice_no ?>')">
+   <i class="fa fa-upload fa-2x"  aria-hidden="true" style="color: blue"></i>
+   </button>
+   <?php } ?> 
+  </td>
+                    <!--  <td><?php echo $rent_list->irn; ?></td>  -->
+                     <td><?php echo $rent_list->ack_no	; ?></td> 
+                    <td><?php echo $rent_list->ack_dt	; ?></td> 
+					 <td>
+                        <button type="button" name="download_<?= $i ?>" class="download_" id="download"                  
+                        data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>    
+                         <a href="<?php echo site_url('api/print_irn?irn='.$rent_list->irn.''); ?>" id="down_clk_td_<?= $i ?>" 										title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
+                     </td>
 
                     <td><a href="<?php echo site_url() ?>/rent_collection/edit/<?php  echo $rent_list->trans_no; ?>"
                             data-toggle="tooltip" data-placement="bottom" title="Edit">

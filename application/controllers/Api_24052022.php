@@ -92,8 +92,8 @@ class Api extends CI_Controller{
     
         $curl = curl_init();
             curl_setopt_array($curl, array(
-           // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
-            CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+            CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
+          //  CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -312,9 +312,9 @@ class Api extends CI_Controller{
 
         curl_setopt_array($curl, array(
             /*****************for test server ******************* */
-       // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+        CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
-        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+        //CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
