@@ -69,7 +69,7 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div>
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
 
                     <label for="to_date" class="col-sm-2 col-form-label">Type:</label>
 
@@ -89,7 +89,8 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div> 
+                </div>  -->
+              
 
                 <div class="form-group row">
 
@@ -99,7 +100,7 @@ tr:hover {background-color: #f5f5f5;}
 						<select class="form-control"  name="branch_id" required>
 						   <option value="">Select</option>
 						   <?php foreach($branch as $br){?>
-						   <option value="<?=$br->id?>"><?=$br->branch_name?></option>
+						   <option value="<?=$br->id?>" <?php if($this->session->userdata['loggedin']['branch_id']==$br->id){echo'selected';}?>><?=$br->branch_name?></option>
 						   <?php } ?>
 
 						   

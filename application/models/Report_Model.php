@@ -118,7 +118,7 @@ class Report_model extends CI_Model
 		       voucher_type
                FROM td_vouchers
                WHERE  voucher_id='$vid'
-			    and approval_status='U'
+			    and approval_status IN('U','H')
 			    GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name,approval_status
                order by voucher_date " ;
             

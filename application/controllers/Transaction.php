@@ -667,6 +667,8 @@ function crn_appview()
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
            
             $data['voucher']     = $this->Report_Model->f_get_purappvoucher($id);
+            // print_r($data['voucher']);
+            // exit();
 			
             $data['advance']     = $this->Report_Model->f_get_purappjnl($id);
 			
