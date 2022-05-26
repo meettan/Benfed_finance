@@ -31,7 +31,8 @@ class Transaction extends CI_Controller
             "voucher_id",
             "voucher_type",
             "voucher_mode",
-            "amount"
+            "amount",
+            "approval_status"
         );
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
 			
@@ -44,7 +45,7 @@ class Transaction extends CI_Controller
 			"voucher_date <="    => $to_dt,
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+            "approval_status IN ('U','N')"=>NULL,
 			"1 group by voucher_id " => NULL
             );
         
@@ -55,7 +56,7 @@ class Transaction extends CI_Controller
 			"voucher_date"    => date('Y-m-d'),
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+            "approval_status IN ('U','N')"=>NULL,
 			"1 group by voucher_id " => NULL
             );
 		}
@@ -530,7 +531,7 @@ function approvedjournal()
 
     function bank_view()
     {
-        $select = array("voucher_date","voucher_id","voucher_type","voucher_mode","dr_cr_flag","amount");
+        $select = array("voucher_date","voucher_id","voucher_type","voucher_mode","dr_cr_flag","amount","approval_status");
         
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
 			
@@ -543,7 +544,7 @@ function approvedjournal()
 			"voucher_date <="    => $to_dt,
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+            "approval_status IN ('U','N')"=>NULL,
 			"1 group by voucher_id " => NULL
             );
         
@@ -553,8 +554,8 @@ function approvedjournal()
             "voucher_mode"    => 'B',
 			"voucher_date"    => date('Y-m-d'),
 			"voucher_through" => 'M',
-			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],			
+            "approval_status IN ('U','N')"=>NULL,
 			"1 group by voucher_id" => NULL
             );
 		}
@@ -995,6 +996,7 @@ function crn_appview()
 					"voucher_id",
 					"voucher_type",
 					"voucher_mode",
+                    "approval_status",
 					"SUM(amount) AS amount"
                  );
                  $group=array(
@@ -1015,7 +1017,7 @@ function crn_appview()
 			"voucher_date <="    => $to_dt,
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+            "approval_status IN ('U','N')"=>NULL
 			// "1 group by voucher_id,voucher_type,voucher_mode " => NULL
             );
         
@@ -1027,7 +1029,7 @@ function crn_appview()
 			"voucher_date"    => date('Y-m-d'),
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "approval_status" => 'U',
+            "approval_status IN ('U','N')"=>NULL
 			// "1 group by voucher_id, voucher_type, voucher_mode" => NULL
 			);
 		}
