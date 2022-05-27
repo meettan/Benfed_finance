@@ -639,9 +639,9 @@ function crn_appview()
             );
         //}
         $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
         //print_r($voucher['row']);
-        exit();
+        //exit();
         $this->load->view('post_login/finance_main');
         $this->load->view('transaction/purchase_appview', $voucher);
         $this->load->view('post_login/footer');
