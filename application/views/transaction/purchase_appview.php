@@ -43,7 +43,7 @@
                         <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Status</th>
-                        <th>Amount</th>
+                        <!-- <th>Amount</th> -->
                         <th>Edit</th>
                         <!-- <th style="width: 6%;">Approve</th> -->
                         <!-- <th>Delete</th> -->
@@ -73,7 +73,7 @@
                                          }  ?>
                                      </th>
                                      <!-- <td><?php echo $value->trans_no; ?></td> -->
-                                    <td><?php echo $value->amount; ?></td>
+                                    <!-- <td><?php //echo $value->amount; ?></td> -->
                                     <td><a href="<?= site_url() ?>/Transaction/purchaseappv?id=<?php echo $value->voucher_id; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                             <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
@@ -108,7 +108,7 @@
                         <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Status</th>
-                        <th>Amount</th>
+                        <!-- <th>Amount</th> -->
                         <th>Edit</th>
                     </tr>
 
