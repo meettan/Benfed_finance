@@ -661,9 +661,9 @@ public function recv_voucher_dr(){
     
      $input_bank     = array(
     'voucher_date'   => $dt['data']['paid_dt'],
-    'voucher_id'     => 'RECV'.$dt['data']['paid_id'],
+    'voucher_id'     =>$dt['data']['paid_id'],
     'branch_id'      => $dt['data']['branch_id'],
-    'trans_no'       =>'RECV'.$dt['data']['paid_id'],
+    'trans_no'       =>$dt['data']['paid_id'],
     'trans_dt'       => $dt['data']['paid_dt'],  
     'voucher_type'   => 'RECV',
     'transfer_type'  => 'T',
@@ -693,6 +693,21 @@ if($this->db->insert('td_vouchers', $input_bank) ){
 }  
  }
 
+ public function delete_voucher_dr(){
+             
+    $input = file_get_contents("php://input");
+   
+    $dt = json_decode($input, true);
+     $input_bank     = array(
+    'voucher_id'     =>$dt['data']['paid_id'],
+);
+if($this->db->delete('td_vouchers', $input_bank) ){
+    return 1;
+}else{
+    return 0;
+}  
+ }
+
  public function  recv_voucher_soc(){
              
     $input = file_get_contents("php://input");
@@ -709,9 +724,9 @@ if($this->db->insert('td_vouchers', $input_bank) ){
     
      $input_bank     = array(
     'voucher_date'   => $dt['data']['paid_dt'],
-    'voucher_id'     =>  'RECV'.$dt['data']['paid_id'],
+    'voucher_id'     =>  $dt['data']['paid_id'],
     'branch_id'      => $dt['data']['branch_id'],
-    'trans_no'       =>'RECV'.$dt['data']['paid_id'],
+    'trans_no'       =>$dt['data']['paid_id'],
     'trans_dt'       => $dt['data']['paid_dt'],  
     'voucher_type'   => 'RECV',
     'transfer_type'  => 'T',
@@ -769,7 +784,7 @@ public function recv_voucher(){
         $input_data = array(
             'voucher_date'   => $dt['data']['paid_dt'],
             //'sl_no'          => $v_id->sl,
-            'voucher_id'     => 'RECV'.$dt['data']['paid_id'],
+            'voucher_id'     =>$dt['data']['paid_id'],
             'branch_id'      => $dt['data']['branch_id'],
             'trans_no'       => $dt['data']['paid_id'],
             'trans_dt'       => $dt['data']['paid_dt'],  
@@ -809,16 +824,16 @@ public function recv_voucher(){
 
 $input_soc = array(
     'voucher_date'   => $dt['data']['paid_dt'],
-    'voucher_id'     =>  'RECV'.$dt['data']['paid_id'],
+    'voucher_id'     =>  $dt['data']['paid_id'],
     'branch_id'      => $dt['data']['branch_id'],
-    'trans_no'       => 'RECV'.$dt['data']['paid_id'],
+    'trans_no'       => $dt['data']['paid_id'],
     'trans_dt'       => $dt['data']['paid_dt'],  
     'voucher_type'   => 'RECV',
     'transfer_type'  => 'T',
     'voucher_mode'   => 'J',
     'voucher_through'=> 'A',
     // 'acc_code'       => $dt['data']['bnk_id'],
-    'acc_code'       => $dt['data']['acc_code'],
+    'acc_code'       => $dt['data']['abk_acc_code'],
     'dr_cr_flag'     => 'DR',
     'amount'         => $dt['data']['paid_amt'],
     'ins_no'         => '',
