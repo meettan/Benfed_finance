@@ -375,6 +375,8 @@ public function jrnlprn()
 			// $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
             if( date('d-m',strtotime($frm_date))=='01-04'){
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($opeto_dt,$acc_head);
+            //     echo $this->db->last_query();
+            // exit();
             }else{
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
             }

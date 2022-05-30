@@ -76,7 +76,7 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
 
                             <?php
-                                if($trail_balnce){
+                                if($accdetail){
 									
                                     $i = 1;
                                     $total = 0.00;$ope_bal = 0.00;$cls_bal = 0.00;$opdr=0.00;$opcr=0.00;
@@ -87,9 +87,9 @@ tr:hover {background-color: #f5f5f5;}
 								    if($opebalcal){
 										$opdr =$opebalcal->dr_amt;
 										$opcr =$opebalcal->cr_amt;
-										if($opebalcal->type == 1 || $opebalcal->type == 3){
+										if($opebalcal->type == 1 || $opebalcal->type == 4){
 										$ope_bal = $ope_bal+$opcr-$opdr;
-										}else if($opebalcal->type == 2 || $opebalcal->type == 4){
+										}else if($opebalcal->type == 2 || $opebalcal->type == 3){
 										$ope_bal = $ope_bal+$opdr-$opcr;										
 										}
 									}
@@ -98,17 +98,17 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td></td>
 									 <td colspan="4">Opening Balance</td>
-                                     <td><?php   if($ope_bal>0){
+                                     <td><?php   if($ope_bal<0){
                                              echo"";
                                             }else{
                                                 echo abs($ope_bal);
                                             }?></td>
                                      <td>
                                      <?php   if($ope_bal>0){
-                                          echo abs($ope_bal);
+                                           echo"";
                                             }else{
-                                               
-                                             echo"";
+                                                echo abs($ope_bal); 
+                                            
                                             }?>
                                      </td>
                                 </tr>
@@ -128,8 +128,9 @@ tr:hover {background-color: #f5f5f5;}
                                     </td>
                                      <td><?php echo $tb->remarks; ?></td>
                                      <td><?php echo $tb->voucher_id; ?></td>
-                                     <td><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
+                                   
                                      <td><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
+                                     <td><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
                                      
                                 </tr>
                                 <?php  
@@ -144,7 +145,7 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td colspan="4"></td>
 									 <td >Closing Balance</td>
-                                     <td><?php if($type == 1 || $type == 3){
+                                     <td><?php if($type == 1 || $type ==4){
                                          $clBl=$ope_bal+$tot_cre-$tot_debit;
                                         if($clBl>0){
                                             echo abs($clBl);
@@ -152,7 +153,7 @@ tr:hover {background-color: #f5f5f5;}
                                     }
 
 
-                                        if($type == 2 || $type == 4){ 
+                                        if($type == 2 || $type == 3){ 
                                             $clbala=$ope_bal+$tot_debit-$tot_cre;
                                             if($clbala>0){
                                               echo '';
@@ -164,7 +165,7 @@ tr:hover {background-color: #f5f5f5;}
                                         ?>
 									 </td>
                                      <td>
-                                         <?php if($type == 1 || $type == 3){
+                                         <?php if($type == 1 || $type == 4){
                                          $clBl=$ope_bal+$tot_cre-$tot_debit;
                                         if($clBl>0){
                                             echo '';
@@ -174,7 +175,7 @@ tr:hover {background-color: #f5f5f5;}
                                     }
 
 
-                                        if($type == 2 || $type == 4){ 
+                                        if($type == 2 || $type == 3){ 
                                             $clbala=$ope_bal+$tot_debit-$tot_cre;
                                             if($clbala>0){
                                                 echo abs($clbala);
