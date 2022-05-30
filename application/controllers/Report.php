@@ -77,14 +77,18 @@ public function jrnlprn()
 
             $frm_date     =   $_POST['from_date'];
             $to_date      =   $_POST['to_date'];
-			$voucher_type =   $_POST['voucher_type'];
-			$branch_id    =   $_POST['branch_id'];
+			$voucher_type =   '';
+			if($this->session->userdata['loggedin']['branch_id']==342){ 
+                $branch_id=$_POST['branch_id'];
+            }else{
+                $branch_id=$this->session->userdata['loggedin']['branch_id'];
+            };
             
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
 
-            $data['voucher']     = $this->Report_Model->f_get_voucher($frm_date,$to_date,$fin_yr,$voucher_type,$branch_id);
-            $data['advance']     = $this->Report_Model->f_get_advjnl($frm_date,$to_date,$fin_yr,$voucher_type,$branch_id);
+            $data['voucher']     = $this->Report_Model->f_get_voucher($frm_date,$to_date,$fin_yr,$branch_id);
+            $data['advance']     = $this->Report_Model->f_get_advjnl($frm_date,$to_date,$fin_yr,$branch_id);
 						   
 			if($voucher_type == 'PUR'){
 			    $data['voucher_type'] = 'Purchase';
@@ -102,7 +106,9 @@ public function jrnlprn()
 				$data['voucher_type'] = 'Rent';
 			}elseif($voucher_type == 'OTH'){
 				$data['voucher_type'] = 'Others';
-			}
+			}else{
+                $data['voucher_type'] = '';
+            }
 			$where = array('id' => $branch_id );
 			$select = array('branch_name');
 			$data['type']   = $this->input->post('voucher_type');

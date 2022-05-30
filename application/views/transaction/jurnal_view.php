@@ -38,9 +38,10 @@
                 <tr>
                     <th>Date</th>
                     <th>Voucher No.</th>
-                    <th>Type</th>
+                    <!-- <th>Type</th> -->
                     <th>Mode</th>
                     <th>Amount</th>
+                    <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -58,14 +59,14 @@
                         <tr>
                             <td><?php echo date('d/m/Y', strtotime($value->voucher_date)); ?></td>
                             <td><?php echo $value->voucher_id; ?></td>
-                            <td><?php $type = $value->voucher_type;
+                            <!-- <td><?php $type = $value->voucher_type;
                                 if ($type == "P") {
                                     $type = "Payment";
                                 } else {
                                     $type = "Receipt";
                                 }
                                 echo $type;
-                                ?></td>
+                                ?></td> -->
                             <td><?php $mode = $value->voucher_mode;
                                 if ($mode == "C") {
                                     $val = "Cash";
@@ -77,7 +78,13 @@
                                 echo $val;
                                 ?></td>
                             <td><?php echo $value->amount; ?></td>
-                            <td><a href="<?= site_url() ?>/transaction/jurnal_edit?id=<?php echo $value->voucher_id; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                            <td><?php if($value->approval_status=='U'){
+                                echo 'Unapproved';
+                            }elseif($value->approval_status=='H'){
+                                echo 'On Hold';
+                            } ; ?></td>
+                            <td>
+                                <a href="<?= site_url() ?>/transaction/jurnal_edit?id=<?php echo $value->voucher_id; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                     <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                 </a>
                             </td>
@@ -111,9 +118,10 @@
 
                     <th>Date</th>
                     <th>Voucher No.</th>
-                    <th>Type</th>
+                    <!-- <th>Type</th> -->
                     <th>Mode</th>
                     <th>Amount</th>
+                    <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>

@@ -118,7 +118,7 @@ class Report_model extends CI_Model
 		       voucher_type
                FROM td_vouchers
                WHERE  voucher_id='$vid'
-			    and approval_status='U'
+			    and approval_status IN('U','H')
 			    GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name,approval_status
                order by voucher_date " ;
             
@@ -140,10 +140,10 @@ class Report_model extends CI_Model
     }
 	
     /******************************* */
-	function f_get_voucher($frm_date,$to_date,$fin_id,$voucher_type,$branch_id){
+	function f_get_voucher($frm_date,$to_date,$fin_id,$branch_id){
         $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name FROM td_vouchers
                WHERE voucher_date >= '$frm_date' AND voucher_date <= '$to_date'
-               and voucher_type='$voucher_type'
+               
 			   and branch_id='$branch_id'
 			   GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name
                order by voucher_date " ;
@@ -153,13 +153,13 @@ class Report_model extends CI_Model
         return $query->result();
     }
 	
-	function f_get_advjnl($frm_date,$to_date,$fin_id,$voucher_type,$branch_id){
+	function f_get_advjnl($frm_date,$to_date,$fin_id,$branch_id){
         $sql ="SELECT a.voucher_id, a.voucher_date,a.sl_no,a.remarks,a.amount,b.ac_name,a.dr_cr_flag,
                  a.voucher_type
 				 FROM td_vouchers a,md_achead b
 				 WHERE a.acc_code=b.sl_no 
 				 and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
-				 and a.voucher_type='$voucher_type'
+				 
 				 and a.branch_id='$branch_id'
 				 order by a.voucher_date,a.sl_no" ;
         $query  = $this->db->query($sql);
