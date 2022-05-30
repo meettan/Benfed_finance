@@ -1391,8 +1391,8 @@ if ($dt['data']['rbt_less']>0){
                 'trans_no'       => $dt['data']['receipt_no'],
                 'trans_dt'       => $dt['data']['trans_dt'],  
                 'voucher_type'   => 'A',
-                'transfer_type'  => 'T',
-                'voucher_mode'   => 'J',
+                'transfer_type'  => 'H',
+                'voucher_mode'   => 'C',
                 'voucher_through'=> 'A',
                 // 'acc_code'       => $dt['data']['soc_id'],
                 'acc_code'       => $cshbank_code->sl_no ,
@@ -1423,7 +1423,7 @@ if ($dt['data']['rbt_less']>0){
                 'trans_dt'       => $dt['data']['trans_dt'],  
                 'voucher_type'   => 'A',
                 'transfer_type'  => 'T',
-                'voucher_mode'   => 'J',
+                'voucher_mode'   => 'B',
                 'voucher_through'=> 'A',
                 // 'acc_code'       => $dt['data']['soc_id'],
                 'acc_code'       =>  $dt['data']['acc_code'],
@@ -1445,7 +1445,13 @@ if ($dt['data']['rbt_less']>0){
             );    
         }
 
-       
+        if ( $cshbank_flag['cshbnk_flag']==0){
+             $ls_transfer_type = 'H';
+             $ls_voucher_mode  = 'C';
+        }else{
+            $ls_transfer_type = 'T';
+            $ls_voucher_mode  = 'B';
+        }
               
         $input_cr= array(
             'voucher_date'   => $dt['data']['trans_dt'],
@@ -1456,8 +1462,8 @@ if ($dt['data']['rbt_less']>0){
             'trans_no'       => $dt['data']['receipt_no'],
             'trans_dt'       => $dt['data']['trans_dt'],  
             'voucher_type'   => 'A',
-            'transfer_type'  => 'T',
-            'voucher_mode'   => 'J',
+            'transfer_type'  => $ls_transfer_type,
+            'voucher_mode'   => $ls_voucher_mode,
             'voucher_through'=> 'A',
             'acc_code'       => $dt['data']['adv_acc'],
             'dr_cr_flag'     => 'CR',
