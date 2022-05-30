@@ -393,7 +393,7 @@ order by ac_name";
                         from td_vouchers a
                          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
                           and acc_code=b.sl_no   
-                        group by voucher_id,b.ac_name)d
+                        group by voucher_id)d
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
@@ -409,8 +409,8 @@ order by ac_name";
                FROM td_vouchers a,md_achead b,mda_mngroup c
                WHERE a.acc_code=b.sl_no
 			   and   b.mngr_id   =c.sl_no
-			   and   b.sl_no   ='$acc_head'
-               AND a.voucher_date <= '$ope_date'
+		   and   b.sl_no   ='$acc_head'
+                and a.voucher_date <= '$ope_date'
                group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  
         $query  = $this->db->query($sql);
         return $query->row();
