@@ -72,12 +72,13 @@
                 <div class="col-sm-4">
                     <input type="text" name="totalAmount" id="totalAmount" class="form-control totalAmount" readonly value="<?php echo $rntcledite->total_amt;  ?>">
                 </div>
-                
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
                 <div class="col-sm-4">
+                
                           <textarea id="remarks" name="remarks" class="form-control"><?php echo $rntcledite->remarks;?></textarea>
                        
                         </div>
+                        
             </div>
 
             <!-- <div class="form-group row">

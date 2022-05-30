@@ -65,6 +65,23 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
 
                 </div>
+                <div class="form-group row">
+
+                    <label for="bank" class="col-sm-2 col-form-label">Bank:</label>
+
+                    <div class="col-sm-6">
+						<select class="form-control"  name="bank" id="bank" >
+						   <option value="">Select</option>
+						   <?php foreach($banklist as $bnk){?>
+						   <option value="<?=$bnk->sl_no?>"><?=$bnk->ac_name?></option>
+						   <?php } ?>
+
+						   
+						</select>
+
+                    </div>
+
+                </div> 	
 
                 <!-- <div class="form-group row">
 

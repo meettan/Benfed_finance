@@ -73,6 +73,7 @@
                 </div>
 
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
+                
                 <div class="col-sm-4">
                           <textarea id="remarks" name="remarks" class="form-control"></textarea>
                        

@@ -128,8 +128,9 @@ tr:hover {background-color: #f5f5f5;}
                                     </td>
                                      <td><?php echo $tb->remarks; ?></td>
                                      <td><?php echo $tb->voucher_id; ?></td>
-                                     <td><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
                                      <td><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
+                                     <td><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
+                                     
                                 </tr>
                                 <?php  
                                     }
