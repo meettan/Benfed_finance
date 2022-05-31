@@ -56,6 +56,40 @@ class Transaction_model extends CI_Model
         $this->db->delete($table_name, $where);
         return;
     }
+    public function select_purchase_appview($fYear,$br_cd){
+        $data=$this->db->query("select voucher_date,
+        voucher_id,
+        approval_status,
+        sum(dr_amount)dr_amt,sum(cr_amount) cr_amount
+from(
+select voucher_date,
+        voucher_id,
+    approval_status,
+    sum(amount) dr_amount,
+    0 cr_amount
+    from td_vouchers
+    where branch_id = ".$br_cd."
+    and  approval_status in ('U','H')
+    and  fin_yr = ".$fYear."
+    and  dr_cr_flag = 'Dr'
+    group by voucher_date,voucher_id,approval_status
+UNION
+select voucher_date,
+        voucher_id,
+    approval_status,
+    0 dr_amount,
+    sum(amount) cr_amount
+    from td_vouchers
+    where branch_id = ".$br_cd."
+    and  approval_status in ('U','H')
+    and  fin_yr = ".$fYear."
+    and  dr_cr_flag = 'Cr'
+    group by voucher_date,voucher_id,approval_status)a
+ group by  voucher_date,
+        voucher_id,
+        approval_status");
+        return $data->result();
+    }
 
     function get_gr_dtls($achead_id)
     {

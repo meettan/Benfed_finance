@@ -638,7 +638,11 @@ function crn_appview()
                 // "1 group by voucher_date, voucher_id,trans_no,approval_status" => NULL
             );
         //}
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+
+
+
+        $voucher['row']    = $this->transaction_model->select_purchase_appview($this->session->userdata['loggedin']['fin_id'],$br_cd);
+        //->f_select("td_vouchers", $select, $where, 0);
         //echo $this->db->last_query();
         //print_r($voucher['row']);
         //exit();
