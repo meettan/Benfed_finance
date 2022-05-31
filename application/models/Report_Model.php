@@ -145,6 +145,7 @@ class Report_model extends CI_Model
                WHERE voucher_date >= '$frm_date' AND voucher_date <= '$to_date'
                
 			   and branch_id='$branch_id'
+               and approval_status!='H'
 			   GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name
                order by voucher_date " ;
             
@@ -159,7 +160,7 @@ class Report_model extends CI_Model
 				 FROM td_vouchers a,md_achead b
 				 WHERE a.acc_code=b.sl_no 
 				 and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
-				 
+				 and a.approval_status!='H'
 				 and a.branch_id='$branch_id'
 				 order by a.voucher_date,a.sl_no" ;
         $query  = $this->db->query($sql);
@@ -286,6 +287,7 @@ from(
           b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
           FROM td_vouchers a ,md_achead b,mda_mngroup c
           WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' 
+          and a.approval_status!='H'
           group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id 
           union 
           SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
@@ -299,6 +301,7 @@ SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_c
 b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
 FROM td_vouchers a,md_achead b,mda_mngroup c 
 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
+and a.approval_status!='H'
 AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
 group by mngr_id, ac_name,type,benfed_ac_code
 order by ac_name";
@@ -316,7 +319,8 @@ from(
         from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,    
           b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
           FROM td_vouchers a ,md_achead b,mda_mngroup c
-          WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' 
+          WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date'
+          and a.approval_status!='H' 
           and b.br_id=$brid
           group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id 
           union 
@@ -334,6 +338,7 @@ b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
 FROM td_vouchers a,md_achead b,mda_mngroup c 
 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
 AND a.voucher_date <= '$to_date'  and b.br_id=$brid
+and a.approval_status!='H'
  group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
 group by mngr_id, ac_name,type,benfed_ac_code
 order by ac_name";
@@ -348,6 +353,7 @@ order by ac_name";
 		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,b.ac_name,c.type,a.dr_cr_flag
                FROM td_vouchers a,md_achead b,mda_mngroup c
                WHERE a.acc_code=b.sl_no
+               and a.approval_status!='H'
                and   b.mngr_id = c.sl_no and
 			   a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
                group by b.ac_name,a.dr_cr_flag,b.subgr_id" ;
@@ -357,7 +363,11 @@ order by ac_name";
 	
 	function f_get_group_total($frm_date,$to_date){
 		
-		$sql  ="select name,sum(dr_amt) as dr_amt,sum(cr_amt)as cr_amt,mngr_id from (SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt, if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.name,b.mngr_id FROM mda_mngroup c,td_vouchers a,md_achead b WHERE c.sl_no=b.mngr_id and a.acc_code=b.sl_no and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' group by c.name,a.dr_cr_flag,b.mngr_id) tt group by name,mngr_id";
+		$sql  ="select name,sum(dr_amt) as dr_amt,sum(cr_amt)as cr_amt,mngr_id from (SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt, if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.name,b.mngr_id FROM mda_mngroup c,td_vouchers a,md_achead b WHERE c.sl_no=b.mngr_id 
+        and a.acc_code=b.sl_no and a.voucher_date >= '$frm_date'
+         AND a.voucher_date <= '$to_date' 
+         and a.approval_status!='H'
+         group by c.name,a.dr_cr_flag,b.mngr_id) tt group by name,mngr_id";
         $query  = $this->db->query($sql);
         return $query->result();		
 	}
@@ -369,6 +379,7 @@ order by ac_name";
                FROM td_vouchers a,md_achead b,mda_mngroup c
                WHERE a.acc_code=b.sl_no
 			   and   b.mngr_id   =c.sl_no
+               and a.approval_status!='H'
 			   and   b.sl_no   ='$acc_head'
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
                group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,a.voucher_date" ;  
@@ -387,7 +398,9 @@ order by ac_name";
 	       cr_amt, a.voucher_id,a.voucher_type,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
-                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' and voucher_id in(select a.voucher_id
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
+                                                      and a.approval_status!='H'
+                                                      and voucher_id in(select a.voucher_id
                         from td_vouchers a
                          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
                           and acc_code=b.sl_no   
@@ -395,6 +408,7 @@ order by ac_name";
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
+        and a.approval_status!='H'
         group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);
         
@@ -434,6 +448,7 @@ order by ac_name";
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
 			   and a.branch_id = '$branch_id'
+               and a.approval_status!='H'
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
@@ -445,6 +460,7 @@ order by ac_name";
 		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag,b.benfed_ac_code
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
+               and a.approval_status!='H'
 			   and a.branch_id = '$branch_id'
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 			   order by a.voucher_date,a.voucher_type" ;  
@@ -459,6 +475,7 @@ order by ac_name";
                WHERE a.acc_code=b.sl_no
 			   and a.branch_id = '$branch_id'
                and b.BNK_flag  = 'B'
+               and a.approval_status!='H'
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
