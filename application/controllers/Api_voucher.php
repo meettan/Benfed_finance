@@ -1657,7 +1657,7 @@ else{
             'transfer_type'  => 'T',
             'voucher_mode'   => 'J',
             'voucher_through'=> 'A',
-            'acc_code'       => $dt['data']['soc_acc'],
+            'acc_code'       => $dt['data']['acc_cd'],
             'dr_cr_flag'     => 'CR',
             'amount'         => $dt['data']['tot_amt'],
             'ins_no'         => '',
