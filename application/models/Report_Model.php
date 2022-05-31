@@ -243,7 +243,7 @@ class Report_model extends CI_Model
 }
 	
   function f_get_acheaddeatil(){
-  $this->db->select("sl_no,ac_name");
+  $this->db->select("sl_no,ac_name,benfed_ac_code");
   $this->db->from("md_achead");
   $br_id=$this->session->userdata('loggedin')['branch_id'];
   $this->db->where_in('br_id', array($br_id,0));
@@ -378,18 +378,16 @@ order by ac_name";
 
     function f_get_acdeatil($frm_date,$to_date,$acc_head){
 		
-		// $sql ="select a.acc_code,if(dr_cr_flag='Dr',a.amount,0)as dr_amt,a.voucher_date,a.remarks, if(dr_cr_flag='Cr',a.amount,0)as cr_amt,
-        // a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type from td_vouchers a,md_achead b,mda_mngroup c 
-        // where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
-        // and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
-        // and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;
-
-        $sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt, a.voucher_id,
-        a.voucher_type,a.dr_cr_flag,c.type
+		/*$sql ="select a.acc_code,if(dr_cr_flag='Dr',a.amount,0)as dr_amt,a.voucher_date,a.remarks, if(dr_cr_flag='Cr',a.amount,0)as cr_amt,
+        a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type from td_vouchers a,md_achead b,mda_mngroup c 
+        where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
+        and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
+        and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
+	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
+	       cr_amt, a.voucher_id,a.voucher_type,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
-                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
-                                                      and voucher_id in(select a.voucher_id
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' and voucher_id in(select a.voucher_id
                         from td_vouchers a
                          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
                           and acc_code=b.sl_no   
@@ -397,25 +395,12 @@ order by ac_name";
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
-        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type";
+        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);
         
         return $query->result();
 	}
-	function get_ope_gl($ope_date,$acc_head){
-		
-		$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,
-		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.type,c.name
-               FROM td_vouchers a,md_achead b,mda_mngroup c
-               WHERE a.acc_code=b.sl_no
-			   and   b.mngr_id   =c.sl_no
-		   and   b.sl_no   ='$acc_head'
-                and a.voucher_date <= '$ope_date'
-               group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  
-        $query  = $this->db->query($sql);
-        return $query->row();
-	}
-    function get_ope_gl_re($ope_date,$acc_head){
+	function get_ope_gl($op_dt,$ope_date,$acc_head){
 		
 		$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,
 		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.type,c.name
@@ -423,9 +408,22 @@ order by ac_name";
                WHERE a.acc_code=b.sl_no
 			   and   b.mngr_id   =c.sl_no
 			   and   b.sl_no   ='$acc_head'
-               AND a.voucher_date <= '$ope_date'
-               AND c.type in(1,2)
+               and a.voucher_date >='$op_dt' and a.voucher_date <= '$ope_date'
                group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  
+        $query  = $this->db->query($sql);
+        return $query->row();
+	}
+    function get_ope_gl_re($ope_date,$acc_head){
+		
+		$sql ="SELECT if(trans_flag='DR',sum(a.amount),0)as dr_amt,b.mngr_id,
+		       if(trans_flag='CR',sum(a.amount),0)as cr_amt,a.trans_flag,c.type,c.name
+               FROM td_opening a,md_achead b,mda_mngroup c
+               WHERE a.acc_code=b.sl_no
+			   and   b.mngr_id   =c.sl_no
+			   and   b.sl_no   ='$acc_head'
+               AND a.balance_dt = '$ope_date'
+               AND c.type in(1,2)
+               group by a.trans_flag,b.mngr_id,c.type,c.name" ;  
         $query  = $this->db->query($sql);
         return $query->row();
 	}
@@ -453,7 +451,7 @@ order by ac_name";
         $query  = $this->db->query($sql);
         return $query->result();
 	}
-    function f_get_bankbook($frm_date,$to_date,$bnk){
+    function f_get_bankbook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
 		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag
@@ -461,18 +459,11 @@ order by ac_name";
                WHERE a.acc_code=b.sl_no
 			   and a.branch_id = '$branch_id'
                and b.BNK_flag  = 'B'
-               and b.sl_no=$bnk
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
         return $query->result();
 	}
-    function f_get_bank($br_id){
-        $sql ="SELECT sl_no,ac_name from md_achead where BNK_flag='B' and br_id='$br_id'";
-        $query  = $this->db->query($sql);
-        return $query->result();
 
-
-    }
 
 }

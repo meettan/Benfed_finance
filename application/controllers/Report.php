@@ -311,6 +311,7 @@ public function jrnlprn()
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
 			$data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
+			
             $data['trail_balnce']     = $this->Report_Model->f_get_gl($frm_date,$to_date,$acc_head);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/gl/gl.php',$data);
@@ -372,18 +373,22 @@ public function jrnlprn()
 			$acc_head     =   $this->input->post('acc_head');
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+			$fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],0,4);
+			$op_dt=$fin_year_sort_code.'-04'.'-01';
+			//echo $op_dt;
+			//die();
 			// $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
             if( date('d-m',strtotime($frm_date))=='01-04'){
-                $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($opeto_dt,$acc_head);
-            //     echo $this->db->last_query();
-            // exit();
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($op_dt,$acc_head);
+			//echo $this->db->last_query();
+			//exit();
             }else{
-                $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$opeto_dt,$acc_head);
+				//echo $this->db->last_query();
+			//exit();
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head);
-            // echo $this->db->last_query();
-            // exit();
             $this->load->view('post_login/finance_main');
             $this->load->view('report/ac_detail/ac_detail.php',$data);
             $this->load->view('post_login/footer');
@@ -605,21 +610,16 @@ public function jrnlprn()
 
             $frm_date     =   $_POST['from_date'];
             $to_date      =   $_POST['to_date'];
-            $bnk          =   $_POST['bank'];
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
-            
-            $data['bankbook']     = $this->Report_Model->f_get_bankbook($frm_date,$to_date,$bnk);
+            $data['bankbook']     = $this->Report_Model->f_get_bankbook($frm_date,$to_date);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/bankbook/bankbook.php',$data);
             $this->load->view('post_login/footer');
 
         }else{
-            $brid=$this->session->userdata['loggedin']['branch_id'];
-			$data['banklist']    = $this->Report_Model->f_get_bank($brid);
-            // echo $this->db->last_query();
-            // die();
+			
             $this->load->view('post_login/finance_main');
-            $this->load->view('report/bankbook/bankbook_ip.php',$data);
+            $this->load->view('report/bankbook/bankbook_ip.php');
             $this->load->view('post_login/footer');
         }
     }

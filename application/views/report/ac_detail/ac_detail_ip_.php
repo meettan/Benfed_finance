@@ -54,8 +54,8 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-6">
 						<select class="form-control"  name="acc_head" required>
 						   <option value="">Select</option>
-						  <?php foreach($acc_head as $key){?>
-						   <option value="<?php if(isset($key->sl_no)){ echo $key->sl_no; }?>"><?php if(isset($key->ac_name)){ echo $key->ac_name; }?></option>
+						  <?php  print_r($acc_head);foreach($acc_head as $key){?>
+						   <option value="<?php if(isset($key->sl_no)){ echo $key->sl_no; }?>"><?php if(isset($key->ac_name)){ echo $key->ac_name.$key->benfed_ac_code; }?></option>
 						   <?php } ?>
 						</select>
                     </div>
