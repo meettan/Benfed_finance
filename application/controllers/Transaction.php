@@ -264,7 +264,7 @@ function approvedjournal()
     
             $this->transaction_model->f_insert('td_month_end', $data_array);
             $this->inser_mntEnd($data_array);
-            return redirect(base_url("mnthend"));
+            return redirect(site_url("mnthend"));
     
         }else{
         $this->load->view('post_login/finance_main');
