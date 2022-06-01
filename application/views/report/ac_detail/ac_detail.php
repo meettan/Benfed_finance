@@ -20,7 +20,7 @@ tr:hover {background-color: #f5f5f5;}
         var WindowObject = window.open('', 'Print-Window');
         WindowObject.document.open();
         WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title><style type="text/css">');
+        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">');
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
             '                                         .inline { display: inline; }' +
             '                                         .underline { text-decoration: underline; }' +
@@ -88,9 +88,12 @@ tr:hover {background-color: #f5f5f5;}
 										$opdr =$opebalcal->dr_amt;
 										$opcr =$opebalcal->cr_amt;
 										if($opebalcal->type == 1 || $opebalcal->type == 4){
-										$ope_bal = $ope_bal+$opcr-$opdr;
+									       $ope_bal = $ope_bal+$opcr-$opdr;
+											//echo $ope_bal ;
+											//$ope_bal = $opcr + $opdr;
 										}else if($opebalcal->type == 2 || $opebalcal->type == 3){
-										$ope_bal = $ope_bal+$opdr-$opcr;										
+										$ope_bal = $ope_bal+$opdr-$opcr;
+											//$ope_bal = $opcr + $opdr;
 										}
 									}
                                     
@@ -98,16 +101,17 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td></td>
 									 <td colspan="4">Opening Balance</td>
-                                     <td><?php   if($ope_bal<0){
-                                             echo"";
+                                     <td align ="right"><?php   if($opebalcal->trans_flag=='DR'){
+                                            echo abs($ope_bal);
                                             }else{
-                                                echo abs($ope_bal);
-                                            }?></td>
-                                     <td>
-                                     <?php   if($ope_bal>0){
-                                           echo"";
+                                                echo "";
+                                            }?>
+									</td>
+                                     <td align ="right">
+                                     <?php   if($opebalcal->trans_flag=='CR'){
+                                            echo abs($ope_bal);
                                             }else{
-                                                echo abs($ope_bal); 
+                                                echo "";
                                             
                                             }?>
                                      </td>
@@ -129,8 +133,8 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $tb->remarks; ?></td>
                                      <td><?php echo $tb->voucher_id; ?></td>
                                    
-                                     <td><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
-                                     <td><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
+                                     <td align ="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
+                                     <td align ="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
                                      
                                 </tr>
                                 <?php  
@@ -139,52 +143,60 @@ tr:hover {background-color: #f5f5f5;}
 								<tr class="rep">
 									 <td colspan='4'></td>
 									 <td>Total</td>
-                                     <td><?=$tot_debit?></td>
-                                     <td><?=$tot_cre?></td>
+                                     <td align ="right"><?=$tot_debit?></td>
+                                     <td align ="right"><?=$tot_cre?></td>
                                 </tr>
 								<tr class="rep">
 									 <td colspan="4"></td>
 									 <td >Closing Balance</td>
-                                     <td><?php if($type == 1 || $type ==4){
+                                     <td align ="right"><?php if($type == 1 || $type ==4||$opebalcal->type == 1||$opebalcal->type == 4){
+									    //  echo $type;
                                          $clBl=$ope_bal+$tot_cre-$tot_debit;
                                         if($clBl>0){
-                                            echo abs($clBl);
-                                        }
+                                            echo '';
+                                        }else{
+											echo abs($clBl);
+										}
                                     }
 
 
-                                        if($type == 2 || $type == 3){ 
+                                        if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
+											//echo $type;
                                             $clbala=$ope_bal+$tot_debit-$tot_cre;
                                             if($clbala>0){
-                                              echo '';
-                                            }else{
                                               echo abs($clbala);
+                                            }else{
+                                             echo '';
                                             }
                                         }
                                             
                                         ?>
 									 </td>
-                                     <td>
-                                         <?php if($type == 1 || $type == 4){
+                                     <td align ="right">
+                                         <?php if($type == 1 || $type == 4||$opebalcal->type == 1||$opebalcal->type == 4){
+											
                                          $clBl=$ope_bal+$tot_cre-$tot_debit;
                                         if($clBl>0){
-                                            echo '';
-                                        }else{
                                             echo abs($clBl);
+                                        }else{
+                                             echo '';
                                         }
                                     }
 
 
-                                        if($type == 2 || $type == 3){ 
+                                        if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
                                             $clbala=$ope_bal+$tot_debit-$tot_cre;
                                             if($clbala>0){
-                                                echo abs($clbala);
-                                            }
+                                                echo '';
+                                            }else{
+												echo abs($clbala);
+											}
                                         }
                                             
                                         ?></td>
                                      
                                 </tr>
+ 
  
                                 <?php 
                                      }
@@ -202,3 +214,27 @@ tr:hover {background-color: #f5f5f5;}
                 </div>
             </div>
         </div>
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+    destroy: true,
+   searching: false,ordering: false,paging: false,
+
+dom: 'Bfrtip',
+buttons: [
+   {
+extend: 'excelHtml5',
+title: 'Account details report',
+text: 'Export to excel'
+
+   }
+]
+   });
+</script>
