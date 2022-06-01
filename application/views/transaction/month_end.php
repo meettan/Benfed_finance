@@ -272,7 +272,7 @@ $(document).ready(function(){
                 }
             )
             .done(function (data) {
-                alert(data);
+               // alert(data);
                 if (data==1) {
                     $('#submit').attr('type', 'submit');
                 } else {
