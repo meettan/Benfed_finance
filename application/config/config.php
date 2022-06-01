@@ -45,6 +45,7 @@ $config['base_url'] = 'http://localhost/benfed_fin/';
 |
 */
 $config['index_page'] = 'index.php';
+// $config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
