@@ -91,9 +91,7 @@
                         <a href="<?php echo site_url('group'); ?>">Group</a>
                         <a href="<?php echo site_url('subgroup'); ?>">Sub Group</a>
                         <a href="<?php echo site_url('achead'); ?>">A/C Head</a>
-                        <a href="<?php echo site_url('godown'); ?>">Godown</a>
-                        <a href="<?php echo site_url('customer'); ?>">Customer</a>
-                        <a href="<?php echo site_url('godownrent'); ?>">Godown Rent</a>
+                      
                         <!-- <a href="<?php // echo site_url('paddys/add_new/f_district'); 
                                         ?>">District</a> -->
                 </div>
@@ -114,10 +112,13 @@
                         <a href="<?php echo site_url('cheqdtl'); ?>">Cheque Entry</a>
                         <!-- <a href="<?php echo site_url('rent_collection'); ?>">Rent Calculation</a> -->
 
-                        <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A") { ?>
+                        <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A" ||  $this->session->userdata['loggedin']['user_type'] =='M') { ?>
                         <div class="sub-dropdown">
                                <a class="sub-dropbtn">Rent<i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
+                               <a href="<?php echo site_url('godown'); ?>">Godown</a>
+                               <a href="<?php echo site_url('customer'); ?>">Customer</a>
+                               <a href="<?php echo site_url('godownrent'); ?>">Godown Rent</a>
                                <a href="<?php echo site_url("rent_collection");?>">Raise Invoice</a>
                                <a href="<?php echo site_url("collectRent");?>">Collect Rent</a>
                              </div>
