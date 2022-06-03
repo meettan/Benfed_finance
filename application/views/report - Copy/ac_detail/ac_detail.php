@@ -1,11 +1,3 @@
-
-
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-
-   
-
 <style>
     table {
         border-collapse: collapse;
@@ -75,157 +67,7 @@
             </div>
             <br>
 
-            <table id="example" class="display" style="width:100%">
-            <thead>
-                    <tr>
-                        <th rowspan='2'>Date</th>
-                        <th rowspan='2'>Particulars</th>
-                        <th rowspan='2'>Vch Type</th>
-                        <th rowspan='2'>Narration</th>
-                        <th rowspan='2'>Vch No</th>
-                        <th colspan='2'>Trancation</th>
-                    </tr>
-                    <tr>
-                        <th>Debit</th>
-                        <th>Credit</th>
-                    </tr>
-
-                </thead>
-        <tbody>
-            <?php 
-            if($accdetail){
-            $i = 1;
-            $total = 0.00;$ope_bal = 0.00;$cls_bal = 0.00;$opdr=0.00;$opcr=0.00;
-            $tot_debit = 0.00;$tot_cre =0.00;
-            $val =0;
-            $type =0;
-            if($opebalcal){
-										$opdr =$opebalcal->dr_amt;
-										$opcr =$opebalcal->cr_amt;
-										if($opebalcal->type == 1 || $opebalcal->type == 4){
-									       $ope_bal = $ope_bal+$opcr-$opdr;
-											//echo $ope_bal ;
-											//$ope_bal = $opcr + $opdr;
-										}else if($opebalcal->type == 2 || $opebalcal->type == 3){
-										$ope_bal = $ope_bal+$opdr-$opcr;
-											//$ope_bal = $opcr + $opdr;
-										}
-									} ?>
-            <tr>
-                <td></td>
-                <td>Opening Balance	</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><?php   if($opebalcal->trans_flag=='DR'){
-                                            echo abs($ope_bal);
-                                            }else{
-                                                echo "";
-                                            }?></td>
-                <td></td>
-            </tr>
-
-            <?php   foreach($trail_balnce as $tb){
-            $type = $tb->type;
-            ?>
-            <tr class="rep">
-
-            <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
-            <td><?php echo $tb->ac_name; ?></td>
-            <td><?php if($tb->voucher_type == 'PUR'){echo 'Purchase Voucher'; } 
-            elseif($tb->voucher_type == 'SL'){ echo 'Sale  Voucher'; }
-            elseif($tb->voucher_type == 'A'){ echo 'Advance  Voucher'; }
-            elseif($tb->voucher_type == 'P'){ echo 'Paymwent  Voucher'; }
-            elseif($tb->voucher_type == 'R'){ echo 'Receive  Voucher'; }
-            elseif($tb->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; } ?>
-            </td>
-            <td><?php echo $tb->remarks; ?></td>
-            <td><?php echo $tb->voucher_id; ?></td>
-
-            <td align="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
-            <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
-
-            </tr>
-            <?php  
-            }
-            ?>
-
-
-            
-            
-        <?php }?> 
-        
-        <tfoot>
-            <tr>
-            <th>Total</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                
-                <th align="right"><?=$tot_debit?></th>
-                <th align="right"><?=$tot_cre?></th>
-            </tr>
-            <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Closing Balance</th>
-            <th align="right"><?php if($type == 1 || $type ==4||$opebalcal->type == 1||$opebalcal->type == 4){
-            //  echo $type;
-            $clBl=$ope_bal+$tot_cre-$tot_debit;
-            if($clBl>0){
-            echo '';
-            }else{
-            echo abs($clBl);
-            }
-            }
-
-
-            if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
-            //echo $type;
-            $clbala=$ope_bal+$tot_debit-$tot_cre;
-            if($clbala>0){
-            echo abs($clbala);
-            }else{
-            echo '';
-            }
-            }
-
-            ?>
-            </th>
-            <th align="right">
-            <?php if($type == 1 || $type == 4||$opebalcal->type == 1||$opebalcal->type == 4){
-
-            $clBl=$ope_bal+$tot_cre-$tot_debit;
-            if($clBl>0){
-            echo abs($clBl);
-            }else{
-            echo '';
-            }
-            }
-
-
-            if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
-            $clbala=$ope_bal+$tot_debit-$tot_cre;
-            if($clbala>0){
-            echo '';
-            }else{
-            echo abs($clbala);
-            }
-            }
-
-            ?></th>
-            </tr>
-        </tfoot>
-            
-        </tbody>
-        
-    </table>
-
-    
-            <!-- <table id="example222" style="width: 100%;" >
+            <table style="width: 100%;" id="example">
                 <thead>
                     <tr>
                         <th rowspan='2'>Date</th>
@@ -374,7 +216,7 @@
                                 }   
                             ?>
                 </tbody>
-            </table> -->
+            </table>
         </div>
 
         <div style="text-align: center;">
@@ -384,59 +226,26 @@
     </div>
 </div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        destroy: true,
-   searching: false,ordering: false,paging: false,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                text: 'Export to excel',
-                action: function ( e, dt, node, config ) {
-                    //alert( 'Button activated' );
-                }
-            }
-        ]
-    } );
-} );
-
-</script> -->
-
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-
-
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
 
 <script>
-   $('#example').dataTable({
-    destroy: true,
-   searching: false,ordering: false,paging: false,
+    $('#example').dataTable({
+        destroy: true,
+        searching: false,
+        ordering: false,
+        paging: false,
 
-dom: 'Bfrtip',
-buttons: [
-   {
-extend: 'excelHtml5',
-title: 'Accounts Details',
-text: 'Export to excel'
-//Columns to export
-// exportOptions: {
-//    columns: [0, 1, 2, 3]
-// }
-   }
-]
-   });
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            title: 'Account details report',
+            text: 'Export to excel'
+
+        }]
+    });
 </script>
-
-
-
-
-

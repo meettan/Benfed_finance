@@ -401,10 +401,10 @@ order by ac_name";
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
                                                       and a.approval_status!='H'
                                                       and voucher_id in(select a.voucher_id
-                        from td_vouchers a
-                         where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
-                          and acc_code=b.sl_no   
-                        group by voucher_id)d
+                                                      from td_vouchers a
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
+                                                      and acc_code=b.sl_no   
+                                                      group by voucher_id)d
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
@@ -416,14 +416,32 @@ order by ac_name";
 	}
 	function get_ope_gl($op_dt,$ope_date,$acc_head){
 		
-		$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,
-		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag,c.type,c.name
+		/*$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,
+		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag as trans_flag,c.type,c.name
                FROM td_vouchers a,md_achead b,mda_mngroup c
                WHERE a.acc_code=b.sl_no
 			   and   b.mngr_id   =c.sl_no
 			   and   b.sl_no   ='$acc_head'
                and a.voucher_date >='$op_dt' and a.voucher_date <= '$ope_date'
-               group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  
+               group by a.dr_cr_flag,b.mngr_id,c.type,c.name" ;  */
+               $sql="select sum(amt)dr_amt,0 cr_amt,type,mngr_id,acc_name, Case WHEN (type=2 or type=3)&& sum(amt) >0 THEN 'DR'
+               WHEN (type=2 or type=3)&& sum(amt) <0 THEN 'CR'
+                WHEN (type=1 or type=4)&& sum(amt) >0 THEN 'CR'
+                WHEN (type=1 or type=4)&& sum(amt) <0 THEN 'DR'
+                  ELSE ''
+              END as trans_flag
+               from(
+               select if(((c.type=2 or c.type=3) && trans_flag='DR') or ((c.type=1 or c.type=4) && trans_flag='CR'),a.amount,-1*a.amount)amt,
+               c.type,b.mngr_id,a.acc_name from td_opening a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no and b.mngr_id =c.sl_no
+               and  acc_code='$acc_head'
+               union
+               select if( type =2 or type= 3,sum(dr_amt)-sum(cr_amt),if(type =1 or type= 4,sum(cr_amt)-sum(dr_amt),0)),
+               type,mngr_id,ac_name
+               from(
+               SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag as trans_flag,c.type,b.ac_name
+                FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no and b.mngr_id =c.sl_no and b.sl_no ='$acc_head'
+               and a.voucher_date >='$op_dt' and a.voucher_date <= '$ope_date'
+               group by a.dr_cr_flag,b.mngr_id,c.type,b.ac_name)a)b";
         $query  = $this->db->query($sql);
         return $query->row();
 	}
@@ -444,7 +462,7 @@ order by ac_name";
 	function f_get_daybook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
-		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag
+		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag 
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
 			   and a.branch_id = '$branch_id'
