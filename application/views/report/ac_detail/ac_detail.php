@@ -122,7 +122,11 @@
                                             }else{
                                                 echo "";
                                             }?></td>
-                <td></td>
+                <td><?php   if($opebalcal->trans_flag=='CR'){
+                                            echo abs($ope_bal);
+                                            }else{
+                                                echo "";
+                                            }?></td>
             </tr>
 
             <?php   foreach($trail_balnce as $tb){
@@ -172,51 +176,43 @@
             <th></th>
             <th></th>
             <th>Closing Balance</th>
-            <th align="right"><?php if($type == 1 || $type ==4||$opebalcal->type == 1||$opebalcal->type == 4){
+            
+               <!-- && $ope_bal+$tot_debit>$tot_cre -->
+               <th align="right">
+               
+          
+                 <?php if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre )
+                 { 
             //  echo $type;
-            $clBl=$ope_bal+$tot_cre-$tot_debit;
-            if($clBl>0){
-            echo '';
-            }else{
+            $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
             echo abs($clBl);
-            }
-            }
-
-
-            if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
-            //echo $type;
-            $clbala=$ope_bal+$tot_debit-$tot_cre;
-            if($clbala>0){
-            echo abs($clbala);
-            }else{
-            echo '';
-            }
-            }
+                 }else{
+                     echo '';
+                 }
 
             ?>
             </th>
             <th align="right">
-            <?php if($type == 1 || $type == 4||$opebalcal->type == 1||$opebalcal->type == 4){
-
-            $clBl=$ope_bal+$tot_cre-$tot_debit;
-            if($clBl>0){
+          
+            <?php if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit)
+                 { 
+            //  echo $type;
+            $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
             echo abs($clBl);
-            }else{
-            echo '';
-            }
-            }
-
-
-            if($type == 2 || $type == 3||$opebalcal->type == 2||$opebalcal->type == 3){ 
-            $clbala=$ope_bal+$tot_debit-$tot_cre;
-            if($clbala>0){
-            echo '';
-            }else{
-            echo abs($clbala);
-            }
-            }
-
+                 }else{
+                     echo '';
+                 }
+				?>
+				<?php if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0)
+                 { 
+               //echo 'hi' ;
+           $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
+            echo abs($clBl);
+                 }else{
+                     echo '';
+                 }
             ?></th>
+				
             </tr>
         </tfoot>
             
