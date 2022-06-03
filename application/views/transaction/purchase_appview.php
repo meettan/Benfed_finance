@@ -133,13 +133,9 @@
 
             var id = $(this).attr('id'),
                 date = $(this).attr('date');
-
             var result = confirm("Do you really want to delete this record?");
-
             if (result) {
-
                 window.location = "<?php echo site_url('transaction/bank_delete?id=" + id + "'); ?>";
-
             }
 
         });

@@ -89,14 +89,7 @@
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
 							 
                         }
-                        ?>" +
-                    '</select></td>' +
-                    '<td><input type="text" class="transparent_tag" id="benfedcode_'+ x +'" name="benfedcode_id[]" style="width: 100%;" readonly></td>'+
-                    '<td><input type="text" class="transparent_tag" id="gr_id_' + x + '" name="gr_id[]" style="width: 100%;" readonly></td>' +
-                    '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' +
-                    '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required ></td>' +
-                    '<td><h5>Credit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Credit" readonly required ></td>' +
-                    '<td><button type = "button" class = "btn btn-danger" id = "removeRow"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
+                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_'+ x +'" name="benfedcode_id[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_' + x + '" name="gr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required ></td>' + '<td><h5>Credit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Credit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
 			  $( ".select2" ).select2();
 
             } else {
@@ -147,7 +140,7 @@
             $('.amount_cls').each(function() {
                 tot_amt += +$(this).val();
             });
-            $("#tot_amt").val(tot_amt);
+            $("#tot_amt").val(parseFloat(tot_amt).toFixed(2));
         });
 
         $('#debitadd').on("change", ".amount_cls_Debit", function() {
@@ -156,7 +149,7 @@
             $('.amount_cls_Debit').each(function() {
                 tot_amt += +$(this).val();
             });
-            $("#tot_amt_Debit").val(tot_amt);
+            $("#tot_amt_Debit").val(parseFloat(tot_amt).toFixed(2));
         });
 
         $('#submit').click(function() {
@@ -203,14 +196,7 @@
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
 							 
                         }
-                        ?>" +
-                    '</select></td>' +
-                    '<td><input type="text" class="transparent_tag" id="benfedcode_Debit_'+ x +'" name="benfedcode_id_Debit[]" style="width: 100%;" readonly></td>'+
-                    '<td><input type="text" class="transparent_tag" id="gr_id_Debit_' + x + '" name="gr_id_Debit[]" style="width: 100%;" readonly></td>' +
-                    '<td><input type="text" class="transparent_tag" id="subgr_id_Debit_' + x + '" name="subgr_id_Debit[]" style="width: 100%;" readonly></td>' +
-                    '<td><input type="text" class="form-control amount_cls_Debit" style="width: 100%; text-align: right;" id="amt" name="amount_Debit[]" oninput="validate(this)" required ></td>' +
-                    '<td><h5>Debit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg_Debit[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Debit" readonly required ></td>' +
-                    '<td><button type = "button" class = "btn btn-danger" id = "removeRow_Debit"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
+                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_Debit_'+ x +'" name="benfedcode_id_Debit[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_Debit_' + x + '" name="gr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_Debit_' + x + '" name="subgr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls_Debit" style="width: 100%; text-align: right;" id="amt" name="amount_Debit[]" oninput="validate(this)" required ></td>' + '<td><h5>Debit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg_Debit[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Debit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow_Debit"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
 			  $( ".select2" ).select2();
 
             } else {

@@ -213,7 +213,10 @@ function approvedjournal()
 
         //$fin_id              = $this->session->userdata['loggedin']['fin_id'];
         $select_lastend      = array("(end_mnth) as end_mnth","end_yr");
-        $where_lastend       = array("branch_id" =>$this->input->get("dist_cd"));
+        $where_lastend       = array(
+            "branch_id" =>$this->input->get("dist_cd"),
+            "1 ORDER BY sl_no DESC LIMIT 1"=>null
+        );
         $data    = $this->Report_Model->f_select('td_month_end',$select_lastend,$where_lastend,1);
         
         echo json_encode($data);
@@ -242,24 +245,38 @@ function approvedjournal()
         // die();
 
         $data['row']         = $this->transaction_model->f_select("td_month_end", NULL, NULL, 0);
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
 
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            
             $data_array = array(
                 "branch_id"         =>  $this->input->post('dist'),
                 "end_yr"            =>  $this->input->post('yr_sl'),
-                "end_mnth"          =>  $this->input->post('mnth_id'),
+                "end_mnth"          => $this->input->post('mnth_id'),
                 "remarks"           =>  $this->input->post('remarks'),
                 "closed_by"         =>  $this->session->userdata('loggedin')['user_id'],
                 "closed_dt"         =>  date('Y-m-d h:i:s')
             );
+            $dist_id=$this->input->post('dist');
+            //$this->load->model('Api_voucher');
+
+          
+
     
             $this->transaction_model->f_insert('td_month_end', $data_array);
+            $this->inser_mntEnd($data_array);
+            return redirect(site_url("mnthend"));
     
-        }
+        }else{
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/month_end", $data);
         $this->load->view('post_login/footer');
+        }
     
+    }
+    public function inser_mntEnd($data_array){
+        $db2 = $this->load->database('seconddb', TRUE);
+		$db2->insert('td_month_end',$data_array);
+       
     }
 
     public function f_acc_code(){
@@ -1065,6 +1082,18 @@ function crn_appview()
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/jurnal_entry", $data);
         $this->load->view('post_login/footer');
+    }
+    function checked_MonthEnd(){
+        $year=$this->input->get('year');
+        $nowMon= date("F");
+        
+        $data=$this->transaction_model->f_select("md_month", NULL, array("month_name"=>$nowMon), 1);
+        $month=$data->id;
+        if($month >= $year){
+            echo json_encode(1);
+        }else{
+            echo json_encode(0);
+        }
     }
 
     function jurnal_save(){

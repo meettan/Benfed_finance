@@ -670,7 +670,7 @@ public function recv_voucher_dr(){
     'voucher_mode'   => 'J',
     'voucher_through'=> 'A',
     'acc_code'       => $dt['data']['adv_acc'],
-    'dr_cr_flag'     => 'DR',
+    'dr_cr_flag'     => 'Dr',
     'amount'         => $dt['data']['paid_amt'],
     'ins_no'         => '',
     'ins_dt'         => '',
@@ -690,8 +690,8 @@ if($this->db->insert('td_vouchers', $input_bank) ){
     return 1;
 }else{
     return 0;
-}  
- }
+} 
+}
 
  public function delete_voucher_dr(){
              
@@ -794,7 +794,7 @@ public function recv_voucher(){
             'voucher_through'=> 'A',
             // 'acc_code'       => $dt['data']['soc_id'],
             'acc_code'       => $cshbank_code->sl_no ,
-            'dr_cr_flag'     => 'DR',
+            'dr_cr_flag'     => 'Dr',
             'amount'         => $dt['data']['paid_amt'],
             'ins_no'         => '',
             'ins_dt'         => '',
