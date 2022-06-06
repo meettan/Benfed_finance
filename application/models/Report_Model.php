@@ -143,7 +143,6 @@ class Report_model extends CI_Model
 	function f_get_voucher($frm_date,$to_date,$fin_id,$branch_id){
         $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name FROM td_vouchers
                WHERE voucher_date >= '$frm_date' AND voucher_date <= '$to_date'
-               
 			   and branch_id='$branch_id'
                and approval_status!='H'
 			   GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name
@@ -167,7 +166,33 @@ class Report_model extends CI_Model
 
         return $query->result();
     }
+	/********************************** */
+	function f_get_voucher_dtls($v_id){
+        $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name FROM td_vouchers
+               WHERE voucher_id='$v_id'
+               and approval_status!='H'
+			   GROUP BY voucher_id,voucher_date,trans_no,transfer_type,ins_no,ins_dt,bank_name
+               order by voucher_date " ;
+            
+        $query  = $this->db->query($sql);
+
+        return $query->result();
+    }
+	function f_get_advjnl_dtls($v_id){
+        $sql ="SELECT a.voucher_id, a.voucher_date,a.sl_no,a.remarks,a.amount,b.ac_name,a.dr_cr_flag,
+                 a.voucher_type
+				 FROM td_vouchers a,md_achead b
+				 WHERE a.acc_code=b.sl_no 
+                 and voucher_id='$v_id'
+				 and a.approval_status!='H'
+				
+				 order by a.voucher_date,a.sl_no" ;
+        $query  = $this->db->query($sql);
+
+        return $query->result();
+    }
 	
+    /************************************ */
     function f_get_crjnl($frm_date,$to_date,$fin_yr){
         $sql ="SELECT a.voucher_id, a.voucher_date,a.sl_no,a.remarks,a.amount,b.ac_name,a.dr_cr_flag,
                  a.voucher_type
@@ -183,6 +208,7 @@ class Report_model extends CI_Model
         return $query->result();
     }
 
+ 
     function f_get_sljnl($frm_date,$to_date,$fin_yr){
         $sql ="SELECT a.voucher_id, a.voucher_date,a.sl_no,a.remarks,a.amount,b.ac_name,a.dr_cr_flag,
                  a.voucher_type
@@ -400,6 +426,7 @@ order by ac_name";
                                                       from td_vouchers a,md_achead b
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
                                                       and a.approval_status!='H'
+                                                     
                                                       and voucher_id in(select a.voucher_id
                                                       from td_vouchers a
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )

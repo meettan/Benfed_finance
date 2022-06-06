@@ -195,6 +195,7 @@ class Master extends CI_Controller
         if ($id > 0) {
             $ac_where = array('sl_no' => $id);
             $ac_dtls = $this->master_model->f_select("md_achead", $select = null, $ac_where, 1);
+           
             $selected = array(
                 'id' => $ac_dtls->sl_no,
                 'gr_id' => $ac_dtls->mngr_id,
@@ -208,10 +209,11 @@ class Master extends CI_Controller
         }
 
         $gr_dtls = $this->master_model->f_select("mda_mngroup", $select = null, $where = null, 2);
-
+        $where_br = array('id' =>$ac_dtls->br_id);
         $select = array("id", "branch_name");
-        $br_dtls = $this->master_model->f_select("md_branch", $select, $where = null, 2);
-
+        $br_dtls = $this->master_model->f_select("md_branch", $select, $where_br , 2);
+        // echo $this->db->last_query();
+        // exit;
         $data = array(
             'gr_dtls' => json_encode($gr_dtls),
             'br_dtls' => json_encode($br_dtls),

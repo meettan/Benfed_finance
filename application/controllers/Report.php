@@ -334,39 +334,51 @@ public function jrnlprn()
 
     }
 
-  /*  public function ac_detail(){                           // **** Code for Account Detail report   07/04/2022
+public function voucher_dtls(){
+              
+            $branch_id=$this->session->userdata['loggedin']['branch_id'];
+            $v_id   = $this->input->get('voucher_id');
+            $voucher_type =   '';
 
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-            $frm_date     =   $_POST['from_date'];
-            $to_date      =   $_POST['to_date'];
-			$opeto_dt  =   date('Y-m-d', strtotime('-1 day', strtotime($frm_date)));
-			$acc_head     =   $this->input->post('acc_head');
-            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
-            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
-			$data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
-            $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head),1);
-            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head);
-            $this->load->view('post_login/finance_main');
-            $this->load->view('report/ac_detail/ac_detail.php',$data);
-            $this->load->view('post_login/footer');
-            $this->load->view('post_login/footer');
-
-        }else{
-		
-		    $select = array('sl_no','ac_name');
-			$data['acc_head'] = $this->master_model->f_select("md_achead", $select, $where = null, 2);
-            $this->load->view('post_login/finance_main');
-            $this->load->view('report/ac_detail/ac_detail_ip.php',$data);
-            $this->load->view('post_login/footer');
+            if($voucher_type == 'PUR'){
+			    $data['voucher_type'] = 'Purchase';
+			}elseif($voucher_type == 'A'){
+				$data['voucher_type'] = 'Advance';
+			}elseif($voucher_type == 'CRN'){
+				$data['voucher_type'] = 'Credit note';
+			}elseif($voucher_type == 'SL'){
+				$data['voucher_type'] = 'Sale';
+			}elseif($voucher_type == 'P'){
+				$data['voucher_type'] = 'Payment';
+			}elseif($voucher_type == 'R'){
+				$data['voucher_type'] = 'Receive';
+			}elseif($voucher_type == 'RNT'){
+				$data['voucher_type'] = 'Rent';
+			}elseif($voucher_type == 'OTH'){
+				$data['voucher_type'] = 'Others';
+			}else{
+                $data['voucher_type'] = '';
+            }
+			$where = array('id' => $branch_id );
+			$select = array('branch_name');
+			$data['type']   = $this->input->post('voucher_type');
+            $data['branch'] = $this->master_model->f_select("md_branch", $select, $where, 1);
+            //    echo $this->db->last_query();
+            //    exit;
+                $data['voucher']     = $this->Report_Model->f_get_voucher_dtls($v_id);
+                $data['advance']     = $this->Report_Model->f_get_advjnl_dtls($v_id);
+                               
+                $this->load->view('post_login/finance_main');
+                $this->load->view('report/voucher_dtls/voucher_dtls.php',$data);
+                $this->load->view('post_login/footer');
+    
         }
 
-    }*/
-	
+
 	public function ac_detail(){                           // **** Code for Account Detail report   07/04/2022
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            $branch_id  = $this->session->userdata['loggedin']['branch_id'];	
             $frm_date     =   $_POST['from_date'];
             $to_date      =   $_POST['to_date'];
 			$opeto_dt  =   date('Y-m-d', strtotime('-1 day', strtotime($frm_date)));
@@ -396,7 +408,10 @@ public function jrnlprn()
 
         }else{
             // $where=array(,"ORDER BY ac_name"  => NULL);
+            $branch_id  = $this->session->userdata['loggedin']['branch_id'];	
             $data['acc_head'] = $this->Report_Model->f_get_acheaddeatil();
+            // echo $this->db->last_query();
+            // exit;
            
 		    // $select = array('sl_no','ac_name');
 

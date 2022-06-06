@@ -144,8 +144,8 @@
             elseif($tb->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; } ?>
             </td>
             <td><?php echo $tb->remarks; ?></td>
-            <td><?php echo $tb->voucher_id; ?></td>
-
+         
+  			<td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
             <td align="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
             <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
 
@@ -430,6 +430,13 @@ text: 'Export to excel'
    }
 ]
    });
+</script>
+<script>
+function voucherdtls(vid){
+
+window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid, '_blank');
+
+}
 </script>
 
 
