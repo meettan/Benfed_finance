@@ -461,6 +461,7 @@ order by ac_name";
                select if(((c.type=2 or c.type=3) && trans_flag='DR') or ((c.type=1 or c.type=4) && trans_flag='CR'),a.amount,-1*a.amount)amt,
                c.type,b.mngr_id,a.acc_name from td_opening a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no and b.mngr_id =c.sl_no
                and  acc_code='$acc_head'
+               
                union
                select if( type =2 or type= 3,sum(dr_amt)-sum(cr_amt),if(type =1 or type= 4,sum(cr_amt)-sum(dr_amt),0)),
                type,mngr_id,ac_name
@@ -481,7 +482,7 @@ order by ac_name";
 			   and   b.mngr_id   =c.sl_no
 			   and   b.sl_no   ='$acc_head'
                AND a.balance_dt = '$ope_date'
-               AND c.type in(1,2)
+               AND c.type in(1,2,3,4)
                group by a.trans_flag,b.mngr_id,c.type,c.name" ;  
         $query  = $this->db->query($sql);
         return $query->row();

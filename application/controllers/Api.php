@@ -170,7 +170,7 @@ class Api extends CI_Controller{
                 {
                 "SlNo": "1",
                 "PrdDesc": "'.$dt->product_desc.'",
-                "IsServc": "'.$dt->pay_flag.'",
+                "IsServc": "Y",
 
                 "HsnCd": "'.$dt->sac_code.'",
                 "Barcde": "",

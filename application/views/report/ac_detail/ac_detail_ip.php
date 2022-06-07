@@ -21,8 +21,7 @@ tr:hover {background-color: #f5f5f5;}
         <div class="col-md-6 container form-wraper">
     
 			<form method="POST" id="form" action="<?php echo site_url("report/ac_detail");?>" >
-
-                <div class="form-header">
+     <div class="form-header">
                     <h4>Account detail Inputs</h4>
                 </div>
 
@@ -32,6 +31,7 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-6">
                         <input type="date"
                                name="from_date"
+                               id="from_date"
                                class="form-control required"
                                value="<?php echo date('Y-m-d');?>"/> 
                     </div>
@@ -63,12 +63,13 @@ tr:hover {background-color: #f5f5f5;}
 				
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="submit" class="btn btn-info" value="Submit" />
+                        <input type="submit" class="btn btn-info"value="Submit" onclick="myFunction()" />
                     </div>
 
                 </div>
 
-            </form>    
+            </form>   
+            
 
         </div>
 
@@ -103,4 +104,21 @@ text: 'Export to excel'
    }
 ]
    });
+</script>
+
+<script>
+function myFunction() {
+    var frmdt=$('#from_date').val();
+    frmdt=frmdt.substring(0, 4);
+   // alert(frmdt);
+	 var fin_year_sort_code=<?php echo substr($this->session->userdata['loggedin']['fin_yr'],0,4) ?>;
+  
+	if( frmdt!=fin_year_sort_code){
+		alert('Financial Year Not Matched');
+		$('#submit').attr('type', 'buttom');
+		event.preventDefault();
+	}else{
+	$('#submit').attr('type', 'submit');
+	}
+}
 </script>

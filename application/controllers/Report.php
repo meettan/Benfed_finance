@@ -410,11 +410,8 @@ public function voucher_dtls(){
             // $where=array(,"ORDER BY ac_name"  => NULL);
             $branch_id  = $this->session->userdata['loggedin']['branch_id'];	
             $data['acc_head'] = $this->Report_Model->f_get_acheaddeatil();
-            // echo $this->db->last_query();
-            // exit;
-           
-		    // $select = array('sl_no','ac_name');
-
+            // $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+			// $fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],0,4);
 			// $data['acc_head'] = $this->master_model->f_select("md_achead ORDER BY 'ac_name'" , $select, $where = null, 2);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/ac_detail/ac_detail_ip.php',$data);

@@ -152,6 +152,7 @@
                     <th>ACK No</th>
                     <th>ACT DT</th>
                     <th>DOWNLOAD</th>
+                    
                     <th></th>
                 </tr>
 

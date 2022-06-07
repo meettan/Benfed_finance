@@ -118,7 +118,13 @@
 
                 </div>
 
+                <label for="gst_rt" class="col-sm-2 col-form-label">Gst Rate:</label>
+                <div class="col-sm-4">
 
+                <input type="text" name="gst_rt" class="form-control smallinput_text"
+                value="<?php if(!empty($editData[0]['gst_rt'])){ echo $editData[0]['gst_rt'];} ?>">
+
+                </div>
 
             </div>
             <div class="form-group row">

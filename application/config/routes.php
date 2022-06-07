@@ -76,7 +76,7 @@ $route['rent_collection/fetch_product']='Rent_calculation/fetch_product';
 $route['rent_collection/fetch_amount']='Rent_calculation/fetch_amount'; 
 $route['rent_collection/edit/(:num)'] = 'Rent_calculation/rent_collection_edit/$1';
 $route['rent_collection/fetch_godown'] = 'Rent_calculation/fetch_godown';
-
+$route['rent_collection/fetch_gst'] = 'Rent_calculation/fetch_gst';
 $route['collectRent'] = 'Rent_calculation/collectRent';
 $route['collectRent/edit/(:num)'] = 'Rent_calculation/collectRentEdit/$1';
 

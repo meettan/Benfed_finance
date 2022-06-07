@@ -82,7 +82,7 @@
                     <th>Godown</th>
                     <th>IRN ACK No</th>
                     <th>collection date</th>
-                    <th>Bank</th>
+                    <!--<th>Bank</th>-->
                     <th>Gross Amount</th>
                     <th>CGST</th>
                     <th>SGST</th>
@@ -112,7 +112,7 @@
                         <td><?php echo $rent_list->gdn_name; ?></td>
                         <td><?php echo $rent_list->ack_no; ?></td>
                         <td><?php echo date("d/m/Y",strtotime($rent_list->payment_date)); ?></td>
-                        <td><?php echo $rent_list->ac_name; ?></td>
+                        <!-- <td>//<?php echo $rent_list->ac_name; ?></td>-->
                         <td><?php  $grossAmount= $grossAmount+$rent_list->taxable_amt; echo $rent_list->taxable_amt	; ?></td>
                         <td><?php $CGST=$CGST+$rent_list->cgst_amt; echo $rent_list->cgst_amt	; ?></td>
                         <td><?php $SGST=$SGST+$rent_list->sgst_amt; echo $rent_list->sgst_amt	; ?></td>
@@ -125,7 +125,7 @@
                     }
                 }         
                 ?>
-                    <td colspan="8" style="text-align: right"><b>Total</b></td>
+                    <td colspan="7" style="text-align: right"><b>Total</b></td>
                     <td><?php echo  $grossAmount; ?></td>
                     <td><?php echo $CGST; ?></td>
                     <td><?php echo $SGST ?></td>

@@ -100,7 +100,7 @@ class Rent_calculation extends CI_Controller{
                 "pan_no"=>$this->input->post("panNo"),
                 "fms_id"=>$this->input->post("fmsid"),
                 "acchead"=>$this->input->post("acchead"),
-                // "dr_bnk"=>$this->input->post("drBank"),
+                "gst_rt"=>$this->input->post("gst_rt"),
                 "pin_code"=>$this->input->post("pincode"),
                 "created_by"=>$this->session->userdata("loggedin")["user_id"],
                 "created_dt"=>date("Y-m-d h:i:s"),
@@ -134,7 +134,7 @@ class Rent_calculation extends CI_Controller{
                 "email_id"=>$this->input->post("email"),
                 "gst_no"=>$this->input->post("gstNumber"),
                 "acchead"=>$this->input->post("acchead"),
-                // "dr_bnk"=>$this->input->post("drBank"),
+                "gst_rt"=>$this->input->post("gst_rt"),
                 "pan_no"=>$this->input->post("panNo"),
                 "fms_id"=>$this->input->post("fmsid"),
                 "pin_code"=>$this->input->post("pincode"),
@@ -738,6 +738,22 @@ class Rent_calculation extends CI_Controller{
             'htm_sgst_rt'=>$data->sgst_rt
          );
          echo json_encode($res);
+    }
+
+
+    public function fetch_gst(){
+        $cust_id=$this->input->post('cust_id');  
+        $where=array(
+            'id'=>$cust_id
+          
+        );
+        $data=$this->Rent_calculation_model->f_select('md_rent_customer', $select=null, $where, 1);
+
+    //    echo $this->db->last_query();
+    //     exit();
+        $gst_rt=$data->gst_rt;
+        //print_r($data);
+         echo json_encode($gst_rt);
     }
     public function fetch_amount(){
         $godown_id=$this->input->post('godown_id');

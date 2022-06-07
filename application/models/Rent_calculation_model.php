@@ -105,14 +105,14 @@
         $this->db->join('md_rent_product','md_rent_product.sl_no=td_rent_collection.prod_id');
         $this->db->join('md_rent_customer','md_rent_customer.id=td_rent_collection.cust_id');
         $this->db->join('md_godown','md_godown.id=td_rent_collection.godown_id');
-        $this->db->join('md_achead','md_achead.sl_no=td_rent_collection.cr_bnk');
+        // $this->db->join('md_achead','md_achead.sl_no=td_rent_collection.cr_bnk');
         if($where!=''||$where!=null){
             $this->db->where('trans_no',$where);
         }
         $this->db->where('pay_flag','Y');
         $this->db->where(array('ack_no !=' => ''));
         $this->db->where(array('ack_dt !=' => '0000-00-00'));
-        $this->db->where('trans_type', 'B');
+        // $this->db->where('trans_type', 'B');
         $this->db->where('trans_dt >=',$first_date); 
         $this->db->where('trans_dt <=',$second_date);
         $this->db->order_by('td_rent_collection.trans_no','desc');

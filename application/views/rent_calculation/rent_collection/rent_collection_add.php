@@ -139,15 +139,15 @@
     });
 
 
-    $('#amount').keyup(function(){
-        var amount=$(this).val();
-        var cgst=((amount/100)*9);
-        var sgst=((amount/100)*9);
-        var totalamt=(cgst + sgst + parseFloat(amount));
-        $('#cgst').val(parseFloat(cgst).toFixed('2'));
-        $('#sgst').val(parseFloat(sgst).toFixed('2'));
-        $('#totalAmount').val(parseFloat(totalamt).toFixed('2'));
-    });
+    // $('#amount').keyup(function(){
+    //     var amount=$(this).val();
+    //     var cgst=((amount/100)*9);
+    //     var sgst=((amount/100)*9);
+    //     var totalamt=(cgst + sgst + parseFloat(amount));
+    //     $('#cgst').val(parseFloat(cgst).toFixed('2'));
+    //     $('#sgst').val(parseFloat(sgst).toFixed('2'));
+    //     $('#totalAmount').val(parseFloat(totalamt).toFixed('2'));
+    // });
 
     function totalvalue(data){
         var cgst_rt=$('#cgst_rt').val();
@@ -212,6 +212,26 @@
                totalvalue(data);
             }
         });
+        $.ajax({
+            url: "<?php echo site_url().'/rent_collection/fetch_gst'; ?>",
+            type: 'POST',
+            data: {cust_id:cust_id},
+            dataType: "json",
+            success: function(data) {
+               $('#cgst_rt').val(data/2);
+               $('#sgst_rt').val(data/2);
+        var amount=$('#amount').val();
+        var cgst=((amount/100)*(data/2));
+        var sgst=((amount/100)*(data/2));
+        var totalamt=(cgst + sgst + parseFloat(amount));
+        
+        $('#cgst').val(parseFloat(cgst).toFixed('2'));
+        $('#sgst').val(parseFloat(sgst).toFixed('2'));
+        $('#totalAmount').val(parseFloat(totalamt).toFixed('2'));
+            //    totalvalue(data);
+            }
+        });
+
 
     });
 

@@ -113,8 +113,12 @@
                     </select>
 
                 </div>
+                <label for="gst_rt" class="col-sm-2 col-form-label">Gst Rate:</label>
+                <div class="col-sm-4">
 
+                <input type="text" name="gst_rt" class="form-control smallinput_text">
 
+                </div>
 
             </div>
             <div class="form-group row">
