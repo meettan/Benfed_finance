@@ -100,6 +100,39 @@
         
     // }
 
+    public function f_get_receiptReport_dtls($trans_do)
+		{
+	
+		  $sql = $this->db->query("SELECT a.trans_dt as do_dt,'' as sale_due_dt,'' as ro_dt,a.trans_no ,
+                                        a.invoice_no as trans_do,'' ro_no,b.gst_no as gstin,b.cust_name as soc_name,
+								         b.cust_addr as soc_add,b.fms_id as mfms,a.taxable_amt,a.cgst_amt  as  cgst,
+                                         a.sgst_amt  as sgst ,a.qty,a.cgst_rt+a.sgst_rt as gst_rt,
+                                         a.total_amt as tot_amt,a.godown_id,a.cust_id,d.product_desc as prod_desc,
+                                         c.sac_code  as hsn_code,a.taxable_amt as sale_rt
+								   
+								   from td_rent_collection a,md_rent_customer b,md_godown c,md_rent_product d
+								   where a.cust_id=b.id
+                                   and a.godown_id=c.id
+                                   and a.prod_id=d.sl_no
+								   and  a.invoice_no='$trans_do'");
+											
+		  return $sql->row();
+	
+		}
+
+        public function f_get_rentinv_tot($trans_do)
+		{
+	
+		  $sql = $this->db->query("SELECT a.invoice_no as trans_do,sum(a.qty)as qty,
+									sum(a.taxable_amt)as taxable_amt,sum(a.cgst_amt)as cgst,sum(a.sgst_amt)as sgst,
+									sum(a.cgst_amt+a.sgst_amt)as tot_gst,0 as dis,sum(a.total_amt)as tot_amt,
+									sum(a.total_amt) as paid_amt,ROUND(sum(a.total_amt))as tot_amt_rnd
+									from td_rent_collection a 
+									where  a.invoice_no='$trans_do'");
+											
+		  return $sql->row();
+	
+		}
     public function fetch_rent_collectreport($where=null,$first_date=null,$second_date=null){
         $this->db->select('')->from('td_rent_collection');
         $this->db->join('md_rent_product','md_rent_product.sl_no=td_rent_collection.prod_id');

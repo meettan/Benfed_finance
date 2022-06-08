@@ -5,14 +5,35 @@ class Rent_calculation extends CI_Controller{
         parent::__construct();
         $this->load->model("Rent_calculation_model");
         $this->load->model('Transaction_model');
+         $this->load->helper('currecyword_helper');
+
         // $this->load->model('SaleModel');
         if(!isset($this->session->userdata['loggedin']['user_id'])){
             redirect('login');
         }
     }
+
+
+    public function rentb2c_rep()
+		{
+			$trans_do = $this->input->get('invoice_no');
+			$sale_rep['data'] = $this->Rent_calculation_model->f_get_receiptReport_dtls($trans_do);
+
+			 $sale_rep['sum_data'] = $this->Rent_calculation_model->f_get_rentinv_tot($trans_do);
+			// echo $this->db->last_query();
+			// die();
+			$sale_rep['trans_do'] = $trans_do;
+		 
+			 $this->load->view("post_login/finance_main");
+		
+			$this->load->view('report/rentb2c_invoice.php',$sale_rep);
+		
+			$this->load->view('post_login/footer');
+			
+		}
     public function godown_list(){
         $data["godownData"]=$this->Rent_calculation_model->godownData();
-        $this->load->view("post_login/finance_main");
+         $this->load->view("post_login/finance_main");
     $this->load->view("rent_calculation/godown/godown_list",$data);
        $this->load->view("post_login/footer");
     }

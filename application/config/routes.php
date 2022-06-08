@@ -81,6 +81,7 @@ $route['collectRent'] = 'Rent_calculation/collectRent';
 $route['collectRent/edit/(:num)'] = 'Rent_calculation/collectRentEdit/$1';
 
 $route['rent_report']='Rent_calculation/rent_report';
+$route['rentb2c_invoice']='Rent_calculation/rentb2c_rep';
 
 $route['purchasevu'] = 'transaction/purchase_appview';
 $route['crnvu'] = 'transaction/crn_appview';

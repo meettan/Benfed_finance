@@ -73,7 +73,8 @@
                     <th>ACK No</th>
                     <th>ACT DT</th>
                     <th>DOWNLOAD</th>
-                    <th></th>
+                    <th>View</th>
+                    <th>B2C Print</th>
                 </tr>
 
             </thead>
@@ -123,6 +124,12 @@
                             <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                         </a>
                     </td>
+                    <td>
+                                <button type="button" name="print_<?= $i ?>" class="print" id="print"    
+                                       
+                                        data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
+                                <a href="<?php echo site_url('rentb2c_invoice?invoice_no='.$rent_list->invoice_no.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
+                                </td>
                 </tr>
 
                 <?php
