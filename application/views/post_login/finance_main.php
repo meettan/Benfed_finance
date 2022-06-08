@@ -174,7 +174,7 @@
 						<a href="<?php echo site_url('trailbalsubgroup'); ?>">Trial balance(Subgroup)</a>
                       <!--  <a href="<?php //echo site_url('trailbal_group'); ?>">Trial balance group</a>  -->
 						<?php }?>
-                        <a href="<?php echo site_url('gl'); ?>">GL</a>
+                        <!-- <a href="<?php //echo site_url('gl'); ?>">GL</a> -->
                         <a href="<?php echo site_url('ac_detail'); ?>">Acount detail</a>
                         <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
                         <a href="<?php echo site_url('rent_report'); ?>">Rent Collection</a>

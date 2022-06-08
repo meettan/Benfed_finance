@@ -102,14 +102,16 @@
             if($opebalcal){
 										$opdr =$opebalcal->dr_amt;
 										$opcr =$opebalcal->cr_amt;
-										if($opebalcal->type == 1 || $opebalcal->type == 4){
+										if($opebalcal->type == 1 ){
 									       $ope_bal = $ope_bal+$opcr-$opdr;
 											//echo $ope_bal ;
 											//$ope_bal = $opcr + $opdr;
-										}else if($opebalcal->type == 2 || $opebalcal->type == 3){
+										}else if($opebalcal->type == 2 ){
 										$ope_bal = $ope_bal+$opdr-$opcr;
 											//$ope_bal = $opcr + $opdr;
-										}
+										}else if( $opebalcal->type ==3|| $opebalcal->type == 4){
+                                            $ope_bal=0.00;
+                                        }
 									} ?>
             <tr>
                 <td></td>

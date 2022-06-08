@@ -395,7 +395,7 @@ public function voucher_dtls(){
 			//echo $this->db->last_query();
 			//exit();
             }else{
-                $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$opeto_dt,$acc_head);
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
 			// 	echo $this->db->last_query();
 			// exit();
             }

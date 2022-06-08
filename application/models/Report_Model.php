@@ -346,7 +346,7 @@ from(
           b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
           FROM td_vouchers a ,md_achead b,mda_mngroup c
           WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date'
-          and a.approval_status!='H' 
+          and a.approval_status='A'
           and b.br_id=$brid
           group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id 
           union 
@@ -364,7 +364,7 @@ b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
 FROM td_vouchers a,md_achead b,mda_mngroup c 
 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
 AND a.voucher_date <= '$to_date'  and b.br_id=$brid
-and a.approval_status!='H'
+and a.approval_status='A'
  group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
 group by mngr_id, ac_name,type,benfed_ac_code
 order by ac_name";
@@ -435,7 +435,7 @@ order by ac_name";
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
-        and a.approval_status!='H'
+        and a.approval_status='A'
         group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);
         
@@ -461,7 +461,7 @@ order by ac_name";
                select if(((c.type=2 or c.type=3) && trans_flag='DR') or ((c.type=1 or c.type=4) && trans_flag='CR'),a.amount,-1*a.amount)amt,
                c.type,b.mngr_id,a.acc_name from td_opening a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no and b.mngr_id =c.sl_no
                and  acc_code='$acc_head'
-               
+               and a.balance_dt='$op_dt'
                union
                select if( type =2 or type= 3,sum(dr_amt)-sum(cr_amt),if(type =1 or type= 4,sum(cr_amt)-sum(dr_amt),0)),
                type,mngr_id,ac_name
@@ -469,6 +469,7 @@ order by ac_name";
                SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,a.dr_cr_flag as trans_flag,c.type,b.ac_name
                 FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no and b.mngr_id =c.sl_no and b.sl_no ='$acc_head'
                and a.voucher_date >='$op_dt' and a.voucher_date <= '$ope_date'
+               and a.approval_status='A'
                group by a.dr_cr_flag,b.mngr_id,c.type,b.ac_name)a)b";
         $query  = $this->db->query($sql);
         return $query->row();
