@@ -226,15 +226,23 @@ function printDiv() {
 <!-- line 173 -->
 
 		<div class="tableArea">
+			
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 100px;" id="example">
 				<tbody>
 					<tr>
-					  
+					 
 					  <td>Prepared By</td>
-					  <td>Asst Manager/Dy. Manager</td>
+					 
+					  <?php if($this->session->userdata('loggedin')['branch_id']==342){ ?>
+						<td>Asst Manager/Dy. Manager</td>
 					  <td>Departmental Manager(S)</td>
 					  <td>CA&AO</td>
 					  <td>General Manager</td>
+					  <?php }else{ ?>
+						<td>Assistant/ Sr. Assistant</td>
+						<td>Branch Accountant</td>
+					  <td>District Manager</td>
+						<?php } ?>
 					</tr>
 				</tbody>
 		    </table>
