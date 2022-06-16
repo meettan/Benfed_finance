@@ -162,11 +162,11 @@ tr:hover {background-color: #f5f5f5;}
           <tr>
             <td class="tax_border_bot_left">Due Date</td>
             <td class="tax_border_bot_left">
-            <strong><?php echo date("d-m-Y", strtotime( $data->sale_due_dt));?></strong></td>
+            <strong><?php echo '';?></strong></td>
           </tr>
           <tr>
             <td class="tax_border_bot_left">R.O No: <?php echo  $data->ro_no;?></td>
-            <td class="tax_border_bot_left">Ro.Date: <?php echo date("d-m-Y", strtotime( $data->ro_dt));?></td>
+            <td class="tax_border_bot_left">Ro.Date: <?php echo '';?></td>
           </tr>
           <tr>
             <td class="tax_border_bot_left">Despatch Through</td>
@@ -469,7 +469,9 @@ tr:hover {background-color: #f5f5f5;}
     </tr>
     <tr>
       <td align="left" valign="top" class="padding_topNew padding_botNew" style="padding-left: 5px; padding-right: 5px;">Company's GSTIN/UIN: <strong>19AABAT0010H2ZY</strong><br>
-        Company's Pan:<strong> AABAT0010H</strong></td>
+        Company's Pan:<strong> AABAT0010H</strong><br>
+        Remarks: <strong><?php echo  $sum_data->remarks;?></strong>
+      </td>
       <td align="left" valign="top" class="padding_topNew padding_botNew" style="padding-left: 5px; padding-right: 5px;">Company's Bank Details:<br>
         Bank Name:<br>
         A/C Number: <br>

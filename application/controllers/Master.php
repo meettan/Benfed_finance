@@ -209,9 +209,9 @@ class Master extends CI_Controller
         }
 
         $gr_dtls = $this->master_model->f_select("mda_mngroup", $select = null, $where = null, 2);
-        $where_br = array('id' =>$ac_dtls->br_id);
+       // $where_br = array('id' =>$ac_dtls->br_id);
         $select = array("id", "branch_name");
-        $br_dtls = $this->master_model->f_select("md_branch", $select, $where_br , 2);
+        $br_dtls = $this->master_model->f_select("md_branch", $select, NULL, 0);
         // echo $this->db->last_query();
         // exit;
         $data = array(

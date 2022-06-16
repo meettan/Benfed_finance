@@ -413,7 +413,7 @@ order by ac_name";
         return $query->result();
 	}
 
-    function f_get_acdeatil($frm_date,$to_date,$acc_head){
+    function f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id){
 		
 		/*$sql ="select a.acc_code,if(dr_cr_flag='Dr',a.amount,0)as dr_amt,a.voucher_date,a.remarks, if(dr_cr_flag='Cr',a.amount,0)as cr_amt,
         a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type from td_vouchers a,md_achead b,mda_mngroup c 
@@ -425,16 +425,18 @@ order by ac_name";
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
-                                                      and a.approval_status!='H'
-                                                     
+                                                      and a.approval_status='A' 
+                                                      and a.branch_id=$branch_id
                                                       and voucher_id in(select a.voucher_id
                                                       from td_vouchers a
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
                                                       and acc_code=b.sl_no   
+                                                      and a.branch_id=$branch_id
                                                       group by voucher_id)d
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
         and a.voucher_id=d.voucher_id
+        and a.branch_id=$branch_id
         and a.approval_status='A'
         group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);

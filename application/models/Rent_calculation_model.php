@@ -126,9 +126,10 @@
 		  $sql = $this->db->query("SELECT a.invoice_no as trans_do,sum(a.qty)as qty,
 									sum(a.taxable_amt)as taxable_amt,sum(a.cgst_amt)as cgst,sum(a.sgst_amt)as sgst,
 									sum(a.cgst_amt+a.sgst_amt)as tot_gst,0 as dis,sum(a.total_amt)as tot_amt,
-									sum(a.total_amt) as paid_amt,ROUND(sum(a.total_amt))as tot_amt_rnd
+									sum(a.total_amt) as paid_amt,ROUND(sum(a.total_amt))as tot_amt_rnd,
+                                    a.remarks as remarks
 									from td_rent_collection a 
-									where  a.invoice_no='$trans_do'");
+									where  a.invoice_no='$trans_do'  group by a.remarks ");
 											
 		  return $sql->row();
 	
