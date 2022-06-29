@@ -102,6 +102,7 @@ $route['cheqdtl']   = 'transaction/cheqdtl';
 ///   ***** Start code for report 
 $route['advjrnlr'] = 'report/advjrnl';
 $route['trailbal'] = 'report/trailbal';
+$route['consolidated-trailbal'] = 'report/consolidated_trailbal';
 $route['trailbalsubgroup'] = 'report/trailbalsubgroup';
 $route['daybook']  = 'report/daybook';
 $route['cashbook']  = 'report/cashbook';

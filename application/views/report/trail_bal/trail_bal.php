@@ -107,26 +107,26 @@ tr:hover {background-color: #f5f5f5;}
                                      <td ><?php echo $tb->benfed_ac_code; ?></td>
 									 <td ><?php echo $tb->ac_name; ?></td>
 									
-                                     <td>
+                                     <td style="text-align: right;">
                                         
-										  <?php echo abs($tb->op_dr); $otot_dr +=$tb->op_dr; ?>
+										  <?php echo round(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
 										 
 									 </td>
                                      
-                                     <td>
-									       <?php echo abs($tb->op_cr); $otot_cr +=$tb->op_cr; ?>
+                                     <td style="text-align: right;">
+									       <?php echo round(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
 								        
 									 </td>
-                                     <td ><?php echo $tb->dr_amt; $tot_dr +=$tb->dr_amt; ?></td>
-                                     <td ><?php echo $tb->cr_amt; $tot_cr +=$tb->cr_amt; ?></td>
-                                     <td><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
-									       <?php echo  abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
+                                     <td  style="text-align: right;"><?php echo round($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
+                                     <td  style="text-align: right;"><?php echo round($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
+                                     <td style="text-align: right;"><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
+									       <?php echo  round(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
 													$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
 										   ?>
 								         <?php }  ?>
 									 </td>
-									 <td><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt){ ?>
-										  <?php echo abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));
+									 <td style="text-align: right;"><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt){ ?>
+										  <?php echo round(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
 													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
 										 <?php } ?>
 									 </td>
@@ -140,12 +140,12 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='3'>Total</td>
-									<td><?=$otot_dr?></td>
-									<td><?=$otot_cr?></td>
-									<td><?=$tot_dr?></td>
-									<td><?=$tot_cr?></td>
-									<td><?=$ctot_dr?></td>
-									<td><?=$ctot_cr?></td>
+									<td><?=round($otot_dr,2)?></td>
+									<td><?=round($otot_cr,2)?></td>
+									<td><?=round($tot_dr,2)?></td>
+									<td><?=round($tot_cr,2)?></td>
+									<td><?=round($ctot_dr,2)?></td>
+									<td><?=round($ctot_cr,2)?></td>
 								</tr>
                                 <?php 
                                        }

@@ -168,7 +168,10 @@
 						<a href="<?php echo site_url('daybook'); ?>">Daybook</a>
 						<a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
                         <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a>
-                        <a href="<?php echo site_url('trailbal'); ?>">Trial balance</a>
+                        <a href="<?php echo site_url('trailbal'); ?>">Branch Wise Trial balance</a>
+                        <?php  if($this->session->userdata['loggedin']['branch_id']==342){ ?>
+                        <a href="<?php echo site_url('consolidated-trailbal'); ?>">consolidated trial balance</a>
+                        <?php } ?>
 						<?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A") { ?>
                         
 						<a href="<?php echo site_url('trailbalsubgroup'); ?>">Trial balance(Subgroup)</a>
