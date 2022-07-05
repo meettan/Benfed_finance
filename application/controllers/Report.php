@@ -112,6 +112,8 @@ public function jrnlprn()
 			$where = array('id' => $branch_id );
 			$select = array('branch_name');
 			$data['type']   = $this->input->post('voucher_type');
+
+
             $data['branch'] = $this->master_model->f_select("md_branch", $select, $where, 1);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/adv_jrnl/adv_jrnl.php',$data);
@@ -500,6 +502,7 @@ public function voucher_dtls(){
 		$trans_no   = base64_decode($this->input->get('trans_no'));
 		$trans_dt   = $this->input->get('trans_dt');
 		$type       = base64_decode($this->input->get('type'));
+		// $type       = $this->input->get('type');
 		
 		if($type == 'PUR'){
 			
@@ -623,7 +626,10 @@ public function voucher_dtls(){
 	        $this->load->view("trans_detail_fertilizer/dr_credit",$product);
 	        $this->load->view('post_login/footer');
 			
-		}
+		}elseif($type=='RECV'){
+            
+
+        }
 
     }
 	

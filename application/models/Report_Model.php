@@ -141,7 +141,7 @@ class Report_model extends CI_Model
 	
     /******************************* */
 	function f_get_voucher($frm_date,$to_date,$fin_id,$branch_id){
-        $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name FROM td_vouchers
+        $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name,voucher_type FROM td_vouchers
                WHERE voucher_date >= '$frm_date' AND voucher_date <= '$to_date'
 			   and branch_id='$branch_id'
                and approval_status!='H'
