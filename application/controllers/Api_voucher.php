@@ -1085,7 +1085,7 @@ if($dt['data']['total_tds']>0){
         'transfer_type'  => 'T',
         'voucher_mode'   => 'J',
         'voucher_through'=> 'A',
-        'acc_code'       => 2209,
+        'acc_code'       => $dt['data']['comp_acc_cd'],
         'dr_cr_flag'     => 'CR',
         'amount'         => $dt['data']['tot_amt'],
         'ins_no'         => '',
