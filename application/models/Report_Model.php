@@ -443,6 +443,42 @@ order by ac_name";
         
         return $query->result();
 	}
+
+
+
+    function f_get_acdeatil_all($frm_date,$to_date,$acc_head){
+		
+		/*$sql ="select a.acc_code,if(dr_cr_flag='Dr',a.amount,0)as dr_amt,a.voucher_date,a.remarks, if(dr_cr_flag='Cr',a.amount,0)as cr_amt,
+        a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type from td_vouchers a,md_achead b,mda_mngroup c 
+        where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
+        and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
+        and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
+	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
+	       cr_amt, a.voucher_id,a.voucher_type,a.dr_cr_flag,c.type
+        from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
+                                                      from td_vouchers a,md_achead b
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
+                                                      and a.approval_status='A' 
+                                                    
+                                                      and voucher_id in(select a.voucher_id
+                                                      from td_vouchers a
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
+                                                      and acc_code=b.sl_no   
+                                                    
+                                                      group by voucher_id)d
+         where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
+        and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
+        and a.voucher_id=d.voucher_id
+        
+        and a.approval_status='A'
+        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
+        $query  = $this->db->query($sql);
+        
+        return $query->result();
+	}
+
+
+
 	function get_ope_gl($op_dt,$ope_date,$acc_head){
 		
 		/*$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,

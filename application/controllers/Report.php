@@ -457,7 +457,17 @@ public function voucher_dtls(){
 			// exit();
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
+        //    echo $this->input->post('allaccounthead');
+        //    exit();
+          if($this->input->post('allaccounthead')=='true'){
+            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
+            // echo $this->db->last_query();
+
+          }else{
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+          }
+
+          
             $this->load->view('post_login/finance_main');
             $this->load->view('report/ac_detail/ac_detail.php',$data);
             $this->load->view('post_login/footer');
