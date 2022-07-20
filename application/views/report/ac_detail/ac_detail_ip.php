@@ -32,7 +32,7 @@
 
                 <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
                 <div class="col-sm-6">
-                    <input type="date" name="from_date" id="from_date" class="form-control required" value="<?php echo date('Y-m-d'); ?>" />
+                    <input type="date" name="from_date" id="from_date" class="form-control required" value="<?php echo date('Y-m-d'); ?>" min='<?php echo explode('-',$this->session->userdata('loggedin')['fin_yr'])[0] ?>-04-01' max='<?php echo (explode('-',$this->session->userdata('loggedin')['fin_yr'])[0])+1 ?>-03-31'/>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                 <label for="to_date" class="col-sm-2 col-form-label">To Date:</label>
 
                 <div class="col-sm-6">
-                    <input type="date" name="to_date" class="form-control required" value="<?php echo date('Y-m-d'); ?>" />
+                    <input type="date" name="to_date" class="form-control required" value="<?php echo date('Y-m-d'); ?>" min='<?php echo explode('-',$this->session->userdata('loggedin')['fin_yr'])[0] ?>-04-01' max='<?php echo (explode('-',$this->session->userdata('loggedin')['fin_yr'])[0])+1 ?>-03-31'/>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     $("#allaccounthead").on('change', function() {
         if ($(this).is(':checked')) {
             $(this).attr('value', 'true');
@@ -123,21 +123,21 @@
         }
         //alert($(this).val());
     });
-</script>
+</script> -->
 
 <script>
-    function myFunction() {
-        var frmdt = $('#from_date').val();
-        frmdt = frmdt.substring(0, 4);
-        // alert(frmdt);
-        var fin_year_sort_code = <?php echo substr($this->session->userdata['loggedin']['fin_yr'], 0, 4) ?>;
+    // function myFunction() {
+    //     var frmdt = $('#from_date').val();
+    //     frmdt = frmdt.substring(0, 4);
+    //     // alert(frmdt);
+    //     var fin_year_sort_code = <?php echo substr($this->session->userdata['loggedin']['fin_yr'], 0, 4) ?>;
 
-        if (frmdt != fin_year_sort_code) {
-            alert('Financial Year Not Matched');
-            $('#submit').attr('type', 'buttom');
-            event.preventDefault();
-        } else {
-            $('#submit').attr('type', 'submit');
-        }
-    }
+    //     if (frmdt != fin_year_sort_code) {
+    //         alert('Financial Year Not Matched');
+    //         $('#submit').attr('type', 'buttom');
+    //         event.preventDefault();
+    //     } else {
+    //         $('#submit').attr('type', 'submit');
+    //     }
+    // }
 </script>
