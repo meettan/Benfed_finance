@@ -59,8 +59,12 @@
                         <?php } ?>
                     </select>
                 </div>
-                <?php if($this->session->userdata('loggedin')['branch_id']==342){ ?>
-                <label for="allaccounthead" class="col-sm-2 col-form-label">All Acount Head:</label>
+                
+            </div>
+
+            <div class="form-group row">
+            <?php if($this->session->userdata('loggedin')['branch_id']==342){ ?>
+                <label for="allaccounthead" class="col-sm-2 col-form-label">All Branches:</label>
                 <div class="col-sm-2">
 
                     <input type="checkbox" name="allaccounthead" class="" value="false" id="allaccounthead" />
@@ -68,6 +72,8 @@
                 </div>
                 <?php } ?>
             </div>
+
+
 
             <div class="form-group row">
                 <div class="col-sm-10">
