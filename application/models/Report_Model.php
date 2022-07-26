@@ -533,7 +533,7 @@ order by ac_name";
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
 			   and a.branch_id = '$branch_id'
-               and a.approval_status!='H'
+               and a.approval_status='A'
                and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
