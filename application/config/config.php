@@ -23,6 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+// $config['base_url'] = 'http://192.168.1.100:8080/Benfed_finance/';
 $config['base_url'] = 'http://localhost:8080/Benfed_finance/';
 
 //$config['index_page'] = 'index.php';

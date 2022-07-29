@@ -5,6 +5,8 @@ class Api extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->model('Rent_calculation_model');
+
+        $this->load->model('HTransportC_model');
     }
     function get_api_cancel(){
         $irn = $this->input->post('irn');
@@ -17,7 +19,7 @@ class Api extends CI_Controller{
 
         curl_setopt_array($curl, array(
             /************************for test server*********** */
-        CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Cancel',
+        //CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Cancel',
         // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Cancel',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
@@ -93,7 +95,7 @@ class Api extends CI_Controller{
         $curl = curl_init();
             curl_setopt_array($curl, array(
            // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
-            CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+            //CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -314,7 +316,7 @@ class Api extends CI_Controller{
             /*****************for test server ******************* */
        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
-        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+        //CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
@@ -546,7 +548,7 @@ $doc_no = $suf . '/' .$send_str. '/'  .$send_str1 ;
 //    echo ( $doc_no);exit;
 $curl = curl_init();
     curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
+    //CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
     /****************for production server */
     // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
     CURLOPT_RETURNTRANSFER => true,
@@ -754,6 +756,242 @@ function save_irncr($data, $irn, $ackno ,$AckDt){
 $res = $this->SaleModel->save_irncr($data, $irn,$ackno,$AckDt);
 echo $res;
 }
+
+
+
+public function api_call_htc($trans_do)
+    {
+        // $trans_do = $this->input->get('trans_do');
+        $api_query= $this->HTransportC_model->f_get_api_data($trans_do);
+    //    print_r($api_query);
+    //    exit();
+        return $api_query;
+    }
+
+
+
+function get_api_htc(){
+    $trans_do = $this->input->get('trans_do');
+    $data = $this->api_call_htc($trans_do);
+
+    print_r($data);
+    exit();
+    $dt = $data ? $data[0] : $data;
+    $HsnCd = strlen($dt->sac_code)==4 ? $dt->sac_code . '00' : $dt->sac_code;
+    // echo '<pre>';
+    $str_arr = explode('-', $dt->invoice_no);
+    $suf = substr($str_arr[1],2);
+
+ 
+    $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
+
+
+    $curl = curl_init();
+        curl_setopt_array($curl, array(
+       // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
+       // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+        "Version": "'.Version.'",
+        "TranDtls": {
+            "TaxSch": "'.TAX_SCH.'",
+            "SupTyp": "'.SupTyp.'",
+            "RegRev": "'.$dt->pay_flag.'",
+            "EcmGstin": null,
+            "IgstOnIntra": "N"
+        },
+        "DocDtls": {
+            "Typ": "'.Typ.'",
+
+            "No": "'.$doc_no.'",
+
+            "Dt": "'.CURRDT.'"
+        },
+        "SellerDtls": {
+            "Gstin": "'.SALLERGSTIN.'",
+            "LglNm": "'.LG_LNM.'",
+            "TrdNm": "'.TRQ_NM.'",
+            "Addr1": "'.$dt->sellet_addr.'",
+            "Addr2": "'.$dt->sellet_addr.'",
+
+            "Loc": "'.$dt->seller_district.'",
+
+            "Pin": '.$dt->sellet_pin.',
+            "Stcd": "'.SALLERSTCD.'",
+            "Ph": "'.SALLERPH.'",
+            "Em": "'.SALLEREM.'"
+        },
+        "BuyerDtls": {
+            "Gstin": "'.$dt->gst_no.'",
+
+            "LglNm": "'.$dt->cust_name.'",
+            "TrdNm": "'.$dt->cust_name.'",
+            "Pos": "19",
+
+            "Addr1": "'.$dt->cust_addr.'",
+            
+            "Addr2": "'.$dt->cust_addr.'",
+            "Loc": "'.$dt->buyer_district.'",
+            "Pin": '.$dt->pin_code.',
+            "Stcd": "19",
+            "Ph": "",
+            "Em": "'.$dt->email_id.'"
+        },
+        "DispDtls": {
+            "Nm": "'.LG_LNM.'",
+            "Addr1": "'.$dt->sellet_addr.'",
+            "Addr2": "'.$dt->sellet_addr.'",
+            "Loc": "'.$dt->seller_district.'",
+            "Pin": '.$dt->sellet_pin.',
+            "Stcd": "'.SALLERSTCD.'"
+        },
+
+        "ShipDtls": {
+            "Gstin": "'.$dt->gst_no.'",
+            "LglNm": "'.$dt->cust_name.'",
+            "TrdNm": "'.$dt->cust_name.'",
+            "Addr1": "'.$dt->cust_addr.'",
+            "Addr2": "",
+            "Loc": "'.$dt->buyer_district.'",
+            "Pin": '.$dt->pin_code.',
+            "Stcd": "19"
+        },
+        "ItemList": [
+            {
+            "SlNo": "1",
+            "PrdDesc": "'.$dt->product_desc.'",
+            "IsServc": "Y",
+
+            "HsnCd": "'.$dt->sac_code.'",
+            "Barcde": "",
+            "Qty": '.$dt->qty.',
+            
+            "FreeQty": "0",
+            "Unit": "UNT",
+            "UnitPrice": '.$dt->taxable_amt.',
+            "TotAmt": '.$dt->taxable_amt.',
+            "Discount": "",
+            "PreTaxVal": 0,
+            "AssAmt": '.$dt->taxable_amt.',
+            "GstRt": '.($dt->cgst_rt+$dt->sgst_rt).',
+            "IgstAmt": 0,
+
+            "CgstAmt":'.$dt->cgst_amt.',
+            "SgstAmt":'.$dt->sgst_amt.',
+
+            "CesRt": 0,
+            "CesAmt": 0,
+            "CesNonAdvlAmt": 0,
+            "StateCesRt": 0,
+            "StateCesAmt": 0,
+            "StateCesNonAdvlAmt":0,
+            "OthChrg": 0,
+            "TotItemVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+            "OrdLineRef": 0,
+            "OrgCntry": "IN",
+            "PrdSlNo": 0,
+            "BchDtls": {
+                "Nm": "",
+                "ExpDt": null,
+                "WrDt": null
+            },
+            "AttribDtls": [
+                {
+                "Nm": "",
+                "Val": 0
+                }
+            ]
+            }
+        ],
+        "ValDtls": {
+            "AssVal": '.$dt->taxable_amt.',
+            "CgstVal": '.$dt->cgst_amt.',
+            "SgstVal": '.$dt->sgst_amt.',
+            "IgstVal": 0,
+            "CesVal": 0,
+            "StCesVal": 0,
+            "Discount": 0,
+            "OthChrg": 0,
+            "RndOffAmt": 0,
+            "TotInvVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+            "TotInvValFc": 0
+        },
+        "PayDtls": {
+            "Nm": "",
+            "AccDet": "",
+            "Mode": "",
+            "FinInsBr": "",
+            "PayTerm": "",
+            "PayInstr": "",
+            "CrTrn": "",
+            "DirDr": "",
+            "CrDay": 0,
+            "PaidAmt": 0,
+            "PaymtDue": 0
+        },
+        "RefDtls": {
+            "InvRm": "",
+            "DocPerdDtls": {
+            "InvStDt": null,
+            "InvEndDt": null
+            },
+            "PrecDocDtls": [
+            {
+                "InvNo": "",
+                "InvDt": null,
+                "OthRefNo": ""
+            }
+            ],
+            "ContrDtls": [
+            {
+                "RecAdvRef": "",
+                "RecAdvDt": null,
+                "TendRefr": "",
+                "ContrRefr": "",
+                "ExtRefr": "",
+                "ProjRefr": "",
+                "PORefr": null,
+                "PORefDt": null
+            }
+            ]
+        },
+        "AddlDocDtls": [
+            {
+            "Url": "",
+            "Docs": "",
+            "Info": ""
+            }
+        ],
+        "ExpDtls": {
+            "ShipBNo": "",
+            "ShipBDt": null,
+            "Port": null,
+            "RefClm": "",
+            "ForCur":null,
+            "CntCode": null
+        }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'x-cleartax-auth-token: ' . AUTHKOKEN,
+            'x-cleartax-product: ' . PRODUCT,
+            'Content-Type: application/json',
+            'owner_id: ' . OWNERID,
+            'gstin: ' . SALLERGSTIN
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+}
+
 
 }
 

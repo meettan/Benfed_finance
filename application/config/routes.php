@@ -119,3 +119,20 @@ $route['user'] = 'admins';
 $route['user_add'] = 'admins/user_add';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//handling $ trandport charges
+$route['handling-trandport-charges/customar_entry']='HTransportC/customar_entry';
+$route['handling-trandport-charges/customar']='HTransportC';
+$route['handling-trandport-charges/customar-edit/(:num)']='HTransportC/customar_edit/$1';
+
+
+$route['handling-trandport-charges/customar_htc_entry']='HTransportC/customar_htc_entry';
+$route['handling-trandport-charges/htc_list']='HTransportC/htc_list';
+$route['handling-trandport-charges/htc_edit/(:num)']='HTransportC/htc_edit/$1';
+
+
+$route['handling-trandport-charges/htc_raise_invoice']='HTransportC/customar_raise_invoice';
+$route['handling-trandport-charges/htc_raise_invoice_list']='HTransportC/customar_raise_invoice_list';
+$route['handling-trandport-charges/htc_collection_edit/(:any)']='HTransportC/htc_collection_edit/$1';
+$route['handling-trandport-charges/rentb2c_rep']='HTransportC/rentb2c_rep';
+$route['handling-trandport-charges/rent_report']='HTransportC/rent_report';

@@ -123,6 +123,17 @@
                                <a href="<?php echo site_url("collectRent");?>">Collect Rent</a>
                              </div>
                             </div>
+
+                            <div class="sub-dropdown">
+                               <a class="sub-dropbtn">Handling & Transport Charges<i class="fa fa-angle-right" style="float: right;"></i></a> 
+                               <div class="sub-dropdown-content">
+                               <a href="<?php echo site_url('handling-trandport-charges/customar'); ?>">Customer</a>
+                               <a href="<?php echo site_url('handling-trandport-charges/htc_list'); ?>">Charges</a>
+                               <a href="<?php echo site_url("handling-trandport-charges/htc_raise_invoice_list");?>">Raise Invoice</a>
+                               <!-- <a href="<?php echo site_url("collectRent");?>">Collect Rent</a> -->
+                             </div>
+                            </div>
+
                             <?php } ?>
                 </div>
             </div>
@@ -181,6 +192,7 @@
                         <a href="<?php echo site_url('ac_detail'); ?>">Acount detail</a>
                         <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
                         <a href="<?php echo site_url('rent_report'); ?>">Rent Collection</a>
+                        <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection</a>
                     <?php }
                      if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
                        <!--  <a href="<?php echo site_url('purjrnlr'); ?>">Purchase Journal</a>-->
