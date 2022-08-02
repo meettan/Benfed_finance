@@ -763,8 +763,10 @@ public function api_call_htc($trans_do)
     {
         // $trans_do = $this->input->get('trans_do');
         $api_query= $this->HTransportC_model->f_get_api_data($trans_do);
+
+        echo $this->db->last_query();
     //    print_r($api_query);
-    //    exit();
+       exit();
         return $api_query;
     }
 

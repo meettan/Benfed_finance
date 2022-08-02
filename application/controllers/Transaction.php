@@ -1320,16 +1320,18 @@ function crn_appview()
             'a.*','g.name gr_name','s.name subgr_name'
         );
         $vou_where = array('a.voucher_id' => $id,
-		                   'a.dr_cr_flag' =>$voucher_type == 'P' ? 'Dr' : 'Cr',
+		                   'a.dr_cr_flag' =>'Cr',
 						   'a.acc_code=b.sl_no' => null,
                            'b.mngr_id = g.sl_no' => null,
                            'b.subgr_id = s.sl_no' => null );
-        $vou_wheree = array('a.voucher_id' => $id,
-		                   'a.dr_cr_flag' =>$voucher_type == 'R' ? 'Dr' : 'Cr',
-						   'a.acc_code=b.sl_no' => null,
-                           'b.mngr_id = g.sl_no' => null,
-                           'b.subgr_id = s.sl_no' => null );
+       
         $data['ac_dtls'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
+
+        $vou_wheree = array('a.voucher_id' => $id,
+        'a.dr_cr_flag' =>'Dr',
+        'a.acc_code=b.sl_no' => null,
+        'b.mngr_id = g.sl_no' => null,
+        'b.subgr_id = s.sl_no' => null );
         $data['topacc_head'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_wheree, 0);
         $data['head_tag'] = $head_tag;
         $data['id']=$id;

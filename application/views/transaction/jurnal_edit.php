@@ -316,7 +316,7 @@
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Total:</strong> <input name="tot_amt_Debit" value="<?= $tot_amtt; ?>" type="text" class="transparent_tag" id="tot_amt_Debit" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
-                    <td><h4>Debit</h4></td>
+                    <td><h4>Credit</h4></td>
                 </tr>
                 
 
@@ -419,7 +419,7 @@
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Total:</strong> <input name="tot_amt" type="text" value="<?php echo $tot_amt; ?>" class="transparent_tag" id="tot_amt" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
-                    <td><h4>Credit</h4></td>
+                    <td><h4>Debit</h4></td>
                 </tr>
 
             </table>

@@ -176,7 +176,7 @@
             td_htc_rent_collection.trans_type,
             td_htc_rent_collection.prod_id,
             td_htc_rent_collection.cust_id,
-           
+          
             td_htc_rent_collection.qty,
         
             td_htc_rent_collection.taxable_amt,
@@ -205,7 +205,7 @@
             b.pin as buyer_pin,
             b.addr as buyer_addr,
         
-           
+            
         
             c.id as branch_idd,
             c.dist_sort_code,
@@ -216,7 +216,7 @@
             c.addr,
             c.benfed_dist_code,
         
-           
+            
         
             d.*,
         
@@ -243,8 +243,8 @@
         
             $this->db->join('md_rent_product as d','d.sl_no=td_htc_rent_collection.prod_id');
         
-            // $this->db->join('md_godown as e','e.id=td_rent_collection.godown_id');
-            //$this->db->join('md_district as g','e.gdn_dist=g.district_code','left');
+            // $this->db->join('md_godown as e','e.id=td_htc_rent_collection.godown_id');
+            // $this->db->join('md_district as g','e.gdn_dist=g.district_code','left');
         
             $this->db->join('md_htc_customer as f','f.id=td_htc_rent_collection.cust_id');
             $this->db->join('md_district as b','f.cust_dist=b.district_code','left');
