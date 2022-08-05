@@ -940,7 +940,7 @@ echo '0';
         }  
 
     }*/
-		 public function compay_voucher(){
+/*		 public function compay_voucher(){
 
         $input = file_get_contents("php://input");
        
@@ -1055,7 +1055,7 @@ if($dt['data']['total_tds']>0){
 }
 			 
 
-    }
+    }*/
 
       /********************************************** */   
       public function purchase_voucher(){
@@ -1383,7 +1383,11 @@ if ($dt['data']['rbt_less']>0){
                 "mngr_id"   => 6 ,
                 "subgr_id"  => 56,
                 "br_id"     => $br_id['branch_id']);
+
             $cshbank_code = $this->Transaction_model->f_select('md_achead ',$select_cash ,$where_cash,1);
+
+            if($cshbank_code->sl_no>0){
+
             
             $input_data = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
@@ -1405,7 +1409,7 @@ if ($dt['data']['rbt_less']>0){
                 'ins_dt'         => '',
                 'bank_name'      => '',
                 'remarks'        => $dt['data']['rem'],
-                'approval_status'=> 'U',
+                'approval_status'=> 'A',
                 'user_flag'      =>'',
                 'created_dt'     => $dt['data']['created_dt'],
                 'created_by'     => $dt['data']['created_by'],
@@ -1415,37 +1419,40 @@ if ($dt['data']['rbt_less']>0){
                 'approved_dt'    => '',
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
+            }
         }else{
-            $input_data = array(
-                'voucher_date'   => $dt['data']['trans_dt'],
-                'sl_no'          => $v_srl,
-               // 'voucher_id'     => 'ADV'.$dt['data']['sl_no'],
-               'voucher_id'     =>$v_id,
-                'branch_id'      => $dt['data']['branch_id'],
-                'trans_no'       => $dt['data']['receipt_no'],
-                'trans_dt'       => $dt['data']['trans_dt'],  
-                'voucher_type'   => 'A',
-                'transfer_type'  => 'T',
-                'voucher_mode'   => 'B',
-                'voucher_through'=> 'A',
-                // 'acc_code'       => $dt['data']['soc_id'],
-                'acc_code'       =>  $dt['data']['acc_code'],
-                'dr_cr_flag'     => 'DR',
-                'amount'         => $dt['data']['adv_amt'],
-                'ins_no'         => '',
-                'ins_dt'         => '',
-                'bank_name'      => '',
-                'remarks'        => $dt['data']['rem'],
-                'approval_status'=> 'U',
-                'user_flag'      =>'',
-                'created_dt'     => $dt['data']['created_dt'],
-                'created_by'     => $dt['data']['created_by'],
-                'modified_by'    => '',
-                'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
-                'fin_yr'         => $dt['data']['fin_yr']    
-            );    
+            if($dt['data']['acc_code']>0){
+                $input_data = array(
+                    'voucher_date'   => $dt['data']['trans_dt'],
+                    'sl_no'          => $v_srl,
+                // 'voucher_id'     => 'ADV'.$dt['data']['sl_no'],
+                'voucher_id'     =>$v_id,
+                    'branch_id'      => $dt['data']['branch_id'],
+                    'trans_no'       => $dt['data']['receipt_no'],
+                    'trans_dt'       => $dt['data']['trans_dt'],  
+                    'voucher_type'   => 'A',
+                    'transfer_type'  => 'T',
+                    'voucher_mode'   => 'B',
+                    'voucher_through'=> 'A',
+                    // 'acc_code'       => $dt['data']['soc_id'],
+                    'acc_code'       =>  $dt['data']['acc_code'],
+                    'dr_cr_flag'     => 'DR',
+                    'amount'         => $dt['data']['adv_amt'],
+                    'ins_no'         => '',
+                    'ins_dt'         => '',
+                    'bank_name'      => '',
+                    'remarks'        => $dt['data']['rem'],
+                    'approval_status'=> 'A',
+                    'user_flag'      =>'',
+                    'created_dt'     => $dt['data']['created_dt'],
+                    'created_by'     => $dt['data']['created_by'],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $dt['data']['fin_yr']    
+                ); 
+            }   
         }
 
         if ( $cshbank_flag['cshbnk_flag']==0){
@@ -1455,44 +1462,52 @@ if ($dt['data']['rbt_less']>0){
             $ls_transfer_type = 'T';
             $ls_voucher_mode  = 'B';
         }
-              
-        $input_cr= array(
-            'voucher_date'   => $dt['data']['trans_dt'],
-            'sl_no'          => $v_srl,
-            // 'voucher_id'     => 'ADV'.$dt['data']['sl_no'],
-            'voucher_id'     =>$v_id,
-            'branch_id'      => $dt['data']['branch_id'],
-            'trans_no'       => $dt['data']['receipt_no'],
-            'trans_dt'       => $dt['data']['trans_dt'],  
-            'voucher_type'   => 'A',
-            'transfer_type'  => $ls_transfer_type,
-            'voucher_mode'   => $ls_voucher_mode,
-            'voucher_through'=> 'A',
-            'acc_code'       => $dt['data']['adv_acc'],
-            'dr_cr_flag'     => 'CR',
-            'amount'         => $dt['data']['adv_amt'],
-            'ins_no'         => '',
-            'ins_dt'         => '',
-            'bank_name'      => '',
-            'remarks'        => $dt['data']['rem'],
-            'approval_status'=> 'U',
-            'user_flag'      => '',
-            'created_dt'     => $dt['data']['created_dt'],
-            'created_by'     => $dt['data']['created_by'],
-            'modified_by'    => '',
-            'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
-            'fin_yr'         => $dt['data']['fin_yr']    
-        );
 
+        if($dt['data']['adv_acc']>0){
+              
+                $input_cr= array(
+                    'voucher_date'   => $dt['data']['trans_dt'],
+                    'sl_no'          => $v_srl,
+                    // 'voucher_id'     => 'ADV'.$dt['data']['sl_no'],
+                    'voucher_id'     =>$v_id,
+                    'branch_id'      => $dt['data']['branch_id'],
+                    'trans_no'       => $dt['data']['receipt_no'],
+                    'trans_dt'       => $dt['data']['trans_dt'],  
+                    'voucher_type'   => 'A',
+                    'transfer_type'  => $ls_transfer_type,
+                    'voucher_mode'   => $ls_voucher_mode,
+                    'voucher_through'=> 'A',
+                    'acc_code'       => $dt['data']['adv_acc'],
+                    'dr_cr_flag'     => 'CR',
+                    'amount'         => $dt['data']['adv_amt'],
+                    'ins_no'         => '',
+                    'ins_dt'         => '',
+                    'bank_name'      => '',
+                    'remarks'        => $dt['data']['rem'],
+                    'approval_status'=> 'A',
+                    'user_flag'      => '',
+                    'created_dt'     => $dt['data']['created_dt'],
+                    'created_by'     => $dt['data']['created_by'],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => '',
+                    'approved_dt'    => '',
+                    'fin_yr'         => $dt['data']['fin_yr']    
+                );
+            }
+            if(!empty($input_data)&&!empty($input_cr)){
 
         if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cr) ){
-        return 1;
-    }
-    else{
-        return 0;
-    }  
+                echo json_encode(1);
+            }
+            else{
+            
+                echo json_encode(0);
+            } 
+        }else{
+            
+            echo json_encode(0);
+        }
       
     
         }
