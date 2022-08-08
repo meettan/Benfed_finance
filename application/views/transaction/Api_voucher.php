@@ -23,8 +23,8 @@
 		
 			curl_setopt_array($curl, array(
 		
-			//CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/compay/comp_acc',
-             CURLOPT_URL => 'http://benfed.in/benfed_fertilizer/index.php/compay/comp_acc',
+			CURLOPT_URL => 'http://localhost/benfed/benfed_fertilizer/index.php/compay/comp_acc',
+             //CURLOPT_URL => 'http://benfed.in/benfed_fertilizer/index.php/compay/comp_acc',
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => '',
 			  CURLOPT_MAXREDIRS => 10,

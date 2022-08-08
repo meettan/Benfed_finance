@@ -23,7 +23,7 @@
 		
 			curl_setopt_array($curl, array(
 		
-			CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/compay/comp_acc',
+			CURLOPT_URL => 'http://localhost/benfed/benfed_fertilizer/index.php/compay/comp_acc',
              //CURLOPT_URL => 'http://benfed.in/benfed_fertilizer/index.php/compay/comp_acc',
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => '',
@@ -1495,15 +1495,15 @@ if ($dt['data']['rbt_less']>0){
                     'fin_yr'         => $dt['data']['fin_yr']    
                 );
             }
-            if(!empty($input_data)&&!empty($input_cr)){
+        if(!empty($input_data)&&!empty($input_cr)){
 
-        if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cr) ){
-                echo json_encode(1);
-            }
-            else{
-            
-                echo json_encode(0);
-            } 
+            if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cr) ){
+                    echo json_encode(1);
+                }
+                else{
+                
+                    echo json_encode(0);
+                } 
         }else{
             
             echo json_encode(0);
