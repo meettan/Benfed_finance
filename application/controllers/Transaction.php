@@ -861,13 +861,13 @@ function crn_appview()
         $v_amt   =  $data['amount'];
         for ($i = 0; $i < count($v_code); $i++) {
             if ($v_code[$i] != '' || $v_code[$i] > 0) {
-                $select = array('COUNT(*) row');
+                $select = array('COUNT(*) count_row');
                 $where = array(
                     'voucher_id' => $data['voucher_id'],
                     'acc_code' => $v_code[$i]
                 );
                 $dt = $this->transaction_model->f_select("td_vouchers", $select, $where, 1);
-                if ($dt->row > 0) {
+                if ($dt->count_row > 0) {
                     $data_array = array(
 					    "trans_no"          =>  $data['inst_num'],
                         "trans_dt"          =>  $data['inst_dt'],
