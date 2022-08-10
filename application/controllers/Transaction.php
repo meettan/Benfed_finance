@@ -25,7 +25,7 @@ class Transaction extends CI_Controller
         );
         $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
        
-       // $cashcd = $cashcd->sl_no;
+       // $cashcd = $cashcd->sl_no; hello
         $select = array(
             "voucher_date",
             "voucher_id",
