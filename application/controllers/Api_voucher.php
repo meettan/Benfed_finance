@@ -1705,6 +1705,23 @@ else{
         
             }
 
+
+
+            public function delete_voucher_advvance_jrnal(){
+                $input = file_get_contents("php://input");
+                $dt = json_decode($input, true);
+                $input_bank     = array(
+                'trans_no'     =>$dt['data']['receipt_no'],
+                );
+                // print_r($dt);
+                // exit();
+                if($this->db->delete('td_vouchers', $input_bank)){
+                    echo 1;
+                }else{
+                    echo 0;
+                }
+            }
+
       /******************************************** */
                 
     }
