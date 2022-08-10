@@ -16,11 +16,11 @@ class Api extends CI_Controller{
         // exit;
         //var_dump($_POST);exit;
         $curl = curl_init();
-
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt_array($curl, array(
             /************************for test server*********** */
         //CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Cancel',
-        // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Cancel',
+        CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Cancel',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -91,11 +91,12 @@ class Api extends CI_Controller{
      
         $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
 
-    
+        
         $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt_array($curl, array(
            // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
-            //CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+            CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -311,12 +312,12 @@ class Api extends CI_Controller{
         // exit;
         $file_name = $irns . '.pdf';
         $curl = curl_init();
-
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt_array($curl, array(
             /*****************for test server ******************* */
        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
-        //CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
@@ -547,10 +548,11 @@ $doc_no = $suf . '/' .$send_str. '/'  .$send_str1 ;
 //      echo ( $doc_no);exit;
 //    echo ( $doc_no);exit;
 $curl = curl_init();
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt_array($curl, array(
     //CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
     /****************for production server */
-    // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+    CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
@@ -789,9 +791,10 @@ function get_api_htc(){
 
 
     $curl = curl_init();
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt_array($curl, array(
        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
-       // CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+       CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
