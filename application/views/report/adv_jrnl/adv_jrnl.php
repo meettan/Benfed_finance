@@ -111,24 +111,25 @@
 												 elseif($vou->transfer_type == 'N'){ echo 'NEFT'; }
 												 elseif($vou->transfer_type == 'R'){ echo 'RTGS'; }
 												 elseif($vou->transfer_type == 'T'){ echo 'Transfer'; }
+												 elseif($vou->transfer_type == 'H'){ echo 'Cash'; }
 												 ?></div>
 					<?php } ?>
 				</div>
-				<?php if($vou->transfer_type != 'T' ) {?>
+				<!-- <?php if($vou->transfer_type != 'T' ) {?>
 				<div class="printTop023">
-				<?php if(!empty($vou->ins_no)){ ?>
+				 <?php if(!empty($vou->ins_no)){ ?>
 					<div class="leftNo">Ref No: <?=$vou->ins_no?></div>
 					<?php } ?>
 					<?php if(!empty($vou->ins_dt)){ ?>
 					<div class="rightDate">Ref date: <?php echo date("d/m/Y",strtotime($vou->ins_dt)); ?></div>
 					<?php } ?>
-				</div>
+				</div> 
 				<div class="printTop023">
 				<?php if(!empty($vou->bank_name)){ ?>
 					<div class="leftNo">Bank: <?=$vou->bank_name?></div>
 					<?php } ?>
-				</div>
-				<?php } ?>
+				</div> 
+				<?php } ?> -->
 				<div class="tableArea">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="example">
 						<thead>

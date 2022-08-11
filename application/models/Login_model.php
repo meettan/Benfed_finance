@@ -5,7 +5,7 @@ class Login_model extends CI_Model
 {
     function get_branch()
     {
-        $query = $this->db->get('md_branch');
+        $query = $this->db->order_by("branch_name", "asc")->get('md_branch');
         return $query->result();
     }
 	function get_branchname($branch_id)
