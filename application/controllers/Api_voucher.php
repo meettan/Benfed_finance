@@ -1514,7 +1514,7 @@ if ($dt['data']['rbt_less']>0){
 
 		
 /*******************************************Advance to Company************** */
-public function compadv_voucher(){
+/*public function compadv_voucher(){
         //  echo 'hi';
         //  die();    
     $input = file_get_contents("php://input");
@@ -1597,7 +1597,7 @@ else{
 }  
   
 
-    }
+    }*/
 
       /*********************************************** */
 
