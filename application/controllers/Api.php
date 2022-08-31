@@ -91,6 +91,190 @@ class Api extends CI_Controller{
      
         $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
 
+
+
+        echo '{
+            "Version": "'.Version.'",
+            "TranDtls": {
+                "TaxSch": "'.TAX_SCH.'",
+                "SupTyp": "'.SupTyp.'",
+                "RegRev": "'.$dt->pay_flag.'",
+                "EcmGstin": null,
+                "IgstOnIntra": "N"
+            },
+            "DocDtls": {
+                "Typ": "'.Typ.'",
+
+                "No": "'.$doc_no.'",
+
+                "Dt": "'.CURRDT.'"
+            },
+            "SellerDtls": {
+                "Gstin": "'.SALLERGSTIN.'",
+                "LglNm": "'.LG_LNM.'",
+                "TrdNm": "'.TRQ_NM.'",
+                "Addr1": "'.$dt->sellet_addr.'",
+                "Addr2": "'.$dt->sellet_addr.'",
+
+                "Loc": "'.$dt->seller_district.'",
+
+                "Pin": '.$dt->sellet_pin.',
+                "Stcd": "'.SALLERSTCD.'",
+                "Ph": "'.SALLERPH.'",
+                "Em": "'.SALLEREM.'"
+            },
+            "BuyerDtls": {
+                "Gstin": "'.$dt->gst_no.'",
+
+                "LglNm": "'.$dt->cust_name.'",
+                "TrdNm": "'.$dt->cust_name.'",
+                "Pos": "19",
+
+                "Addr1": "'.$dt->cust_addr.'",
+                
+                "Addr2": "'.$dt->cust_addr.'",
+                "Loc": "'.$dt->buyer_district.'",
+                "Pin": '.$dt->pin_code.',
+                "Stcd": "19",
+                "Ph": "",
+                "Em": "'.$dt->email_id.'"
+            },
+            "DispDtls": {
+                "Nm": "'.LG_LNM.'",
+                "Addr1": "'.$dt->sellet_addr.'",
+                "Addr2": "'.$dt->sellet_addr.'",
+                "Loc": "'.$dt->seller_district.'",
+                "Pin": '.$dt->sellet_pin.',
+                "Stcd": "'.SALLERSTCD.'"
+            },
+
+            "ShipDtls": {
+                "Gstin": "'.$dt->gst_no.'",
+                "LglNm": "'.$dt->cust_name.'",
+                "TrdNm": "'.$dt->cust_name.'",
+                "Addr1": "'.$dt->cust_addr.'",
+                "Addr2": "",
+                "Loc": "'.$dt->buyer_district.'",
+                "Pin": '.$dt->pin_code.',
+                "Stcd": "19"
+            },
+            "ItemList": [
+                {
+                "SlNo": "1",
+                "PrdDesc": "'.$dt->product_desc.'",
+                "IsServc": "Y",
+
+                "HsnCd": "'.$dt->sac_code.'",
+                "Barcde": "",
+                "Qty": '.$dt->qty.',
+                
+                "FreeQty": "0",
+                "Unit": "UNT",
+                "UnitPrice": '.$dt->taxable_amt.',
+                "TotAmt": '.$dt->taxable_amt.',
+                "Discount": "",
+                "PreTaxVal": 0,
+                "AssAmt": '.$dt->taxable_amt.',
+                "GstRt": '.($dt->cgst_rt+$dt->sgst_rt).',
+                "IgstAmt": 0,
+
+                "CgstAmt":'.$dt->cgst_amt.',
+                "SgstAmt":'.$dt->sgst_amt.',
+
+                "CesRt": 0,
+                "CesAmt": 0,
+                "CesNonAdvlAmt": 0,
+                "StateCesRt": 0,
+                "StateCesAmt": 0,
+                "StateCesNonAdvlAmt":0,
+                "OthChrg": 0,
+                "TotItemVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+                "OrdLineRef": 0,
+                "OrgCntry": "IN",
+                "PrdSlNo": 0,
+                "BchDtls": {
+                    "Nm": "",
+                    "ExpDt": null,
+                    "WrDt": null
+                },
+                "AttribDtls": [
+                    {
+                    "Nm": "",
+                    "Val": 0
+                    }
+                ]
+                }
+            ],
+            "ValDtls": {
+                "AssVal": '.$dt->taxable_amt.',
+                "CgstVal": '.$dt->cgst_amt.',
+                "SgstVal": '.$dt->sgst_amt.',
+                "IgstVal": 0,
+                "CesVal": 0,
+                "StCesVal": 0,
+                "Discount": 0,
+                "OthChrg": 0,
+                "RndOffAmt": 0,
+                "TotInvVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+                "TotInvValFc": 0
+            },
+            "PayDtls": {
+                "Nm": "",
+                "AccDet": "",
+                "Mode": "",
+                "FinInsBr": "",
+                "PayTerm": "",
+                "PayInstr": "",
+                "CrTrn": "",
+                "DirDr": "",
+                "CrDay": 0,
+                "PaidAmt": 0,
+                "PaymtDue": 0
+            },
+            "RefDtls": {
+                "InvRm": "'.$dt->remarks.'",
+                "DocPerdDtls": {
+                    "InvStDt": null,
+                    "InvEndDt": null
+                    },
+                "PrecDocDtls": [
+                {
+                    "InvNo": "",
+                    "InvDt": null,
+                    "OthRefNo": ""
+                }
+                ],
+                "ContrDtls": [
+                {
+                    "RecAdvRef": "",
+                    "RecAdvDt": null,
+                    "TendRefr": "",
+                    "ContrRefr": "",
+                    "ExtRefr": "",
+                    "ProjRefr": "",
+                    "PORefr": null,
+                    "PORefDt": null
+                }
+                ]
+            },
+            "AddlDocDtls": [
+                {
+                "Url": "",
+                "Docs": "",
+                "Info": ""
+                }
+            ],
+            "ExpDtls": {
+                "ShipBNo": "",
+                "ShipBDt": null,
+                "Port": null,
+                "RefClm": "",
+                "ForCur":null,
+                "CntCode": null
+            }
+            }';
+            exit();
+
         
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
