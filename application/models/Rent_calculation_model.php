@@ -236,12 +236,7 @@ public function f_get_api_data($trans_do){
     f.pin_code,
     f.gst_no,
     f.pan_no,
-    f.fms_id,
-    f.dr_bnk,
-
-    '
-    
-    )->from('td_rent_collection');
+    f.fms_id')->from('td_rent_collection');
     $this->db->where('invoice_no',$trans_do);
     $this->db->join('md_branch as c','c.id='.$this->session->userdata("loggedin")["branch_id"].'');
     
