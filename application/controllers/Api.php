@@ -317,7 +317,7 @@ class Api extends CI_Controller{
             /*****************for test server ******************* */
        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
-        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=d25b5d6f-d24a-435a-a94c-862d1c5b4d4e&format=PDF&irns=' . $irns,
+        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
