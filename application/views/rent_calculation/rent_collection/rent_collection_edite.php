@@ -16,7 +16,7 @@
                 <label for="ac_type" class="col-sm-2 col-form-label">Product:</label>
                 <div class="col-sm-4">
                 <?php //print_r($rent_product); ?>
-                        <select class="form-control" id="product" name="product" required>
+                        <select class="form-control" id="product" name="product" required disabled>
                         <option value=''>Select</option>
                         <?php foreach ($rent_product as $rp) { ?>
                             <option value="<?php echo $rp->sl_no; ?>" <?php if($rntcledite->prod_id==$rp->sl_no){echo 'selected'; } ?>><?php echo $rp->product_desc; ?></option>
@@ -28,7 +28,7 @@
                 <label for="voucher_mode" class="col-sm-2 col-form-label">Customer:</label>
 
                 <div class="col-sm-4">
-                    <select class="form-control" id="ac_type" name="customer" required>
+                    <select class="form-control" id="ac_type" name="customer" required disabled>
                         <option value=''>Select</option>
                         <?php foreach ($customer as $cm) { ?>
                             <option value="<?php echo $cm->id; ?>" <?php if($rntcledite->cust_id==$cm->id){echo 'selected'; } ?>><?php echo $cm->cust_name; ?></option>
@@ -38,7 +38,7 @@
                 <label for="trans_dt" class="col-sm-2 col-form-label">Godown:</label>
                 <div class="col-sm-4">
 
-                    <select class="form-control" id="godown" name="godown" required>
+                    <select class="form-control" id="godown" name="godown" required disabled>
                         <option value=''>Select</option>
                         <?php foreach ($godown as $gd) { ?>
                             <option value="<?php echo $gd->id; ?>" <?php if($rntcledite->godown_id==$gd->id){echo 'selected'; } ?>><?php echo $gd->gdn_name; ?></option>
@@ -75,7 +75,7 @@
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
                 <div class="col-sm-4">
                 
-                          <textarea id="remarks" name="remarks" class="form-control"><?php echo $rntcledite->remarks;?></textarea>
+                          <textarea id="remarks" name="remarks" class="form-control" readonly><?php echo $rntcledite->remarks;?></textarea>
                        
                         </div>
                         

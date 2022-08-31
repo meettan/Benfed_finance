@@ -674,11 +674,11 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         "TotInvValFc": '.$dt->TotInvValFc.'
     },
     "PayDtls": {
-        "Nm": "ICICI BANK",
-        "AccDet": "098301002773",
-        "Mode": "NEFT/RTGS/E-PAYMENT",
-        "FinInsBr": "ICIC0000983",
-        "PayTerm": "NA",
+        "Nm": "",
+        "AccDet": "",
+        "Mode": "",
+        "FinInsBr": "",
+        "PayTerm": "",
         "PayInstr": "",
         "CrTrn": "",
         "DirDr": "",
