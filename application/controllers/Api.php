@@ -92,9 +92,6 @@ class Api extends CI_Controller{
         $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
 
         
-        print_r($dt);
-        exit();
-        
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt_array($curl, array(
