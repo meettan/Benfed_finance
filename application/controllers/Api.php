@@ -243,11 +243,11 @@ class Api extends CI_Controller{
                 "PaymtDue": 0
             },
             "RefDtls": {
-                "InvRm": '.$dt->remarks.',
+                "InvRm": "'.$dt->remarks.'",
                 "DocPerdDtls": {
-                "InvStDt": null,
-                "InvEndDt": null
-                },
+                    "InvStDt": null,
+                    "InvEndDt": null
+                    },
                 "PrecDocDtls": [
                 {
                     "InvNo": "",
