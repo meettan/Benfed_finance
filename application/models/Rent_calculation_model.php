@@ -178,7 +178,6 @@ public function f_get_api_data($trans_do){
     td_rent_collection.cust_id,
     td_rent_collection.godown_id,
     td_rent_collection.qty,
-
     td_rent_collection.taxable_amt,
     td_rent_collection.cgst_rt,
     td_rent_collection.cgst_amt,
@@ -194,6 +193,7 @@ public function f_get_api_data($trans_do){
     td_rent_collection.rf_no,
     td_rent_collection.pay_flag,
     td_rent_collection.payment_date,
+    td_rent_collection.remarks,
 
     a.district_name as seller_district,
     a.district_code as dcode,

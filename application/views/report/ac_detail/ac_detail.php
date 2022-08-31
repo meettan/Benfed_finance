@@ -80,9 +80,10 @@
                     <tr>
                         <th rowspan='2'>Date</th>
                         <th rowspan='2'>Particulars</th>
-                        <th rowspan='2'>Vch Type</th>
+                        <th rowspan='2'>Voucher Type</th>
                         <th rowspan='2'>Narration</th>
-                        <th rowspan='2'>Vch No</th>
+                        <th rowspan='2'>Voucher No</th>
+                        <th rowspan='2'>Transition No</th>
                         <th colspan='2'>Trancation</th>
                     </tr>
                     <tr>
@@ -119,6 +120,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td><?php   if($opebalcal->trans_flag=='DR'){
                                             echo abs($ope_bal);
                                             }else{
@@ -148,6 +150,8 @@
             <td><?php echo $tb->remarks; ?></td>
          
   			<td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
+
+            <td><?php if(!empty($tb->trans_no)){echo $tb->trans_no;} ?></td>
             <td align="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
             <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
 
@@ -168,7 +172,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                
+                <th></th>
                 <th align="right"><?=$tot_debit?></th>
                 <th align="right"><?=$tot_cre?></th>
             </tr>
@@ -177,6 +181,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>            
             <th>Closing Balance</th>
             
                <th align="right">

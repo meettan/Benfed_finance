@@ -243,7 +243,7 @@ class Api extends CI_Controller{
                 "PaymtDue": 0
             },
             "RefDtls": {
-                "InvRm": "",
+                "InvRm": '.$dt->remarks.',
                 "DocPerdDtls": {
                 "InvStDt": null,
                 "InvEndDt": null
@@ -317,7 +317,7 @@ class Api extends CI_Controller{
             /*****************for test server ******************* */
        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
         
-        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+        CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=d25b5d6f-d24a-435a-a94c-862d1c5b4d4e&format=PDF&irns=' . $irns,
         
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
@@ -674,11 +674,11 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         "TotInvValFc": '.$dt->TotInvValFc.'
     },
     "PayDtls": {
-        "Nm": "",
-        "AccDet": "",
-        "Mode": "",
-        "FinInsBr": "",
-        "PayTerm": "",
+        "Nm": "ICICI BANK",
+        "AccDet": "098301002773",
+        "Mode": "NEFT/RTGS/E-PAYMENT",
+        "FinInsBr": "ICIC0000983",
+        "PayTerm": "NA",
         "PayInstr": "",
         "CrTrn": "",
         "DirDr": "",

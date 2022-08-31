@@ -71,12 +71,17 @@
                 <div class="col-sm-4">
                     <input type="text" name="totalAmount" id="totalAmount" class="form-control totalAmount" readonly>
                 </div>
-
+                </div>
+            <div class="form-group row">
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
                 
-                <div class="col-sm-4">
-                          <textarea id="remarks" name="remarks" class="form-control"></textarea>
+                <div class="col-sm-10">
+                          <textarea id="remarks" name="remarks" class="form-control" maxlength="100" onkeyup="countChar(this)"></textarea>
                        
+                        </div>
+                        <label for="remarks" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-4">
+                        <div><span  id="charNum">0</span>/100</div>
                         </div>
             </div>
 
@@ -124,6 +129,28 @@
 </div>
 <?php  //print_r($this->session->userdata); ?>
 <script>
+
+function countChar(val) {
+  var len = val.value.length;
+  if (len >= 100) {
+    val.value = val.value.substring(0, 100);
+  } else {
+    $('#charNum').text(0 + len);
+  }
+};
+
+function maxLength(el) {    
+    if (!('maxLength' in el)) {
+        var max = el.attributes.maxLength.value;
+        el.onkeypress = function () {
+            if (this.value.length >= max) return false;
+        };
+    }
+}
+
+maxLength(document.getElementById("remarks"));
+
+
     $(document).ready(function() {
     $('#bank_section').hide();
     $('#rf').hide();
