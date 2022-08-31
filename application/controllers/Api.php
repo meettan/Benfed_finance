@@ -232,7 +232,7 @@ class Api extends CI_Controller{
             "PayDtls": {
                 "Nm": "ICICI BANK",
                 "AccDet": "098301002773",
-                "Mode": "NEFT/RTGS/E-PAYMENT",
+                "Mode": "NEFT/RTGS/EPAY",
                 "FinInsBr": "ICIC0000983",
                 "PayTerm": "NA",
                 "PayInstr": "",
