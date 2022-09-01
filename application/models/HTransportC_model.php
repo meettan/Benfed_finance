@@ -253,6 +253,23 @@
             return $q->result();
         }
 
+        function save_irn($data){
+            $input = array(
+                'irn' => $data['irn'],
+                'ack_no' => $data['ack'],
+                'ack_dt' => $data['ack_dt'],
+                'pay_flag'=>$data['trn_type']
+            );
+            $this->db->where(array(
+                'invoice_no' => $data['trans_do']
+            ));
+            if($this->db->update('td_htc_rent_collection', $input)){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
 
     }
 

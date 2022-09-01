@@ -779,7 +779,7 @@ function get_api_htc(){
     $data = $this->api_call_htc($trans_do);
 
     // print_r($data);
-    // exit();
+    exit();
 
 
 
@@ -1000,6 +1000,12 @@ function get_api_htc(){
 
         curl_close($curl);
         echo $response;
+}
+
+function save_htc_irn(){
+    $data = $this->input->get();
+    $res = $this->HTransportC_model->save_irn($data);
+    echo $res;
 }
 
 

@@ -262,7 +262,7 @@ $(document).ready(function() {
     function save_data(trans_do, irn,ack,ack_dt,trn_type){
         $.ajax({
             type: "GET",
-            url: "<?php echo site_url('api/save_irn'); ?>",
+            url: "<?php echo site_url('api/save_htc_irn'); ?>",
             data: {trans_do: trans_do, irn: irn,ack:ack,ack_dt:ack_dt,trn_type:trn_type},
             dataType: 'html',
             success: function (result) {
