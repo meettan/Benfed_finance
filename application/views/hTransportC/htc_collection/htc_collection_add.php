@@ -129,7 +129,7 @@
                 $('#cgst').val(cgst);
                 $('#sgst').val(sgst);
                 var totalamt=(cgst + sgst + parseFloat(amount));
-                $('#totalAmount').val(totalamt);
+                // $('#totalAmount').val(totalamt);
             }
         });
     }
@@ -189,8 +189,7 @@
                 var sgst=((amount/100)*data.htm_sgst_rt);
                 $('#cgst').val(cgst.toFixed(2));
                 $('#sgst').val(sgst.toFixed(2));
-                var totalamt=(data.htm_cgst_rt + data.htm_cgst_rt + parseFloat(amount));
-                alert(totalamt);
+                var totalamt=(parseFloat(data.htm_cgst_rt) + parseFloat(data.htm_cgst_rt) + parseFloat(amount));
                 $('#totalAmount').val(totalamt.toFixed(2));
 
             }
