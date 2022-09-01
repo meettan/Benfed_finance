@@ -230,7 +230,7 @@ class Api extends CI_Controller{
                 "TotInvValFc": 0
             },
             "PayDtls": {
-                "Nm": "ICICI BANK",
+                "Nm": "",
                 "AccDet": "098301002773",
                 "Mode": "NEFT/RTGS/EPAY",
                 "FinInsBr": "ICIC0000983",

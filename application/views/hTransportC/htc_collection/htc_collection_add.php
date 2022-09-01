@@ -47,7 +47,7 @@
             <div class="form-group row">
                 <label for="trans_dt" class="col-sm-2 col-form-label">Amount:</label>
                 <div class="col-sm-4">
-                    <input type="text" name="amount" id="amount" class="form-control" readonly>
+                    <input type="text" name="amount" id="amount" class="form-control">
                 </div>
             </div>
 
@@ -68,48 +68,21 @@
                 <div class="col-sm-4">
                     <input type="text" name="totalAmount" id="totalAmount" class="form-control totalAmount" readonly>
                 </div>
-
+                </div>
+            <div class="form-group row">
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
                 
-                <div class="col-sm-4">
-                          <textarea id="remarks" name="remarks" class="form-control"></textarea>
+                <div class="col-sm-10">
+                          <textarea id="remarks" name="remarks" class="form-control" maxlength="100" onkeyup="countChar(this)"></textarea>
                        
+                        </div>
+                        <label for="remarks" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-4">
+                        <div class="align-right"><span  id="charNum">0</span>/100</div>
                         </div>
             </div>
 
-            <!-- <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Mode:</label>
 
-                <div class="col-sm-4">
-                    <select class="form-control" id="mode" name="mode" required>
-                        <option value=''>Select</option>
-                        <option value='B'>BANK</option>
-                        <option value='c'>Cash</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row" id="bank_section">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Credit Bank:</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="crBank" name="crBank">
-                        <option value=''>Select bank</option>
-                        <?php foreach ($bank as $bnk) { ?>
-                        <option value='<?php echo $bnk->sl_no; ?>'><?php echo $bnk->ac_name; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row" id="rf">
-                <label for="trans_dt" class="col-sm-2 col-form-label">Reference Date:</label>
-                <div class="col-sm-4">
-                    <input type="date" name="rfDate" id="rfDate" class="form-control rfDate">
-                </div>
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Reference No:</label>
-                <div class="col-sm-4">
-                    <input type="text" name="rfNo" id="rfNo" class="form-control rfNo">
-                </div>
-            </div> -->
 
             <div class="form-group row">
                 <div class="col-sm-10">
@@ -135,16 +108,6 @@
         }
     });
 
-
-    // $('#amount').keyup(function(){
-    //     var amount=$(this).val();
-    //     var cgst=((amount/100)*9);
-    //     var sgst=((amount/100)*9);
-    //     var totalamt=(cgst + sgst + parseFloat(amount));
-    //     $('#cgst').val(parseFloat(cgst).toFixed('2'));
-    //     $('#sgst').val(parseFloat(sgst).toFixed('2'));
-    //     $('#totalAmount').val(parseFloat(totalamt).toFixed('2'));
-    // });
 
     function totalvalue(){
         var customer=$('#ac_type').val();
@@ -184,7 +147,23 @@
                 $('#sgstp').html(data.sgst_rt);
                 $('#cgst_rt').val(data.htm_cgst_rt);
                 $('#sgst_rt').val(data.htm_sgst_rt);
+
+
+
+
                 
+
+
+                // var cgst_rt=$('#cgst_rt').val();
+                // var sgst_rt =$('#sgst_rt').val();
+                var amount=$("#amount").val();
+                var cgst=((amount/100)*data.htm_cgst_rt);
+                var sgst=((amount/100)*data.htm_sgst_rt);
+                $('#cgst').val(cgst.toFixed(2));
+                $('#sgst').val(sgst.toFixed(2));
+                var totalamt=(cgst + cgst + parseFloat(amount));
+                $('#totalAmount').val(totalamt.toFixed(2));
+               
             }
         });
         totalvalue();
@@ -203,6 +182,17 @@
                 $('#sgstp').html(data.sgst_rt);
                 $('#cgst_rt').val(data.htm_cgst_rt);
                 $('#sgst_rt').val(data.htm_sgst_rt);
+
+
+                var amount=$("#amount").val();
+                var cgst=((amount/100)*data.htm_cgst_rt);
+                var sgst=((amount/100)*data.htm_sgst_rt);
+                $('#cgst').val(cgst.toFixed(2));
+                $('#sgst').val(sgst.toFixed(2));
+                var totalamt=(data.htm_cgst_rt + data.htm_cgst_rt + parseFloat(amount));
+                alert(totalamt);
+                $('#totalAmount').val(totalamt.toFixed(2));
+
             }
         });
 
@@ -225,17 +215,59 @@
             data: {customer:customer},
             dataType: "json",
             success: function(data) {
-                $('#amount').val(data.htc_amt);
+                // $('#amount').val(data.htc_amt);
 
                 var amount=data.htc_amt;
                 var cgst=((amount/100)*cgst_rt);
                 var sgst=((amount/100)*sgst_rt);
-                $('#cgst').val(cgst);
-                $('#sgst').val(sgst);
+                // $('#cgst').val(cgst);
+                // $('#sgst').val(sgst);
                 var totalamt=(cgst + sgst + parseFloat(amount));
-                $('#totalAmount').val(totalamt);
+                // $('#totalAmount').val(totalamt);
             }
         });
     });
+
+    $('#amount').keyup(function(){
+        var cgst_rt=$('#cgst_rt').val();
+        var sgst_rt =$('#sgst_rt').val();
+        var amount=$(this).val();
+        var cgst=((amount/100)*cgst_rt);
+        var sgst=((amount/100)*sgst_rt);
+        $('#cgst').val(cgst.toFixed(2));
+        $('#sgst').val(sgst.toFixed(2));
+        var totalamt=(cgst + sgst + parseFloat(amount));
+        $('#totalAmount').val(totalamt.toFixed(2));
+    })
+
+
+
+    $('#remarks').keypress(function(e) {
+    var tval = $(this).val(),
+        tlength = tval.length,
+        set = 100,
+        remain = parseInt(set - tlength);
+    $('p').text(remain);
+    if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+        $('textarea').val((tval).substring(0, tlength - 1));
+        return false;
+    }
+})
+
+
+
+
 });
+
+
+function countChar(val) {
+  var len = val.value.length;
+  if (len >= 100) {
+    val.value = val.value.substring(0, 100);
+  } else {
+    $('#charNum').text(0 + len);
+  }
+}
+
+
 </script>
