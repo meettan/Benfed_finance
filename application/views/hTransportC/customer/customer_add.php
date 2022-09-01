@@ -141,7 +141,7 @@
             <div class="form-group row" id="bank_section">
                 <label for="voucher_mode" class="col-sm-2 col-form-label">Debit A/c Head:</label>
                 <div class="col-sm-10">
-                    <select class="form-control select2" id="drBank" name="acchead">
+                    <select class="form-control select2" id="drBank" name="acchead" required>
                         <option value=''>Select bank</option>
                         <?php foreach ($bank as $bnk) { ?>
                         <option value='<?php echo $bnk->sl_no; ?>'><?php echo $bnk->ac_name; ?></option>

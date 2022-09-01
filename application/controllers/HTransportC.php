@@ -51,6 +51,7 @@ class HTransportC extends CI_Controller
 
             $where = array(
                 // 'BNK_flag' => 'B',
+                // 'sl_no'=>
                 'br_id' => $this->session->userdata("loggedin")["branch_id"],
             );
             $data["district"] = $this->Rent_calculation_model->fetch_district();
