@@ -140,12 +140,11 @@
 
             <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
             <td><?php echo $tb->ac_name; ?></td>
-            <td><?php if($tb->voucher_type == 'PUR'){echo 'Purchase Voucher'; } 
-            elseif($tb->voucher_type == 'SL'){ echo 'Sale  Voucher'; }
-            elseif($tb->voucher_type == 'A'){ echo 'Advance  Voucher'; }
-            elseif($tb->voucher_type == 'P'){ echo 'Paymwent  Voucher'; }
-            elseif($tb->voucher_type == 'R'){ echo 'Receive  Voucher'; }
-            elseif($tb->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; } ?>
+            <td><?php if($tb->voucher_mode == 'C'){echo 'Cash'; } 
+            elseif($tb->voucher_mode == 'J'){ echo 'Journal'; }
+            elseif($tb->voucher_mode == 'B'){ echo 'Bank'; }
+           
+           ?>
             </td>
             <td><?php echo $tb->remarks; ?></td>
          

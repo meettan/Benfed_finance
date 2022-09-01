@@ -108,19 +108,20 @@ function printDiv() {
 					
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <?php foreach($voucher as $vou);{     ?>
-							 <h4><?php
-							 if($vou->voucher_type == 'PUR'){echo 'Purchase Voucher'; } 
-							 elseif($vou->voucher_type == 'SL'){ echo 'Sale  Voucher'; }
-							 elseif($vou->voucher_type == 'A'){ echo 'Advance  Voucher'; }
-							 elseif($vou->voucher_type == 'P'){ echo 'Paymwent  Voucher'; }
-							 elseif($vou->voucher_type == 'R'){ echo 'Receive  Voucher'; }
-							 elseif($vou->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; }
+                        <!-- <?php 
+						// foreach($voucher as $vou);{     ?>
+						// 	 <h4><?php
+						// 	 if($vou->voucher_type == 'PUR'){echo 'Purchase Voucher'; } 
+						// 	 elseif($vou->voucher_type == 'SL'){ echo 'Sale  Voucher'; }
+						// 	 elseif($vou->voucher_type == 'A'){ echo 'Advance  Voucher'; }
+						// 	 elseif($vou->voucher_type == 'P'){ echo 'Paywent  Voucher'; }
+						// 	 elseif($vou->voucher_type == 'R'){ echo 'Receive  Voucher'; }
+						// 	 elseif($vou->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; }
 								
-								?> </h4>
+						// 		?> </h4>
 							 <?php
-							}
-							?>
+							//}
+							?> -->
                         <!-- <h5 style="text-align:left"><label>District: </label> <?php echo $branch->branch_name; ?></h5> -->
 
                     </div>
@@ -158,9 +159,9 @@ function printDiv() {
 
 		<!-- <div class="leftNo">Approval Status: <?=$vou->approval_status?></div> -->
         <br>
-		<div class="rightDate">Voucher type: <?php if($vou->transfer_type == 'C'){echo 'Checque'; } 
-												 elseif($vou->transfer_type == 'N'){ echo 'NEFT'; }
-												 elseif($vou->transfer_type == 'R'){ echo 'RTGS'; }
+		<div class="rightDate">Voucher type: <?php if($vou->transfer_type == 'C'){echo 'Bank'; } 
+												 elseif($vou->transfer_type == 'N'){ echo 'Bank'; }
+												 elseif($vou->transfer_type == 'R'){ echo 'Bank'; }
 												 elseif($vou->transfer_type == 'T'){ echo 'Journal'; }
 												 elseif($vou->transfer_type == 'CH'){ echo 'CASH'; }
 												 ?></div>

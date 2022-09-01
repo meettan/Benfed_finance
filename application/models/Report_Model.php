@@ -421,7 +421,7 @@ order by ac_name";
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
         and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
 	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
-	       cr_amt, a.voucher_id,a.voucher_type,a.dr_cr_flag,c.type
+	       cr_amt, a.voucher_id,a.voucher_mode,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
@@ -438,7 +438,7 @@ order by ac_name";
         and a.voucher_id=d.voucher_id
         and a.branch_id=$branch_id
         and a.approval_status='A'
-        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
+        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.voucher_mode,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);
         
         return $query->result();
@@ -454,7 +454,7 @@ order by ac_name";
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
         and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
 	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
-	       cr_amt, a.voucher_id,a.trans_no,a.voucher_type,a.dr_cr_flag,c.type
+	       cr_amt, a.voucher_id,a.trans_no,a.voucher_mode,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
                                                       where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code !='$acc_head' 
@@ -471,7 +471,7 @@ order by ac_name";
         and a.voucher_id=d.voucher_id
         
         and a.approval_status='A'
-        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.trans_no,a.voucher_type,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
+        group by d.acc_cd,a.voucher_date,a.remarks, a.voucher_id,a.trans_no,a.voucher_mode,a.dr_cr_flag,b.ac_name,c.type  ORDER BY a.voucher_date ASC";
         $query  = $this->db->query($sql);
         
         return $query->result();
