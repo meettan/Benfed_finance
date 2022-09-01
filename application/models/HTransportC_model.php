@@ -194,6 +194,7 @@
             td_htc_rent_collection.rf_no,
             td_htc_rent_collection.pay_flag,
             td_htc_rent_collection.payment_date,
+            td_htc_rent_collection.remarks,
         
             a.district_name as seller_district,
             a.district_code as dcode,
@@ -232,7 +233,7 @@
             f.pan_no,
             f.fms_id,
             f.dr_bnk,
-        
+            f.sac_code
             '
             
             )->from('td_htc_rent_collection');

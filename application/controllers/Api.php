@@ -766,9 +766,9 @@ public function api_call_htc($trans_do)
         // $trans_do = $this->input->get('trans_do');
         $api_query= $this->HTransportC_model->f_get_api_data($trans_do);
 
-        echo $this->db->last_query();
+        // echo $this->db->last_query();
     //    print_r($api_query);
-       exit();
+    //    exit();
         return $api_query;
     }
 
@@ -778,8 +778,12 @@ function get_api_htc(){
     $trans_do = $this->input->get('trans_do');
     $data = $this->api_call_htc($trans_do);
 
-    print_r($data);
-    exit();
+    // print_r($data);
+    // exit();
+
+
+
+
     $dt = $data ? $data[0] : $data;
     $HsnCd = strlen($dt->sac_code)==4 ? $dt->sac_code . '00' : $dt->sac_code;
     // echo '<pre>';
@@ -788,6 +792,7 @@ function get_api_htc(){
 
  
     $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
+    
 
 
     $curl = curl_init();
@@ -941,7 +946,7 @@ function get_api_htc(){
             "PaymtDue": 0
         },
         "RefDtls": {
-            "InvRm": "",
+            "InvRm": "'.$dt->remarks.'",
             "DocPerdDtls": {
             "InvStDt": null,
             "InvEndDt": null
