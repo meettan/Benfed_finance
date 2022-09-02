@@ -779,7 +779,7 @@ function get_api_htc(){
     $data = $this->api_call_htc($trans_do);
 
     // print_r($data);
-    exit();
+    // exit();
 
 
 
