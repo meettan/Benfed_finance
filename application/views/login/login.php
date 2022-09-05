@@ -47,7 +47,7 @@
 		<div class="wrapper_Dash">
 			<div class="col-sm-12">
 				<ul>
-					<li><a onclick="location.href = 'https://benfed.in/';"">Home</a></li>
+					<li><a href="https://benfed.in/">Home</a></li>
 				<!--	<li><a href="#">Old KMS</a></li>
 					<li><a href="<?php //echo base_url(); ?>index.php/User_Login/notice">Notice</a></li> -->
 					<li><a href="#">Contacts</a></li>
