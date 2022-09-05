@@ -35,7 +35,7 @@
 <body>
 	<header class="headerTop_DashLogin">
 		<div class="wrapper_Dash">
-			<div class="col-sm-3 float-left logo_Dash"><img src="<?php echo base_url("/assets/front_page/images/logo.png"); ?>" alt="" /></div>
+			<div class="col-sm-3 float-left logo_Dash" onclick="location.href = 'https://benfed.in/';"><img src="<?php echo base_url("/assets/front_page/images/logo.png"); ?>" alt="" /></div>
 			<div class="col-sm-9 float-left rightTxt_Dash">
 				<h2>The W.B.S Co-Operative Marketing Federation Ltd (Benfed)<br>
 					<span>Welcome To Benfed ePortal</span>
@@ -47,7 +47,7 @@
 		<div class="wrapper_Dash">
 			<div class="col-sm-12">
 				<ul>
-					<li><a href="<?php echo base_url(); ?>">Home</a></li>
+					<li><a onclick="location.href = 'https://benfed.in/';"">Home</a></li>
 				<!--	<li><a href="#">Old KMS</a></li>
 					<li><a href="<?php //echo base_url(); ?>index.php/User_Login/notice">Notice</a></li> -->
 					<li><a href="#">Contacts</a></li>
