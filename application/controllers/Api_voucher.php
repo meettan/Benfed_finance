@@ -694,18 +694,28 @@ if($this->db->insert('td_vouchers', $input_bank) ){
  }
 
  public function delete_voucher_dr(){
-             
     $input = file_get_contents("php://input");
-   
     $dt = json_decode($input, true);
      $input_bank     = array(
-    'voucher_id'     =>$dt['data']['paid_id'],
-);
-if($this->db->delete('td_vouchers', $input_bank) ){
-    return 1;
-}else{
-    return 0;
-}  
+        'voucher_id'     =>$dt['data']['paid_id'],
+    );
+
+
+
+    $data=$this->Transaction_model->f_select('td_vouchers',null,$input_bank,0);
+    foreach ($data as $keydata) {
+        $keydata->delete_by = $dt['data']['delete_by'];
+        $keydata->delete_dt = date('Y-m-d H:m:s');
+        // print_r($keydata);
+        $this->db->insert('td_vouchers_delete', $keydata);
+
+    }
+
+    if($this->db->delete('td_vouchers', $input_bank) ){
+        echo 1;
+    }else{
+        echo 0;
+    }  
  }
 
  public function  recv_voucher_soc(){
@@ -1671,10 +1681,10 @@ else{
         if($this->db->insert('td_vouchers', $input_cr)){
 
         // if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cr) ){
-        return 1;
+        echo 1;
     }
     else{
-        return 0;
+        echo 0;
     }  
     
         }
@@ -1741,6 +1751,19 @@ else{
                 );
                 // print_r($dt);
                 // exit();
+
+                
+
+                // Transaction_model->f_select('md_achead ',$select_cash ,$where_cash,1)
+                $data=$this->Transaction_model->f_select('td_vouchers',null,$input_bank,0);
+                foreach ($data as $keydata) {
+                    $keydata->delete_by = $dt['data']['delete_by'];
+                    $keydata->delete_dt = date('Y-m-d H:m:s');
+                    // print_r($keydata);
+                    $this->db->insert('td_vouchers_delete', $keydata);
+
+                }
+
                 if($this->db->delete('td_vouchers', $input_bank)){
                     echo 1;
                 }else{
