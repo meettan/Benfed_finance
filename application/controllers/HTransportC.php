@@ -195,8 +195,8 @@ class HTransportC extends CI_Controller
             $select	=	array("acchead","cust_name");
             $where = array('id' =>$this->input->post('customer'));
             $dr_acccd =$this->Transaction_model->f_select("md_htc_customer", $select, $where , 1);
-        $customarName=$dr_acccd->cust_name;
-        $indoiceRemarks=$this->input->post('remarks');
+            $customarName=$dr_acccd->cust_name;
+            $indoiceRemarks=$this->input->post('remarks');
 
 
             if(empty($last_invoice_no)){
@@ -239,6 +239,11 @@ class HTransportC extends CI_Controller
                 $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
 
 
+                $cramt=($this->input->post('amount')+$this->input->post('cgst')+$this->input->post('sgst'));
+                $dramt=$this->input->post('totalAmount');
+                if($cramt==$dramt){
+
+                
 // H&t vouchers
                // if( $dr_acccd->acchead==8083){
                     $vouchersCr = array(
@@ -250,10 +255,10 @@ class HTransportC extends CI_Controller
                         // 'trans_no'       =>  "HTC-".$this->session->userdata['loggedin']['fin_yr']."-".($trans_no+1),
                         'trans_dt'       => $this->input->post('effectiveDate'),  
                         'voucher_type'   => 'R',
-                        'transfer_type'  =>  'T',
+                        'transfer_type'  => 'T',
                         'voucher_mode'   => 'J',
                         'voucher_through'=> 'A',
-                        'acc_code'       =>8083,
+                        'acc_code'       => 8083,
                         'dr_cr_flag'     => 'CR',
                         'amount'         => $this->input->post('amount'),
                         'ins_no'         => $this->input->post('rfNo'),
@@ -263,7 +268,7 @@ class HTransportC extends CI_Controller
                         'approval_status'=> 'A',
                         'user_flag'      => '',
                         'created_dt'     => date("Y-m-d H:i:s"),
-                        'created_by'     =>  $this->session->userdata("loggedin")["user_id"],
+                        'created_by'     => $this->session->userdata("loggedin")["user_id"],
                         'modified_by'    => '',
                         'modified_dt'    => '',
                         'approved_by'    => '',
@@ -373,7 +378,9 @@ class HTransportC extends CI_Controller
               
                
                 
-                
+            }else{
+                $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal');
+            }
                
                 // $this->session->set_flashdata('msg', 'Successfully Added');
 
@@ -426,7 +433,7 @@ class HTransportC extends CI_Controller
 
 
     public function customar_raise_invoice_list(){
-             $data["listData"]=$this->HTransportC_model->fetch_rent_collection($where=null);
+        $data["listData"]=$this->HTransportC_model->fetch_rent_collection($where=null);
             //  $data["listData"]=$this->Rent_calculation_model->fetch_rent_collection($where=null);
         $this->load->view("post_login/finance_main");
         $this->load->view("hTransportC/htc_collection/htc_collection_list", $data);

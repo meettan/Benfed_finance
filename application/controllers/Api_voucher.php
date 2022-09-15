@@ -1098,7 +1098,7 @@ if($dt['data']['total_tds']>0){
 
         // echo json_encode(array($dramt,$cramt));
         // exit();
-        If ($cramt == $dramt){
+        if($cramt == $dramt){
                 $input_data = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
                 'sl_no'          => $v_srl,
@@ -1365,9 +1365,9 @@ if($dt['data']['total_tds']>0){
             $this->db->insert('td_vouchers', $input_rbt);
         }
 
-    }
+    // }
 
-    if(!empty($input_data)&&!empty($input_cgst)&&!empty($input_sgst)&&!empty($input_pur)){
+    // if(!empty($input_data)&&!empty($input_cgst)&&!empty($input_sgst)&&!empty($input_pur)){
         
         if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cgst) && $this->db->insert('td_vouchers', $input_sgst) && $this->db->insert('td_vouchers', $input_pur) ){
             echo json_encode(1);
