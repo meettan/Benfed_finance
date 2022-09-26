@@ -17,7 +17,7 @@
 
 	         $where  =   array(
                       
-					  'CAST(created_dt AS DATE) = CURDATE()'  => NULL,
+					  'CAST(created_dt AS DATE) <= CURDATE()'  => NULL,
 					  'approval_status'   => 'U'
 					);
 	
