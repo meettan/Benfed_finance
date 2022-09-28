@@ -200,6 +200,17 @@
                     <?php } ?>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+            
 			<div class="dropdown">
                         <div class="dropbtn">
                                 <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
@@ -207,10 +218,33 @@
                                 <i class="fa fa-angle-down"></i>
                             </div>
                             <div class="dropdown-content">
-                            <a href="<?php echo site_url("profiles") ?>">Change Password</a>
+
+
+
+                            <!-- ===================================================================================== -->
+
+                            
+                            <a href="<?php echo site_url('/user_add'); ?>">Create User</a>
+                            <?php 
+                             if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
+                                <a href="<?php echo site_url('/userlist_admin'); ?>">User List </a>
+                            <?php } 
+                             if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['user_type']!="A"){ ?>
+                            <!-- <a href="<?php echo site_url('/user'); ?>">User List</a> -->
+                            <?php }?>
+                            <a href="<?php echo site_url("/admins/edite_userProfile"); ?>">Edit Profile</a>
+                            <a href="<?php echo site_url("/admins/change_passwoerd"); ?>">Change Password</a>
+
+
+<!-- ================================================================================================ -->
+
+
+
+
+                            <!-- <a href="<?php echo site_url("profiles") ?>">Change Password</a> -->
                             <?php  if($this->session->userdata['loggedin']['user_type']!="U"){
                                 ?>
-                            <a href="<?php echo site_url('user'); ?>">Create User</a>
+                            <!-- <a href="<?php echo site_url('user'); ?>">Create User</a> -->
                             <?php }?>
                             </div>
             </div>
@@ -222,7 +256,7 @@
                                 <i class="fa fa-angle-down"></i>
                             </div>
                             <div class="dropdown-content">
-                            <a href="<?php echo site_url('user'); ?>">Create User</a>
+                            <!-- <a href="<?php echo site_url('user'); ?>">Create User</a> -->
                             </div>
             </div>
 			<?php } ?>

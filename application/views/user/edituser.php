@@ -6,140 +6,136 @@
         position: relative;
         z-index: 2;
     }
-    .error{
+
+    .error {
         color: red;
     }
 </style>
 
 <style>
-        .has-float-label {
-            display: block;
-            position: relative
-        }
+    .has-float-label {
+        display: block;
+        position: relative
+    }
 
-        .has-float-label label,
-        .has-float-label>span {
-            position: absolute;
-            cursor: text;
-            font-size: 75%;
-            opacity: 1;
-            -webkit-transition: all .2s;
-            transition: all .2s;
-            top: -.5em;
-            left: .75rem;
-            z-index: 3;
-            line-height: 1;
-            padding: 0 1px
-        }
+    .has-float-label label,
+    .has-float-label>span {
+        position: absolute;
+        cursor: text;
+        font-size: 75%;
+        opacity: 1;
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        top: -.5em;
+        left: .75rem;
+        z-index: 3;
+        line-height: 1;
+        padding: 0 1px
+    }
 
-        .has-float-label label::after,
-        .has-float-label>span::after {
-            content: " ";
-            display: block;
-            position: absolute;
-            background: #fff;
-            height: 2px;
-            top: 50%;
-            left: -.2em;
-            right: -.2em;
-            z-index: -1
-        }
+    .has-float-label label::after,
+    .has-float-label>span::after {
+        content: " ";
+        display: block;
+        position: absolute;
+        background: #fff;
+        height: 2px;
+        top: 50%;
+        left: -.2em;
+        right: -.2em;
+        z-index: -1
+    }
 
-        .has-float-label .form-control::-webkit-input-placeholder {
-            opacity: 1;
-            -webkit-transition: all .2s;
-            transition: all .2s
-        }
+    .has-float-label .form-control::-webkit-input-placeholder {
+        opacity: 1;
+        -webkit-transition: all .2s;
+        transition: all .2s
+    }
 
-        .has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
-            opacity: 0
-        }
+    .has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+        opacity: 0
+    }
 
-        .has-float-label .form-control:placeholder-shown:not(:focus)+* {
-            font-size: 150%;
-            opacity: .5;
-            top: .3em
-        }
+    .has-float-label .form-control:placeholder-shown:not(:focus)+* {
+        font-size: 150%;
+        opacity: .5;
+        top: .3em
+    }
 
-        .input-group .has-float-label {
-            display: table-cell
-        }
+    .input-group .has-float-label {
+        display: table-cell
+    }
 
-        .input-group .has-float-label .form-control {
-            border-radius: .25rem
-        }
+    .input-group .has-float-label .form-control {
+        border-radius: .25rem
+    }
 
-        .input-group .has-float-label:not(:last-child),
-        .input-group .has-float-label:not(:last-child) .form-control {
-            border-bottom-right-radius: 0;
-            border-top-right-radius: 0;
-            border-right: 0
-        }
+    .input-group .has-float-label:not(:last-child),
+    .input-group .has-float-label:not(:last-child) .form-control {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        border-right: 0
+    }
 
-        .input-group .has-float-label:not(:first-child),
-        .input-group .has-float-label:not(:first-child) .form-control {
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0
-        }
+    .input-group .has-float-label:not(:first-child),
+    .input-group .has-float-label:not(:first-child) .form-control {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0
+    }
 
-        .has-float-label .form-control:placeholder-shown:not(:focus)+* {
-            font-size: 100%;
-            opacity: .7;
-            top: 0.7em;
-        }
-		
-		/* password validation */
-		/* The message box is shown when the user clicks on the password field */
-        #message {
-            display: none;
-            background: #f1f1f1;
-            color: #000;
-            position: relative;
-            padding: 20px;
-            margin-top: 10px;
-        }
+    .has-float-label .form-control:placeholder-shown:not(:focus)+* {
+        font-size: 100%;
+        opacity: .7;
+        top: 0.7em;
+    }
 
-        #message p {
-            padding: 10px 35px;
-            font-size: 18px;
-        }
+    /* password validation */
+    /* The message box is shown when the user clicks on the password field */
+    #message {
+        display: none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+    }
 
-        /* Add a green text color and a checkmark when the requirements are right */
-        .valid {
-            color: green;
-        }
+    #message p {
+        padding: 10px 35px;
+        font-size: 18px;
+    }
 
-        .valid:before {
-            position: relative;
-            left: -35px;
-            content: "✔";
-        }
+    /* Add a green text color and a checkmark when the requirements are right */
+    .valid {
+        color: green;
+    }
 
-        /* Add a red text color and an "x" when the requirements are wrong */
-        .invalid {
-            color: red;
-        }
+    .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+    }
 
-        .invalid:before {
-            position: relative;
-            left: -35px;
-            content: "✖";
-        }
-    </style>
+    /* Add a red text color and an "x" when the requirements are wrong */
+    .invalid {
+        color: red;
+    }
 
- 
+    .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+    }
+</style>
+
 <div class="wraper">
+    <form method="POST" id="form" action="<?php echo site_url("admins/edite_userProfile"); ?>" id="commentForm" enctype="multipart/form-data">
 
-
-    <form method="POST" id="form" action="<?php echo site_url("admins/user_edit");?>" id="commentForm" enctype="multipart/form-data">
-
-    <input type="hidden" name="user_id"  value="<?php echo $user_dtls->user_id;?>"
-				/>
         <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
 
             <div class="form-header">
 
-                <h4>User Entry</h4>
+                <h4>Edit My Profile</h4>
 
             </div>
 
@@ -156,7 +152,7 @@
                 <label for="name" class="col-sm-2 col-form-label">Name:</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="user_name" name="user_name" id="emp_cd" value="<?php echo $user_dtls->user_name; ?>" readonly/>
+                    <input type="text" class="form-control" id="user_name" name="user_name" id="emp_cd" value="<?php echo $user_dtls->user_name; ?>" />
                 </div>
 
             </div>
@@ -201,7 +197,7 @@
                 <label for="name" class="col-sm-2 col-form-label">Employee Code:</label>
 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="employ_code" id="emp_cd" value="<?php echo $user_dtls->emp_code; ?>" readonly/>
+                    <input type="text" class="form-control" name="employ_code" id="emp_cd" value="<?php echo $user_dtls->emp_code; ?>" readonly />
                 </div>
 
                 <!-- <label for="name" class="col-sm-2 col-form-label">Name:</label>
@@ -218,20 +214,20 @@
                 <label for="name" class="col-sm-2 col-form-label">Mobile No:</label>
 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="mobile_no" id="emp_cd"  value="<?php echo $user_dtls->phone_no; ?>" readonly/>
+                    <input type="text" class="form-control" name="mobile_no" id="emp_cd" value="<?php echo $user_dtls->phone_no; ?>" />
                 </div>
 
                 <label for="name" class="col-sm-2 col-form-label">Email:</label>
 
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" name="email" id="emp_cd" value="<?php echo $user_dtls->email; ?>" readonly/>
+                    <input type="email" class="form-control" name="email" id="emp_cd" value="<?php echo $user_dtls->email; ?>" />
                 </div>
 
             </div>
 
-        
 
-            <!-- <div class="form-group row">
+
+            <div class="form-group row">
 
                 <label for="name" class="col-sm-2 col-form-label">Profile Pic:</label>
 
@@ -239,19 +235,23 @@
                     <input type="file" class="form-control" name="pic" id="pic" />
                 </div>
 
-            </div> -->
+            </div>
             <input type="hidden" name="imgh" value="<?php echo $user_dtls->profile_pic; ?>">
-            <img src="<?php echo base_url(); ?>/assets/uploads/<?php if(!empty($user_dtls->profile_pic)){echo $user_dtls->profile_pic;}else{echo "avtar.png";}  ?>" alt="no image" width="100px" >
-            <!-- <img src="<?php echo base_url(); ?>/assets/uploads/<?php echo $user_dtls->profile_pic; ?>" alt="no image" width="100px" > -->
+
+            <img src="https://benfed.in/benfed_fertilizer/assets/uploads/<?php if (!empty($user_dtls->profile_pic)) {
+                                                                    echo $user_dtls->profile_pic;
+                                                                } else {
+                                                                    echo "avtar.png";
+                                                                }  ?>" alt="no image" width="100px">
             <br>
             <br>
-            
+
 
             <div class="form-group row">
 
                 <div class="col-sm-10">
 
-                    <input type="submit" class="btn btn-info" value="Update" id="signupForm" onclick="return checking();"/>
+                    <input type="submit" class="btn btn-info" value="Update" id="signupForm" onclick="return checking();" />
 
                 </div>
 
@@ -259,17 +259,17 @@
 
         </div>
         <div class="col-md-6 container" style="margin-left: 0px;">
-        <div id="message">
-                                            <h3>Password must contain the following:</h3>
-                                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                                            <p id="number" class="invalid">A <b>number</b></p>
-                                            <p id="char" class="invalid">A <b>special character</b></p>
-                                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-                                        </div>
+            <div id="message">
+                <h3>Password must contain the following:</h3>
+                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                <p id="number" class="invalid">A <b>number</b></p>
+                <p id="char" class="invalid">A <b>special character</b></p>
+                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            </div>
         </div>
 
-        
+
     </form>
 
 </div>
@@ -296,26 +296,26 @@
 <!-- password show and hide -->
 
 <script>
-      $(document).ready(function() {
-      $("#show_hide_password i").on('click', function(event) {
-          event.preventDefault();
-          if($('#show_hide_password input').attr("type") == "text"){
-              $('#show_hide_password input').attr('type', 'password');
-              $('#show_hide_password i').addClass( "fa-eye-slash" );
-              $('#show_hide_password i').removeClass( "fa-eye" );
-          }else if($('#show_hide_password input').attr("type") == "password"){
-              $('#show_hide_password input').attr('type', 'text');
-              $('#show_hide_password i').removeClass( "fa-eye-slash" );
-              $('#show_hide_password i').addClass( "fa-eye" );
-          }
-      });
-  });
+    $(document).ready(function() {
+        $("#show_hide_password i").on('click', function(event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
 </script>
 <script>
-    $('#confirm_password').keyup(function(){
-        var cpass=$(this).val();
-        var pass=$('#password').val();
-        var htmval='<label id="confirm_password-error" class="error" for="confirm_password">Please enter the same password as above.</label>';
+    $('#confirm_password').keyup(function() {
+        var cpass = $(this).val();
+        var pass = $('#password').val();
+        var htmval = '<label id="confirm_password-error" class="error" for="confirm_password">Please enter the same password as above.</label>';
 
     })
 </script>
@@ -417,3 +417,12 @@
             }
         </script> -->
 
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+<script type="text/javascript">
+    <?php if($this->session->flashdata('msg')){ ?>
+    toastr.success("<?php echo $this->session->flashdata('msg'); ?>");
+<?php } ?>
+</script>

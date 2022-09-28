@@ -135,25 +135,26 @@
 
 
 
-
     <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
-        <form method="POST" id="form" action="<?php echo site_url("admins/user_add"); ?>" id="commentForm" enctype="multipart/form-data">
+        <form method="POST" id="form" action="<?php echo site_url("admins/change_passwoerd"); ?>" id="commentForm" enctype="multipart/form-data">
             <div class="form-header">
 
-                <h4>User Entry</h4>
+                <h4>Change Password</h4>
 
             </div>
+<!-- 
+            <div class="form-group">
+                <label for="old_password">Old Password</label>
+                <input type="email" class="form-control" id="old_password" aria-describedby="old_password" placeholder="Enter Old Password">
+            </div> -->
 
             <div class="form-group row">
-
-                <label for="user_id" class="col-sm-2 col-form-label">User ID:</label>
-
-                <div class="col-sm-10">
-
-                    <input type="text" class="form-control required" name="user_id" id="user_id" />
-
+                <label for="oldpass" class="col-sm-2 col-form-label">Old Password:</label>
+                <div class="col-sm-4">
+                 
+                    
+                        <input class="form-control oldpass" type="password" name="oldpass" id="oldpass">
                 </div>
-
             </div>
 
 
@@ -177,71 +178,12 @@
                     <input type="password" class="form-control required confirm_password" name="confirm_password" id="confirm_password" />
                 </div>
 
-            </div>
-            <!-- <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {   ?>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">User Type:</label>
+
                     <div class="col-sm-10">
-                        <select class="form-control" name="user_type" required>
-                            <option value="U">General User</option>
-                            <option value="M">Manager</option>
-                            <option value="A">Administator</option>
-                        </select>
+
+                        <input type="submit" class="btn btn-info" value="Save" id="signupForm" onclick="return checking();" />
+
                     </div>
-
-                </div>
-            <?php  } ?> -->
-            <div class="form-group row">
-
-                <label for="name" class="col-sm-2 col-form-label">Employee Code:</label>
-
-                <div class="col-sm-4">
-                    <input type="text" class="form-control required" name="employ_code" id="emp_cd" />
-                </div>
-
-                <label for="name" class="col-sm-2 col-form-label">Name:</label>
-
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="user_name" name="user_name" id="emp_cd" />
-                </div>
-
-            </div>
-
-
-            <div class="form-group row">
-
-                <label for="name" class="col-sm-2 col-form-label">Mobile No:</label>
-
-                <div class="col-sm-4">
-                    <input type="text" class="form-control required" name="mobile_no" id="emp_cd" />
-                </div>
-
-                <label for="name" class="col-sm-2 col-form-label">Email:</label>
-
-                <div class="col-sm-4">
-                    <input type="email" class="form-control required" name="email" id="emp_cd" />
-                </div>
-
-            </div>
-
-            <div class="form-group row">
-
-                <label for="name" class="col-sm-2 col-form-label">Profile Pic:</label>
-
-                <div class="col-sm-10">
-                    <input type="file" class="form-control" name="pic" id="pic" />
-                </div>
-
-            </div>
-
-            <div class="form-group row">
-
-                <div class="col-sm-10">
-
-                    <input type="submit" class="btn btn-info" value="Save" id="signupForm" onclick="return checking();" />
-
-                </div>
-
             </div>
         </form>
     </div>
@@ -255,6 +197,7 @@
             <p id="length" class="invalid">Minimum <b>8 characters</b></p>
         </div>
     </div>
+</div>
 
 
 
@@ -400,7 +343,7 @@
     function checking() {
         if (pass_val && pass_chk) return true;
         else
-            alert("password miss match");
+            alert("password mismatch");
         return false;
     }
 </script>
@@ -431,9 +374,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 <script type="text/javascript">
-    <?php if ($this->session->flashdata('error')) { ?>
-        toastr.error("<?php echo $this->session->flashdata('error'); ?>");
-    <?php } else if ($this->session->flashdata('success')) { ?>
-        toastr.success("<?php echo $this->session->flashdata('success'); ?>");
-    <?php } ?>
+    <?php if($this->session->flashdata('error')){ ?>
+    toastr.error("<?php echo $this->session->flashdata('error'); ?>");
+<?php }else if($this->session->flashdata('success')){ ?>
+    toastr.success("<?php echo $this->session->flashdata('success'); ?>");
+<?php } ?>
 </script>

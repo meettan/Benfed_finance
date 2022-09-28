@@ -115,8 +115,8 @@ $route['purjrnlr'] = 'report/purjrnl';
 $route['bankbook']  = 'report/bankbook';
 ///   ***** End code for report
 $route['mnthend'] = 'transaction/month_end';
-$route['user'] = 'admins';
-$route['user_add'] = 'admins/user_add';
+// $route['user'] = 'admins';
+// $route['user_add'] = 'admins/user_add';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -136,3 +136,10 @@ $route['handling-trandport-charges/htc_raise_invoice_list']='HTransportC/customa
 $route['handling-trandport-charges/htc_collection_edit/(:any)']='HTransportC/htc_collection_edit/$1';
 $route['handling-trandport-charges/rentb2c_rep']='HTransportC/rentb2c_rep';
 $route['handling-trandport-charges/rent_report']='HTransportC/rent_report';
+
+
+
+
+$route['user'] = 'admins';
+$route['user_add'] = 'admins/user_add';
+$route['userlist_admin']='admins/userlist_admin';

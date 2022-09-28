@@ -7,34 +7,12 @@
         <div class="col-lg-12 container contant-wraper">    
             <h3>
 
-                <!-- <small><a href="<?php echo site_url("user_add");?>" class="btn btn-primary" style="width: 100px;">Add</a></small> -->
-                <!-- <span class="confirm-div" style="float:right; color:green;"></span> -->
+                <small><a href="<?php echo site_url("user_add");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+                <span class="confirm-div" style="float:right; color:green;"></span>
 
             </h3>
 
             <table class="table table-bordered table-hover">
-                
-
-
-
-            <h5>
-
-               
-				<center>
-                    
-				<input type="radio" id="css" name="user_status" checked  value="A"> <label for="html">Active</label>  &nbsp; &nbsp; &nbsp;
-                <input type="radio" id="html" name="user_status" value="U"><label for="approve">Pending</label> &nbsp; &nbsp; &nbsp; 
-				<input type="radio" id="css" name="user_status" value="D"> <label for="html">Inactive</label> 
-            </center>
-				
-				</small>
-				
-                <span class="confirm-div" style="float:right; color:green;"></span>
-
-            </h5>
-
-
-
 
                 <thead>
 
@@ -43,22 +21,22 @@
                         <th>Sl. No.</th>
                         <th>Name</th>
 						<th>Employee code</th>
-						<th>Mobile NO</th>
                         <th>User Type</th>
-                        <!-- <th>User Id</th> -->
+                        <th>User Id</th>
                         <th>Option</th>
 
                     </tr>
 
                 </thead>
 
-                <tbody id='user_list'> 
+                <tbody> 
 
                     <?php 
                     
                     if($user_dtls) {
 
                         $i = 0;
+                        
                             foreach($user_dtls as $u_dtls) {
 
                     ?>
@@ -68,22 +46,19 @@
                                 <td><?php echo ++$i; ?></td>
                                 <td><?php echo $u_dtls->user_name; ?></td>
 								<td><?php echo $u_dtls->emp_code; ?></td>
-								<td><?php echo $u_dtls->phone_no; ?></td>
                                 <td><?php if($u_dtls->user_type == 'A'){
                                             echo '<span class="badge badge-success">Admin</span>';
                                           }
                                           elseif ($u_dtls->user_type == 'M') {
-                                            echo '<span class="badge badge-warning">Manager</span>';
+                                            echo '<span class="badge badge-warning">Super User</span>';
                                           }elseif ($u_dtls->user_type == 'D') {
                                             echo '<span class="badge badge-warning">Accountant</span>';
                                           }elseif ($u_dtls->user_type == 'U') {
                                             echo '<span class="badge badge-dark">General User</span>';
-                                          }elseif ($u_dtls->user_type == 'C') {
-                                            echo '<span class="badge badge-light"Accountant</span>';
                                           }
                                             ?>
                                 </td>
-                                <!-- <td><?php echo $u_dtls->user_id; ?></td> -->
+                                <td><?php echo $u_dtls->user_id; ?></td>
                                 
                                 <td>
                                 
@@ -132,17 +107,15 @@
 
                 <tfoot>
 
-                <tr>
+                    <tr>
                     
-                    <th>Sl. No.</th>
-                    <th>Name</th>
-                    <th>Employee code</th>
-                    <th>Mobile NO</th>
-                    <th>User Type</th>
-                    <!-- <th>User Id</th> -->
-                    <th>Option</th>
+                        <th>Sl. No.</th>
+                        <th>Name</th>
+                        <th>User Type</th>
+                        <th>User Id</th>
+                        <th>Option</th>
 
-                </tr>
+                    </tr>
                 
                 </tfoot>
 
@@ -188,63 +161,3 @@
 
     <?php } ?>
 </script>
-
-
-
-<script>
-   
-    $(document).ready(function() {
-
-    $('.confirm-div').hide();
-
-    <?php if($this->session->flashdata('msg')){ ?>
-
-    $('.confirm-div').html('<?php echo $this->session->flashdata('msg'); ?>').show();
-	
-	<?php } ?>
-
-    });
-	
-	$(document).ready( function (){
-
-        $('input[type=radio][name=user_status]').on('change', function() {
-			
-			$.ajax({
-				type: "GET",
-				url: "<?php echo site_url('admins/get_userlist'); ?>",
-				data: {
-					user_status: $(this).val()
-				},
-				success: function(result) {
-				   
-					  var string = '';
-					  var sl_no = 1;
-					  var  utype = '';
-					$.each(JSON.parse(result), function( index, value ) {
-						
-						if(value.user_type == 'A'){
-                          utype = '<span class="badge badge-success">Admin</span>';
-					    }else if (value.user_type == 'M') {
-                            utype = '<span class="badge badge-warning">Manager</span>';
-                        }else if (value.user_type == 'U') {
-                             utype = '<span class="badge badge-dark">General User</span>';
-                            }
-
-						string += '<tr><td>'+ sl_no++ +'</td><td>' + value.user_name + '</td><td>' + value.emp_code + '</td><td>' + value.phone_no + '</td><td>' + utype + '</td><td><a href="admins/user_edit?user_id=' + value.user_id + '" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-edit fa-2x" style="color: #007bff"></i></a></td></tr>'
-                     
-					});
-					$('#user_list').html();
-					$('#user_list').html(string);
-					
-				}
-            });
-		  
-		});
-
-    });
-	
-
-    
-</script>
-
-
