@@ -565,12 +565,23 @@ order by ac_name";
         return $query->result();
 	}
 
-    function f_get_cashbook_opbal($opndt){
+    function f_get_cashbook_opbal($opndt,$frm_date ){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
-        $sql =" SELECT amount,trans_flag FROM `td_opening` 
-                 WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` 
-                                           WHERE `br_id`=$branch_id AND `mngr_id`=6 
-                                           AND `subgr_id`=56 AND `balance_dt`='$opndt' )" ; 
+        // $sql =" SELECT amount,trans_flag FROM `td_opening` 
+        //          WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` 
+        //                                    WHERE `br_id`=$branch_id AND `mngr_id`=6 
+        //                                    AND `subgr_id`=56 AND `balance_dt`='$opndt' )" ; 
+
+$sql ="SELECT abs(sum(if(`dr_cr_flag`='Dr',`amount`,0))- sum(if(`dr_cr_flag`='Cr',`amount`,0)) 
++ (SELECT if(trans_flag='DR' ,amount,-1*amount) 
+   FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt')))as amount,
+if(sum(if(`dr_cr_flag`='Dr',`amount`,0))- sum(if(`dr_cr_flag`='Cr',`amount`,0)) + (SELECT if(trans_flag='DR' ,amount,-1*amount)  FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt'))>0,'DR','CR') trans_flag
+FROM `td_vouchers`
+WHERE voucher_date>='$opndt' 
+and voucher_date<'$frm_date ' and `branch_id`=$branch_id
+and acc_code =(SELECT sl_no FROM `md_achead` WHERE `br_id`=$branch_id and `mngr_id`=6 and `subgr_id`=56)";
+
+
    $query  = $this->db->query($sql);
    return $query->row();
     }

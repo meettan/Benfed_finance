@@ -689,7 +689,7 @@ public function voucher_dtls(){
 
             $opndt      =  date($year.'-04-01');
 
-            $data['cashbookop']     = $this->Report_Model->f_get_cashbook_opbal($opndt);
+            $data['cashbookop']     = $this->Report_Model->f_get_cashbook_opbal($opndt,$frm_date );
             
             $data['cashbook']     = $this->Report_Model->f_get_cashbook($frm_date,$to_date);
             $this->load->view('post_login/finance_main');
