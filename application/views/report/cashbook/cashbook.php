@@ -82,11 +82,13 @@ tr:hover {background-color: #f5f5f5;}
 									 <td></td> -->
                                      
                                      <td>
-                                    <?php $op_bal=0.00; if($cashbookop->trans_flag == 'DR'){echo $cashbookop->amount; } 
+                                    <?php 
+                                     if($cashbookop->trans_flag == 'DR'){echo $cashbookop->amount; } 
                                     $op_bal =$cashbookop->amount; ?>
                                    </td>
                                      <td>
-                                        <?php $op_bal=0.00; if($cashbookop->trans_flag == 'CR'){echo $cashbookop->amount; }
+                                        <?php  
+                                        if($cashbookop->trans_flag == 'CR'){echo $cashbookop->amount; }
                                         $op_bal =$cashbookop->amount;
                                         ?>
                                     </td>           
