@@ -420,7 +420,7 @@ order by ac_name";
         where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
         and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
-	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
+	$sql="SELECT d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
 	       cr_amt, a.voucher_id,a.voucher_mode,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
@@ -574,15 +574,14 @@ order by ac_name";
         //                                    WHERE `br_id`=$branch_id AND `mngr_id`=6 
         //                                    AND `subgr_id`=56 AND `balance_dt`='$opndt' )" ; 
 
-$sql ="SELECT abs(sum(if(`dr_cr_flag`='Dr',`amount`,0))- sum(if(`dr_cr_flag`='Cr',`amount`,0)) 
-+ (SELECT if(trans_flag='DR' ,amount,-1*amount) 
-   FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt')))as amount,
-if(sum(if(`dr_cr_flag`='Dr',`amount`,0))- sum(if(`dr_cr_flag`='Cr',`amount`,0)) + (SELECT if(trans_flag='DR' ,amount,-1*amount)  FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt'))>0,'DR','CR') trans_flag
-FROM `td_vouchers`
-WHERE voucher_date>='$opndt' 
-and voucher_date<'$frm_date ' and `branch_id`=$branch_id
-and acc_code =(SELECT sl_no FROM `md_achead` WHERE `br_id`=$branch_id and `mngr_id`=6 and `subgr_id`=56)";
-
+$sql ="SELECT abs(sum(IF(`dr_cr_flag`='Dr',`amount`,0))- sum(IF(`dr_cr_flag`='Cr',`amount`,0)) 
+      + (SELECT IF(trans_flag='DR' ,amount,-1*amount) 
+      FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt')))as amount,
+      IF(sum(IF(`dr_cr_flag`='Dr',`amount`,0))- sum(IF(`dr_cr_flag`='Cr',`amount`,0)) + (SELECT if(trans_flag='DR' ,amount,-1*amount)  FROM `td_opening` WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt'))>0,'DR','CR') trans_flag
+      FROM `td_vouchers`
+      WHERE voucher_date>='$opndt' 
+      AND voucher_date<'$frm_date ' AND `branch_id`=$branch_id
+      AND acc_code =(SELECT sl_no FROM `md_achead` WHERE `br_id`=$branch_id AND `mngr_id`=6 AND `subgr_id`=56)";
 
    $query  = $this->db->query($sql);
    return $query->row();
