@@ -553,7 +553,7 @@ order by ac_name";
 		// 	        and a.branch_id = '$branch_id'
        //           and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 	  // 	        order by a.voucher_date,a.voucher_type" ; 
-        $sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,a.voucher_date,
+        $sql ="SELECT IF(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,a.voucher_date,
 		       IF(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,b.ac_name,a.dr_cr_flag,b.benfed_ac_code
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
