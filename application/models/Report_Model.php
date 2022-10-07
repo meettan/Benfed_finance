@@ -526,7 +526,8 @@ order by ac_name";
         $query  = $this->db->query($sql);
         return $query->row();
 	}
-	function f_get_daybook($frm_date,$to_date){
+/*****Day Book Report Blocked On 07/10/2022*** */
+	/*function f_get_daybook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
 		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag 
@@ -538,21 +539,43 @@ order by ac_name";
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
         return $query->result();
-	}
+	}*/
+
     function f_get_cashbook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
-		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
-		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag,b.benfed_ac_code
+
+		     // $sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
+		    //        if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag,b.benfed_ac_code
+           //         FROM td_vouchers a,md_achead b
+          //         WHERE a.acc_code=b.sl_no
+         //          and a.approval_status!='H'
+		// 	        and a.branch_id = '$branch_id'
+       //           and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
+	  // 	        order by a.voucher_date,a.voucher_type" ; 
+        $sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id,a.voucher_date,
+		       IF(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,b.ac_name,a.dr_cr_flag,b.benfed_ac_code
                FROM td_vouchers a,md_achead b
                WHERE a.acc_code=b.sl_no
-               and a.approval_status!='H'
-			   and a.branch_id = '$branch_id'
-               and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
-			   order by a.voucher_date,a.voucher_type" ;  
+               AND a.approval_status!='H'
+			   AND a.branch_id = '$branch_id'
+               AND a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
+               GROUP BY b.ac_name,a.dr_cr_flag,b.benfed_ac_code,b.mngr_id,a.voucher_date
+			   ORDER BY a.voucher_date,a.voucher_type" ; 
         $query  = $this->db->query($sql);
         return $query->result();
 	}
-    function f_get_bankbook($frm_date,$to_date){
+
+    function f_get_cashbook_opbal($opndt){
+		$branch_id = $this->session->userdata['loggedin']['branch_id'];
+        $sql =" SELECT amount,trans_flag FROM `td_opening` 
+                 WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` 
+                                           WHERE `br_id`=$branch_id AND `mngr_id`=6 
+                                           AND `subgr_id`=56 AND `balance_dt`='$opndt' )" ; 
+   $query  = $this->db->query($sql);
+   return $query->row();
+    }
+/***Bank Book Report blocked on 07/10/2022 */
+    /*function f_get_bankbook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
 		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag
@@ -565,7 +588,7 @@ order by ac_name";
 			   order by a.voucher_date,a.voucher_type" ;  
         $query  = $this->db->query($sql);
         return $query->result();
-	}
+	}*/
 
 
 }

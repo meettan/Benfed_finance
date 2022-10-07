@@ -642,8 +642,8 @@ public function voucher_dtls(){
         }
 
     }
-	
-	public function daybook(){
+	/*****Day Book Report Blocked On 07/10/2022*** */
+	/*public function daybook(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -663,7 +663,7 @@ public function voucher_dtls(){
             $this->load->view('report/daybook/daybook_ip.php');
             $this->load->view('post_login/footer');
         }
-    }
+    }*/
 	
 	public function cashbook(){
 
@@ -674,6 +674,23 @@ public function voucher_dtls(){
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
 
+            
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+
+                $year = $yr;
+
+            }else{
+
+                $year = $yr - 1;
+            }
+
+            $opndt      =  date($year.'-04-01');
+
+            $data['cashbookop']     = $this->Report_Model->f_get_cashbook_opbal($opndt);
+            
             $data['cashbook']     = $this->Report_Model->f_get_cashbook($frm_date,$to_date);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/cashbook/cashbook.php',$data);
@@ -687,7 +704,8 @@ public function voucher_dtls(){
         }
     }
 
-	public function bankbook(){
+/***Bank Book Report blocked on 07/10/2022 */
+	/*public function bankbook(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -705,7 +723,7 @@ public function voucher_dtls(){
             $this->load->view('report/bankbook/bankbook_ip.php');
             $this->load->view('post_login/footer');
         }
-    }
+    }*/
 
 
 }

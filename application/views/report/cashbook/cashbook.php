@@ -66,8 +66,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Date</th>
                                 <th>Benfed Ac Code</th>
                                 <th>Particulars</th>
-                                <th>Vch Type</th>
-                                <th>Voucher no</th>
+                                <!-- <th>Vch Type</th> -->
+                                <!-- <th>Voucher no</th> -->
 								<th>Debit Amount</th>
 								<th>Credit Amount</th>
                             </tr>
@@ -78,12 +78,20 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo substr($_SESSION['date'],0,10); ?></td>
                                      <td></td>
 									 <td>Opening Balance</td>
-                                     <td></td>
-									 <td></td>
-                                     <td>0.00</td>
-                                     <td></td>           
+                                     <!-- <td></td>
+									 <td></td> -->
+                                     
+                                     <td>
+                                    <?php $op_bal=0.00; if($cashbookop->trans_flag == 'DR'){echo $cashbookop->amount; } 
+                                    $op_bal =$cashbookop->amount; ?>
+                                   </td>
+                                     <td>
+                                        <?php $op_bal=0.00; if($cashbookop->trans_flag == 'CR'){echo $cashbookop->amount; }
+                                        $op_bal =$cashbookop->amount;
+                                        ?>
+                                    </td>           
                                 </tr>
-                            <?php
+                                <?php
 
                                 if($cashbook){
 			
@@ -100,7 +108,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
                                      <td><?php echo $tb->benfed_ac_code; ?></td>
                                      <td><?php echo $tb->ac_name; ?></td>
-                                     <td><?php
+                                     <!-- <td><?php
 											 if($tb->voucher_type == 'PUR'){echo 'Purchase Voucher'; } 
 											 elseif($tb->voucher_type == 'SL'){ echo 'Sale  Voucher'; }
 											 elseif($tb->voucher_type == 'A'){ echo 'Advance  Voucher'; }
@@ -109,8 +117,8 @@ tr:hover {background-color: #f5f5f5;}
 											 elseif($tb->voucher_type == 'CRN'){ echo 'Credit Note  Voucher'; }
 											 elseif($tb->voucher_type == 'RECV'){ echo 'Receive From Society'; }
 								          ?>
-									 </td>
-									 <td><?php echo $tb->voucher_id; ?></td>
+									 </td> -->
+									 <!-- <td><?php echo $tb->voucher_id; ?></td> -->
                                      <td><?php echo $tb->dr_amt; $dr_amt += $tb->dr_amt; ?></td>
                                      <td><?php echo $tb->cr_amt; $cr_amt += $tb->cr_amt; ?></td>
                                 </tr>
@@ -118,11 +126,13 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php  
                                                         
                                       }  ?>
-									  <tr><td colspan="4"></td><td><?=$dr_amt?></td><td><?=$cr_amt?></td>
+									  <tr><td colspan="3"></td><td><?=$dr_amt?></td><td><?=$cr_amt?></td>
 							</tr>
-							<tr><td colspan="3"></td><td>Closing Blance</td><td></td><td><?php echo abs($cls_bal = round($dr_amt)-round($cr_amt));?></td>
+							<tr><td colspan="2"></td><td><b>Closing Blance</b></td><td></td>
+                            <td><b><?php echo abs($cls_bal = round($op_bal)+ round($dr_amt)-round($cr_amt));?></b></td>
 							</tr>
-							<tr><td colspan="4"></td><td><?=$dr_amt?></td><td><?=($cr_amt+$cls_bal)?></td>
+							<tr><td colspan="3"></td><td><b><?=round($dr_amt)+round($op_bal)?></b></td>
+                            <td><b><?=round($cr_amt)+round($cls_bal)?></b></td>
 							</tr>
 									  
                              <?php    }else{
