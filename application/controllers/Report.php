@@ -665,6 +665,7 @@ public function voucher_dtls(){
         }
     }*/
 	
+    //Cash Book report  
 	public function cashbook(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {

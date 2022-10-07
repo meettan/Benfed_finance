@@ -541,6 +541,7 @@ order by ac_name";
         return $query->result();
 	}*/
 
+    //Cash Book Report 
     function f_get_cashbook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 
@@ -565,6 +566,7 @@ order by ac_name";
         return $query->result();
 	}
 
+    //Getting opening balance of cash branch wise
     function f_get_cashbook_opbal($opndt,$frm_date ){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
         // $sql =" SELECT amount,trans_flag FROM `td_opening` 
