@@ -130,7 +130,7 @@ tr:hover {background-color: #f5f5f5;}
                                       }  ?>
 									  <tr><td colspan="3"></td><td><b><?=$dr_amt?></b></td><td><b><?=$cr_amt?></b></td>
 							</tr>
-							<tr><td colspan="2"></td><td><b>Closing Blance</b></td>
+							<tr><td colspan="2"></td><td><b>Closing Balance</b></td>
                             
                             <td><b><?php  
                             if(  $op_bal + $dr_amt-$cr_amt>0)
