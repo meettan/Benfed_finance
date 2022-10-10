@@ -77,18 +77,18 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                      <td><?php echo substr($_SESSION['date'],0,10); ?></td>
                                      <td></td>
-									 <td>Opening Balance</td>
+									 <td><b>Opening Balance</b></td>
                                      <!-- <td></td>
 									 <td></td> -->
                                      
-                                     <td>
+                                     <td><b>
                                     <?php 
-                                     if($cashbookop->trans_flag == 'DR'){echo $cashbookop->amount; } 
+                                     if($cashbookop->trans_flag == 'DR'){echo abs( $cashbookop->amount); } 
                                     $op_bal =$cashbookop->amount; ?>
-                                   </td>
+                                   </b></td>
                                      <td>
                                         <?php  
-                                        if($cashbookop->trans_flag == 'CR'){echo $cashbookop->amount; }
+                                        if($cashbookop->trans_flag == 'CR'){echo abs($cashbookop->amount); }
                                         $op_bal =$cashbookop->amount;
                                         ?>
                                     </td>           
@@ -128,13 +128,28 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php  
                                                         
                                       }  ?>
-									  <tr><td colspan="3"></td><td><?=$dr_amt?></td><td><?=$cr_amt?></td>
+									  <tr><td colspan="3"></td><td><b><?=$dr_amt?></b></td><td><b><?=$cr_amt?></b></td>
 							</tr>
-							<tr><td colspan="2"></td><td><b>Closing Blance</b></td><td></td>
-                            <td><b><?php echo abs($cls_bal = round($op_bal)+ round($dr_amt)-round($cr_amt));?></b></td>
+							<tr><td colspan="2"></td><td><b>Closing Blance</b></td>
+                            
+                            <td><b><?php  
+                            if(  $op_bal + $dr_amt-$cr_amt>0)
+
+                            
+                            { echo $cls_bal = $op_bal + $dr_amt-$cr_amt; }
+   
+                            ?></b></td>
+                            
+                            <td><b><?php  
+                            if(  $op_bal + $dr_amt-$cr_amt<0)
+
+                            
+                            { echo abs($cls_bal = $op_bal + $dr_amt-$cr_amt); }
+   
+                            ?></b></td>
 							</tr>
-							<tr><td colspan="3"></td><td><b><?=round($dr_amt)+round($op_bal)?></b></td>
-                            <td><b><?=round($cr_amt)+round($cls_bal)?></b></td>
+							<tr><td colspan="3"></td><td><b><?=$dr_amt+$op_bal?></b></td>
+                            <td><b><?=$cr_amt+$cls_bal?></b></td>
 							</tr>
 									  
                              <?php    }else{
