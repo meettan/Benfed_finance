@@ -603,8 +603,8 @@ ORDER BY a.voucher_date ASC" ;
            FROM `td_vouchers` a
            WHERE a.voucher_date >= '$opndt' 
            AND a.voucher_date < '$frm_date' 
-           AND `acc_code`=6 and `branch_id`='$branch_id'
-           group by dr_cr_flag)a";
+           AND `acc_code`=6 AND `branch_id`='$branch_id'
+           GROUP by dr_cr_flag)a";
 
 $query  = $this->db->query($sql);
 return $query->row();
