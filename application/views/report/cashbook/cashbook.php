@@ -135,7 +135,6 @@ tr:hover {background-color: #f5f5f5;}
                             <td><b><?php  
                             if(  $op_bal + $dr_amt-$cr_amt>0)
 
-                            
                             { echo $cls_bal = $op_bal + $dr_amt-$cr_amt; }
    
                             ?></b></td>
