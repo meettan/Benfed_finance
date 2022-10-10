@@ -559,17 +559,16 @@ FROM td_vouchers a,md_achead b WHERE a.acc_code=b.sl_no
 AND a.approval_status='A'
 and a.voucher_date >= '$frm_date' 
 AND a.voucher_date < '$to_date' 
-
-and a.branch_id='$branch_id'
-and a.voucher_id in(SELECT a.voucher_id
+AND a.branch_id='$branch_id'
+AND a.voucher_id in(SELECT a.voucher_id
                     FROM td_vouchers a,md_achead b WHERE a.acc_code=b.sl_no 
                     AND a.approval_status='A'
                     and a.voucher_date >= '$frm_date' 
                     AND a.voucher_date < '$to_date' 
                     AND a.acc_code=(SELECT sl_no FROM md_achead WHERE mngr_id=6 and subgr_id=56 and br_id='$branch_id')
-                    and a.branch_id='$branch_id'
+                    AND a.branch_id='$branch_id'
                     group by a.dr_cr_flag,b.mngr_id,a.voucher_date,b.benfed_ac_code,a.voucher_id)
-                   AND a.acc_code<>(SELECT sl_no FROM md_achead WHERE mngr_id=6 and subgr_id=56 and br_id='$branch_id')
+AND a.acc_code<>(SELECT sl_no FROM md_achead WHERE mngr_id=6 and subgr_id=56 and br_id='$branch_id')
 group by a.dr_cr_flag,b.mngr_id,a.voucher_date,b.benfed_ac_code,a.voucher_id ,b.ac_name 
 ORDER BY a.voucher_date ASC" ;
 
@@ -588,14 +587,19 @@ ORDER BY a.voucher_date ASC" ;
         //                                    AND `subgr_id`=56 AND `balance_dt`='$opndt' )" ; 
 
 
-      $sql ="SELECT sum(a.dr_amt)- sum(a.cr_amt) +(SELECT IF(trans_flag='DR' ,amount,-1*amount)
-      FROM `td_opening` 
-      WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`='$branch_id' 
-                               AND `mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='$opndt'))as amount
-      , if(sum(a.dr_amt)- sum(a.cr_amt)+(SELECT IF(trans_flag='DR' ,amount,-1*amount)
-                                          FROM `td_opening` 
-                                          WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` WHERE `br_id`='$branch_id' AND 																`mngr_id`=6 AND `subgr_id`=56 AND `balance_dt`='2022-04-01'))>0,'DR','CR')as trans_flag                                
-      from(SELECT IF(dr_cr_flag='Dr',sum(a.amount),0)cr_amt, IF(dr_cr_flag='Cr',sum(a.amount),0)dr_amt 
+      $sql ="SELECT sum(a.dr_amt)- sum(a.cr_amt) + (SELECT IF(trans_flag='DR' ,amount,-1*amount)
+                                                    FROM `td_opening` 
+                                                    WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`FROM `md_achead` 
+                                                                              WHERE `br_id`='$branch_id' 
+                                                                              AND `mngr_id`=6 
+                                                                              AND `subgr_id`=56 AND `balance_dt`='$opndt'))as amount,
+                   IF(sum(a.dr_amt) - sum(a.cr_amt) + (SELECT IF(trans_flag='DR' ,amount,-1*amount)
+                                                        FROM `td_opening` 
+                                                        WHERE `benfed_ac_code` =( SELECT `benfed_ac_code`
+                                                                                  FROM `md_achead` WHERE `br_id`='$branch_id'
+                                                                                  AND `mngr_id`=6 AND `subgr_id`=56 
+                                                                                  AND `balance_dt`='2022-04-01'))>0,'DR','CR')as trans_flag                                
+      FROM(SELECT IF(dr_cr_flag='Dr',sum(a.amount),0)cr_amt, IF(dr_cr_flag='Cr',sum(a.amount),0)dr_amt 
            FROM `td_vouchers` a
            WHERE a.voucher_date >= '$opndt' 
            AND a.voucher_date < '$frm_date' 
