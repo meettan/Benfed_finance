@@ -554,7 +554,6 @@ order by ac_name";
        //           and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
 	  // 	        order by a.voucher_date,a.voucher_type" ; 
       
-               
 $sql ="SELECT a.dr_cr_flag,a.voucher_id, IF(a.dr_cr_flag='Dr',sum(a.amount),0)dr_amt, IF(a.dr_cr_flag='Cr',sum(a.amount),0)cr_amt ,b.mngr_id,a.voucher_date,b.benfed_ac_code,b.ac_name
 FROM td_vouchers a,md_achead b WHERE a.acc_code=b.sl_no 
 AND a.approval_status='A'
