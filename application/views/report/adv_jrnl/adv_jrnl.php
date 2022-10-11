@@ -112,7 +112,6 @@
 							target="_blank"><?=$vou->trans_no?></a>
 					</div>
 					<?php } ?>
-					<br>
 					<?php if(!empty($vou->transfer_type)){ ?>
 					<div class="leftNo">Transfer type: <?php if($vou->transfer_type == 'C'){echo 'Checque'; } 
 												 elseif($vou->transfer_type == 'N'){ echo 'NEFT'; }
