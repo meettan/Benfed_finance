@@ -96,11 +96,13 @@
 				<?php foreach($voucher as $vou){     ?>
 				<div class="printTop023">
 					<div class="leftNo">Voucher ID: <?=$vou->voucher_id?></div><br>
+					<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div>
+
 					<div class="leftNo">Status: <?php  if($vou->approval_status=='A'){echo 'Approvd';} 
 														elseif($vou->approval_status=='A'){echo 'Unpprovd';}?></div><br>
-					<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div><br>
-					<div class="rightDate">Created By: <?php echo $vou->created_by; ?></div><br>
-					<div class="rightDate">Created Date: <?php echo date("d/m/Y",strtotime($vou->created_dt)); ?></div>
+					
+					<div class="rightDate">Created By: <?php echo $vou->created_by; ?></div>
+					
 					
 				</div>
 				<div class="printTop023">
@@ -119,6 +121,7 @@
 												 elseif($vou->transfer_type == 'H'){ echo 'Cash'; }
 												 ?></div>
 					<?php } ?>
+					<div class="rightDate">Created Date: <?php echo date("d/m/Y",strtotime($vou->created_dt)); ?></div>
 				</div>
 				<!-- <?php if($vou->transfer_type != 'T' ) {?>
 				<div class="printTop023">
