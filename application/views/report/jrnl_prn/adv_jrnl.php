@@ -93,13 +93,18 @@ function printDiv() {
         <?php foreach($voucher as $vou);{     ?>
 		<div class="printTop023">
 		<div class="leftNo">Voucher ID: <?=$vou->voucher_id?></div>
-		<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div>
+		<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div><br>
+		<div class="rightDate">Created By: <?php echo $vou->created_by; ?></div><br>
+		<div class="rightDate">Created Date: <?php echo  date("d/m/Y",strtotime($vou->created_dt)); ?></div><br>
 		
+		<div class="rightNo">Status: <?php  if($vou->approval_status=='A'){echo 'Approved';} 
+		 elseif($vou->approval_status=='U'){echo 'Unpproved';}?></div>
 		</div>
+		
 		<div class="printTop023">
 		<!-- <div class="leftNo">Transaction No:<?=$vou->trans_no?></a></div><br> -->
 		<!-- <div class="leftNo">Transaction No: <a href="<?=base_url()?>index.php/report/trans_detail?trans_no=<?php echo base64_encode($vou->trans_no);?>&type=<?=base64_encode($type)?>&trans_dt=<?=$vou->trans_dt?>" target="_blank"><?=$vou->trans_no?></a></div><br> -->
-		<div class="leftNo">Voucher type: <?php if($vou->transfer_type == 'C'){echo 'Checque'; } 
+		<div class="leftNo">Voucher type: <?php if($vou->transfer_type == 'C'){echo 'Cheque'; } 
 												 elseif($vou->transfer_type == 'N'){ echo 'NEFT'; }
 												 elseif($vou->transfer_type == 'R'){ echo 'RTGS'; }
 												 elseif($vou->transfer_type == 'T'){ echo 'Transfer'; }

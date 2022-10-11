@@ -246,7 +246,7 @@ class Report_model extends CI_Model
   $sql = $this->db->query(" select  a.voucher_date,a.voucher_id,a.voucher_type,a.amount,a.transfer_type,
                            a.trans_no,a.trans_dt, a.ins_no,a.ins_dt,a.dr_cr_flag,a.acc_code,c.ac_name,
                            c.benfed_ac_code,
-                           a.bank_name,a.remarks,b.district_name as branch_name
+                           a.bank_name,a.remarks,b.district_name as branch_name,a.approval_status,a.created_by,a.created_dt
                              from td_vouchers a,md_district b,md_achead c
                              where a.voucher_id='$receipt_no'
                              and a.acc_code=c.sl_no
@@ -453,7 +453,7 @@ order by ac_name";
         where voucher_id in(SELECT a.voucher_id FROM td_vouchers a,md_achead b,mda_mngroup c WHERE a.acc_code=b.sl_no 
         and b.mngr_id =c.sl_no and b.sl_no ='$acc_head' and a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date') 
         and a.acc_code !='$acc_head' and a.acc_code = b.sl_no and b.mngr_id = c.sl_no ORDER BY a.voucher_date ASC" ;*/
-	$sql="select d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
+	$sql="SELECT d.ac_name,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt,a.voucher_date,a.remarks, sum(if(dr_cr_flag='Cr',a.amount,0))as       
 	       cr_amt, a.voucher_id,a.trans_no,a.voucher_mode,a.dr_cr_flag,c.type
         from td_vouchers a,md_achead b,mda_mngroup c,(SELECT max(acc_code)acc_cd,voucher_id,b.ac_name
                                                       from td_vouchers a,md_achead b
@@ -477,7 +477,7 @@ order by ac_name";
         return $query->result();
 	}
 
-
+//***** Get Opening Balance Of Particular Account Head for Accounts Details Report**************************/
 
 	function get_ope_gl($op_dt,$ope_date,$acc_head){
 		
