@@ -453,8 +453,8 @@ public function voucher_dtls(){
 			//exit();
             }else{
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
-			// 	echo $this->db->last_query();
-			// exit();
+			//	echo $this->db->last_query();
+			//exit();
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
         //    echo $this->input->post('allaccounthead');
@@ -692,9 +692,11 @@ public function voucher_dtls(){
 
             $data['cashbookop']     = $this->Report_Model->f_get_cashbook_opbal($opndt,$frm_date );
             
+            
             $data['cashbook']     = $this->Report_Model->f_get_cashbook($frm_date,$to_date);
         
-
+// echo $this->db->last_query();
+//             exit();
             $this->load->view('post_login/finance_main');
             $this->load->view('report/cashbook/cashbook.php',$data);
             $this->load->view('post_login/footer');
