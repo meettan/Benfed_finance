@@ -98,8 +98,8 @@
 					<div class="leftNo">Voucher ID: <?=$vou->voucher_id?></div><br>
 					<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div>
 
-					<div class="leftNo">Status: <?php  if($vou->approval_status=='A'){echo 'Approvd';} 
-														elseif($vou->approval_status=='A'){echo 'Unpprovd';}?></div><br>
+					<div class="leftNo">Status: <?php  if($vou->approval_status=='A'){echo 'Approved';} 
+														elseif($vou->approval_status=='A'){echo 'Unpproved';}?></div><br>
 					
 					<div class="rightDate">Created By: <?php echo $vou->created_by; ?></div>
 					
