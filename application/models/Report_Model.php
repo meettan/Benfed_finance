@@ -559,13 +559,13 @@ $sql ="SELECT a.dr_cr_flag,a.voucher_id, IF(a.dr_cr_flag='Dr',sum(a.amount),0)cr
 FROM td_vouchers a,md_achead b WHERE a.acc_code=b.sl_no 
 AND a.approval_status='A'
 and a.voucher_date >= '$frm_date' 
-AND a.voucher_date < '$to_date' 
+AND a.voucher_date <= '$to_date' 
 AND a.branch_id='$branch_id'
 AND a.voucher_id in(SELECT a.voucher_id
                     FROM td_vouchers a,md_achead b WHERE a.acc_code=b.sl_no 
                     AND a.approval_status='A'
                     and a.voucher_date >= '$frm_date' 
-                    AND a.voucher_date < '$to_date' 
+                    AND a.voucher_date <= '$to_date' 
                     AND a.acc_code=(SELECT sl_no FROM md_achead WHERE mngr_id=6 and subgr_id=56 and br_id='$branch_id')
                     AND a.branch_id='$branch_id'
                     group by a.dr_cr_flag,b.mngr_id,a.voucher_date,b.benfed_ac_code,a.voucher_id)

@@ -147,8 +147,8 @@ tr:hover {background-color: #f5f5f5;}
    
                             ?></b></td>
 							</tr>
-							<tr><td colspan="3"></td><td><b><?=$dr_amt+$op_bal?></b></td>
-                            <td><b><?=$cr_amt+$cls_bal?></b></td>
+							<tr><td colspan="3"></td><td><b><?=abs($dr_amt+$op_bal)?></b></td>
+                            <td><b><?=abs($cr_amt+$cls_bal)?></b></td>
 							</tr>
 									  
                              <?php    }else{
