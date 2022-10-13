@@ -239,6 +239,11 @@
                         <!-- <option value="M" <?php if($user_dtls->user_type=='M'){echo 'selected';} ?>>Manager</option>
                         <option value="A" <?php if($user_dtls->user_type=='A'){echo 'selected';} ?>>Admin</option>
                         <option value="C" <?php if($user_dtls->user_type=='C'){echo 'selected';} ?>>Accountant</option> -->
+                        <?php if($this->session->userdata['loggedin']['branch_id'] == 342){ ?>
+                           
+                           <option value="S" <?php if($user_dtls->user_type=='S'){echo 'selected';} ?>>Super User</option>
+   
+                           <?php } ?>
                     </select>
                 </div>
 
@@ -250,6 +255,8 @@
                         <option value="U" <?php if($user_dtls->user_status=='U'){echo 'selected';} ?>>Pending</option>
                         <option value="A" <?php if($user_dtls->user_status=='A'){echo 'selected';} ?>>Active</option>
                         <option value="D" <?php if($user_dtls->user_status=='D'){echo 'selected';} ?>>Inactive</option>
+                       
+   
                 </select>                
                 </div>
 

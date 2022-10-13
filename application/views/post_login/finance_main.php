@@ -112,7 +112,7 @@
                         <a href="<?php echo site_url('cheqdtl'); ?>">Cheque Entry</a>
                         <!-- <a href="<?php echo site_url('rent_collection'); ?>">Rent Calculation</a> -->
 
-                        <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A" ||  $this->session->userdata['loggedin']['user_type'] =='M') { ?>
+                        <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A" ||  $this->session->userdata['loggedin']['user_type'] =='M'||$this->session->userdata['loggedin']['user_type'] =='S') { ?>
                         <div class="sub-dropdown">
                                <a class="sub-dropbtn">Rent<i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
@@ -137,7 +137,7 @@
                             <?php } ?>
                 </div>
             </div>
-			<?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" || $this->session->userdata['loggedin']['user_type'] =='M' || $this->session->userdata['loggedin']['user_type'] =='C' || $this->session->userdata['loggedin']['user_type'] =='A') { ?>
+			<?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" || $this->session->userdata['loggedin']['user_type'] =='M' || $this->session->userdata['loggedin']['user_type'] =='C' || $this->session->userdata['loggedin']['user_type'] =='A'||$this->session->userdata['loggedin']['user_type'] =='S') { ?>
 			<div class="dropdown">
                 <div class="dropbtn">
                     <i class="fa fa-bar-chart" aria-hidden="true"></i>

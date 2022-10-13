@@ -333,7 +333,8 @@ class Admins extends CI_Controller
             }
             $where  =   array("user_id"     =>  $this->input->post('user_id'));
             $this->Admin->f_edit('md_users', $data_array, $where);
-
+// echo $this->db->last_query();
+//             exit();
             $where2 = array("user_id" => $this->input->post('user_id'));
             $userData = $this->Admin->f_get_particulars("md_users", null, $where2, 1);
 
@@ -406,7 +407,8 @@ class Admins extends CI_Controller
             redirect('userlist_admin');
         } else {
             $user['user_dtls']    =   $this->Admin->f_get_particulars("md_users", NULL, array("user_id" => $this->input->get('user_id')), 1);
-
+            // echo $this->db->last_query();
+            // exit();
             $this->load->view('post_login/finance_main');
 
             $this->load->view("user/edit_admin", $user);
