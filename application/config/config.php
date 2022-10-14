@@ -24,6 +24,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://192.168.1.100:8080/Benfed_finance/';
+
+
 $config['base_url'] = 'http://localhost/benfed/Benfed_finance/';
 
 //$config['index_page'] = 'index.php';

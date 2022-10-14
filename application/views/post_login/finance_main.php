@@ -172,10 +172,12 @@
                                <a href="<?php echo site_url("cashVoucherlst");?>">Cash Voucher</a>
                                <a href="<?php echo site_url("bankVoucherlst");?>">Bank Voucher</a>
                                <a href="<?php echo site_url("journallst");?>">Journal Voucher</a>
+
+                               <a href="<?php echo site_url('advjrnlr'); ?>">All Voucher</a>
                              </div>
                             </div>
 					    <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details</a>
-                        <a href="<?php echo site_url('advjrnlr'); ?>">Voucher</a>
+                        
 						<!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
 						<a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
                         <!-- <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a> -->

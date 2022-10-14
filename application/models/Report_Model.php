@@ -141,7 +141,7 @@ class Report_model extends CI_Model
 	
     /******************************* */
 	function f_get_voucher($frm_date,$to_date,$fin_id,$branch_id){
-        $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name,voucher_type ,approval_status,created_by,created_dt
+        $sql ="SELECT voucher_id,voucher_date,trans_dt,trans_no,transfer_type,ins_no,ins_dt,bank_name,voucher_type ,approval_status,created_by,created_dt,approved_by,approved_dt
                FROM td_vouchers
                WHERE voucher_date >= '$frm_date' AND voucher_date <= '$to_date'
 			   and branch_id='$branch_id'
@@ -247,7 +247,8 @@ class Report_model extends CI_Model
   $sql = $this->db->query(" select  a.voucher_date,a.voucher_id,a.voucher_type,a.amount,a.transfer_type,
                            a.trans_no,a.trans_dt, a.ins_no,a.ins_dt,a.dr_cr_flag,a.acc_code,c.ac_name,
                            c.benfed_ac_code,
-                           a.bank_name,a.remarks,b.district_name as branch_name,a.approval_status,a.created_by,a.created_dt
+                           a.bank_name,a.remarks,b.district_name as branch_name,a.approval_status,a.created_by,a.created_dt,
+                           a.approved_dt,a.approved_by
                              from td_vouchers a,md_district b,md_achead c
                              where a.voucher_id='$receipt_no'
                              and a.acc_code=c.sl_no

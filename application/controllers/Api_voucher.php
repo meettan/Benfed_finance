@@ -95,8 +95,8 @@ public function cancelsale_voucher(){
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
 $input_cgst = array(
@@ -123,8 +123,8 @@ $input_cgst = array(
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
 
@@ -152,8 +152,8 @@ $input_sgst = array(
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
  
@@ -181,8 +181,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
 
@@ -244,8 +244,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
     $input_cgst = array(
@@ -272,8 +272,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
     
@@ -301,8 +301,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
      
@@ -330,8 +330,8 @@ $input_sgst = array(
             'created_by'     => $dt['data']['created_by'],
             'modified_by'    => '',
             'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
+            'approved_by'    => 'AUTO',
+            'approved_dt'    => $dt['data']['created_dt'],
             'fin_yr'         => $dt['data']['fin_yr']    
         );
 
@@ -394,8 +394,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
     $input_cgst = array(
@@ -422,8 +422,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
     
@@ -451,8 +451,8 @@ $input_sgst = array(
         'created_by'     => $dt['data']['created_by'],
         'modified_by'    => '',
         'modified_dt'    => '',
-        'approved_by'    => '',
-        'approved_dt'    => '',
+        'approved_by'    => 'AUTO',
+        'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
     );
      
@@ -480,8 +480,8 @@ $input_sgst = array(
             'created_by'     => $dt['data']['created_by'],
             'modified_by'    => '',
             'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
+            'approved_by'    => 'AUTO',
+            'approved_dt'    => $dt['data']['created_dt'],
             'fin_yr'         => $dt['data']['fin_yr']    
         );
 
@@ -756,8 +756,8 @@ if($this->db->insert('td_vouchers', $input_bank) ){
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
 if($this->db->insert('td_vouchers', $input_bank) ){
@@ -816,8 +816,8 @@ public function recv_voucher(){
             'created_by'     => $dt['data']['created_by'],
             'modified_by'    => '',
             'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
+            'approved_by'    => 'AUTO',
+            'approved_dt'    => $dt['data']['created_dt'],
             'fin_yr'         => $dt['data']['fin_yr']    
         );
          // if($this->db->insert('td_vouchers', $input_bank) && $this->db->insert('td_vouchers', $input_soc) ){
@@ -856,8 +856,8 @@ $input_soc = array(
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
  // if($this->db->insert('td_vouchers', $input_bank) && $this->db->insert('td_vouchers', $input_soc) ){
@@ -1125,8 +1125,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
         if ($dt['data']['rnd_of_add']>0){
@@ -1156,8 +1156,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
 
@@ -1189,8 +1189,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
     
@@ -1219,8 +1219,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
 
@@ -1249,8 +1249,8 @@ if($dt['data']['total_tds']>0){
                     'created_by'     => $dt['data']['created_by'],
                     'modified_by'    => '',
                     'modified_dt'    => '',
-                    'approved_by'    => '',
-                    'approved_dt'    => '',
+                    'approved_by'    => 'AUTO',
+                    'approved_dt'    => $dt['data']['created_dt'],
                     'fin_yr'         => $dt['data']['fin_yr']    
                 );
 
@@ -1282,8 +1282,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
 
@@ -1319,8 +1319,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
 
@@ -1357,8 +1357,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
 
@@ -1451,8 +1451,8 @@ if($dt['data']['total_tds']>0){
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
                 'modified_dt'    => '',
-                'approved_by'    => '',
-                'approved_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
             }
@@ -1484,8 +1484,8 @@ if($dt['data']['total_tds']>0){
                     'created_by'     => $dt['data']['created_by'],
                     'modified_by'    => '',
                     'modified_dt'    => '',
-                    'approved_by'    => '',
-                    'approved_dt'    => '',
+                    'approved_by'    => 'AUTO',
+                    'approved_dt'    => $dt['data']['created_dt'],
                     'fin_yr'         => $dt['data']['fin_yr']    
                 ); 
             }   
@@ -1526,8 +1526,8 @@ if($dt['data']['total_tds']>0){
                     'created_by'     => $dt['data']['created_by'],
                     'modified_by'    => '',
                     'modified_dt'    => '',
-                    'approved_by'    => '',
-                    'approved_dt'    => '',
+                    'approved_by'    => 'AUTO',
+                    'approved_dt'    => $dt['data']['created_dt'],
                     'fin_yr'         => $dt['data']['fin_yr']    
                 );
             }
@@ -1674,8 +1674,8 @@ else{
             'created_by'     => $dt['data']['created_by'],
             'modified_by'    => '',
             'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
+            'approved_by'    => 'AUTO',
+            'approved_dt'    => $dt['data']['created_dt'],
             'fin_yr'         => $dt['data']['fin_yr']    
         );
         if($this->db->insert('td_vouchers', $input_cr)){

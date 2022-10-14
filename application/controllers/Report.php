@@ -112,8 +112,7 @@ public function jrnlprn()
 			$where = array('id' => $branch_id );
 			$select = array('branch_name');
 			$data['type']   = $this->input->post('voucher_type');
-
-
+            
             $data['branch'] = $this->master_model->f_select("md_branch", $select, $where, 1);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/adv_jrnl/adv_jrnl.php',$data);

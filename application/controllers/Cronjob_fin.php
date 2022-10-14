@@ -12,7 +12,9 @@
 		public function voucher_cron_job(){
 
 		     $data    = array(
-				      'approval_status'       => "A"
+				      'approval_status'       => "A",
+					  'approved_by'=> "AUTO",
+					  'approved_dt'=>date('Y-m-d h:i:s')
 					       );
 
 	         $where  =   array(

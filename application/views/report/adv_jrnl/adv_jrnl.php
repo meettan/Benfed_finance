@@ -95,32 +95,32 @@
 
 				<?php foreach($voucher as $vou){     ?>
 				<div class="printTop023">
-					<div class="leftNo">Voucher ID: <?=$vou->voucher_id?></div><br>
-					<div class="rightDate">Dated: <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div>
+					<div class="leftNo"><b>Voucher ID: </b><?=$vou->voucher_id?></div><br>
+					<div class="rightDate"><b>Dated: </b> <?php echo date("d/m/Y",strtotime($vou->voucher_date)); ?></div>
 
-					<div class="leftNo">Status: <?php  if($vou->approval_status=='A'){echo 'Approved';} 
+					<div class="leftNo"><b>Status: </b> <?php  if($vou->approval_status=='A'){echo 'Approved';} 
 														elseif($vou->approval_status=='A'){echo 'Unpproved';}?></div><br>
 					
-					<div class="rightDate">Created By: <?php echo $vou->created_by; ?></div>
 					
 					
-				</div>
-				<div class="printTop023">
-					<?php if(!empty($vou->trans_no)){ ?>
-					<div class="leftNo">Transaction No: <a
-							href="<?=base_url()?>index.php/report/trans_detail?trans_no=<?php echo base64_encode($vou->trans_no);?>&type=<?=base64_encode($vou->voucher_type)?>&trans_dt=<?=$vou->trans_dt?>"
-							target="_blank"><?=$vou->trans_no?></a>
-					</div>
-					<?php } ?>
 					<?php if(!empty($vou->transfer_type)){ ?>
-					<div class="leftNo">Transfer type: <?php if($vou->transfer_type == 'C'){echo 'Checque'; } 
+					<div class="rightDate"><b>Transfer type: </b><?php if($vou->transfer_type == 'C'){echo 'Checque'; } 
 												 elseif($vou->transfer_type == 'N'){ echo 'NEFT'; }
 												 elseif($vou->transfer_type == 'R'){ echo 'RTGS'; }
 												 elseif($vou->transfer_type == 'T'){ echo 'Transfer'; }
 												 elseif($vou->transfer_type == 'H'){ echo 'Cash'; }
 												 ?></div>
 					<?php } ?>
-					<div class="rightDate">Created Date: <?php echo date("d/m/Y",strtotime($vou->created_dt)); ?></div>
+				<!-- </div>
+				<div class="printTop023"> -->
+					<?php if(!empty($vou->trans_no)){ ?>
+					<div class="leftNo"><b>Transaction No: </b><a
+							href="<?=base_url()?>index.php/report/trans_detail?trans_no=<?php echo base64_encode($vou->trans_no);?>&type=<?=base64_encode($vou->voucher_type)?>&trans_dt=<?=$vou->trans_dt?>"
+							target="_blank"><?=$vou->trans_no?></a>
+					</div>
+					<?php } ?>
+					
+					
 				</div>
 				<!-- <?php if($vou->transfer_type != 'T' ) {?>
 				<div class="printTop023">
@@ -175,6 +175,8 @@
 							<?php    } 
                         }    				  ?>
 						</tbody>
+
+
 						<?php 
 				      $dr_tot = number_format((float)$dr_tot, 2, '.', '');
 					  $cr_tot = number_format((float)$cr_tot, 2, '.', '');
@@ -188,10 +190,24 @@
 							</tr>
 						</tfoot>
 					</table>
+					
 				</div>
 				<?php if(!empty($remarks)){ ?>
-				<div class="remarks">Remarks: <?=$remarks?></div>
+				<div class="remarks"><b>Remarks: </b><?=$remarks?></div>
 				<?php } ?>
+
+
+				<div class="printTop023">
+
+
+					
+					<div class="leftNo"><b> Created By: </b><?php echo $vou->created_by; ?></div>
+					<div class="rightDate"><b>Approved By: </b><?php echo  $vou->approved_by; ?></div><br>
+
+					<div class="leftNo"><b> Created Date: </b><?php echo date("d/m/Y h:i:s",strtotime($vou->created_dt)); ?></div>
+					<div class="rightDate"><b>Approved Date: </b><?php echo date("d/m/Y h:i:s",strtotime($vou->approved_dt)); ?></div>
+					
+				</div>
 				</br>
 				<hr style="border-top: 4px dashed #bbb">
 				<?php 
