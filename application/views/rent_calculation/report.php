@@ -125,7 +125,7 @@
                     }
                 }         
                 ?>
-                    <td colspan="7" style="text-align: right"><b>Total</b></td>
+                    <td colspan="6" style="text-align: right"><b>Total</b></td>
                     <td><?php echo  $grossAmount; ?></td>
                     <td><?php echo $CGST; ?></td>
                     <td><?php echo $SGST ?></td>

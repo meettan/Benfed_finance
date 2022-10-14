@@ -1,3 +1,4 @@
+
 <style>
     table {
         border-collapse: collapse;
@@ -125,7 +126,7 @@
                     }
                 }         
                 ?>
-                    <td colspan="6" style="text-align: right"><b>Total</b></td>
+                    <td colspan="5" style="text-align: right"><b>Total</b></td>
                     <td><?php echo  $grossAmount; ?></td>
                     <td><?php echo $CGST; ?></td>
                     <td><?php echo $SGST ?></td>
@@ -141,7 +142,7 @@
         <div style="text-align: center;">
 
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
-            <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
+            <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button> -->
 
         </div>
 
