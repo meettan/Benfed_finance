@@ -112,7 +112,7 @@ $route['trailbal_group'] = 'report/trailbal_group';
 $route['crnjrnlr'] = 'report/crnjrnl';
 $route['saljrnlr'] = 'report/salejrnl';
 $route['purjrnlr'] = 'report/purjrnl';
-//$route['bankbook']  = 'report/bankbook';
+$route['bankbook']  = 'report/bankbook';
 ///   ***** End code for report
 $route['mnthend'] = 'transaction/month_end';
 // $route['user'] = 'admins';

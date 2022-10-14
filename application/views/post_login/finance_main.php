@@ -180,7 +180,7 @@
 
                         <!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
                         <a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
-                        <!-- <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a> -->
+                        <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a>
 
 
 

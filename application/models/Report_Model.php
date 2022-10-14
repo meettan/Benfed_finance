@@ -647,4 +647,10 @@ return $query->row();
 	}*/
 
 
+
+    function branch_bnk($branch_id){
+        return $this->db->where('br_id',$branch_id)->where('BNK_flag','B')->get('md_achead')->result();
+    }
+
+
 }

@@ -112,7 +112,7 @@ public function jrnlprn()
 			$where = array('id' => $branch_id );
 			$select = array('branch_name');
 			$data['type']   = $this->input->post('voucher_type');
-            
+
             $data['branch'] = $this->master_model->f_select("md_branch", $select, $where, 1);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/adv_jrnl/adv_jrnl.php',$data);
@@ -709,25 +709,62 @@ public function voucher_dtls(){
     }
 
 /***Bank Book Report blocked on 07/10/2022 */
-	/*public function bankbook(){
+	public function bankbook(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $acc_head=$this->input->post('bank');
 
             $frm_date     =   $_POST['from_date'];
             $to_date      =   $_POST['to_date'];
+
+
+            $branch_id  = $this->session->userdata['loggedin']['branch_id'];	
+           
+			
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
-            $data['bankbook']     = $this->Report_Model->f_get_bankbook($frm_date,$to_date);
+           
+			$fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],0,4);
+			$op_dt=$fin_year_sort_code.'-04'.'-01';
+			
+            if( date('d-m',strtotime($frm_date))=='01-04'){
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($op_dt,$acc_head);
+			
+            }else{
+                $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
+			
+            }
+            $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
+        
+          if($this->input->post('allaccounthead')=='false'){
+            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
+           
+
+          }else{
+            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+          }
+
+          
+        //     $this->load->view('post_login/finance_main');
+        //     $this->load->view('report/ac_detail/ac_detail.php',$data);
+        //     $this->load->view('post_login/footer');
+        //    // $this->load->view('post_login/footer');
+
+
+
             $this->load->view('post_login/finance_main');
             $this->load->view('report/bankbook/bankbook.php',$data);
             $this->load->view('post_login/footer');
 
         }else{
-			
+			$data = array(
+                "banklist"=>$this->Report_Model->branch_bnk($this->session->userdata['loggedin']['branch_id']),
+            );
+            
             $this->load->view('post_login/finance_main');
-            $this->load->view('report/bankbook/bankbook_ip.php');
+            $this->load->view('report/bankbook/bankbook_ip.php',$data);
             $this->load->view('post_login/footer');
         }
-    }*/
+    }
 
 
 }
