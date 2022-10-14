@@ -137,5 +137,24 @@ select voucher_date,
         }
     }
 
+
+    public function f_get_mnthend($br_cd ){
+       
+         $data= $this->db->query("select 
+         DATE_ADD(last_day(concat(concat(concat(concat(end_yr,'-'),if(LENGTH(end_mnth)=1,concat('0',end_mnth),end_mnth)),'-'),'01')),INTERVAL 1 DAY) as mnthdt
+                      from   td_month_end
+                      where branch_id=$br_cd");
+         $result = $data->result();
+        
+         return $result;
+ }
+
+
+ public function  get_monthendDate(){
+			
+    $branchId=$this->session->userdata['loggedin']['branch_id'];
+    return $this->db->query('SELECT * FROM td_month_end  where branch_id = '.$branchId.' and   sl_no = (select max(sl_no) from td_month_end  where  branch_id = '.$branchId.')')->row();
+}
+
     
 }

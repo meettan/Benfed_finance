@@ -47,7 +47,7 @@
             if ($('#v_type').val() != '') {
                 var tr_len = $('#vau_tab #add>tr').length;
                 var x = tr_len + 1;
-                $("#add").append('<tr><td><select id="acc_code_' + x + '" class="form-control select_2" name="acc_code[]" class="input_text" style="width: 80%;" onchange="set_gr(' + x + ')" required><option value="">Select</option>' +
+                $("#add").append('<tr><td><select id="acc_code_' + x + '" class="form-control select_2" name="acc_code[]" class="input_text" style="width: 80%;" onchange="set_gr(' + x + ')" required><option value="" required>Select</option>' +
                     "<?php
                         foreach ($row as $value) {
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
@@ -130,7 +130,7 @@
 
                 <div class="col-sm-4">
 
-                    <input type="date" name="voucher_dt" class="form-control smallinput_text" value="<?= date('Y-m-d') ?>" id="date" required />
+                    <input type="date" name="voucher_dt" class="form-control mindate smallinput_text" value="<?= date('Y-m-d') ?>" id="date" min="" required />
 
                 </div>
 
@@ -138,7 +138,7 @@
 
                 <div class="col-sm-2">
 
-                    <input type="text" name="voucher_mode" value="BANK" class="transparent_tag" style="width:50px;" readonly />
+                    <input type="text" name="voucher_mode" value="BANK" class="transparent_tag" style="width:50px;" readonly required/>
 
                 </div>
 
@@ -173,7 +173,7 @@
 
                 <div class="col-sm-4">
 
-                    <select name="bank_cd" class="form-control select2" style="display: inline;">
+                    <select name="bank_cd" class="form-control select2" style="display: inline;" required>
                         <option value="0">Select</option>
                         <?php
                         foreach ($bank as $value) {
@@ -208,7 +208,7 @@
 
                 <div class="col-sm-3">
 
-                    <input type="date" class="form-control smallinput_text" name="inst_dt">
+                    <input type="date" class="form-control smallinput_text mindate" name="inst_dt" min="">
 
                 </div>
 
@@ -368,4 +368,11 @@
         }
 
     }
+</script>
+
+
+<script>
+    $('.mindate').attr('min',
+    		'<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01'
+    		);
 </script>

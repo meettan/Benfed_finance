@@ -125,11 +125,16 @@
                     }
                 }         
                 ?>
-                    <td colspan="6" style="text-align: right"><b>Total</b></td>
-                    <td><?php echo  $grossAmount; ?></td>
-                    <td><?php echo $CGST; ?></td>
-                    <td><?php echo $SGST ?></td>
-                    <td><?php echo $netAmount ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>Total</b></td>
+                    <td><b><?php echo  $grossAmount; ?></b></td>
+                    <td><b><?php echo $CGST; ?></b></td>
+                    <td><b><?php echo $SGST ?></b></td>
+                    <td><b><?php echo $netAmount ?></b></td>
                     <!-- <td  colspan="4"></td> -->
                    
                 </tbody>
@@ -148,3 +153,33 @@
     </div>
 
 </div>
+
+
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+    destroy: true,
+   searching: false,ordering: false,paging: false,
+
+dom: 'Bfrtip',
+buttons: [
+   {
+extend: 'excelHtml5',
+title: 'Rent Collection',
+text: 'Export to excel'
+
+   }
+]
+   });
+</script>

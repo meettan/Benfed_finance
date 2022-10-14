@@ -64,8 +64,7 @@
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
 							 
                         }
-                        ?>" +
-                    '</select></td>'+
+                        ?>" +'</select></td>'+
                     '<td><input type="text" class="transparent_tag" id="benfedcode_'+ x +'" name="benfedcode_id[]" style="width: 100%;" readonly></td>'+
                     '<td><input type="text" class="transparent_tag" id="gr_id_' + x + '" name="gr_id[]" style="width: 100%;" readonly></td>' +
                     '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' +
@@ -117,7 +116,7 @@
 
                 <div class="col-sm-4">
 
-                    <input type="date" name="voucher_dt" class="form-control smallinput_text transparent_tag" value="<?= date('Y-m-d') ?>" id="voucher_dt" />
+                    <input type="date" name="voucher_dt" class="form-control smallinput_text transparent_tag mindate" min="" value="<?= date('Y-m-d') ?>" id="voucher_dt" required/>
 
                 </div>
 
@@ -325,4 +324,11 @@
 
     }
 
+</script>
+
+
+<script>
+    $('.mindate').attr('min',
+    		'<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01'
+    		);
 </script>
