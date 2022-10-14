@@ -54,8 +54,8 @@
                                                     echo $this->session->userdata['loggedin']['branch_name'];
                                                 } ?></li>
             <li><strong>Financial Year: </strong><?php if (isset($this->session->userdata['loggedin']['fin_yr'])) {
-                                                echo $this->session->userdata['loggedin']['fin_yr'];
-                                            } ?></li>
+                                                        echo $this->session->userdata['loggedin']['fin_yr'];
+                                                    } ?></li>
             <li><strong>User: </strong><?php if (isset($this->session->userdata['loggedin']['user_name'])) {
                                             echo $this->session->userdata['loggedin']['user_name'];
                                         } ?></li>
@@ -72,136 +72,159 @@
             </div>
         </div>
         <div class="col-sm-9 navbarSectio">
-            <?php if ($this->session->userdata['loggedin']['user_type'] != "O") {?>
-            <div class="dropdown">
-                <div class="dropbtn">
-                    <a href="<?php echo site_url("dashboard"); ?>" style="color: white; text-decoration: none;"><i class="fa fa-home"></i> Home</a>
+            <?php if ($this->session->userdata['loggedin']['user_type'] != "O") { ?>
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        <a href="<?php echo site_url("dashboard"); ?>" style="color: white; text-decoration: none;"><i class="fa fa-home"></i> Home</a>
+                    </div>
+
                 </div>
 
-            </div>
-			 
                 <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] = "A") { ?>
-            <div class="dropdown">
-                <div class="dropbtn">
-                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                    Master
-                    <i class="fa fa-angle-down"></i>
-                </div>
-                <div class="dropdown-content">
-                        <a href="<?php echo site_url('group'); ?>">Group</a>
-                        <a href="<?php echo site_url('subgroup'); ?>">Sub Group</a>
-                        <a href="<?php echo site_url('achead'); ?>">A/C Head</a>
-                      
-                        <!-- <a href="<?php // echo site_url('paddys/add_new/f_district'); 
-                                        ?>">District</a> -->
-                </div>
-            </div>
-			 <?php } ?>
-            <div class="dropdown">
-                <div class="dropbtn">
-                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                    Transaction
-                    <i class="fa fa-angle-down"></i>
-                </div>
-                <div class="dropdown-content">
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            Master
+                            <i class="fa fa-angle-down"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="<?php echo site_url('group'); ?>">Group</a>
+                            <a href="<?php echo site_url('subgroup'); ?>">Sub Group</a>
+                            <a href="<?php echo site_url('achead'); ?>">A/C Head</a>
+
+                            <!-- <a href="<?php // echo site_url('paddys/add_new/f_district'); 
+                                            ?>">District</a> -->
+                        </div>
+                    </div>
+                <?php } ?>
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        Transaction
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="dropdown-content">
                         <a href="<?php echo site_url('cashVoucher'); ?>">Cash Voucher</a>
                         <a href="<?php echo site_url('bankVoucher'); ?>">Bank Voucher</a>
-						
+
                         <a href="<?php echo site_url('jurnalVoucher'); ?>">Journal Voucher</a>
-                        
+
                         <a href="<?php echo site_url('cheqdtl'); ?>">Cheque Entry</a>
                         <!-- <a href="<?php echo site_url('rent_collection'); ?>">Rent Calculation</a> -->
 
-                        <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A" ||  $this->session->userdata['loggedin']['user_type'] =='M'||$this->session->userdata['loggedin']['user_type'] =='S') { ?>
-                        <div class="sub-dropdown">
-                               <a class="sub-dropbtn">Rent<i class="fa fa-angle-right" style="float: right;"></i></a> 
-                               <div class="sub-dropdown-content">
-                               <a href="<?php echo site_url('godown'); ?>">Godown</a>
-                               <a href="<?php echo site_url('customer'); ?>">Customer</a>
-                               <a href="<?php echo site_url('godownrent'); ?>">Godown Rent</a>
-                               <a href="<?php echo site_url("rent_collection");?>">Raise Invoice</a>
-                               <a href="<?php echo site_url("collectRent");?>">Collect Rent</a>
-                             </div>
+                        <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A" ||  $this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'S') { ?>
+                            <div class="sub-dropdown">
+                                <a class="sub-dropbtn">Rent<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <div class="sub-dropdown-content">
+                                    <a href="<?php echo site_url('godown'); ?>">Godown</a>
+                                    <a href="<?php echo site_url('customer'); ?>">Customer</a>
+                                    <a href="<?php echo site_url('godownrent'); ?>">Godown Rent</a>
+                                    <a href="<?php echo site_url("rent_collection"); ?>">Raise Invoice</a>
+                                    <a href="<?php echo site_url("collectRent"); ?>">Collect Rent</a>
+                                </div>
                             </div>
 
                             <div class="sub-dropdown">
-                               <a class="sub-dropbtn">Handling & Transport Charges<i class="fa fa-angle-right" style="float: right;"></i></a> 
-                               <div class="sub-dropdown-content">
-                               <a href="<?php echo site_url('handling-trandport-charges/customar'); ?>">Customer</a>
-                               <a href="<?php echo site_url('handling-trandport-charges/htc_list'); ?>">Charges</a>
-                               <a href="<?php echo site_url("handling-trandport-charges/htc_raise_invoice_list");?>">Raise Invoice</a>
-                               <!-- <a href="<?php echo site_url("collectRent");?>">Collect Rent</a> -->
-                             </div>
+                                <a class="sub-dropbtn">Handling & Transport Charges<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <div class="sub-dropdown-content">
+                                    <a href="<?php echo site_url('handling-trandport-charges/customar'); ?>">Customer</a>
+                                    <a href="<?php echo site_url('handling-trandport-charges/htc_list'); ?>">Charges</a>
+                                    <a href="<?php echo site_url("handling-trandport-charges/htc_raise_invoice_list"); ?>">Raise Invoice</a>
+                                    <!-- <a href="<?php echo site_url("collectRent"); ?>">Collect Rent</a> -->
+                                </div>
                             </div>
 
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" || $this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'C' || $this->session->userdata['loggedin']['user_type'] == 'A' || $this->session->userdata['loggedin']['user_type'] == 'S') { ?>
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            Approve
+                            <i class="fa fa-angle-down"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
+                                <a href="<?php echo site_url('mnthend'); ?>">Month End </a>
                             <?php } ?>
-                </div>
-            </div>
-			<?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" || $this->session->userdata['loggedin']['user_type'] =='M' || $this->session->userdata['loggedin']['user_type'] =='C' || $this->session->userdata['loggedin']['user_type'] =='A'||$this->session->userdata['loggedin']['user_type'] =='S') { ?>
-			<div class="dropdown">
-                <div class="dropbtn">
-                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                    Approve
-                    <i class="fa fa-angle-down"></i>
-                </div>
-                <div class="dropdown-content">
-					   <?php if($this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
-                       <a href="<?php echo site_url('mnthend'); ?>">Month End </a>
-					   <?php }?>
-                        <a href="<?php echo site_url('purchasevu'); ?>">Vouchers</a>
-						
-                        <!--<a href="<?php echo site_url('crnvu'); ?>">Cr Note to society </a>
+                            <a href="<?php echo site_url('purchasevu'); ?>">Vouchers</a>
+
+                            <!--<a href="<?php echo site_url('crnvu'); ?>">Cr Note to society </a>
                         <a href="<?php echo site_url('advvu'); ?>">Advance from society </a>
                         <a href="<?php echo site_url('xyz'); ?>">Receive from society </a>
                          <a href="<?php echo site_url('jurnalVoucher'); ?>">Jurnal Voucher</a> -->
-                        <!-- <a href="<?php // echo site_url('paddys/add_new/f_district'); 
-                                        ?>">District</a> -->
-                </div>
-            </div>
-			<?php }?>
-            <div class="dropdown">
-                <div class="dropbtn">
-                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                    Report
-                    <i class="fa fa-angle-down"></i>
-                </div>
-                <div class="dropdown-content">
-					 <div class="sub-dropdown">
-                               <a class="sub-dropbtn">Print Voucher<i class="fa fa-angle-right" style="float: right;"></i></a> 
-                               <div class="sub-dropdown-content">
-                               <a href="<?php echo site_url("cashVoucherlst");?>">Cash Voucher</a>
-                               <a href="<?php echo site_url("bankVoucherlst");?>">Bank Voucher</a>
-                               <a href="<?php echo site_url("journallst");?>">Journal Voucher</a>
+                            <!-- <a href="<?php // echo site_url('paddys/add_new/f_district'); 
+                                            ?>">District</a> -->
+                        </div>
+                    </div>
+                <?php } ?>
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        Report
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <div class="sub-dropdown">
+                            <a class="sub-dropbtn">Print Voucher<i class="fa fa-angle-right" style="float: right;"></i></a>
+                            <div class="sub-dropdown-content">
+                                <a href="<?php echo site_url("cashVoucherlst"); ?>">Cash Voucher</a>
+                                <a href="<?php echo site_url("bankVoucherlst"); ?>">Bank Voucher</a>
+                                <a href="<?php echo site_url("journallst"); ?>">Journal Voucher</a>
 
-                               <a href="<?php echo site_url('advjrnlr'); ?>">All Voucher</a>
-                             </div>
+                                <a href="<?php echo site_url('advjrnlr'); ?>">All Voucher</a>
                             </div>
-					    <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details</a>
-                        
-						<!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
-						<a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
+                        </div>
+                        <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details</a>
+
+                        <!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
+                        <a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
                         <!-- <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a> -->
-                        <a href="<?php echo site_url('trailbal'); ?>">Branch Wise Trial balance</a>
-                        <?php  if($this->session->userdata['loggedin']['branch_id']==342){ ?>
-                        <a href="<?php echo site_url('consolidated-trailbal'); ?>">consolidated trial balance</a>
-                        <?php } ?>
-						<?php if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A") { ?>
-                        
-						<a href="<?php echo site_url('trailbalsubgroup'); ?>">Trial balance(Subgroup)</a>
-                      <!--  <a href="<?php //echo site_url('trailbal_group'); ?>">Trial balance group</a>  -->
-						<?php }?>
-                        <!-- <a href="<?php //echo site_url('gl'); ?>">GL</a> -->
+
+
+
+
+                        <!-- <div class="dropdown-content"> -->
+                        <div class="sub-dropdown">
+                            <a class="sub-dropbtn">Trial balance<i class="fa fa-angle-right" style="float: right;"></i></a>
+                            <div class="sub-dropdown-content">
+                                <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
+                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated </a>
+                                <?php } ?>
+
+                                <a href="<?php echo site_url('trailbal'); ?>">Branch Wise </a>
+
+
+                                <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A") { ?>
+
+                                    <a href="<?php echo site_url('trailbalsubgroup'); ?>">Subgroup Wise</a>
+                                    <!--  <a href="<?php //echo site_url('trailbal_group'); 
+                                                    ?>">Trial balance group</a>  -->
+                                <?php } ?>
+
+                            </div>
+                        </div>
+                        <!-- </div> -->
+
+
+
+
+
+
+                        <!-- <a href="<?php //echo site_url('gl'); 
+                                        ?>">GL</a> -->
                         <a href="<?php echo site_url('ac_detail'); ?>">Acount detail</a>
                         <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
-                        <a href="<?php echo site_url('rent_report'); ?>">Rent Collection</a>
-                        <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection</a>
-                    <?php }
-                     if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
-                       <!--  <a href="<?php echo site_url('purjrnlr'); ?>">Purchase Journal</a>-->
-                       
-                    <?php } ?>
+                            <a href="<?php echo site_url('rent_report'); ?>">Rent Collection</a>
+                            <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection</a>
+                        <?php }
+                        if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
+                            <!--  <a href="<?php echo site_url('purjrnlr'); ?>">Purchase Journal</a>-->
+
+                        <?php } ?>
+                    </div>
                 </div>
-            </div>
 
 
 
@@ -212,56 +235,56 @@
 
 
 
-            
-			<div class="dropdown">
-                        <div class="dropbtn">
-                                <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
-                                Setting
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="dropdown-content">
+
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
+                        Setting
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="dropdown-content">
 
 
 
-                            <!-- ===================================================================================== -->
+                        <!-- ===================================================================================== -->
 
-                            
-                            <a href="<?php echo site_url('/user_add'); ?>">Create User</a>
-                            <?php 
-                             if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
-                                <a href="<?php echo site_url('/userlist_admin'); ?>">User List </a>
-                            <?php } 
-                             if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['user_type']!="A"){ ?>
+
+                        <a href="<?php echo site_url('/user_add'); ?>">Create User</a>
+                        <?php
+                        if ($this->session->userdata['loggedin']['user_type'] == "A") { ?>
+                            <a href="<?php echo site_url('/userlist_admin'); ?>">User List </a>
+                        <?php }
+                        if ($this->session->userdata['loggedin']['user_type'] != "U" && $this->session->userdata['loggedin']['user_type'] != "A") { ?>
                             <!-- <a href="<?php echo site_url('/user'); ?>">User List</a> -->
-                            <?php }?>
-                            <a href="<?php echo site_url("/admins/edite_userProfile"); ?>">Edit Profile</a>
-                            <a href="<?php echo site_url("/admins/change_passwoerd"); ?>">Change Password</a>
+                        <?php } ?>
+                        <a href="<?php echo site_url("/admins/edite_userProfile"); ?>">Edit Profile</a>
+                        <a href="<?php echo site_url("/admins/change_passwoerd"); ?>">Change Password</a>
 
 
-<!-- ================================================================================================ -->
+                        <!-- ================================================================================================ -->
 
 
 
 
-                            <!-- <a href="<?php echo site_url("profiles") ?>">Change Password</a> -->
-                            <?php  if($this->session->userdata['loggedin']['user_type']!="U"){
-                                ?>
+                        <!-- <a href="<?php echo site_url("profiles") ?>">Change Password</a> -->
+                        <?php if ($this->session->userdata['loggedin']['user_type'] != "U") {
+                        ?>
                             <!-- <a href="<?php echo site_url('user'); ?>">Create User</a> -->
-                            <?php }?>
-                            </div>
-            </div>
-			<?php }else{ ?>
-			<div class="dropdown">
-                        <div class="dropbtn">
-                                <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
-                                Setting
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                            <div class="dropdown-content">
-                            <!-- <a href="<?php echo site_url('user'); ?>">Create User</a> -->
-                            </div>
-            </div>
-			<?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
+                        Setting
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <!-- <a href="<?php echo site_url('user'); ?>">Create User</a> -->
+                    </div>
+                </div>
+            <?php } ?>
             <div class="dropdown">
                 <div class="dropbtn">
                     <a href="<?php echo site_url("login/logout") ?>" style="color: white; text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
