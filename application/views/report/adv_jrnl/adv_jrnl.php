@@ -204,8 +204,8 @@
 					<div class="leftNo"><b> Created By: </b><?php echo $vou->created_by; ?></div>
 					<div class="rightDate"><b>Approved By: </b><?php echo  $vou->approved_by; ?></div><br>
 
-					<div class="leftNo"><b> Created Date: </b><?php echo date("d/m/Y h:i:s",strtotime($vou->created_dt)); ?></div>
-					<div class="rightDate"><b>Approved Date: </b><?php echo date("d/m/Y h:i:s",strtotime($vou->approved_dt)); ?></div>
+					<div class="leftNo"><b> Created Date: </b><?php echo date("d/m/Y h:i A",strtotime($vou->created_dt)); ?></div>
+					<div class="rightDate"><b>Approved Date: </b><?php if(!empty($vou->approved_dt)){ echo date("d/m/Y h:i A",strtotime($vou->approved_dt)); }?></div>
 					
 				</div>
 				</br>

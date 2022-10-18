@@ -38,7 +38,7 @@ class Master extends CI_Controller
                 "benfed_srl"       => $this->input->post('benfed_srl'),
                 "type"       =>  $this->input->post('ac_type'),
                 "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                "created_dt"    =>  date('Y-m-d h:i:s')
+                "created_dt"    =>  date('Y-m-d H:i:s')
             );
 
             $this->master_model->f_insert('mda_mngroup', $data_array);
@@ -68,7 +68,7 @@ class Master extends CI_Controller
                 "benfed_srl"         =>  $this->input->post('benfed_srl'),
                 "type"               =>  $this->input->post('ac_type'),
                 "modified_by"        =>  $this->session->userdata['loggedin']['user_name'],
-                "modified_dt"        =>  date('Y-m-d h:i:s')
+                "modified_dt"        =>  date('Y-m-d H:i:s')
             );
 
             $where = array(
@@ -240,7 +240,7 @@ class Master extends CI_Controller
                 'benfed_ac_code' => $data['benfed_ac_code'],
                 'br_id' => $data['br_id'],
                 'modified_by'    =>  $this->session->userdata['loggedin']['user_name'],
-                'modified_dt'    =>  date('Y-m-d h:i:s')
+                'modified_dt'    =>  date('Y-m-d H:i:s')
             );
             $where = array('sl_no' => $id);
             $this->master_model->f_edit('md_achead', $input, $where);
@@ -252,7 +252,7 @@ class Master extends CI_Controller
                 'benfed_ac_code' => $data['benfed_ac_code'],
                 'br_id' => $data['br_id'],
                 'created_by'    =>  $this->session->userdata['loggedin']['user_name'],
-                'created_dt'    =>  date('Y-m-d h:i:s')
+                'created_dt'    =>  date('Y-m-d H:i:s')
             );
             $this->master_model->f_insert('md_achead', $input);
         }

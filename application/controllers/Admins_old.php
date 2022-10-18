@@ -71,7 +71,7 @@ class Admins extends CI_Controller {
 				"user_type"     =>  'NULL',
                 "st"            =>  0,
                 "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                "created_dt"    =>  date('Y-m-d h:i:s')
+                "created_dt"    =>  date('Y-m-d H:i:s')
             );
 
             
@@ -106,7 +106,7 @@ class Admins extends CI_Controller {
 						"user_status"    =>  $this->input->post('user_status'),
 						"user_type"      =>  $this->input->post('user_type'),
 						"modified_by"    =>  $this->session->userdata['loggedin']['user_name'],
-						"modified_dt"    =>  date('Y-m-d h:i:s')
+						"modified_dt"    =>  date('Y-m-d H:i:s')
 				);
 				$this->Admin->f_edit('md_users', $data_array, $where);
 			}else{
@@ -122,7 +122,7 @@ class Admins extends CI_Controller {
 
 				"modified_by"   =>  $this->session->userdata['loggedin']['user_name'],
 
-				"modified_dt"   =>  date('Y-m-d h:i:s')
+				"modified_dt"   =>  date('Y-m-d H:i:s')
 
 			);
 
@@ -176,7 +176,7 @@ class Admins extends CI_Controller {
             
             'deleted_by'    => $this->session->userdata['loggedin']['user_name'],
             
-            'deleted_dt'    => date('Y-m-d h:i:s')
+            'deleted_dt'    => date('Y-m-d H:i:s')
 
         );
 

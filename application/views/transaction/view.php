@@ -12,10 +12,16 @@
 
     <div class="col-lg-12 container contant-wraper">
         <div class="col-sm-2">
+            <?php 
+            if($count_data < 3){ ?>
         <h3>
             <a href="<?php echo site_url("cashVoucher/entry"); ?>" class="btn btn-primary" style="width: 100px;">Add</a>
             <span class="confirm-div" style="float:right; color:green;"></span>
         </h3>
+        <?php }else{
+            ?>
+             <a class="btn btn-primary" style="width: 100px;" onclick="alert('Some vouchers are pending for approval')">Add</a>
+             <?php } ?>
 		</div>
 		<div class="col-sm-8" style="margin-top:20px">
 			<form method="POST" action="<?php echo site_url("transaction") ?>" >

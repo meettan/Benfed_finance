@@ -20,7 +20,7 @@
 
 		public function f_insert_audit_trail($user_id){
 
-			$time = date("Y-m-d h:i:s");
+			$time = date("Y-m-d H:i:s");
 			$pcaddr = $_SERVER['REMOTE_ADDR'];
 
 			$value = array('login_dt'=> $time,
@@ -87,7 +87,7 @@
 		}
 
 		public function f_update_audit_trail($user_id){
-			$time = date("Y-m-d h:i:s");
+			$time = date("Y-m-d H:i:s");
 			$sl_no= $this->session->userdata('sl_no')->sl_no;
 			$value= array('logout'=>$time);
 			$this->db->where('sl_no',$sl_no);

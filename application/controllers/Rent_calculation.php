@@ -49,7 +49,7 @@ class Rent_calculation extends CI_Controller{
                 "cnct_person"=>$this->input->post("contactPerson"),
                 "cnct_no"=>$this->input->post("contactNumber"),
                 "created_by"=>$this->session->userdata("loggedin")["user_id"],
-                "created_dt"=>date("Y-m-d h:i:s")
+                "created_dt"=>date("Y-m-d H:i:s")
             );
         //    $godown_Name = $this->input->post("godown_Name");
         //    $godown_Address = $this->input->post("godown_Address");
@@ -83,7 +83,7 @@ class Rent_calculation extends CI_Controller{
                 "cnct_person"=>$this->input->post("contactPerson"),
                 "cnct_no"=>$this->input->post("contactNumber"),
                 "modified_by"=>$this->session->userdata("loggedin")["user_id"],
-                "modified_dt"=>date("Y-m-d h:i:s")
+                "modified_dt"=>date("Y-m-d H:i:s")
             );
             $this->Rent_calculation_model->updateGodown($id,$dataupdate);
             redirect("godown");
@@ -124,7 +124,7 @@ class Rent_calculation extends CI_Controller{
                 "gst_rt"=>$this->input->post("gst_rt"),
                 "pin_code"=>$this->input->post("pincode"),
                 "created_by"=>$this->session->userdata("loggedin")["user_id"],
-                "created_dt"=>date("Y-m-d h:i:s"),
+                "created_dt"=>date("Y-m-d H:i:s"),
                 "acchead"=>$this->input->post("acchead")
             );
             $this->Rent_calculation_model->insert_rent_customer($postData);
@@ -160,7 +160,7 @@ class Rent_calculation extends CI_Controller{
                 "fms_id"=>$this->input->post("fmsid"),
                 "pin_code"=>$this->input->post("pincode"),
                 "modified_by"=>$this->session->userdata("loggedin")["user_id"],
-                "modified_dt"=>date("Y-m-d h:i:s"),
+                "modified_dt"=>date("Y-m-d H:i:s"),
             );
             $this->Rent_calculation_model->updatecustomer($id,$dataupdate);
             redirect("customer");
@@ -196,7 +196,7 @@ class Rent_calculation extends CI_Controller{
                 // "sgst_rate"=>$this->input->post('sgst'),
                 "rent_amt"=>$this->input->post('amount'),
                 "created_by"=>$this->session->userdata("loggedin")["user_id"],
-                "created_dt"=>date("Y-m-d h:i:s")
+                "created_dt"=>date("Y-m-d H:i:s")
             );
             $this->Rent_calculation_model->insert_godown_rent_add($postData);
             redirect("godownrent");
@@ -227,7 +227,7 @@ class Rent_calculation extends CI_Controller{
                 // "sgst_rate"=>$this->input->post('sgst'),
                 "rent_amt"=>$this->input->post('amount'),
                 "modified_by"=>$this->session->userdata("loggedin")["user_id"],
-                "modified_dt"=>date("Y-m-d h:i:s")
+                "modified_dt"=>date("Y-m-d H:i:s")
             );
             $this->Rent_calculation_model->f_edit('td_rent', $postData, array('sl_no'=>$id));
             redirect("godownrent");
@@ -287,7 +287,7 @@ class Rent_calculation extends CI_Controller{
                     "remarks"        =>  $this->input->post('remarks'),
                     "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
                     "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
-                    "created_dt"    =>  date("Y-m-d h:i:s"),
+                    "created_dt"    =>  date("Y-m-d H:i:s"),
                 );
                 $this->Rent_calculation_model->f_insert('td_rent_collection', $data);
 
@@ -476,7 +476,7 @@ class Rent_calculation extends CI_Controller{
                 // "rf_no"         =>$this->input->post('rfNo'),
 
                 "modified_by"    =>  $this->session->userdata("loggedin")["user_id"],
-                "modified_dt"    =>  date("Y-m-d h:i:s"),
+                "modified_dt"    =>  date("Y-m-d H:i:s"),
             );
 
             // print_r($id);
@@ -533,10 +533,10 @@ class Rent_calculation extends CI_Controller{
                     "rf_date"           =>  $this->input->post('rfDate'),
                     "rf_no"             =>  $this->input->post('rfNo'),
                     "pay_flag"          =>  'Y',
-                    "payment_date"      =>  date("Y-m-d h:i:s"),
+                    "payment_date"      =>  date("Y-m-d H:i:s"),
                     "bnk_trans_type"    =>  $this->input->post('transactionType'),
                     "payment_coll_by"   =>  $this->session->userdata("loggedin")["user_id"],
-                    "payment_coll_dt"   =>  date("Y-m-d h:i:s"),
+                    "payment_coll_dt"   =>  date("Y-m-d H:i:s"),
                 );
                 if($this->input->post('transactionType')=='NEFT'){
                     $transf_tupe='N';

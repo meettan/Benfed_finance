@@ -72,7 +72,6 @@ public function jrnlprn()
 }
 
     public function advjrnl(){
-
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $frm_date     =   $_POST['from_date'];

@@ -147,7 +147,7 @@ function printDiv() {
 		</span>
         </center>
 		<div class="rightDate" style="margin-top: -49px;">Created By: <?=$vou->created_by?></div>
-		<div class="rightDate" style="margin-top: -27px;">Created Date: <?php echo date("d/m/Y h:i:s",strtotime($vou->created_dt));?></div>
+		<div class="rightDate" style="margin-top: -27px;">Created Date: <?php echo date("d/m/Y H:i:s A",strtotime($vou->created_dt));?></div>
 		</div>
 		<div class="printTop023">
 		<div class="leftNo">Transaction No: <?=$vou->trans_no?>
@@ -169,7 +169,7 @@ function printDiv() {
 		<?php if($vou->transfer_type != 'T' ) { if($vou->transfer_type != 'CH'){ ?>
 		<div class="printTop023">
 		<div class="leftNo">Ref No: <?=$vou->ins_no?></div>
-		<div class="rightDate">Ref date: <?php echo date("d/m/Y",strtotime($vou->ins_dt)); ?></div>
+		<div class="rightDate">Ref date: <?php if(!empty(($vou->ins_dt))){ echo date("d/m/Y",strtotime($vou->ins_dt));} ?></div>
 		</div>
 		<div class="printTop023">
 		<div class="leftNo">Bank: <?=$vou->bank_name?></div>

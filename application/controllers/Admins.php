@@ -110,7 +110,7 @@ class Admins extends CI_Controller
                     "profile_pic"   =>  $imageDetailArray['file_name'],
                     "st"            =>  0,
                     "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                    "created_dt"    =>  date('Y-m-d h:i:s')
+                    "created_dt"    =>  date('Y-m-d H:i:s')
                 );
                 $this->Admin->f_insert('md_users', $data_array);
                 $this->session->set_flashdata('msg', 'Successfully added!');
@@ -132,7 +132,7 @@ class Admins extends CI_Controller
                     "user_status"     =>  'U',
                     "st"            =>  0,
                     "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                    "created_dt"    =>  date('Y-m-d h:i:s')
+                    "created_dt"    =>  date('Y-m-d H:i:s')
                 );
                 $this->Admin->f_insert('md_users', $data_array);
                 $this->session->set_flashdata('msg', 'Successfully added!');
@@ -179,7 +179,7 @@ class Admins extends CI_Controller
                         "profile_pic"   =>  $imageDetailArray['file_name'],
                         "st"            =>  0,
                         "modified_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                        "modified_dt"    =>  date('Y-m-d h:i:s')
+                        "modified_dt"    =>  date('Y-m-d H:i:s')
                     );
                 } else {
                     $data_array = array(
@@ -193,7 +193,7 @@ class Admins extends CI_Controller
                         // "profile_pic"   =>  $imageDetailArray['file_name'],
                         "st"            =>  0,
                         "modified_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                        "modified_dt"    =>  date('Y-m-d h:i:s')
+                        "modified_dt"    =>  date('Y-m-d H:i:s')
 
 
 
@@ -201,7 +201,7 @@ class Admins extends CI_Controller
                         // "user_status"    =>  $this->input->post('user_status'),
                         // "user_type"      =>  $this->input->post('user_type'),
                         // "modified_by"    =>  $this->session->userdata['loggedin']['user_name'],
-                        // "modified_dt"    =>  date('Y-m-d h:i:s')
+                        // "modified_dt"    =>  date('Y-m-d H:i:s')
                     );
                 }
                 $this->Admin->f_edit('md_users', $data_array, $where);
@@ -218,7 +218,7 @@ class Admins extends CI_Controller
 
                     "modified_by"   =>  $this->session->userdata['loggedin']['user_name'],
 
-                    "modified_dt"   =>  date('Y-m-d h:i:s')
+                    "modified_dt"   =>  date('Y-m-d H:i:s')
 
                 );
 
@@ -268,7 +268,7 @@ class Admins extends CI_Controller
 
             'deleted_by'    => $this->session->userdata['loggedin']['user_name'],
 
-            'deleted_dt'    => date('Y-m-d h:i:s')
+            'deleted_dt'    => date('Y-m-d H:i:s')
 
         );
 
@@ -314,12 +314,12 @@ class Admins extends CI_Controller
 
                 $data_array = array(
                     "approve_by"     => $this->session->userdata['loggedin']['user_name'],
-                    "approve_dt"     => date('Y-m-d h:i:s'),
+                    "approve_dt"     => date('Y-m-d H:i:s'),
                     "user_type"     => $this->input->post('userType'),
                     "user_status"     => $this->input->post('userStatus'),
                     "remarks"       => $this->input->post('remarks'),
                     "modified_by" => $this->session->userdata['loggedin']['user_name'],
-                    "modified_dt" => date('Y-m-d h:i:s'),
+                    "modified_dt" => date('Y-m-d H:i:s'),
                 );
             } else {
 
@@ -327,7 +327,7 @@ class Admins extends CI_Controller
                     "user_type"     => $this->input->post('userType'),
                     "user_status"     => $this->input->post('userStatus'),
                     "modified_by" => $this->session->userdata['loggedin']['user_name'],
-                    "modified_dt" => date('Y-m-d h:i:s'),
+                    "modified_dt" => date('Y-m-d H:i:s'),
                     "remarks" =>     $this->input->post('remarks')
                 );
             }
@@ -450,7 +450,7 @@ class Admins extends CI_Controller
                     "email"      =>  $this->input->post('email'),
                     "profile_pic"   =>  $imageDetailArray['file_name'],
                     "modified_by"   =>  $this->session->userdata['loggedin']['user_name'],
-                    "modified_dt"   =>  date('Y-m-d h:i:s')
+                    "modified_dt"   =>  date('Y-m-d H:i:s')
                 );
             } else {
                 $data_array = array(
@@ -459,7 +459,7 @@ class Admins extends CI_Controller
                     "phone_no"      =>  $this->input->post('mobile_no'),
                     "email"      =>  $this->input->post('email'),
                     "modified_by"   =>  $this->session->userdata['loggedin']['user_name'],
-                    "modified_dt"   =>  date('Y-m-d h:i:s')
+                    "modified_dt"   =>  date('Y-m-d H:i:s')
                 );
             }
 
@@ -498,7 +498,7 @@ class Admins extends CI_Controller
                 $dataArray = array(
                     'password' => password_hash($password, PASSWORD_BCRYPT),
                     'modified_by' => $this->session->userdata['loggedin']['user_name'],
-                    'modified_dt' => date('Y-m-d h:i:s')
+                    'modified_dt' => date('Y-m-d H:i:s')
                 );
                 $where = array('user_id' => $this->session->userdata['loggedin']['user_id']);
                 $this->Admin->f_edit('md_users', $dataArray, $where);

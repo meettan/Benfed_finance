@@ -14,7 +14,7 @@
 		     $data    = array(
 				      'approval_status'       => "A",
 					  'approved_by'=> "AUTO",
-					  'approved_dt'=>date('Y-m-d h:i:s')
+					  'approved_dt'=>date('Y-m-d H:i:s')
 					       );
 
 	         $where  =   array(

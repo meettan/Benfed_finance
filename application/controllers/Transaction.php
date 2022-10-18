@@ -18,6 +18,10 @@ class Transaction extends CI_Controller
 
     function index()
     {
+
+       
+
+
         $achead_where = array(
             'br_id' => $this->session->userdata['loggedin']['branch_id'],
             'mngr_id' => 6,
@@ -60,6 +64,13 @@ class Transaction extends CI_Controller
 			"1 group by voucher_id " => NULL
             );
 		}
+
+
+        
+        $this->load->helper('unaproved_helper');
+       $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
+
+        
         $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/view", $voucher);
@@ -105,6 +116,7 @@ function approvedjournal()
 		}
 
         $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/approvedjournal", $voucher);
         $this->load->view('post_login/footer');
@@ -212,7 +224,7 @@ function approvedjournal()
     public function f_get_lstmnth(){
 
         //$fin_id              = $this->session->userdata['loggedin']['fin_id'];
-        $select_lastend      = array("(end_mnth) as end_mnth","end_yr");
+        $select_lastend      = array("(end_mnth) as end_mnth","end_yr",'closed_by','closed_dt');
         $where_lastend       = array(
             "branch_id" =>$this->input->get("dist_cd"),
             "1 ORDER BY sl_no DESC LIMIT 1"=>null
@@ -254,7 +266,7 @@ function approvedjournal()
                 "end_mnth"          => $this->input->post('mnth_id'),
                 "remarks"           =>  $this->input->post('remarks'),
                 "closed_by"         =>  $this->session->userdata('loggedin')['user_id'],
-                "closed_dt"         =>  date('Y-m-d h:i:s')
+                "closed_dt"         =>  date('Y-m-d H:i:s')
             );
             $dist_id=$this->input->post('dist');
             //$this->load->model('Api_voucher');
@@ -349,7 +361,7 @@ function approvedjournal()
                     "ins_no"            =>  NULL,
                     "ins_dt"            =>  NULL,
                     "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                    "created_dt"        =>  date('Y-m-d h:i:s')
+                    "created_dt"        =>  date('Y-m-d H:i:s')
                 );
 
                 $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -375,7 +387,7 @@ function approvedjournal()
             "ins_no"                =>  NULL,
             "ins_dt"                =>  NULL,
             "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-            "created_dt"            =>  date('Y-m-d h:i:s')
+            "created_dt"            =>  date('Y-m-d H:i:s')
         );
 
         $this->transaction_model->f_insert('td_vouchers', $row_array);
@@ -443,7 +455,7 @@ function approvedjournal()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $v_amt[$i],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d h:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s')
                     );
 					
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -460,7 +472,7 @@ function approvedjournal()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $data['tot_amt'],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d h:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s')
                 );
 					
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -486,7 +498,7 @@ function approvedjournal()
             $input = array(
                 'approval_status' => 'A',
                 "approved_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "approved_dt"        =>  date('Y-m-d h:i:s')
+                "approved_dt"        =>  date('Y-m-d H:i:s')
             );
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
@@ -580,6 +592,10 @@ function approvedjournal()
 			"1 group by voucher_id" => NULL
             );
 		}
+
+        $this->load->helper('unaproved_helper');
+       $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
+
         $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view('transaction/bank_view', $voucher);
@@ -709,7 +725,7 @@ function crn_appview()
             $data_array = array(
 				          'approval_status'   => $this->input->post('appstatus'),
                           'approved_by'       => $this->session->userdata('loggedin')['user_id'],
-                          'approved_dt'       => date('Y-m-d h:i:s')   
+                          'approved_dt'       => date('Y-m-d H:i:s')   
                           );
                 
             $where = array(
@@ -785,7 +801,7 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d h:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s')
             );
             $this->transaction_model->f_insert('td_vouchers', $data_array);
         }
@@ -811,7 +827,7 @@ function crn_appview()
             "ins_no"                =>  NULL,
             "ins_dt"                =>  NULL,
             "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-            "created_dt"            =>  date('Y-m-d h:i:s')
+            "created_dt"            =>  date('Y-m-d H:i:s')
         );
         $this->transaction_model->f_insert('td_vouchers', $row_array);
         //  Code start for Bank Entry As Debit 
@@ -880,7 +896,7 @@ function crn_appview()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $v_amt[$i],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d h:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s')
                     );
 
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -906,9 +922,9 @@ function crn_appview()
                         "ins_no"                =>  NULL,
                         "ins_dt"                =>  NULL,
                         "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-                        "created_dt"            =>  date('Y-m-d h:i:s'),
+                        "created_dt"            =>  date('Y-m-d H:i:s'),
                         "modified_by"           =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"           =>  date('Y-m-d h:i:s')
+                        "modified_dt"           =>  date('Y-m-d H:i:s')
                     );
                     $this->transaction_model->f_insert('td_vouchers', $data_array);
                 }
@@ -924,7 +940,7 @@ function crn_appview()
             "remarks"               =>  $data['remarks'],
             "amount"                =>  $data['tot_amt'],
             "modified_by"           =>  $this->session->userdata('loggedin')['user_id'],
-            "modified_dt"           =>  date('Y-m-d h:i:s')
+            "modified_dt"           =>  date('Y-m-d H:i:s')
         );
 
         $this->transaction_model->f_edit('td_vouchers', $row_array, $where);
@@ -960,7 +976,7 @@ function crn_appview()
             $input = array(
                 'approval_status' => 'A',
                 "approved_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "approved_dt"        =>  date('Y-m-d h:i:s')
+                "approved_dt"        =>  date('Y-m-d H:i:s')
             );
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
@@ -1070,6 +1086,11 @@ function crn_appview()
         // $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
         $voucher['row']    = $this->transaction_model->jurnalVoucher("td_vouchers", $select, $where, $group);
 
+
+        $this->load->helper('unaproved_helper');
+       $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
+
+
         //  echo $this->db->last_query(); die;
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/jurnal_view", $voucher);
@@ -1147,7 +1168,7 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d h:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s')
             );
             
         
@@ -1177,7 +1198,7 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d h:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s')
             );
 
            // $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -1204,7 +1225,7 @@ function crn_appview()
         //     "ins_no"                =>  NULL,
         //     "ins_dt"                =>  NULL,
         //     "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-        //     "created_dt"            =>  date('Y-m-d h:i:s')
+        //     "created_dt"            =>  date('Y-m-d H:i:s')
         // );
 
         
@@ -1263,7 +1284,7 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d h:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s')
             );
 
             $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -1291,7 +1312,7 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d h:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s')
             );
 
             $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -1371,7 +1392,7 @@ function crn_appview()
         //                 "remarks"           =>  $data['remarks'],
         //                 "amount"            =>  $v_amt[$i],
         //                 "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "modified_dt"       =>  date('Y-m-d h:i:s')
+        //                 "modified_dt"       =>  date('Y-m-d H:i:s')
         //             );
 
         //             $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -1395,9 +1416,9 @@ function crn_appview()
         //                 "ins_no"            =>  NULL,
         //                 "ins_dt"            =>  NULL,
         //                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "created_dt"        =>  date('Y-m-d h:i:s'),
+        //                 "created_dt"        =>  date('Y-m-d H:i:s'),
         //                 "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "modified_dt"       =>  date('Y-m-d h:i:s')
+        //                 "modified_dt"       =>  date('Y-m-d H:i:s')
         //             );
         //             $this->transaction_model->f_insert('td_vouchers', $data_array);
         //         }
@@ -1412,7 +1433,7 @@ function crn_appview()
         //     "remarks"             =>  $data['remarks'],
         //     "amount"              =>  $data['tot_amt'],
         //     "modified_by"         =>  $this->session->userdata('loggedin')['user_id'],
-        //     "modified_dt"         =>  date('Y-m-d h:i:s')
+        //     "modified_dt"         =>  date('Y-m-d H:i:s')
         // );
         $data = $this->input->post();
         
@@ -1429,7 +1450,7 @@ function crn_appview()
                 "remarks"           =>  $data['remarks'],
                 "amount"            =>  $v_amt[$i],
                 "modified_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "modified_dt"        =>  date('Y-m-d h:i:s')
+                "modified_dt"        =>  date('Y-m-d H:i:s')
             );
             $where = array(
                 'voucher_id' => $id,
@@ -1443,7 +1464,7 @@ function crn_appview()
                 "remarks"           =>  $data['remarks'],
                 "amount"            =>  $v_amt_Debit[$i],
                 "modified_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "modified_dt"        =>  date('Y-m-d h:i:s')
+                "modified_dt"        =>  date('Y-m-d H:i:s')
             );
             $where = array(
                 'voucher_id' => $id,
@@ -1483,7 +1504,7 @@ function crn_appview()
             $input = array(
                 'approval_status' => 'A',
                 "approved_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "approved_dt"        =>  date('Y-m-d h:i:s')
+                "approved_dt"        =>  date('Y-m-d H:i:s')
             );
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
@@ -1612,7 +1633,7 @@ function crn_appview()
                 "branch_id"      =>  $this->session->userdata['loggedin']['branch_id'],
 				"fin_yr"         =>  $fin_id,
                 "created_by"     =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"     =>  date('Y-m-d h:i:s')
+                "created_dt"     =>  date('Y-m-d H:i:s')
             );
             $this->transaction_model->f_insert('td_chequedetail', $data_array);
             $this->session->set_flashdata('msg', 'Successfully Added');
@@ -1634,7 +1655,7 @@ function crn_appview()
                 "clear_dt"       =>  trim($this->input->post('clear_dt')),
                 "remarks"        =>  $this->input->post('remarks'),
                 "modified_by"     =>  $this->session->userdata('loggedin')['user_id'],
-                "modified_dt"     =>  date('Y-m-d h:i:s')
+                "modified_dt"     =>  date('Y-m-d H:i:s')
             );
             $this->transaction_model->f_edit('td_chequedetail', $data_array,$where);
             $this->session->set_flashdata('msg', 'Successfully Updated');

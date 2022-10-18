@@ -42,7 +42,7 @@ class HTransportC extends CI_Controller
                 // "gst_rt" => $this->input->post("gst_rt"),
                 "pin_code" => $this->input->post("pincode"),
                 "created_by" => $this->session->userdata("loggedin")["user_id"],
-                "created_dt" => date("Y-m-d h:i:s"),
+                "created_dt" => date("Y-m-d H:i:s"),
                 "acchead" => $this->input->post("acchead")
             );
             $this->HTransportC_model->customar_entry($postData);
@@ -83,7 +83,7 @@ class HTransportC extends CI_Controller
                 "fms_id" => $this->input->post("fmsid"),
                 "pin_code" => $this->input->post("pincode"),
                 "modified_by" => $this->session->userdata("loggedin")["user_id"],
-                "modified_dt" => date("Y-m-d h:i:s"),
+                "modified_dt" => date("Y-m-d H:i:s"),
             );
             $this->HTransportC_model->updatecustomer($id, $dataupdate);
             redirect("handling-trandport-charges/customar");
@@ -119,7 +119,7 @@ class HTransportC extends CI_Controller
                
                 "htc_amt"=>$this->input->post('amount'),
                 "created_by"=>$this->session->userdata("loggedin")["user_id"],
-                "created_dt"=>date("Y-m-d h:i:s")
+                "created_dt"=>date("Y-m-d H:i:s")
             );
             $this->HTransportC_model->insert_htc_add($postData);
             redirect("handling-trandport-charges/htc_list");
@@ -161,7 +161,7 @@ class HTransportC extends CI_Controller
                 "cgst"=>$this->input->post('cgst'),
                 "sgst"=>$this->input->post('sgst'),
                 "modified_by"=>$this->session->userdata("loggedin")["user_id"],
-                "modified_dt"=>date("Y-m-d h:i:s")
+                "modified_dt"=>date("Y-m-d H:i:s")
             );
             $this->HTransportC_model->htc_edit($id,$postData);
             redirect("handling-trandport-charges/htc_list");
@@ -229,7 +229,7 @@ class HTransportC extends CI_Controller
                     "suppliers_ref" =>  $this->input->post('supplier_Ref'),
                     "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
                     "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
-                    "created_dt"    =>  date("Y-m-d h:i:s"),
+                    "created_dt"    =>  date("Y-m-d H:i:s"),
                 );
                 $this->Rent_calculation_model->f_insert('td_htc_rent_collection', $data);
                 // exit();
@@ -471,7 +471,7 @@ class HTransportC extends CI_Controller
                 // "rf_no"         =>$this->input->post('rfNo'),
 
                 "modified_by"    =>  $this->session->userdata("loggedin")["user_id"],
-                "modified_dt"    =>  date("Y-m-d h:i:s"),
+                "modified_dt"    =>  date("Y-m-d H:i:s"),
             );
 
             // print_r($id);
