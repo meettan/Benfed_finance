@@ -13,7 +13,7 @@
     <div class="col-lg-12 container contant-wraper">
         <div class="col-sm-2">
             <?php 
-            if($count_data < 3){ ?>
+            if($count_data <= 0){ ?>
         <h3>
             <a href="<?php echo site_url("cashVoucher/entry"); ?>" class="btn btn-primary" style="width: 100px;">Add</a>
             <span class="confirm-div" style="float:right; color:green;"></span>
