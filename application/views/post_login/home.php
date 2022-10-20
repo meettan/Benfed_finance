@@ -7,27 +7,24 @@
            
                <ul>
 
-               <?php  if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
+               <?php  //if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
                     <li><a href="<?php echo site_url('cashVoucher'); ?>">Cash Voucher</a></li>
                     <li><a href="<?php echo site_url('bankVoucher'); ?>">Bank Voucher</a></li>
                     <li><a href="<?php echo site_url('jurnalVoucher'); ?>">Journal Voucher </a></li>
                     <li> <a href="<?php echo site_url('cheqdtl'); ?>">Cheque Entry</a></li>
                     <li> <a href="<?php echo site_url('advjrnlr'); ?>">Print Voucher</a></li>
 
+                    <?php //}
+                    if($this->session->userdata['loggedin']['user_type']=="A"||$this->session->userdata['loggedin']['user_type']=="M"||$this->session->userdata['loggedin']['user_type']=="D"||$this->session->userdata['loggedin']['user_type']=="S"||$this->session->userdata['loggedin']['user_type']=="C" ){ ?>
+                        <li><a href="<?php echo site_url('mnthend'); ?>">Month End</a></li>
+                        <li><a href="<?php echo site_url('purchasevu'); ?>">Unapproved Voucher</a></li>
+                    <?php } ?>
 
                     <li><a href="<?php echo site_url('cashbook'); ?>">Cash Book</a></li>
                     <li><a href="<?php echo site_url('bankbook'); ?>">Bank Book</a></li>
                     <!-- <li> <a href="<?php echo site_url('bankbook'); ?>">Cheque Entry</a></li> -->
-
-                    <?php }
-                    if($this->session->userdata['loggedin']['user_type']=="A"||$this->session->userdata['loggedin']['user_type']=="M"||$this->session->userdata['loggedin']['user_type']=="D"||$this->session->userdata['loggedin']['user_type']=="S"){ ?>
-                        <li><a href="<?php echo site_url('mnthend'); ?>">Month End</a></li>
-                        <li><a href="<?php echo site_url('purchasevu'); ?>">Unapproved Voucher</a></li>
-                        <li><a href="<?php echo site_url('ac_detail'); ?>">Account Detail</a></li>
-                        
-                    <?php }
-
-                    ?>
+                    <li><a href="<?php echo site_url('ac_detail'); ?>">Account Detail</a></li>
+                    
                 </ul>
             <?php // } else { ?>
 
