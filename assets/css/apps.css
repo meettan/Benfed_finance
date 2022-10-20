@@ -53,6 +53,7 @@ nav.navbar-fixed-top{position: inherit;}
 .left_bar ul li:nth-child(8){background: url("../images/icon_b.png") no-repeat left center;}
 .left_bar ul li:nth-child(9){background: url("../images/icon_c.png") no-repeat left center;}
 .left_bar ul li:nth-child(10){background: url("../images/icon_d.png") no-repeat left center;}
+.left_bar ul li:nth-child(11){background: url("../images/icon_f.png") no-repeat left center;}
 
 .daseboardNav{box-shadow:0px 0px 7px 0px #d5d8db; border-radius: 5px; padding: 13px; border:#e1e0e0 solid 1px; 
     font-size: 16px; color: #939495; font-weight: 300; margin-bottom: 20px;}

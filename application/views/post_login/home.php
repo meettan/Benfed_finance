@@ -19,9 +19,12 @@
                     <li><a href="<?php echo site_url('bankbook'); ?>">Bank Book</a></li>
                     <!-- <li> <a href="<?php echo site_url('bankbook'); ?>">Cheque Entry</a></li> -->
 
-                    <?php }elseif($this->session->userdata['loggedin']['user_type']=="A"||$this->session->userdata['loggedin']['user_type']=="M"||$this->session->userdata['loggedin']['user_type']=="D"||$this->session->userdata['loggedin']['user_type']=="S"){ ?>
+                    <?php }
+                    if($this->session->userdata['loggedin']['user_type']=="A"||$this->session->userdata['loggedin']['user_type']=="M"||$this->session->userdata['loggedin']['user_type']=="D"||$this->session->userdata['loggedin']['user_type']=="S"){ ?>
                         <li><a href="<?php echo site_url('mnthend'); ?>">Month End</a></li>
                         <li><a href="<?php echo site_url('purchasevu'); ?>">Unapproved Voucher</a></li>
+                        <li><a href="<?php echo site_url('ac_detail'); ?>">Account Detail</a></li>
+                        
                     <?php }
 
                     ?>
