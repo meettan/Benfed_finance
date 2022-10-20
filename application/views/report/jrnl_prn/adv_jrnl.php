@@ -274,10 +274,10 @@
 
 						<div class="leftNo"><b>Created Date</b>: <?php echo  date("d/m/Y H:i:s", strtotime($vou->created_dt)); ?></div>
 						<div class="rightDate"><b>Approved Date</b>: <?php 
-						if(empty($vou->approved_dt) || $vou->approved_dt=='0000-00-00 00:00:00'){ 
+						if(empty($vou->approved_dt) || $vou->approved_dt=='0000-00-00 00:00:00'||$vou->approved_dt==""){ 
 							
 						}else{
-							echo  date("d/m/Y h:i:s", strtotime($vou->approved_dt)); 
+							echo  date("d/m/Y H:i:s", strtotime($vou->approved_dt)); 
 						}?></div>
 
 

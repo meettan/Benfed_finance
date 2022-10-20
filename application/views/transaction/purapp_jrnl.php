@@ -147,7 +147,7 @@ function printDiv() {
 		</span>
         </center>
 		<div class="rightDate" style="margin-top: -49px;">Created By: <?=$vou->created_by?></div>
-		<div class="rightDate" style="margin-top: -27px;">Created Date: <?php echo date("d/m/Y H:i:s A",strtotime($vou->created_dt));?></div>
+		<div class="rightDate" style="margin-top: -27px;">Created Date: <?php echo date("d/m/Y H:i:s",strtotime($vou->created_dt));?></div>
 		</div>
 		<div class="printTop023">
 		<div class="leftNo">Transaction No: <?=$vou->trans_no?>
@@ -159,20 +159,28 @@ function printDiv() {
 
 		<!-- <div class="leftNo">Approval Status: <?=$vou->approval_status?></div> -->
         <br>
+		<?php if(!empty($vou->transfer_type)){ ?>
 		<div class="rightDate">Voucher type: <?php if($vou->transfer_type == 'C'){echo 'Bank'; } 
 												 elseif($vou->transfer_type == 'N'){ echo 'Bank'; }
 												 elseif($vou->transfer_type == 'R'){ echo 'Bank'; }
 												 elseif($vou->transfer_type == 'T'){ echo 'Journal'; }
 												 elseif($vou->transfer_type == 'CH'){ echo 'CASH'; }
 												 ?></div>
+												 <?php } ?>
 		</div>
 		<?php if($vou->transfer_type != 'T' ) { if($vou->transfer_type != 'CH'){ ?>
 		<div class="printTop023">
+			<?php if(!empty($vou->ins_no)){ ?>
 		<div class="leftNo">Ref No: <?=$vou->ins_no?></div>
-		<div class="rightDate">Ref date: <?php if(!empty(($vou->ins_dt))){ echo date("d/m/Y",strtotime($vou->ins_dt));} ?></div>
+		<?php } ?>
+		<?php if(!empty(($vou->ins_dt))){  ?>
+		<div class="rightDate">Ref date: <?php echo date("d/m/Y",strtotime($vou->ins_dt));?></div>
+		<?php } ?>
 		</div>
 		<div class="printTop023">
+			<?php if(!empty($vou->bank_name)){ ?>
 		<div class="leftNo">Bank: <?=$vou->bank_name?></div>
+		<?php } ?>
 		</div>
 		<?php }} ?>
 		<div class="tableArea">

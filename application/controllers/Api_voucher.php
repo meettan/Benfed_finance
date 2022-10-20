@@ -682,8 +682,8 @@ public function recv_voucher_dr(){
     'created_by'     => $dt['data']['created_by'],
     'modified_by'    => '',
     'modified_dt'    => '',
-    'approved_by'    => '',
-    'approved_dt'    => '',
+    'approved_by'    => 'AUTO',
+    'approved_dt'    => $dt['data']['created_dt'],
     'fin_yr'         => $dt['data']['fin_yr']    
 );
 if($this->db->insert('td_vouchers', $input_bank) ){
@@ -1724,8 +1724,8 @@ else{
             'created_by'     => $dt['data']['created_by'],
             'modified_by'    => '',
             'modified_dt'    => '',
-            'approved_by'    => '',
-            'approved_dt'    => '',
+            'approved_by'    => 'AUTO',
+            'approved_dt'    => $dt['data']['created_dt'],
             'fin_yr'         => $dt['data']['fin_yr']    
         );
                   

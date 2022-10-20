@@ -1,17 +1,31 @@
-<div class="daseboard_home">
+<div class="">
+<!-- <div class="daseboard_home"> -->
     <div class="col-sm-3 float-left">
         <div class="left_bar">
-            <!--<h2>MIS <i class="fa fa-link" aria-hidden="true"></i></h2> -->
-            <?php //if ($this->session->userdata['loggedin']['ho_flag'] == "N") { ?>
-             <!--   <ul>
-                    <li><a href="<?php echo site_url('paddys/transactions/f_workorder'); ?>">Work Order</a></li>
-                    <li><a href="<?php echo site_url('paddys/transactions/f_paddycollection'); ?>">Paddy Procurement</a></li>
-                    <li><a href="<?php echo site_url('paddys/transactions/f_received'); ?>">Paddy Received </a></li>
-                    <li> <a href="<?php echo site_url('paddys/transactions/f_doisseued'); ?>">DO Issue</a></li>
-                    <li><a href="<?php echo site_url('paddys/transactions/f_offered'); ?>">CMR offered</a></li>
-                    <li><a href="<?php echo site_url('paddys/transactions/f_delivery'); ?>">CMR Delivery</a></li>
-                    <li> <a href="<?php echo site_url('paddys/transactions/f_wqsc'); ?>">WQSC</a></li>
-                </ul> -->
+            <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
+
+           
+               <ul>
+
+               <?php  if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
+                    <li><a href="<?php echo site_url('cashVoucher'); ?>">Cash Voucher</a></li>
+                    <li><a href="<?php echo site_url('bankVoucher'); ?>">Bank Voucher</a></li>
+                    <li><a href="<?php echo site_url('jurnalVoucher'); ?>">Journal Voucher </a></li>
+                    <li> <a href="<?php echo site_url('cheqdtl'); ?>">Cheque Entry</a></li>
+                    <li> <a href="<?php echo site_url('advjrnlr'); ?>">Print Voucher</a></li>
+
+
+                    <li><a href="<?php echo site_url('cashbook'); ?>">Cash Book</a></li>
+                    <li><a href="<?php echo site_url('bankbook'); ?>">Bank Book</a></li>
+                    <!-- <li> <a href="<?php echo site_url('bankbook'); ?>">Cheque Entry</a></li> -->
+
+                    <?php }elseif($this->session->userdata['loggedin']['user_type']=="A"||$this->session->userdata['loggedin']['user_type']=="M"||$this->session->userdata['loggedin']['user_type']=="D"||$this->session->userdata['loggedin']['user_type']=="S"){ ?>
+                        <li><a href="<?php echo site_url('mnthend'); ?>">Month End</a></li>
+                        <li><a href="<?php echo site_url('purchasevu'); ?>">Unapproved Voucher</a></li>
+                    <?php }
+
+                    ?>
+                </ul>
             <?php // } else { ?>
 
                
