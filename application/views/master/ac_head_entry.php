@@ -60,17 +60,13 @@ $subgr_dtls = json_decode($subgr_dtls);
                 <label for="br_id" class="col-sm-2 col-form-label">Branch</label>
 
                 <div class="col-sm-10">
-
                     <select class="form-control select_2" id="br_id" name="br_id">
                         <option value="">Select</option>
                         <?php $select = '';
-                        foreach ($br_dtls as $dt) {
-                           
-                            if ($dt->id == $selected['br_id']) {
-                                $select = 'selected';
-                            }
+                        foreach ($br_dtls as $dt) {  
                         ?>
-                            <option value='<?= $dt->id ?>' <?= $select ?>><?= strtoupper($dt->branch_name) ?></option>
+                            <option value='<?= $dt->id ?>' <?php if ($dt->id == $selected['br_id']) { echo 'selected'; } ?>>
+                            <?= strtoupper($dt->branch_name) ?></option>
                         <?php } ?>
                     </select>
                 </div>

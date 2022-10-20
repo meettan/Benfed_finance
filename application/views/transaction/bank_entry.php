@@ -173,12 +173,14 @@
 
                 <div class="col-sm-4">
 
-                    <select name="bank_cd" class="form-control select2" style="display: inline;" required>
-                        <option value="0">Select</option>
+                    <!-- <select name="bank_cd" class="form-control select2" style="display: inline;" required> -->
+                    <select name="bank_cd" class="form-control select2 required" required>
+                        <option value="">Select</option>
                         <?php
                         foreach ($bank as $value) {
-                            echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "</option>";
-                        }
+                            ?>
+                           <option value='<?= $value->sl_no; ?>'><?=$value->ac_name;?></option>
+                       <?php }
                         ?>
                     </select>
 
