@@ -88,7 +88,7 @@ define("GROUP_TYPE", serialize(array(
     "1" => "Liabilites",
     "2" => "Asset",
     "3" => "Revenue",
-    "4" => "Expends"
+    "4" => "Expense"
 )));
 
 // ACCOUNTING YEAR CALCULATION SUBHAM
