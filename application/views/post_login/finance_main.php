@@ -19,6 +19,9 @@
     <script type="text/javascript" src="<?php echo base_url("/assets/js/table2excel.js") ?>"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url("/assets/js/bootstrap-toggle.js") ?>"></script>
+
+    <link href="<?php echo base_url("/assets/css/apps_newDashboard.css");?>" rel="stylesheet">
+    
     <style>
         .hr {
             display: block;

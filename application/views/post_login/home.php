@@ -1,5 +1,10 @@
 <div class="">
 <!-- <div class="daseboard_home"> -->
+
+<div class="daseboard_home_newAdmin">
+
+      <div class="fullWidthBotomPading">
+
     <div class="col-sm-3 float-left">
         <div class="left_bar">
             <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
@@ -34,207 +39,66 @@
         </div>
     </div>
 
-  <!--  <div class="col-sm-9 float-left" style="z-index:-1;">
-        <div class="daseboardNav"><a href="#">Dashboard</a> / Overview </div>
 
-        <div class="row daseSmBoxMain">
 
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon"><img src="<?php echo base_url('assets/images/box_a.png'); ?>"></div>
-                        <div class="value"><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                echo '';
-                                            } else {
-                                                echo '';
-                                            }
-                                            ?> <strong>Qnt</strong></div>
-                    </div>
-                    <h3>Total Paddy Procurement</h3>
+
+    <div class="col-sm-9 float-left rightSideSec">
+          <div class="row">
+            <div class="threeBoxNewmain">
+              <div class="col-sm-4 float-left">
+                <div class="threeBoxNewSmall">
+                  <!-- <div class="value"><strong>&#2352;</strong>
+              </div> -->
+                  <div class="threeBoxImg darkBlue"><img src="http://localhost/benfed/benfed_fertilizer/assets/images/boxIcon_a.png" alt=""></div>
+                  <div class="threeBoxTxt">
+                    <h2>Approved voucher of the day</h2>
+                    <p class="price"><span class="mt">
+                        0                        <strong>MT</strong></span>
+
+                      <span class="lit">
+                        0                        <strong>L</strong>
+                      </span>
+                    </p>
+                  </div>
                 </div>
+              </div>
+
+
+
+              <div class="col-sm-4 float-left">
+                <div class="threeBoxNewSmall">
+                  <div class="threeBoxImg yellowCol"><img src="http://localhost/benfed/benfed_fertilizer/assets/images/boxIcon_b.png" alt=""></div>
+                  <div class="threeBoxTxt">
+                    <h2>Unapproved voucher of the day</h2>
+                    <p class="price"><span class="mt">0<strong>MT</strong></span>
+                      <span class="lit"> <strong>L</strong></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4 float-left">
+                <div class="threeBoxNewSmall">
+                  <div class="threeBoxImg yellowCol"><img src="http://localhost/benfed/benfed_fertilizer/assets/images/boxIcon_collec.png" alt="">
+                  </div>
+                  <div class="threeBoxTxt">
+                    <h2>Voucher on hold for the Day</h2>
+                    <p class="price">
+                      <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>0.00</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <?php if ($this->session->userdata['loggedin']['fin_id'] == '2') {  ?>
-                <div class="col-sm-4">
-                    <div class="daseSmBox">
-                        <div class="subBox">
-                            <div class="icon2"><img src="<?php echo base_url('assets/images/box_b.png'); ?>"></div>
-                            <div class="value"><?php
-                                                if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                    echo '';
-                                                } else {
-                                                    echo '';
-                                                }
-                                                ?></div>
-                        </div>
-                        <h3>Total No. of Cheques Issued</h3>
-                    </div>
-                </div>
-            <?php } else {  ?>
-                <div class="col-sm-4">
-                    <div class="daseSmBox">
-                        <div class="subBox">
-                            <div class="icon2"><img src="<?php echo base_url('assets/images/box_b.png'); ?>"></div>
-                            <div class="value"><?php
-
-                                                echo '';
-                                                ?> <strong>Qnt</strong>
-                            </div>
-                        </div>
-                        <h3>Total Paddy Despatched</h3>
-                    </div>
-                </div>
-
-            <?php } ?>
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon3"><img src="<?php echo base_url('assets/images/box_c.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?></div>
-                    </div>
-                    <h3>Total Procured Amount</h3>
-                </div>
-            </div>
-
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon4"><img src="<?php echo base_url('assets/images/box_d.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?></div>
-                    </div>
-                    <h3>Total Paid Amount</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon5"><img src="<?php echo base_url('assets/images/box_e.png'); ?>"></div>
-                        <div class="value"><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                echo '';
-                                            } else {
-                                                echo '';
-                                            } ?> <strong>Qnt</strong></div>
-                    </div>
-                    <h3>Total CMR offered</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon2"><img src="<?php echo base_url('assets/images/box_b.png'); ?>"></div>
-                        <div class="value"><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                echo '';
-                                            } else {
-                                                echo '';
-                                            } ?> <strong>Qnt</strong></div>
-                    </div>
-                    <h3>Total DO issued</h3>
-                </div>
-            </div>
-
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon6"><img src="<?php echo base_url('assets/images/box_f.png'); ?>"></div>
-                        <div class="value"><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                echo '';
-                                            } else {
-                                                echo '';
-                                            } ?> <strong>Qnt</strong></div>
-                    </div>
-                    <h3>Total CMR Delivered</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon"><img src="<?php echo base_url('assets/images/box_b.png'); ?>"></div>
-                        <div class="value"><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                echo '';
-                                            } else {
-                                                echo '';
-                                            }
-                                            ?> <strong>Qnt</strong></div>
-                    </div>
-                    <h3>Total WQSC Uploaded</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon4"><img src="<?php echo base_url('assets/images/box_d.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?></div>
-                    </div>
-                    <h3>Total Fund Requisition(Gross)</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon2"><img src="<?php echo base_url('assets/images/box_b.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?>
-                        </div>
-                    </div>
-                    <h3>Fund Requisition Sanctioned</h3>
-                </div>
-            </div>
-
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon3"><img src="<?php echo base_url('assets/images/box_c.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?></div>
-                    </div>
-                    <h3>Total Mill Payment</h3>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="daseSmBox">
-                    <div class="subBox">
-                        <div class="icon5"><img src="<?php echo base_url('assets/images/box_e.png'); ?>"></div>
-                        <div class="value"><strong>&#8377; </strong><?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                                                                        echo '';
-                                                                    } else {
-                                                                        echo '';
-                                                                    } ?></div>
-                    </div>
-                    <h3>Total Society Payment</h3>
-                </div>
-            </div>
-
-
+          </div>
         </div>
 
-    </div> -->
 
+
+
+    
+
+</div>
 </div>
 
 <script>
