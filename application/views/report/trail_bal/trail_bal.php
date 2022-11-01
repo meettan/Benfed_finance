@@ -61,8 +61,11 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
-                        <!-- <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5> -->
+                      <?php if($this->uri->segment(1)=="trailbal"){ ?>
+                        <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
 
+   
+                        <?php } ?>
                     </div>
                     <br>  
                     <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
@@ -109,24 +112,24 @@ tr:hover {background-color: #f5f5f5;}
 									
                                      <td style="text-align: right;">
                                         
-										  <?php echo round(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
+										  <?php echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
 										 
 									 </td>
                                      
                                      <td style="text-align: right;">
-									       <?php echo round(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
+									       <?php echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
 								        
 									 </td>
-                                     <td  style="text-align: right;"><?php echo round($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
-                                     <td  style="text-align: right;"><?php echo round($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
+                                     <td  style="text-align: right;"><?php echo number_format($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
+                                     <td  style="text-align: right;"><?php echo number_format($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
                                      <td style="text-align: right;"><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
-									       <?php echo  round(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
+									       <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
 													$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
 										   ?>
 								         <?php }  ?>
 									 </td>
 									 <td style="text-align: right;"><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt){ ?>
-										  <?php echo round(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
+										  <?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
 													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
 										 <?php } ?>
 									 </td>
@@ -140,12 +143,12 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='3'>Total</td>
-									<td><?=round($otot_dr,2)?></td>
-									<td><?=round($otot_cr,2)?></td>
-									<td><?=round($tot_dr,2)?></td>
-									<td><?=round($tot_cr,2)?></td>
-									<td><?=round($ctot_dr,2)?></td>
-									<td><?=round($ctot_cr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($otot_dr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($otot_cr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($tot_dr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($tot_cr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($ctot_dr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format($ctot_cr,2)?></td>
 								</tr>
                                 <?php 
                                        }

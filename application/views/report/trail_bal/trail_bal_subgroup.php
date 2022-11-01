@@ -90,7 +90,7 @@ tr:hover {background-color: #f5f5f5;}
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody >
                                 
                             <?php
 
@@ -107,24 +107,24 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $i++; ?></td>
                                      <!-- <tr v-for="(cover,index) in  packetDocument" i=index> -->
 									 <td ><?php echo $tb->ac_name; ?></td>
-									<td><?php if($type == 2 || $type == 4){ ?>
-										  <?php echo round(abs($ope_bal),2); $otot_dr +=$ope_bal; ?>
+									<td style="text-align: right;"><?php if($type == 2 || $type == 4){ ?>
+										  <?php echo number_format(abs($ope_bal),2); $otot_dr +=$ope_bal; ?>
 										 <?php } ?>
 									 </td>
-                                     <td><?php if($type == 1 || $type == 3){ ?>
-									       <?php echo round(abs($ope_bal),2); $otot_cr +=$ope_bal; ?>
+                                     <td style="text-align: right;"><?php if($type == 1 || $type == 3){ ?>
+									       <?php echo number_format(abs($ope_bal),2); $otot_cr +=$ope_bal; ?>
 								         <?php }  ?>
 									 </td>
-                                     <td ><?php echo round($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
-                                     <td ><?php echo round($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
-									 <td><?php if($type == 2 || $type == 4){ ?>
-										  <?php echo round(abs($ope_bal+($tb->dr_amt)-($tb->cr_amt)),2);
+                                     <td style="text-align: right;"><?php echo number_format($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
+                                     <td style="text-align: right;"><?php echo number_format($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
+									 <td style="text-align: right;"><?php if($type == 2 || $type == 4){ ?>
+										  <?php echo number_format(abs($ope_bal+($tb->dr_amt)-($tb->cr_amt)),2);
 													$ctot_dr +=abs($ope_bal+($tb->dr_amt)-($tb->cr_amt));
 										  ?>
 										 <?php } ?>
 									 </td>
-                                     <td><?php if($type == 1 || $type == 3){ ?>
-									       <?php echo round(abs($ope_bal+($tb->cr_amt)-($tb->dr_amt)),2);
+                                     <td style="text-align: right;"><?php if($type == 1 || $type == 3){ ?>
+									       <?php echo number_format(abs($ope_bal+($tb->cr_amt)-($tb->dr_amt)),2);
 													$ctot_cr +=abs($ope_bal+($tb->cr_amt)-($tb->dr_amt));
 										   ?>
 								         <?php }  ?>
@@ -138,12 +138,12 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='2'>Total</td>
-									<td><?=round($otot_dr,2)?></td>
-									<td><?=round($otot_cr,2)?></td>
-									<td><?=round($tot_dr,2)?></td>
-									<td><?=round($tot_cr,2)?></td>
-									<td><?=round($ctot_dr,2)?></td>
-									<td><?=round($ctot_cr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($otot_dr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($otot_cr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($tot_dr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($tot_cr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($ctot_dr,2)?></td>
+									<td style="font-size: 12px; text-align: right;"><?=number_format($ctot_cr,2)?></td>
 								</tr>
                                 <?php 
                                        }

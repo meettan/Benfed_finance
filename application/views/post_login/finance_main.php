@@ -187,27 +187,28 @@
 
 
 
-
+                        <a href="<?php echo site_url('trailbal'); ?>">Trial balance </a>
+                        <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
+                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
+                                <?php } ?>
                         <!-- <div class="dropdown-content"> -->
-                        <div class="sub-dropdown">
+                        <!-- <div class="sub-dropdown">
                             <a class="sub-dropbtn">Trial balance<i class="fa fa-angle-right" style="float: right;"></i></a>
                             <div class="sub-dropdown-content">
-                                <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
-                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated </a>
-                                <?php } ?>
+                                
 
                                 <a href="<?php echo site_url('trailbal'); ?>">Branch Wise </a>
 
 
                                 <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A") { ?>
 
-                                    <a href="<?php echo site_url('trailbalsubgroup'); ?>">Subgroup Wise</a>
+                                    <!-- <a href="<?php echo site_url('trailbalsubgroup'); ?>">Subgroup Wise</a> 
                                     <!--  <a href="<?php //echo site_url('trailbal_group'); 
-                                                    ?>">Trial balance group</a>  -->
+                                                    ?>">Trial balance group</a> 
                                 <?php } ?>
 
                             </div>
-                        </div>
+                        </div> -->
                         <!-- </div> -->
 
 

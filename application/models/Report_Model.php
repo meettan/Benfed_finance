@@ -315,7 +315,7 @@ from(
           b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
           FROM td_vouchers a ,md_achead b,mda_mngroup c
           WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' 
-          and a.approval_status!='H'
+          and a.approval_status ='A'
           group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id 
           union 
           SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
@@ -329,7 +329,7 @@ SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_c
 b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
 FROM td_vouchers a,md_achead b,mda_mngroup c 
 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
-and a.approval_status!='H'
+and a.approval_status = 'A'
 AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
 group by mngr_id, ac_name,type,benfed_ac_code
 order by ac_name";
@@ -375,19 +375,19 @@ order by ac_name";
 	}
 
 
-	function f_get_trailbalsubgroup($frm_date,$to_date){
+	/*function f_get_trailbalsubgroup($frm_date,$to_date){
 		
 		$sql ="SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.subgr_id,
 		       if(dr_cr_flag='Cr',sum(a.amount),0)as cr_amt,b.ac_name,c.type,a.dr_cr_flag
                FROM td_vouchers a,md_achead b,mda_mngroup c
                WHERE a.acc_code=b.sl_no
-               and a.approval_status!='H'
+               and a.approval_status ='A'
                and   b.mngr_id = c.sl_no and
 			   a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date'
                group by b.ac_name,a.dr_cr_flag,b.subgr_id" ;
         $query  = $this->db->query($sql);
         return $query->result();
-	}
+	}*/
 	
 	function f_get_group_total($frm_date,$to_date){
 		

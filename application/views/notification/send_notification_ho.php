@@ -36,6 +36,20 @@
                 </div>
 
             </div>
+
+
+
+            <div class="form-check form-check-inline">
+
+            <?php foreach ($distdata as $key) { ?>
+						<input type="checkbox"  id="peru">
+						<label for="peru" class="mb-0 ml-1"><?php echo $key->?></label>
+<?php } ?> 
+                        <input type="checkbox"  id="peru">
+						<label for="peru" class="mb-0 ml-1">dfhvkjdfk</label>
+					</div>
+
+                   
             
             <div class="form-group row">
 

@@ -206,8 +206,9 @@ public function jrnlprn()
 
             
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
-            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
-            $brid=$this->session->userdata['loggedin']['branch_id'];
+
+            // $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            // $brid=$this->session->userdata['loggedin']['branch_id'];
             // if($this->session->userdata['loggedin']['branch_id']!=342){
                  
                 //  $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid);
@@ -262,7 +263,7 @@ public function jrnlprn()
 
     }
 	
-	public function trailbalsubgroup(){
+	/*public function trailbalsubgroup(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -284,7 +285,7 @@ public function jrnlprn()
             $this->load->view('post_login/footer');
         }
 
-    }
+    }*/
 
     public function crnjrnl(){
 
