@@ -25,6 +25,7 @@
                         <th>Sl No.</th>
                         
                         <th>A/C Code</th>
+                        <th>Branch</th>
                         <th>Group</th>
                         <th>Sub Group</th>
                         <th>A/C Head</th>
@@ -45,6 +46,7 @@
                             <tr>
                                 <td><?= $i; ?></td>
                                 <td><?= $dt->benfed_ac_code; ?></td>
+                                <td><?= $dt->branch_name; ?></td>
                                 <td><?= $dt->gr_name; ?></td>
                                 <td><?= $dt->subgr_name; ?></td>
                                 <td><?= $dt->ac_name; ?></td>
@@ -69,7 +71,10 @@
                 <tfoot>
 
                     <tr>
-                        <th>Sl No.</th>
+                    <th>Sl No.</th>
+                        
+                        <th>A/C Code</th>
+                        <th>Branch</th>
                         <th>Group</th>
                         <th>Sub Group</th>
                         <th>A/C Head</th>

@@ -86,9 +86,10 @@ class Master_model extends CI_Model
 
     function get_ac_head_dtls($id)
     {
-        $this->db->select('a.sl_no,a.benfed_ac_code, a.mngr_id, a.subgr_id, a.ac_name, b.name as gr_name, b.type, c.name as subgr_name');
+        $this->db->select('a.sl_no,a.benfed_ac_code, a.mngr_id, a.subgr_id, a.ac_name, b.name as gr_name, b.type, c.name as subgr_name,d.branch_name');
         $this->db->join('mda_mngroup b', 'a.mngr_id=b.sl_no');
         $this->db->join('mda_subgroub c', 'a.subgr_id=c.sl_no');
+        $this->db->join('md_branch d', 'a.br_id=d.id');
 		
         if ($id > 0) {
             $this->db->where(array(

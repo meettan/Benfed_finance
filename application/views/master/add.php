@@ -65,18 +65,18 @@
 
 				<div class="col-sm-10">
 
-					<input type="text" class="form-control" id="gr_name" name="gr_name"/>
+					<input type="text" class="form-control" id="gr_name" name="gr_name" required/>
 
 				</div>
 
 			</div>
 			<div class="form-group row">
 
-				<label for="ac_type" class="col-sm-2 col-form-label">Benfed Maingroup</label>
+				<label for="ac_type" class="col-sm-2 col-form-label">Benfed Serial No.</label>
 
 				<div class="col-sm-10">
 
-					<input type="text" class="form-control" id="benfed_srl" name="benfed_srl"/>
+					<input type="text" class="form-control" id="benfed_srl" name="benfed_srl" required/>
 
 				</div>
 
@@ -88,12 +88,12 @@
 
 				<div class="col-sm-10">
 
-					<select class="form-control" id="ac_type" name="ac_type">
-						<option value="0">Select</option>
+					<select class="form-control" id="ac_type" name="ac_type" required>
+						<option value="">Select</option>
 						<option value='1'>Libilities</option>
 						<option value='2'>Asset</option>
-						<option value='2'>Revenue</option>
-						<option value='2'>Expense</option>
+						<option value='4'>Revenue</option>
+						<option value='3'>Expense</option>
 					</select>
 
 				</div>

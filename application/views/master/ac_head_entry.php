@@ -17,7 +17,7 @@ $subgr_dtls = json_decode($subgr_dtls);
                 <label for="gr_id" class="col-sm-2 col-form-label">Group</label>
 
                 <div class="col-sm-10">
-                    <select class="form-control select2" id="gr_id" name="gr_id">
+                    <select class="form-control select2" id="gr_id" name="gr_id" required>
                         <option value="">Select</option>
                         <?php 
                         foreach ($gr_dtls as $dt) {
@@ -38,7 +38,7 @@ $subgr_dtls = json_decode($subgr_dtls);
 
                 <div class="col-sm-10">
 
-                    <select class="form-control" id="subgr_id" name="subgr_id">
+                    <select class="form-control" id="subgr_id" name="subgr_id" required>
                         <option value="">Select</option>
                         <?php
                         if ($subgr_dtls) {
@@ -60,7 +60,7 @@ $subgr_dtls = json_decode($subgr_dtls);
                 <label for="br_id" class="col-sm-2 col-form-label">Branch</label>
 
                 <div class="col-sm-10">
-                    <select class="form-control select_2" id="br_id" name="br_id">
+                    <select class="form-control select_2" id="br_id" name="br_id" required>
                         <option value="">Select</option>
                         <?php $select = '';
                         foreach ($br_dtls as $dt) {  
@@ -79,7 +79,7 @@ $subgr_dtls = json_decode($subgr_dtls);
 
                 <div class="col-sm-10">
 
-                    <input type="text" class="form-control" id="achead" name="achead" required="required" value="<?= $selected['achead'] ?>" />
+                    <input type="text" class="form-control" id="achead" name="achead" required="required" value="<?= $selected['achead'] ?>" required/>
 
                 </div>
 
@@ -90,7 +90,7 @@ $subgr_dtls = json_decode($subgr_dtls);
 
                 <div class="col-sm-10">
 
-                    <input type="text" class="form-control" id="benfed_ac_code" name="benfed_ac_code" required="required" value="<?= $selected['benfed_ac_code'] ?>" />
+                    <input type="text" class="form-control" id="benfed_ac_code" name="benfed_ac_code" required="required" value="<?= $selected['benfed_ac_code'] ?>" required/>
 
                 </div>
 

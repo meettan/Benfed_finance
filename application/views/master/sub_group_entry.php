@@ -3,12 +3,12 @@
 		
 		<form method="POST" action="<?php echo site_url('master/sub_group_save');?>" >
 			<div class="form-header">     
-				<h4>Add Group</h4>
+				<h4>Add Sub Group</h4>
 			</div>
 			<div class="form-group row">
-				<label for="gr_name" class="col-sm-2 col-form-label">A/c Head Name</label>
+				<label for="gr_name" class="col-sm-2 col-form-label">Main Group</label>
 				<div class="col-sm-10">
-					<select class="form-control" id="gr_name" name="gr_name">
+					<select class="form-control" id="gr_name" name="gr_name" required>
 						<option value="">Select</option>
 						<?php
 							$gr_dtls = json_decode($gr_dtls);
@@ -27,11 +27,11 @@
 
 			<div class="form-group row">
 
-				<label for="benfed_subgr_id" class="col-sm-2 col-form-label">Benfed Subgroup</label>
+				<label for="benfed_subgr_id" class="col-sm-2 col-form-label">Benfed Serial No.</label>
 
 				<div class="col-sm-10">
 					
-					<input type="text" class="form-control" id="benfed_subgr_id" name="benfed_subgr_id" required="required" value="<?=$selected['benfed_subgr_id'] ?>" />
+					<input type="text" class="form-control" id="benfed_subgr_id" name="benfed_subgr_id" required="required" value="<?=$selected['benfed_subgr_id'] ?>" required/>
 
 				</div>
 
