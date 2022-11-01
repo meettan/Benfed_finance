@@ -60,12 +60,15 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
+                        
                       <?php if($this->uri->segment(1)=="trailbal"){ ?>
+                        <h4>Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
 
    
-                        <?php } ?>
+                        <?php }else{ ?>
+                            <h4>Consolidated Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
+                       <?php } ?>
                     </div>
                     <br>  
                     <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
