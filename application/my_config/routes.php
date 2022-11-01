@@ -143,3 +143,8 @@ $route['handling-trandport-charges/rent_report']='HTransportC/rent_report';
 $route['user'] = 'admins';
 $route['user_add'] = 'admins/user_add';
 $route['userlist_admin']='admins/userlist_admin';
+
+
+// ===================notification======================
+$route['notification/send']='Notification/send_notification_ho';
+// ===================end notification======================

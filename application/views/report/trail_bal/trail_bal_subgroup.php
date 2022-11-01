@@ -66,6 +66,10 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
                     <br>  
 
+
+
+                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
+
                     <table style="width: 100%;" id="example">
 
                         <thead>
@@ -104,23 +108,23 @@ tr:hover {background-color: #f5f5f5;}
                                      <!-- <tr v-for="(cover,index) in  packetDocument" i=index> -->
 									 <td ><?php echo $tb->ac_name; ?></td>
 									<td><?php if($type == 2 || $type == 4){ ?>
-										  <?php echo abs($ope_bal); $otot_dr +=$ope_bal; ?>
+										  <?php echo round(abs($ope_bal),2); $otot_dr +=$ope_bal; ?>
 										 <?php } ?>
 									 </td>
                                      <td><?php if($type == 1 || $type == 3){ ?>
-									       <?php echo abs($ope_bal); $otot_cr +=$ope_bal; ?>
+									       <?php echo round(abs($ope_bal),2); $otot_cr +=$ope_bal; ?>
 								         <?php }  ?>
 									 </td>
-                                     <td ><?php echo $tb->dr_amt; $tot_dr +=$tb->dr_amt; ?></td>
-                                     <td ><?php echo $tb->cr_amt; $tot_cr +=$tb->cr_amt; ?></td>
+                                     <td ><?php echo round($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
+                                     <td ><?php echo round($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
 									 <td><?php if($type == 2 || $type == 4){ ?>
-										  <?php echo abs($ope_bal+($tb->dr_amt)-($tb->cr_amt));
+										  <?php echo round(abs($ope_bal+($tb->dr_amt)-($tb->cr_amt)),2);
 													$ctot_dr +=abs($ope_bal+($tb->dr_amt)-($tb->cr_amt));
 										  ?>
 										 <?php } ?>
 									 </td>
                                      <td><?php if($type == 1 || $type == 3){ ?>
-									       <?php echo abs($ope_bal+($tb->cr_amt)-($tb->dr_amt));
+									       <?php echo round(abs($ope_bal+($tb->cr_amt)-($tb->dr_amt)),2);
 													$ctot_cr +=abs($ope_bal+($tb->cr_amt)-($tb->dr_amt));
 										   ?>
 								         <?php }  ?>
@@ -134,12 +138,12 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='2'>Total</td>
-									<td><?=$otot_dr?></td>
-									<td><?=$otot_cr?></td>
-									<td><?=$tot_dr?></td>
-									<td><?=$tot_cr?></td>
-									<td><?=$ctot_dr?></td>
-									<td><?=$ctot_cr?></td>
+									<td><?=round($otot_dr,2)?></td>
+									<td><?=round($otot_cr,2)?></td>
+									<td><?=round($tot_dr,2)?></td>
+									<td><?=round($tot_cr,2)?></td>
+									<td><?=round($ctot_dr,2)?></td>
+									<td><?=round($ctot_cr,2)?></td>
 								</tr>
                                 <?php 
                                        }
@@ -169,3 +173,20 @@ tr:hover {background-color: #f5f5f5;}
         </div> 
  
  <?php } ?>
+
+
+ 
+ <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+
+
+<script>
+    function exportReportToExcel() {
+let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+name: `Trial Balance Subgroup.xlsx`, // fileName you could use any name
+sheet: {
+name: 'Trial Balance Subgroup' // sheetName
+}
+});
+}
+</script>
