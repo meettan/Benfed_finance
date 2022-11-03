@@ -17,8 +17,10 @@
 <div class="wraper">
 
     <div class="col-md-9 container form-wraper">
+    <?php foreach($notification as $keyy) { ?>
 
-        <form method="POST" action="<?= site_url('notification/send') ?>">
+        <form method="POST" action="<?= site_url('notification/edit/').$keyy->sl_no ?>">
+       
 
             <div class="form-header">
                 <h4>Send Notification</h4>
@@ -29,12 +31,12 @@
             <div class="form-group row">
                 <label for="cheq_no" class="col-sm-2 col-form-label">Title:</label>
                 <div class="col-sm-4">
-                    <input type="text" name="title" class="form-control smallinput_text" value="" required="">
+                    <input type="text" name="title" class="form-control smallinput_text"  required="" value="<?=$keyy->msg_title?>" >
                 </div>
 
                 <label for="cheq_dt" class="col-sm-2 col-form-label">Date:</label>
                 <div class="col-sm-4">
-                    <input type="date" name="date" value="<?php echo date('Y-m-d') ?>" class="form-control" required="">
+                    <input type="date" name="date" value="<?php echo date("Y-m-d",strtotime($keyy->send_dt)); ?>" class="form-control" required="">
                 </div>
 
             </div>
@@ -47,12 +49,13 @@
 
                 <div class="col-sm-10">
 
-                    <textarea class="form-control" name="message" required=""></textarea>
+                    <textarea class="form-control" name="message" required="" rows="6"><?=$keyy->msg_text?></textarea>
 
                 </div>
 
             </div>
-
+            <?php $expdata=explode(',',$keyy->receive_branch);
+             ?>
             <div class="form-check form-check-inline">
   <input class="form-check-input bracnhclass" type="checkbox" id="allbranch">
   <label class="form-check-label" for="allbranch">All Branch</label>
@@ -61,7 +64,8 @@
 
 
                 <div class="form-check form-check-inline" style="margin-right: 20px;">
-  <input class="form-check-input bracnhclass2" name="branch_id[]" type="checkbox" id="inlineCheckbox<?php echo $key->id;?>" value="<?php echo $key->id;?>" >
+  <input class="form-check-input bracnhclass2" name="branch_id[]" type="checkbox" id="inlineCheckbox<?php echo $key->id;?>" value="<?php echo $key->id;?>" <?php 
+  foreach ( $expdata as $keyy => $value) { if($value==$key->id){echo "checked";} } ?> >
   <label class="form-check-label" for="inlineCheckbox<?php echo $key->id;?>"><?php echo $key->branch_name;?></label>
 </div>
 
@@ -84,8 +88,10 @@
 
             </div>
 
-        </form>
+           
 
+        </form>
+        <?php } ?>
     </div>
 
 </div>

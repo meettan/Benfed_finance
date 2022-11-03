@@ -34,37 +34,9 @@
 
                 </thead>
 
-                <tbody>
+                <tbody id="stordata">
 
-                    <?php
-                    $ac_head = json_decode($ac_head);
-                    if ($ac_head) {
-                        $i = 1;
-                        foreach ($ac_head as $dt) {
-                    ?>
-
-                            <tr>
-                                <td><?= $i; ?></td>
-                                <td><?= $dt->benfed_ac_code; ?></td>
-                                <td><?= $dt->branch_name; ?></td>
-                                <td><?= $dt->gr_name; ?></td>
-                                <td><?= $dt->subgr_name; ?></td>
-                                <td><?= $dt->ac_name; ?></td>
-                                <td><a href="<?= site_url() ?>/achead/entry?id=<?php echo $dt->sl_no; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
-
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                    <?php
-                            $i++;
-                        }
-                    } else {
-
-                        echo "<tr><td colspan='4' style='text-align: center;'>No data Found</td></tr>";
-                    }
-                    ?>
+                    
 
                 </tbody>
 
@@ -84,34 +56,78 @@
                 </tfoot>
 
             </table>
-        </div>
+             <!-- ==================================== -->
+        <div > </div>
+        <nav aria-label="..." class="pagination_link">
 
+</nav>
+
+
+
+<!-- =================================== -->
+        </div>
+       
     </div>
 
 </div>
-<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-
-        <?php if ($this->session->flashdata('msg')) { ?>
-            window.alert("<?php echo $this->session->flashdata('msg'); ?>");
-
-    });
-
-    <?php } ?>
-</script>
 
 
 
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            "pagingType": "full_numbers",
-            // "scrollY": 250,
-            // "scrollX": true
-        });
+	$(document).ready(function () {
+				filter_test_data(1);
+
+				function filter_test_data(page) {
+					var action = 'fetch_data';
+					
+					let serch = $('#serch').val();
+					
+
+
+					$.ajax({
+						url: "<?= site_url('Master/fetch_my_achead/') ?>" + page,
+						method: "POST",
+						dataType: "JSON",
+						data: {
+							action: action,
+							serch: serch,
+							
+						},
+						success: function (data) {
+
+							$('#stordata').html(data.product_list);
+							$('.pagination_link').html(data.pagination_link);
+						}
+					})
+				}
+
+        $(document).on('click', '.pagination_link li a', function(event){
+        event.preventDefault();
+        var page = $(this).data('ci-pagination-page');
+        filter_test_data(page);
+    	});
+
+    // $('.common_selector').click(function(){
+    //     filter_test_data(1);
+    // });
+
+	// $('.testSerch').click(function(){
+    //     filter_test_data(1);
+    // });
+	// $('.payStatus').change(function(){
+    //     filter_test_data(1);
+    // });
+
+	$('.serch').keyup(function(){
+        filter_test_data(1);
     });
+	// $('.stock').change(function(){
+    //     filter_test_data(1);
+    // });
+	// $('.toDate').change(function(){
+    //     filter_test_data(1);
+    // });
+
+});
+
 </script>

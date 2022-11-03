@@ -70,6 +70,24 @@ tr:hover {background-color: #f5f5f5;}
                             <h4>Consolidated Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
                        <?php } ?>
                     </div>
+                    <div class="printTop023">
+						<div class="leftNo"><b>Type: </b> <?php foreach($type as $key => $value){ if($value==1){
+                            echo"Liabilites, ";
+                        }
+                        if($value==2){
+                            echo"Asset, ";
+                        }
+                        if($value==3){
+                            echo"Expense, ";
+                        }
+                        if($value==4){
+                            echo"Revenue";
+                        }
+                        }; ?></div>
+						
+
+
+					</div>
                     <br>  
                     <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
                     <table style="width: 100%;" id="example">

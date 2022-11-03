@@ -21,6 +21,22 @@ tr:hover {background-color: #f5f5f5;}
 
 </style>
 
+<style>
+    .form-check {
+  display: inline-block;
+}
+
+.panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";    
+    float: right; 
+    color: grey; 
+}
+.panel-heading a.collapsed:after {
+    content: "\e080";
+}
+</style>
+
     
     <div class="wraper">      
 
@@ -105,8 +121,34 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div> 		 -->		
+                </div> 		 -->	
+                
+                
+                <div class="form-check form-check-inline">
+  <input class="form-check-input bracnhclass" type="checkbox" id="allbranch">
+  <label class="form-check-label" for="allbranch">All</label>
+</div><br>
+
+
 				
+                <div class="form-check form-check-inline" style="margin-right: 20px;">
+                    <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="1" >
+                    <label class="form-check-label" for="inlineCheckbox">Liabilites</label>
+                </div>
+                <div class="form-check form-check-inline" style="margin-right: 20px;">
+                    <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="2" >
+                    <label class="form-check-label" for="inlineCheckbox">Asset</label>
+                </div>
+                <div class="form-check form-check-inline" style="margin-right: 20px;">
+                    <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="3" >
+                    <label class="form-check-label" for="inlineCheckbox">Expense</label>
+                </div>
+                <div class="form-check form-check-inline" style="margin-right: 20px;">
+                    <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="4" >
+                    <label class="form-check-label" for="inlineCheckbox">Revenue</label>
+                </div>
+
+                
 
 
                 <div class="form-group row">
@@ -124,3 +166,17 @@ tr:hover {background-color: #f5f5f5;}
         </div>
 
     </div>
+
+
+    <script>
+        $('.bracnhclass').each(function () {
+       var sThisVal = (this.checked ? $(this).val() : "");
+  });
+
+
+
+
+  $(".bracnhclass").click(function(){
+    $('.bracnhclass2').not(this).prop('checked', this.checked);
+});
+    </script>

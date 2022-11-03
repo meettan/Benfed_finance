@@ -167,17 +167,37 @@ class Master extends CI_Controller
     }
 
     // AC-HEAD VIEW //
+    // function ac_head()
+    // {
+    //     $data =  array(
+    //         'ac_head' => json_encode($this->master_model->get_ac_head_dtls($id = 0))
+    //     );
+    //     $this->load->view('post_login/finance_main');
+
+    //     $this->load->view("master/ac_head_view", $data);
+
+    //     $this->load->view("post_login/footer");
+    // }
+
+
+
     function ac_head()
     {
-        $data =  array(
-            'ac_head' => json_encode($this->master_model->get_ac_head_dtls($id = 0))
-        );
+       
         $this->load->view('post_login/finance_main');
 
-        $this->load->view("master/ac_head_view", $data);
+        $this->load->view("master/ac_head_view");
 
         $this->load->view("post_login/footer");
     }
+
+
+
+
+
+
+
+    
 
     // AC-HEAD ADD AND EDIT //
     function ac_head_add()
@@ -269,5 +289,69 @@ class Master extends CI_Controller
         $gr_id = $this->input->get('gr_id');
         $data = $this->master_model->get_subgr_dtls_by_gr_id($gr_id);
         echo json_encode($data);
+    }
+
+
+
+
+
+
+
+
+    public function fetch_my_achead(){
+        $data=$this->uri->segment('3');
+		if(isset($data)){
+		sleep(1);
+		$serch=$this->input->post('serch');
+		$toDate=$this->input->post('toDate');
+		$fDAte=$this->input->post('fDAte');
+		$stock=$this->input->post('stock');
+		$this->load->library("pagination");
+		$config = array();
+
+
+        
+		$config["base_url"] = "my-strock-fetch";
+		$config["total_rows"] = $this->master_model->count_all_achead($serch);
+		$config["per_page"] = 20;
+		$config["uri_segment"] = 3;
+		$config["use_page_numbers"] = TRUE;
+
+
+
+
+        $config["full_tag_open"] = '<ul class="pagination justify-content-end mt-3">';
+		$config["full_tag_close"] = '</ul>';
+        $config['num_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['num_tag_close'] = '</div></li>'; 
+        $config['cur_tag_open'] = '<li class="page-item active"><div class="page-link">'; 
+        $config['cur_tag_close'] = '</div></li>'; 
+        $config['next_link'] = 'Next'; 
+        $config['prev_link'] = 'Previous'; 
+        $config['next_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['next_tag_close'] = '</div></li>'; 
+        $config['prev_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['prev_tag_close'] = '</div></li>'; 
+        $config['first_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['first_tag_close'] = '</li>'; 
+        $config['last_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['last_tag_close'] = '</div></li>';
+
+
+
+		$config["num_links"] = 3;
+        $config['first_link'] = FALSE;
+        $config['last_link'] = FALSE;
+		$config['first_url'] = base_url() . 'Master/fetch_my_achead/';
+		$this->pagination->initialize($config);
+		$page = $this->uri->segment('3');
+		$start = ($page - 1) * $config["per_page"];
+		
+		$output = array(
+			'pagination_link'		=>	$this->pagination->create_links(),
+			'product_list'			=>	$this->master_model->fetch_data_achead($config["per_page"], $start,$serch)
+		);
+		echo json_encode($output);
+	}
     }
 }

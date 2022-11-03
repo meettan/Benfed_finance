@@ -279,7 +279,7 @@ class Report_model extends CI_Model
   $this->db->order_by('ac_name'); 
  return $this->db->get()->result();
 } 
-	function f_get_trailbal($frm_date,$to_date,$op_dt){
+	function f_get_trailbal($frm_date,$to_date,$op_dt,$type){
 		
 
 		
@@ -331,13 +331,16 @@ FROM td_vouchers a,md_achead b,mda_mngroup c
 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
 and a.approval_status = 'A'
 AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
+where type in (".$type.")
 group by mngr_id, ac_name,type,benfed_ac_code
-order by ac_name";
+order by type,ac_name";
         $query  = $this->db->query($sql);
         return $query->result();
 	}
 
-    function f_get_trailbal_br($frm_date,$to_date,$op_dt,$brid){
+
+
+    function f_get_trailbal_br($frm_date,$to_date,$op_dt,$brid,$type){
 
 		  $sql =" select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
 from(
@@ -368,8 +371,9 @@ WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_dat
 AND a.voucher_date <= '$to_date'  and b.br_id=$brid
 and a.approval_status='A'
  group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
+ where type in (".$type.")
 group by mngr_id, ac_name,type,benfed_ac_code
-order by ac_name";
+order by type, ac_name";
         $query  = $this->db->query($sql);
         return $query->result();
 	}

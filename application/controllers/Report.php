@@ -155,8 +155,12 @@ public function jrnlprn()
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
             $brid=$this->session->userdata['loggedin']['branch_id'];
            // if($this->session->userdata['loggedin']['branch_id']!=342){
+
+            $type=implode(',',$this->input->post('type'));
+
+            $data['type']=$this->input->post('type');
                  
-                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid);
+                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid,$type);
 
                  $this->load->view('post_login/finance_main');
                  $this->load->view('report/trail_bal/trail_bal.php',$data);
@@ -219,9 +223,13 @@ public function jrnlprn()
 
             // }
             // else{
+                $type=implode(',',$this->input->post('type'));
+
+                $data['type']=$this->input->post('type');
+
 
             // $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date);
-                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date,$opndt);
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date,$opndt,$type);
                 $this->load->view('post_login/finance_main');
                 $this->load->view('report/trail_bal/trail_bal.php',$data);
                 $this->load->view('post_login/footer');

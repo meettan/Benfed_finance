@@ -56,6 +56,7 @@ $route['group/edit'] = 'master/group_edit';
 $route['subgroup'] = 'master/sub_group';
 $route['subgroup/entry'] = 'master/sub_group_add';
 $route['achead'] = 'master/ac_head';
+$route['Master/fetch_my_achead/(:any)'] = 'Master/fetch_my_achead';
 $route['achead/entry'] = 'master/ac_head_add';
 
 $route['godown'] = 'Rent_calculation/godown_list';
@@ -143,3 +144,11 @@ $route['handling-trandport-charges/rent_report']='HTransportC/rent_report';
 $route['user'] = 'admins';
 $route['user_add'] = 'admins/user_add';
 $route['userlist_admin']='admins/userlist_admin';
+
+
+// ===================notification======================
+$route['notification/send']='Notification/send_notification_ho';
+$route['notification']='Notification/notification';
+$route['notification/delete/(:num)']='Notification/delete/$1';
+$route['notification/edit/(:num)']='Notification/edit/$1';
+// ===================end notification======================
