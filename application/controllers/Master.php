@@ -301,7 +301,6 @@ class Master extends CI_Controller
     public function fetch_my_achead(){
         $data=$this->uri->segment('3');
 		if(isset($data)){
-		sleep(1);
 		$serch=$this->input->post('serch');
 		$toDate=$this->input->post('toDate');
 		$fDAte=$this->input->post('fDAte');
@@ -313,7 +312,7 @@ class Master extends CI_Controller
         
 		$config["base_url"] = "my-strock-fetch";
 		$config["total_rows"] = $this->master_model->count_all_achead($serch);
-		$config["per_page"] = 20;
+		$config["per_page"] = 40;
 		$config["uri_segment"] = 3;
 		$config["use_page_numbers"] = TRUE;
 
@@ -322,20 +321,20 @@ class Master extends CI_Controller
 
         $config["full_tag_open"] = '<ul class="pagination justify-content-end mt-3">';
 		$config["full_tag_close"] = '</ul>';
-        $config['num_tag_open'] = '<li class="page-item"><div class="page-link">'; 
-        $config['num_tag_close'] = '</div></li>'; 
-        $config['cur_tag_open'] = '<li class="page-item active"><div class="page-link">'; 
-        $config['cur_tag_close'] = '</div></li>'; 
+        $config['num_tag_open'] = '<li class="page-item">'; 
+        $config['num_tag_close'] = '</li>'; 
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">'; 
+        $config['cur_tag_close'] = '<span class="sr-only">(current)</span></a></li>'; 
         $config['next_link'] = 'Next'; 
         $config['prev_link'] = 'Previous'; 
-        $config['next_tag_open'] = '<li class="page-item"><div class="page-link">'; 
-        $config['next_tag_close'] = '</div></li>'; 
-        $config['prev_tag_open'] = '<li class="page-item"><div class="page-link">'; 
-        $config['prev_tag_close'] = '</div></li>'; 
-        $config['first_tag_open'] = '<li class="page-item"><div class="page-link">'; 
+        $config['next_tag_open'] = '<li class="page-item">'; 
+        $config['next_tag_close'] = '</li>'; 
+        $config['prev_tag_open'] = '<li class="page-item">'; 
+        $config['prev_tag_close'] = '</li>'; 
+        $config['first_tag_open'] = '<li class="page-item">'; 
         $config['first_tag_close'] = '</li>'; 
-        $config['last_tag_open'] = '<li class="page-item"><div class="page-link">'; 
-        $config['last_tag_close'] = '</div></li>';
+        $config['last_tag_open'] = '<li class="page-item">'; 
+        $config['last_tag_close'] = '</li>';
 
 
 

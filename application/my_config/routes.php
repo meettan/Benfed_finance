@@ -151,4 +151,6 @@ $route['notification/send']='Notification/send_notification_ho';
 $route['notification']='Notification/notification';
 $route['notification/delete/(:num)']='Notification/delete/$1';
 $route['notification/edit/(:num)']='Notification/edit/$1';
+
+$route['notification/branch']='Notification/branch_notification_view';
 // ===================end notification======================

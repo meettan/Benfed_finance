@@ -20,19 +20,31 @@ class Notification extends CI_Controller{
     public function send_notification_ho(){
 
         if(!empty($this->input->post())){
-           
+            $inputData=array(
+                "send_dt"=>$this->input->post("date"),
+                "send_user"=>$this->session->userdata['loggedin']['user_name'],
+                "msg_title"=>$this->input->post("title"),
+                "msg_text"=>$this->input->post("message"),
+                "receive_branch"=>implode(",",$this->input->post('branch_id')),
+                "create_at"=>date('Y-m-d H:i:s')
+            );
 
+            $notification_id=$this->Notification_model->f_insert("td_notification", $inputData);
 
-$inputData=array(
-    "send_dt"=>$this->input->post("date"),
-     "send_user"=>$this->session->userdata['loggedin']['user_name'],
-     "msg_title"=>$this->input->post("title"),
-     "msg_text"=>$this->input->post("message"),
-     "receive_branch"=>implode(",",$this->input->post('branch_id')),
-     "create_at"=>date('Y-m-d H:i:s'),
+            // send_notification_ho
+            $branch_id=$this->input->post('branch_id');
 
-);
-            $this->Notification_model->f_insert("td_notification", $inputData);
+            for($i=0;$i < count($branch_id);$i++){
+                $status_id=array(
+                    'notification_id'=>$notification_id,
+                    'branch_id'=> $branch_id[$i],
+                    'view_status'=>0,
+                    'create_by'=>$this->session->userdata['loggedin']['user_name'],
+                    'create_at'=>date('Y-m-d H:i:s')
+                );
+                $this->Notification_model->f_insert("td_notification_status", $status_id);
+            }
+            
             redirect(site_url('notification'));
         }else{
             $select=array('branch_name','id');
@@ -58,6 +70,7 @@ $inputData=array(
 
     public function delete($id){
         $this->Notification_model->f_delete("td_notification",array('sl_no'=>$id));
+        $this->Notification_model->f_delete("td_notification_status",array('notification_id'=>$id));
         redirect(site_url('notification'));
 
     }
@@ -80,6 +93,25 @@ $inputData=array(
 
             );
             $this->Notification_model->f_edit("td_notification", $inputData, array('sl_no'=>$id));
+
+
+            $branch_id=$this->input->post('branch_id');
+
+
+            $this->Notification_model->f_delete("td_notification_status",array('notification_id'=>$id));
+
+            for($i=0;$i < count($branch_id);$i++){
+                $status_id=array(
+                    'notification_id'=>$id,
+                    'branch_id'=> $branch_id[$i],
+                    'view_status'=>0,
+                    'create_by'=>$this->session->userdata['loggedin']['user_name'],
+                    'create_at'=>date('Y-m-d H:i:s')
+                );
+                $this->Notification_model->f_insert("td_notification_status", $status_id);
+            }
+
+
             redirect(site_url('notification'));
 
         }else{
@@ -94,6 +126,11 @@ $inputData=array(
         }
 
     }
-}
 
-?>
+
+    public function branch_notification_view(){
+        $this->load->view('post_login/finance_main');
+        $this->load->view('notification/branch/view_notification');
+        $this->load->view('post_login/footer');
+    }
+}
