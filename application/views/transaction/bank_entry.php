@@ -23,17 +23,25 @@
                         alert('A/C Head Can Not Be Same');
                         $('#acc_code_' + id).val('');
                         $('#gr_id_' + id).val('');
+                        $('#gr_id_' + id).attr("title",'');
                         $('#subgr_id_' + id).val('');
+                        $('#subgr_id_' + id).attr("title",'');
                     } else {
                         $('#benfedcode_' + id).val(result.benfed_ac_code);
+                        $('#benfedcode_' + id).attr("title",result.benfed_ac_code);
                         $('#gr_id_' + id).val(result.gr_name);
+                        $('#gr_id_' + id).attr("title",result.gr_name);
                         $('#subgr_id_' + id).val(result.subgr_name);
+                        $('#subgr_id_' + id).attr("title",result.subgr_name);
                         // console.log(result.gr_name);
                     }
                 } else {
                     $('#benfedcode_' + id).val(result.benfed_ac_code);
+                    $('#benfedcode_' + id).attr("title",result.benfed_ac_code);
                     $('#gr_id_' + id).val(result.gr_name);
+                    $('#gr_id_' + id).attr("title",result.gr_name);
                     $('#subgr_id_' + id).val(result.subgr_name);
+                    $('#subgr_id_' + id).attr("title",result.subgr_name);
                 }
             }
         });
@@ -112,7 +120,7 @@
 
 <div class="wraper">
 
-    <div class="col-md-10 container form-wraper">
+    <div class="col-md-12 container form-wraper">
 
         <form method="POST" action="<?php echo site_url("transaction/bank_save") ?>" onsubmit="return valid_data()">
 
@@ -189,7 +197,7 @@
                 </div>
 				<div class="col-sm-1">
 						<span style="display: inline;">
-                        <input type="text" id="dc" class="transparent_tag" name="dr_cr_flag" value="" readonly>
+                        <input type="text" id="dc" title="" class="transparent_tag" name="dr_cr_flag" value="" readonly>
                         </span>
 				</div>
 				
@@ -253,11 +261,21 @@
                                 }
                                 ?>
                             </select></td>
-                        <td><input type="text" class="transparent_tag" id="benfedcode_1" name="benfedcode_id[]" style="width: 100%;" readonly></td>   
-                        <td><input type="text" class="transparent_tag" id="gr_id_1" name="gr_id[]" style="width: 100%;" readonly></td>
-                        <td><input type="text" class="transparent_tag" id="subgr_id_1" name="subgr_id[]" style="width: 100%;" readonly></td>
-                        <td><input type="text" class="form-control amount_cls" id="amt" name="amount[]" style="width: 100%; text-align: right;" oninput="validate(this)" required></td>
-                        <td><input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;" readonly></td>
+                        <td>
+                            <input type="text" class="transparent_tag" id="benfedcode_1" name="benfedcode_id[]" style="width: 100%;"  title="" readonly>
+                        </td>   
+                        <td>
+                            <input type="text" class="transparent_tag" id="gr_id_1" name="gr_id[]" style="width: 100%;" title="" readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="transparent_tag" id="subgr_id_1" name="subgr_id[]" style="width: 100%;" title="" readonly>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control amount_cls" id="amt" name="amount[]" style="width: 100%; text-align: right;" oninput="validate(this)" title="" required>
+                        </td>
+                        <td>
+                            <input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;" readonly>
+                        </td>
                     </tr>
                 </tbody>
                 <tr><td colspan="2"><td>

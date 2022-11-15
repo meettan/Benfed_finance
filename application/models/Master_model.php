@@ -185,7 +185,7 @@ class Master_model extends CI_Model
                 
 
               
-                $delete="'".site_url()."/achead/entry?id=".$row['sl_no']."'";
+                $delete=site_url('/achead/entry?id=').$row['sl_no'];
 
                
            

@@ -4,14 +4,12 @@
 
         <div class="col-lg-9 col-sm-12">
 
-            <h1><strong>Notification</strong></h1>
+            <h1><strong>All Notification</strong></h1>
 
         </div>
 
     </div>
-    <div class="col-sm-2">
-                         <a class="btn btn-primary" style="width: 100px;" href="<?= site_url('notification/send')?>">Add</a>
-             		</div><br><br>
+
     <div class="col-lg-12 container contant-wraper">
         <div class="col-sm-2">
        
@@ -61,24 +59,14 @@
                             <!-- <td><?php echo $value->receive_branch; ?></td> -->
                             
                             <td>
-                                <?php if(date('d/m/Y', strtotime($value->send_dt)) == date('d/m/Y')){ ?>
-                              <a  title="Print" class="deletebtn" onclick="deletefunction(<?= $value->sl_no ?>)">
-                              <i class="fa fa-trash fa-2x" style="color:red;"></i>  
-                              <!-- <span class="mdi mdi-printer"></span> -->
-                              </a>
+                             
 
                               <a title="Print" onclick="editefunction(<?= $value->sl_no ?>)">
-                              <i class="fa fa-pencil fa-2x" style="color:green;"></i>  
-                              <!-- <span class="mdi mdi-printer"></span> -->
-                              </a>
-                              <?php }else{?>
-                                <a title="Print" onclick="viewfunction(<?= $value->sl_no ?>)">
 
                             
                               <i class="fa fa-eye fa-2x" style="color:green;"></i>  
                               <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
-                                <?php } ?>
                             </td>
                         </tr>
                 <?php
@@ -132,26 +120,12 @@
 </script>
 
 <script>
-   function deletefunction(id){
-
-    r = confirm('are you sure you want to Delete?');
-        if (r == true) {
-            window.location.href='<?= site_url('notification/delete') ?>/'+id;
-        } else {
-        //
-        }
-   }
-
+  
 
    function editefunction(id){
-    window.location.href='<?= site_url('notification/edit') ?>/'+id;
+    window.location.href='<?= site_url('notification/') ?>'+id;
    }
 
-
-   
-   function viewfunction(id){
-    window.location.href='<?= site_url('notification/view') ?>/'+id;
-   }
 
 
     

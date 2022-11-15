@@ -152,6 +152,9 @@ $route['notification']='Notification/notification';
 $route['notification/delete/(:num)']='Notification/delete/$1';
 $route['notification/edit/(:num)']='Notification/edit/$1';
 
-
-$route['notification/branch']='Notification/branch_notification_view';
+$route['notification/(:num)']='Notification/branch_notification_view/$1';
+$route['notification/view/(:num)']='Notification/notification_view/$1';
+$route['notification/count']='Notification/count_notification';
+$route['notification/sow10']='Notification/notification_list_10';
+$route['notification/my-notification']='Notification/my_notification';
 // ===================end notification======================

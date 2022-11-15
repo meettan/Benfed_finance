@@ -26,18 +26,20 @@
                 <h4>Send Notification</h4>
             </div>
 
-            
+            <div class="form-group row">
+            <label for="cheq_dt" class="col-sm-2 col-form-label">Date:</label>
+                <div class="col-sm-4">
+                    <input type="date" name="date" value="<?php echo date("Y-m-d",strtotime($keyy->send_dt)); ?>" class="form-control" required readonly>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label for="cheq_no" class="col-sm-2 col-form-label">Title:</label>
-                <div class="col-sm-4">
-                    <input type="text" name="title" class="form-control smallinput_text"  required="" value="<?=$keyy->msg_title?>" >
+                <div class="col-sm-10">
+                    <input type="text" name="title" class="form-control smallinput_text"  required="" value="<?=$keyy->msg_title?>" required>
                 </div>
 
-                <label for="cheq_dt" class="col-sm-2 col-form-label">Date:</label>
-                <div class="col-sm-4">
-                    <input type="date" name="date" value="<?php echo date("Y-m-d",strtotime($keyy->send_dt)); ?>" class="form-control" required="">
-                </div>
+               
 
             </div>
 
@@ -49,7 +51,7 @@
 
                 <div class="col-sm-10">
 
-                    <textarea class="form-control" name="message" required="" rows="6"><?=$keyy->msg_text?></textarea>
+                    <textarea class="form-control" name="message" required="" rows="6" required><?=$keyy->msg_text?></textarea>
 
                 </div>
 

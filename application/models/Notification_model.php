@@ -59,6 +59,28 @@ class Notification_model extends CI_Model{
         return;
 
     }
+
+    public function notificationcount(){
+        $this->db->where('branch_id',$this->session->userdata['loggedin']['branch_id']);
+        $this->db->where_in('view_status', ["","0",0,null]);
+        return $this->db->get('td_notification_status')->num_rows();
+    }
+
+    public function notification_shortList(){
+        $this->db->select('td_notification.msg_title,td_notification.sl_no');
+        $this->db->from('td_notification_status')->join('td_notification', 'td_notification.sl_no = td_notification_status.notification_id');
+        $this->db->where('branch_id',$this->session->userdata['loggedin']['branch_id']);
+        $this->db->where_in('view_status', ["","0",0,null]);
+        $this->db->limit(10);
+        return $this->db->get()->result();
+    }
+    function get_my_notification(){
+        $this->db->select('td_notification.*');
+        $this->db->from('td_notification_status')->join('td_notification', 'td_notification.sl_no = td_notification_status.notification_id');
+        $this->db->where('branch_id',$this->session->userdata['loggedin']['branch_id']);
+        
+        return $this->db->get()->result();
+    }
 }
 
 ?>

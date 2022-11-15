@@ -313,9 +313,9 @@ function approvedjournal()
             'mngr_id' => 6,
             'subgr_id' => 56
         );
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
-        $data['cash_head'] = $cashcd->ac_name;
-        $data['cash_code'] = $cashcd->sl_no;
+        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 0);
+        $data['cash_head'] = $cashcd;//->ac_name;
+        // $data['cash_code'] = $cashcd->sl_no;
         $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $where, 0);
 
         // $product['mntend'] = $this->transaction_model->f_get_mnthend($br_cd);

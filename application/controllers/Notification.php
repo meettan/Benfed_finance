@@ -19,6 +19,11 @@ class Notification extends CI_Controller{
 
     public function send_notification_ho(){
 
+
+        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+
+        
+
         if(!empty($this->input->post())){
             $inputData=array(
                 "send_dt"=>$this->input->post("date"),
@@ -54,30 +59,57 @@ class Notification extends CI_Controller{
             $this->load->view('post_login/footer');
             
         }
+    }else{
+        redirect(site_url('dashboard'));
+    }
 
     }
 
 
     public function notification(){
+
+        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if(!empty($this->input->post())){
+
+        $start_date=$this->input->post('fr_dt');
+        $end_date=$this->input->post('to_dt');
+        }else{
+            $start_date=date('Y-m-d');
+            $end_date=date('Y-m-d');
+        }
        
-        // $where=array('br_id in('.$this->session->userdata('loggedin')['branch_id'].',0)' => Null);
-        $data['notification']=$this->Notification_model->f_get_notification("td_notification", null, $where=NULL, 0);
+        $where=array('send_dt BETWEEN "'. $start_date. '" and "'. $end_date.'"' => null);
+
+        $data['notification']=$this->Notification_model->f_get_notification("td_notification", null, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view('notification/notification_list',$data);
         $this->load->view('post_login/footer');
+
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
     }
 
 
     public function delete($id){
+        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        
         $this->Notification_model->f_delete("td_notification",array('sl_no'=>$id));
         $this->Notification_model->f_delete("td_notification_status",array('notification_id'=>$id));
         redirect(site_url('notification'));
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
 
     }
 
 
 
     public function edit($id){
+
+        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
 
         if(!empty($this->input->post())){
            
@@ -114,6 +146,8 @@ class Notification extends CI_Controller{
 
             redirect(site_url('notification'));
 
+            
+
         }else{
 
         $data['notification']=$this->Notification_model->f_get_notification("td_notification", null, array('sl_no'=>$id), 0);
@@ -124,13 +158,124 @@ class Notification extends CI_Controller{
             $this->load->view('post_login/footer');
             
         }
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
 
     }
 
 
-    public function branch_notification_view(){
+    public function branch_notification_view($id){
+
+        if($this->session->userdata['loggedin']['user_status']=='U'|| $this->session->userdata['loggedin']['user_status']=='A'){
+        
+        $where=array('a.sl_no'=>$id,
+        'b.notification_id=a.sl_no'=>null,
+        "b.branch_id"=>$this->session->userdata['loggedin']['branch_id'],
+        
+        );
+        $inputData=array(
+            'view_status'=>"1",
+            'update_at'=>date('Y-m-d H:i:s'),
+
+        );
+
+        $this->Notification_model->f_edit("td_notification_status", $inputData, array('branch_id'=>$this->session->userdata['loggedin']['branch_id'],'notification_id'=>$id));
+
+        $data['notification']=$this->Notification_model->f_get_notification("td_notification a, td_notification_status b", null, $where, 0);
         $this->load->view('post_login/finance_main');
-        $this->load->view('notification/branch/view_notification');
+        $this->load->view('notification/branch/view_notification',$data);
         $this->load->view('post_login/footer');
+
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
+    }
+
+
+
+
+    public function notification_view($id){
+
+        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        $where=array('a.sl_no'=>$id,
+        // 'b.notification_id=a.sl_no'=>null,
+        // "b.branch_id"=>$this->session->userdata['loggedin']['branch_id'],
+        
+        );
+        $inputData=array(
+            'view_status'=>"1",
+            'update_at'=>date('Y-m-d H:i:s'),
+
+        );
+
+        // $this->Notification_model->f_edit("td_notification_status", $inputData, array('branch_id'=>$this->session->userdata['loggedin']['branch_id'],'notification_id'=>$id));
+
+        $data['notification']=$this->Notification_model->f_get_notification("td_notification a", null, $where, 0);
+        $this->load->view('post_login/finance_main');
+        $this->load->view('notification/branch/view_notification',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
+    }
+
+
+    public function count_notification(){
+
+        $data=$this->Notification_model->notificationcount();
+        if($data>10){
+            echo json_encode("10"."+");
+        }else{
+            echo json_encode($data);
+        }
+
+        
+    }
+
+
+    public function notification_list_10(){
+        
+
+        $data=$this->Notification_model->notification_shortList();
+       
+        $output='';
+
+        foreach ($data as $key) {
+        //    $key->msg_title;sl_no
+        $click="'".site_url('notification/').$key->sl_no."'";
+        $output.='<li onclick="window.location.href='.$click.'" class="list-group-item" style="color: black;">'.$key->msg_title.'</li>';
+        }
+
+
+
+       
+        if(empty($output)){
+            echo json_encode("Nodata Fount");
+        }else{
+            echo json_encode($output);
+        }
+
+        
+    }
+
+
+    public function my_notification(){
+
+        if($this->session->userdata['loggedin']['user_status']=='U' || $this->session->userdata['loggedin']['user_status']=='A'){
+
+        $data['notification']=$this->Notification_model->get_my_notification("td_notification", null, $where=NULL, 0);
+        $this->load->view('post_login/finance_main');
+        $this->load->view('notification/branch/my_notification',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        redirect(site_url('dashboard'));
+    }
+
     }
 }
