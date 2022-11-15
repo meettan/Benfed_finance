@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | WARNING: You MUST set this value!
 |
 | If it is not set, then CodeIgniter will try guess the protocol and path
-| your installation, but due  to security concerns the hostname will be set
+| your installation, but due to security concerns the hostname will be set
 | to $_SERVER['SERVER_ADDR'] if available, or localhost otherwise.
 | The auto-detection mechanism exists only for convenience during
 | development and MUST NOT be used in production!
@@ -24,10 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://192.168.1.100:8080/Benfed_finance/';
-date_default_timezone_set('asia/kolkata');
-
-// $config['base_url'] = 'https://benfed.in/Benfed_finance/';
-$config['base_url'] = 'http://localhost/benfed/Benfed_finance/';
+$config['base_url'] = 'https://benfed.in/Benfed_finance/';
 
 //$config['index_page'] = 'index.php';
 
