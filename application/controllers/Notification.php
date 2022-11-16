@@ -20,7 +20,7 @@ class Notification extends CI_Controller{
     public function send_notification_ho(){
 
 
-        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if($this->session->userdata['loggedin']['user_type']=='A'||$this->session->userdata['loggedin']['user_type']=='M'||$this->session->userdata['loggedin']['user_type']=='D'){
 
         
 
@@ -68,7 +68,7 @@ class Notification extends CI_Controller{
 
     public function notification(){
 
-        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if($this->session->userdata['loggedin']['user_type']=='A'||$this->session->userdata['loggedin']['user_type']=='M'||$this->session->userdata['loggedin']['user_type']=='D'){
         if(!empty($this->input->post())){
 
         $start_date=$this->input->post('fr_dt');
@@ -93,7 +93,7 @@ class Notification extends CI_Controller{
 
 
     public function delete($id){
-        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if($this->session->userdata['loggedin']['user_type']=='A'||$this->session->userdata['loggedin']['user_type']=='M'||$this->session->userdata['loggedin']['user_type']=='D'){
         
         $this->Notification_model->f_delete("td_notification",array('sl_no'=>$id));
         $this->Notification_model->f_delete("td_notification_status",array('notification_id'=>$id));
@@ -109,7 +109,7 @@ class Notification extends CI_Controller{
 
     public function edit($id){
 
-        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if($this->session->userdata['loggedin']['user_type']=='A'||$this->session->userdata['loggedin']['user_type']=='M'||$this->session->userdata['loggedin']['user_type']=='D'){
 
         if(!empty($this->input->post())){
            
@@ -168,7 +168,7 @@ class Notification extends CI_Controller{
 
     public function branch_notification_view($id){
 
-        if($this->session->userdata['loggedin']['user_status']=='U'|| $this->session->userdata['loggedin']['user_status']=='A'){
+        if($this->session->userdata['loggedin']['user_type']=='U'|| $this->session->userdata['loggedin']['user_type']=='A'){
         
         $where=array('a.sl_no'=>$id,
         'b.notification_id=a.sl_no'=>null,
@@ -199,7 +199,7 @@ class Notification extends CI_Controller{
 
     public function notification_view($id){
 
-        if($this->session->userdata['loggedin']['user_status']=='A'||$this->session->userdata['loggedin']['user_status']=='M'||$this->session->userdata['loggedin']['user_status']=='D'){
+        if($this->session->userdata['loggedin']['user_type']=='A'||$this->session->userdata['loggedin']['user_type']=='M'||$this->session->userdata['loggedin']['user_type']=='D'){
         $where=array('a.sl_no'=>$id,
         // 'b.notification_id=a.sl_no'=>null,
         // "b.branch_id"=>$this->session->userdata['loggedin']['branch_id'],
@@ -266,7 +266,7 @@ class Notification extends CI_Controller{
 
     public function my_notification(){
 
-        if($this->session->userdata['loggedin']['user_status']=='U' || $this->session->userdata['loggedin']['user_status']=='A'){
+        if($this->session->userdata['loggedin']['user_type']=='U' || $this->session->userdata['loggedin']['user_type']=='A'){
 
         $data['notification']=$this->Notification_model->get_my_notification("td_notification", null, $where=NULL, 0);
         $this->load->view('post_login/finance_main');

@@ -148,7 +148,7 @@
                     </select>
 
                 </div>
-
+                
             </div>
 
             <div class="form-group row">
@@ -169,7 +169,10 @@
                            <option value="<?=$keyschd->sl_no;?>"><?= $keyschd->ac_name; ?></option>
                         <?php } ?>
                      </select>
+
+                    
                 </div>
+                <input type="text" id="dc" class="transparent_tag" name="dr_cr_flag" value="" style="display:inline;" readonly />
 
             </div>
 
@@ -272,8 +275,8 @@
     var g_flg;
 
     function set_dr_cr() {
-        var flag;
-
+        var flag="";
+// alert(document.getElementById('v_type').value);
         if (document.getElementById('v_type').value == 'R') {
             flag = 'Debit';
             g_flg = 'Credit';
@@ -284,9 +287,10 @@
             flag = '';
             g_flg = '';
         }
-
+        // alert(flag);
         document.getElementById('dc').value = flag;
         document.getElementById('dc_flg').value = g_flg;
+        
     }
 
 
