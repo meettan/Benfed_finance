@@ -115,7 +115,7 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
                                 
                             <?php
-
+                              
                                 if($trail_balnce){
 
                                     $i = 1;$otot_dr =0.00;$otot_cr =0.00;

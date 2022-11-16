@@ -306,7 +306,7 @@ SELECT 0 op_dr,0 op_cr,if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id ,
                and  balance_dt='$op_dt'
 group by b.mngr_id,b.ac_name,c.type,a.trans_flag,b.benfed_ac_code)a
                   group by ac_name,type,benfed_ac_code,mngr_id" ;*/
-		  $sql =" select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
+		  $sql =" select abs(sum(op_dr))op_dr,abs(sum(op_cr))op_cr,abs(sum(dr_amt))dr_amt,abs(sum(cr_amt))cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
 from(
 SELECT if(type=2,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=1,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
 from( 
