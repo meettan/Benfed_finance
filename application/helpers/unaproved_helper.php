@@ -7,7 +7,8 @@ if (!function_exists('unaproved_voucher')) {
         FROM td_vouchers 
         where approval_status = '".$approval_status."'
         and branch_id = ".$branch_id."
-        and voucher_date <=  subdate(CURDATE(), 1)")->result();
+        and CAST(created_dt AS DATE) <=  subdate(CURDATE(), 1) ")->result();
+        
 
 
         return $data[0]->c;
