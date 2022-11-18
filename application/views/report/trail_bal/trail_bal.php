@@ -124,7 +124,7 @@ tr:hover {background-color: #f5f5f5;}
 									$ctot_dr =0.00;$ctot_cr =0.00;
                                 ?>
                                 <?php   foreach($trail_balnce as $tb){ $type = $tb->type; 
-                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt>0) {?>
+                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
                                      
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
@@ -132,13 +132,23 @@ tr:hover {background-color: #f5f5f5;}
 									 <td ><?php echo $tb->ac_name; ?></td>
 									
                                      <td style="text-align: right;">
-                                        
-										  <?php echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
+                                     
+                                     <?php if($tb->op_dr > 0 && $tb->dr_cr_flag=='DR' ){
+                                                echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr;
+                                        }else if($tb->op_cr < 0 && $tb->dr_cr_flag=='DR'){
+                                            echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr;
+                                        } ?>
+										  
 										 
 									 </td>
                                      
                                      <td style="text-align: right;">
-									       <?php echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
+                                        <?php if($tb->op_cr > 0 && $tb->dr_cr_flag=='CR'){
+                                                echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr;
+                                        }else if($tb->op_dr < 0 && $tb->dr_cr_flag=='CR'){
+                                            echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr;
+                                        } ?>
+									       
 								        
 									 </td>
                                      <td  style="text-align: right;"><?php echo number_format($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>

@@ -15,7 +15,7 @@
         </footer>
 
     </body>
-
+<!-- 
 
     <script>
         get_notification();
@@ -51,7 +51,7 @@
 						}
 					})
         }
-    </script>
+    </script> -->
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 

@@ -93,7 +93,7 @@
 
             <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y"); ?></li>
 
-            <li class="date">
+            <!-- <li class="date">
 
 
 
@@ -126,7 +126,7 @@
                 <?php } ?>
 
 
-            </li>
+            </li> -->
         </ul>
     </header>
 
