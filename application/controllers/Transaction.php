@@ -304,7 +304,9 @@ function approvedjournal()
 		$br_cd = $this->session->userdata['loggedin']['branch_id'];
         $where = array(
             //'mngr_id !=' => 6,
-			'subgr_id !=' => 56,
+            'mngr_id' => 6,
+            'subgr_id' => 56,
+			// 'subgr_id !=' => 56,
             'br_id IN ('.$br_cd.', 0)' => NULL
 			//'BNK_flag != C' => NULL
         );

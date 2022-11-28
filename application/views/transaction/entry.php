@@ -207,7 +207,7 @@
                 <tbody id="add">
                     <tr class="mb-2">
                         <td>
-                            <select id="acc_code_1" name="acc_code[]" class="form-control acc_code select2" style="width: 250px;" onchange="set_gr(1)" required>
+                            <select id="acc_code_1" name="acc_code[]" class="form-control acc_code select2" style="" onchange="set_gr(1)" required>
                                 <option value="">Select</option>
                                 <?php
                                 foreach ($row as $value) {
