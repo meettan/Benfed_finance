@@ -304,8 +304,8 @@ function approvedjournal()
 		$br_cd = $this->session->userdata['loggedin']['branch_id'];
         $where = array(
             //'mngr_id !=' => 6,
-            'mngr_id' => 6,
-            'subgr_id' => 56,
+            // 'mngr_id' => 6,
+            // 'subgr_id' => 56,
 			// 'subgr_id !=' => 56,
             'br_id IN ('.$br_cd.', 0)' => NULL
 			//'BNK_flag != C' => NULL
@@ -320,7 +320,6 @@ function approvedjournal()
         $data['cash_head'] = $cashcd;//->ac_name;
         // $data['cash_code'] = $cashcd->sl_no;
         $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $where, 0);
-
         // $product['mntend'] = $this->transaction_model->f_get_mnthend($br_cd);
         $data['date']   = $this->transaction_model->get_monthendDate();
 
