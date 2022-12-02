@@ -182,12 +182,9 @@
             <th></th>
             <th></th>            
             <th>Closing Balance</th>
-            
                <th align="right">
-               
-                 <?php if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre )
-                 { 
-          
+                 <?php 
+                 if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre ){ 
             $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
             echo abs($clBl);
                  }else{
@@ -211,7 +208,8 @@
             <?php if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit)
                  { 
             //  echo $type;
-            $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
+            $clBl=abs($ope_bal)+(round($tot_cre,2) - round($tot_debit,2));
+           
             echo abs($clBl);
                  }else{
                      echo '';
@@ -222,7 +220,7 @@
                  { 
                //echo 'hi' ;
            $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
-            echo abs($clBl);
+                    echo abs($clBl);
                  }else{
                      echo '';
                  }
