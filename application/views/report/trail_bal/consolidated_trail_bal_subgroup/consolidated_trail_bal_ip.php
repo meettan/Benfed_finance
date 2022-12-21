@@ -42,7 +42,7 @@ tr:hover {background-color: #f5f5f5;}
 
         <div class="col-md-6 container form-wraper">
     
-            <form method="POST" id="form" action="<?php echo site_url("consolidated-trailbal");?>" >
+            <form method="POST" id="form" action="<?php echo site_url("consolidated-trailbal-subgroup");?>" >
 			<!--	 <form method="POST" id="form" action="<?php //echo site_url("report/advjrnlv");?>" >  -->
 
                 <div class="form-header">
@@ -105,16 +105,16 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div> -->	
 
-                <!-- <div class="form-group row">
+                <div class="form-group row">
 
                     <label for="to_date" class="col-sm-2 col-form-label">Group:</label>
 
                     <div class="col-sm-6">
 						<select class="form-control"  name="" id="group">
 						   <option value="">Select group</option>
-						   <?php //foreach($group as $gr){?>
-						   <option value="<?//=$gr->sl_no?>"><?//=$gr->name?></option>
-						   <?php //} ?>
+						   <?php foreach($group as $gr){?>
+						   <option value="<?=$gr->sl_no?>"><?=$gr->name?></option>
+						   <?php } ?>
 
 						   
 						</select>
@@ -122,6 +122,7 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
 
                 </div> 	
+                <input type="hidden" name="subgroupinputvalue" id="subgroupinputvalue" value="">
                 
                 
 
@@ -136,7 +137,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div> -->
+                </div>
                 
                 
                 <div class="form-check form-check-inline">
@@ -197,9 +198,10 @@ tr:hover {background-color: #f5f5f5;}
     </script>
 
 
-<!-- <script>
+<script>
     $('#group').change(function(){
         var group_id=$(this).val();
+       
     $.ajax({
         url: "<?= site_url() ?>/Report/get_subgroup?group_id="+group_id,
         type: 'GET',
@@ -211,5 +213,10 @@ tr:hover {background-color: #f5f5f5;}
             // alert(res);
         }
     });
+
+    $('#subgroup').change(function(){
+        var group_name=$(this).find("option:selected").text();
+        $('#subgroupinputvalue').val(group_name);
+    });
 });
-</script> -->
+</script>

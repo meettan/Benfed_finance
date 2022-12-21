@@ -205,25 +205,21 @@
             </th>
             <th align="right">
           
-            <?php if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit)
-                 { 
-            //  echo $type;
-            $clBl=abs($ope_bal)+(round($tot_cre,2) - round($tot_debit,2));
-           
-            echo abs($clBl);
-                 }else{
-                     echo '';
-                 }
-				?>
+            <?php   if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit){
+                        $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
+                        echo round(abs($clBl),2);
+                    }else{
+                        echo '';
+                    }
+			?>
 
-				<?php if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0)
-                 { 
+			<?php if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
                //echo 'hi' ;
-           $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
-                    echo abs($clBl);
-                 }else{
-                     echo '';
-                 }
+                        $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
+                        echo round(abs($clBl),2);
+                    }else{
+                        echo '';
+                    }
             ?>
             </th>
 				

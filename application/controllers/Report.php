@@ -188,14 +188,12 @@ public function jrnlprn()
     public function consolidated_trailbal(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-
-
-
             $frm_date     =   $_POST['from_date'];
             $to_date      =   $_POST['to_date'];
 			  $mth        =  date('n',strtotime($frm_date));
             $yr         =  date('Y',strtotime($frm_date));
+
+            
           
             if($mth > 3){
 
@@ -238,12 +236,81 @@ public function jrnlprn()
             // }
 
         }else{
-			
+			$sel=array('name','sl_no');
 			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $data['group'] = $this->master_model->f_select("mda_mngroup", $sel, $where = null, 0);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/trail_bal/consolidated_trail_bal_ip.php',$data);
             $this->load->view('post_login/footer');
         }
+
+    }
+
+
+
+    public function consolidated_trailbal_subgroup(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $frm_date     =   $_POST['from_date'];
+            $to_date      =   $_POST['to_date'];
+			  $mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+
+            $subgroupId = $this->input->post('subgroup');
+          
+            if($mth > 3){
+
+                $year = $yr;
+
+            }else{
+
+                $year = $yr - 1;
+            }
+
+            $opndt      =  date($year.'-04-01');
+
+            
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+
+            
+                $type=implode(',',$this->input->post('type'));
+
+                $data['type']=$this->input->post('type');
+
+
+          
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_subgroup($frm_date,$to_date,$opndt,$type,$subgroupId);
+                // echo $this->db->last_query();
+                // exit();
+
+                $data['sbgrop']=$this->input->post('subgroupinputvalue');
+                $this->load->view('post_login/finance_main');
+                $this->load->view('report/trail_bal/consolidated_trail_bal_subgroup/trail_bal.php',$data);
+                $this->load->view('post_login/footer');
+
+        }else{
+			$sel=array('name','sl_no');
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $data['group'] = $this->master_model->f_select("mda_mngroup", $sel, $where = null, 0);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/trail_bal/consolidated_trail_bal_subgroup/consolidated_trail_bal_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+
+    public function get_subgroup(){
+        // echo $this->input->get('group_id');
+        $sel=array('mngr_id','name','benfed_subgr_id','sl_no');
+        $where=array('mngr_id' => $this->input->get('group_id'));
+        $data= $this->master_model->f_select("mda_subgroub", $sel, $where, 0);
+        // print_r($data);
+        $output='<option value="">Select Sub group</option>';
+        foreach ($data as $key) {
+            $output.='<option value="'.$key->sl_no.'">'.$key->name.'</option>';
+        }
+echo  $output;
+
 
     }
 	

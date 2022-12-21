@@ -253,6 +253,7 @@
                         <a href="<?php echo site_url('trailbal'); ?>">Trial balance </a>
                         <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                             <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
+                            <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Consolidated Trial</a>
                         <?php } ?>
                         <!-- <div class="dropdown-content"> -->
                         <!-- <div class="sub-dropdown">
