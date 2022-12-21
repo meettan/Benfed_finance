@@ -105,6 +105,7 @@ $route['advjrnlr'] = 'report/advjrnl';
 $route['trailbal'] = 'report/trailbal';
 $route['consolidated-trailbal'] = 'report/consolidated_trailbal';
 $route['trailbalsubgroup'] = 'report/trailbalsubgroup';
+$route['consolidated-trailbal-subgroup'] = 'report/consolidated_trailbal_subgroup';
 $route['daybook']  = 'report/daybook';
 $route['cashbook']  = 'report/cashbook';
 $route['gl']       = 'report/gl';
