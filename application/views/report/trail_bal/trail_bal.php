@@ -174,7 +174,7 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='3'>Total</td>
-									<td style="font-size: 12px !important; text-align: right;"><?=number_format($otot_dr,2)?></td>
+									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_dr),2)?></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format($otot_cr,2)?></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format($tot_dr,2)?></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format($tot_cr,2)?></td>
