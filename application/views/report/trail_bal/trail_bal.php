@@ -90,7 +90,7 @@ tr:hover {background-color: #f5f5f5;}
 					</div>
                     <br>  
                     <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
-                    <table style="width: 100%;" id="example">
+                    <table style="width: 100%;" class="table table-bordered table-hover" id="example">
 
                         <thead>
                             <tr>
@@ -111,6 +111,8 @@ tr:hover {background-color: #f5f5f5;}
                                 
                             </tr>
                         </thead>
+                    <!-- </table>
+                    <table style="width: 100%;" class="table table-bordered table-hover" id="example"> -->
 
                         <tbody>
                                 
@@ -173,7 +175,9 @@ tr:hover {background-color: #f5f5f5;}
                                     }
                                 ?>
                                 <tr style="font-weight: bold;">
-								    <td colspan='3'>Total</td>
+								    <td>Total</td>
+								    <td></td>
+								    <td></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_dr),2)?></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_cr),2)?></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($tot_dr),2)?></td>
@@ -223,3 +227,16 @@ tr:hover {background-color: #f5f5f5;}
   });
 }
         </script>
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
+</script>
