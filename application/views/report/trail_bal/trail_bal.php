@@ -229,14 +229,14 @@ tr:hover {background-color: #f5f5f5;}
         </script>
 
 
-<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "pagingType": "full_numbers"
-    } );
-} );
-</script>
+<!-- // <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+// <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+// <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+// <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+// <script> -->
+<!-- // $(document).ready(function() {
+//     $('#example').DataTable( {
+//         "pagingType": "full_numbers"
+//     } );
+// } ); -->
+<!-- // </script> -->
