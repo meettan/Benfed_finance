@@ -150,6 +150,8 @@ public function jrnlprn()
 
             $opndt      =  date($year.'-04-01');
 
+            $data['fd_date']=$frm_date;
+
             
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
