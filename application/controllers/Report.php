@@ -224,6 +224,7 @@ public function jrnlprn()
                 $type=implode(',',$this->input->post('type'));
 
                 $data['type']=$this->input->post('type');
+                $data['fd_date']=$frm_date;
 
 
             // $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date);
