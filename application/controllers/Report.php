@@ -279,6 +279,7 @@ public function jrnlprn()
                 $type=implode(',',$this->input->post('type'));
 
                 $data['type']=$this->input->post('type');
+                $data['fd_date']=$frm_date;
 
 
           
