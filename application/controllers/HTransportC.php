@@ -90,7 +90,6 @@ class HTransportC extends CI_Controller
         } else {
 
 
-
             $where = array(
                 // 'BNK_flag' => 'B',
                 'br_id' => $this->session->userdata("loggedin")["branch_id"],
@@ -245,7 +244,6 @@ class HTransportC extends CI_Controller
 
                 
 // H&t vouchers
-               // if( $dr_acccd->acchead==8083){
                     $vouchersCr = array(
                         'voucher_date'   => date("Y-m-d"),
                         'sl_no'          =>  $v_srl,
@@ -258,7 +256,7 @@ class HTransportC extends CI_Controller
                         'transfer_type'  => 'T',
                         'voucher_mode'   => 'J',
                         'voucher_through'=> 'A',
-                        'acc_code'       => 8083,
+                        'acc_code'       => 8147,
                         'dr_cr_flag'     => 'CR',
                         'amount'         => $this->input->post('amount'),
                         'ins_no'         => $this->input->post('rfNo'),
@@ -275,7 +273,7 @@ class HTransportC extends CI_Controller
                         'approved_dt'    => '',
                         'fin_yr'         => $this->session->userdata('loggedin')['fin_id']    
                     );
-                    // echo("h");
+                   
                     // print_r($vouchersCr);
                     // exit();
                     $this->Transaction_model->f_insert('td_vouchers', $vouchersCr);
