@@ -525,23 +525,23 @@ public function voucher_dtls(){
 			$fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],0,4);
 			$op_dt=$fin_year_sort_code.'-04'.'-01';
 			//echo $op_dt;
-			//die();
+			
 			// $data['opebalcal'] = $this->Report_Model->get_ope_gl($opeto_dt,$acc_head);
             if( date('d-m',strtotime($frm_date))=='01-04'){
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl_re($op_dt,$acc_head);
-			//echo $this->db->last_query();
-			//exit();
+			
+			
             }else{
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
 			//	echo $this->db->last_query();
-			//exit();
+		
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
         //    echo $this->input->post('allaccounthead');
-        //    exit();
+      
           if($this->input->post('allaccounthead')=='false'){
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
-            // echo $this->db->last_query();
+            
 
           }else{
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);

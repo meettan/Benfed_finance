@@ -121,16 +121,25 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><?php   if($opebalcal->trans_flag=='DR'){
+                <td><?php  if($opebalcal){ if($opebalcal->trans_flag=='DR'){
                                             echo abs($ope_bal);
                                             }else{
                                                 echo "";
-                                            }?></td>
-                <td><?php   if($opebalcal->trans_flag=='CR'){
+                                            }
+                                        }else{
+                                            echo $ope_bal;
+                                        }
+                    ?>
+                </td>
+                <td><?php   if($opebalcal){ if($opebalcal->trans_flag=='CR'){
                                             echo abs($ope_bal);
                                             }else{
                                                 echo "";
-                                            }?></td>
+                                            }
+                                        }else{
+                                            echo $ope_bal;
+                                        }
+                    ?></td>
             </tr>
 
             <?php   foreach($trail_balnce as $tb){
@@ -184,42 +193,70 @@
             <th>Closing Balance</th>
                <th align="right">
                  <?php 
-                 if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre ){ 
-            $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
-            echo abs($clBl);
+                 if($opebalcal){
+                    if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre ){ 
+                            $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
+                            echo abs($clBl);
+                    }else{
+                        echo '';
+                    }
                  }else{
-                     echo '';
+
+                    if(abs($ope_bal)+$tot_debit>$tot_cre ){ 
+                         $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
+                         echo abs($clBl);
+                      }
+
                  }
 
             ?>
-     <?php if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre <$tot_debit && abs($ope_bal) + $tot_cre - $tot_debit <0)
+            <?php 
+                if($opebalcal){
+                if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre <$tot_debit && abs($ope_bal) + $tot_cre - $tot_debit <0)
                  { 
-               //echo 'hi' ;
-           $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
-            echo abs($clBl);
+                    $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
+                    echo abs($clBl);
                  }else{
                      echo '';
                  }
+                }
             ?>
             
             </th>
             <th align="right">
           
-            <?php   if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit){
+            <?php   if($opebalcal){
+                        if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit){
+                            $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
+                            echo round(abs($clBl),2);
+                        }else{
+                            echo '';
+                        }
+                    }else{
+                        if(abs($ope_bal)+$tot_cre>$tot_debit){
                         $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
                         echo round(abs($clBl),2);
-                    }else{
-                        echo '';
+                        }
                     }
 			?>
 
-			<?php if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
-               //echo 'hi' ;
-                        $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
-                        echo round(abs($clBl),2);
-                    }else{
-                        echo '';
-                    }
+			<?php 
+                   if($opebalcal){
+                        if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
+                
+                            $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
+                            echo round(abs($clBl),2);
+                        }else{
+                            echo '';
+                        }
+                   }else{
+
+                            if(abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
+                        
+                                $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
+                                echo round(abs($clBl),2);
+                            }
+                   }
             ?>
             </th>
 				
