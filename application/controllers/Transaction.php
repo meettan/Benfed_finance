@@ -1120,8 +1120,11 @@ function crn_appview()
         $nowMon= date("F");
         
         $data=$this->transaction_model->f_select("md_month", NULL, array("month_name"=>$nowMon), 1);
+       // echo $this->db->last_query();die();
         $month=$data->id;
         if($month >= $year){
+            echo json_encode(1);
+        }elseif($year == 12){
             echo json_encode(1);
         }else{
             echo json_encode(0);
