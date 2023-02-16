@@ -1689,4 +1689,89 @@ function crn_appview()
 
     //  *********  End Code for cheque detail Screen     ****** //
 
+    public function service_charge_list(){
+        $data["listData"]=$this->transaction_model->f_select('td_service_charge',NULL,NULL,0);
+            //  $data["listData"]=$this->Rent_calculation_model->fetch_rent_collection($where=null);
+        $this->load->view("post_login/finance_main");
+        $this->load->view("service/service_list", $data);
+        $this->load->view("post_login/footer");
+    }
+
+    public function service_charge_invoice(){
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+           
+            $q=$this->db->order_by('trans_no','desc')->limit(1)->get('td_service_charge');
+            $last_invoice_no =  $q->row();
+
+            $customarName=$this->input->post('customer');
+            $indoiceRemarks=$this->input->post('remarks');
+
+
+            if(empty($last_invoice_no)){
+                $gettrans_no=0;
+            }else{
+                $gettrans_no=$last_invoice_no->trans_no;
+            }
+            $trans_no="SER-".$this->session->userdata['loggedin']['fin_yr']."-".($gettrans_no+1);
+           
+            
+                $data=array(
+                    "fin_yr"        =>  $this->session->userdata['loggedin']['fin_id'],
+                    "trans_dt"      =>  $this->input->post('effectiveDate'),
+                    "invoice_no"    =>  $trans_no,
+                 //   "prod_id"       =>  $this->input->post('product'),
+                    "cust_id"       =>  $this->input->post('customer'),
+                    "qty"           =>  1,
+                    "taxable_amt"   =>  $this->input->post('amount'),
+                    "cgst_rt"       =>  $this->input->post('cgst_rt'),
+                    "cgst_amt"      =>  $this->input->post('cgst'),
+                    "sgst_rt"       =>  $this->input->post('sgst_rt'),
+                    "sgst_amt"      =>  $this->input->post('sgst'),
+                    "total_amt"     =>  $this->input->post('totalAmount'),
+                    "irn"           =>  '',
+                    "ack_no"        =>  '',
+                    "ack_dt"        =>  '',
+                    "remarks"       =>  $this->input->post('remarks'),
+                    "suppliers_ref" =>  $this->input->post('supplier_Ref'),
+                    "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
+                    "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
+                    "created_dt"    =>  date("Y-m-d H:i:s"),
+                );
+                $this->Rent_calculation_model->f_insert('td_service_charge', $data);
+                // exit();
+                $sl_no    = $this->Transaction_model->f_get_voucher_id($this->session->userdata('loggedin')['fin_id']);
+     
+                $v_srl=$sl_no->sl_no;
+                $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
+
+
+                $cramt=($this->input->post('amount')+$this->input->post('cgst')+$this->input->post('sgst'));
+                $dramt=$this->input->post('totalAmount');
+               
+                // $this->session->set_flashdata('msg', 'Successfully Added');
+
+
+                return redirect('/handling-trandport-charges/htc_raise_invoice_list');
+                // print_r($data);
+            
+        }else{
+            
+
+            $where=array(
+                'BNK_flag' => 'B',
+                'br_id' => $this->session->userdata("loggedin")["branch_id"],
+            );
+            $data=array(
+             //   "godown"=>$this->Rent_calculation_model->fetch_godown(),
+             //   "customer"=>$this->HTransportC_model->fetch_customer(),
+            //    "bank"=>$this->Rent_calculation_model->f_select('md_achead', $select=null, $where,0),
+             //   "rent_product"=>$this->Rent_calculation_model->f_select('md_rent_product', $select=null, array('sl_no'=>1),0),
+            );
+            $this->load->view("post_login/finance_main");
+            $this->load->view("service/service_add",$data);
+            $this->load->view("post_login/footer");
+        }
+    }
+
 }

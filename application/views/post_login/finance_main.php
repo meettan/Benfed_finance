@@ -199,7 +199,8 @@
                                     <!-- <a href="<?php echo site_url("collectRent"); ?>">Collect Rent</a> -->
                                 </div>
                             </div>
-
+                            <a href="<?php echo site_url('transaction/service_charge_list'); ?>">service charge</a>
+                            
                         <?php } ?>
                     </div>
                 </div>
