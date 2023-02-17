@@ -253,6 +253,19 @@
             return $q->result();
         }
 
+        public function f_get_api_service_data($trans_do){
+            $this->db->select('td_service_charge.*,
+            a.district_name as seller_district,
+            a.district_code as dcode,
+            a.pin as sellet_pin,
+            a.addr as sellet_addr'
+            )->from('td_service_charge');
+            $this->db->where('invoice_no',$trans_do);
+            $this->db->join('md_district as a','td_service_charge.colc_brn=a.district_code','left');
+            $q=$this->db->get();
+            return $q->result();
+        }
+
         function save_irn($data){
             $input = array(
                 'irn' => $data['irn'],

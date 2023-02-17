@@ -1006,6 +1006,248 @@ function save_htc_irn(){
     $data = $this->input->get();
     $res = $this->HTransportC_model->save_irn($data);
     echo $res;
+}    
+   //   Api call for service information
+    public function api_call_service($trans_do)
+    {
+        $api_query= $this->HTransportC_model->f_get_api_service_data($trans_do);
+        return $api_query;
+    }
+    function get_api_service(){
+        $trans_do = $this->input->get('trans_do');
+        $data = $this->api_call_service($trans_do);
+    
+        $dt = $data ? $data[0] : $data;
+        $HsnCd = strlen($dt->sac_code)==4 ? $dt->sac_code . '00' : $dt->sac_code;
+        // echo '<pre>';
+        $str_arr = explode('-', $dt->invoice_no);
+        $suf = substr($str_arr[1],2);
+    
+        $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
+
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt_array($curl, array(
+        // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
+            CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Invoice',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+            "Version": "'.Version.'",
+            "TranDtls": {
+                "TaxSch": "'.TAX_SCH.'",
+                "SupTyp": "'.SupTyp.'",
+                "RegRev": "'.$dt->pay_flag.'",
+                "EcmGstin": null,
+                "IgstOnIntra": "N"
+            },
+            "DocDtls": {
+                "Typ": "'.Typ.'",
+
+                "No": "'.$doc_no.'",
+
+                "Dt": "'.CURRDT.'"
+            },
+            "SellerDtls": {
+                "Gstin": "'.SALLERGSTIN.'",
+                "LglNm": "'.LG_LNM.'",
+                "TrdNm": "'.TRQ_NM.'",
+                "Addr1": "'.$dt->sellet_addr.'",
+                "Addr2": "'.$dt->sellet_addr.'",
+
+                "Loc": "'.$dt->seller_district.'",
+
+                "Pin": '.$dt->sellet_pin.',
+                "Stcd": "'.SALLERSTCD.'",
+                "Ph": "'.SALLERPH.'",
+                "Em": "'.SALLEREM.'"
+            },
+            "BuyerDtls": {
+                "Gstin": "'.$dt->gst_no.'",
+
+                "LglNm": "'.$dt->cust_name.'",
+                "TrdNm": "'.$dt->cust_name.'",
+                "Pos": "19",
+
+                "Addr1": "'.$dt->cust_addr.'",
+                
+                "Addr2": "'.$dt->cust_addr.'",
+                "Loc": "'.$dt->buyer_district.'",
+                "Pin": '.$dt->pin.',
+                "Stcd": "19",
+                "Ph": "",
+                "Em": "'.$dt->email.'"
+            },
+            "DispDtls": {
+                "Nm": "'.LG_LNM.'",
+                "Addr1": "'.$dt->sellet_addr.'",
+                "Addr2": "'.$dt->sellet_addr.'",
+                "Loc": "'.$dt->seller_district.'",
+                "Pin": '.$dt->sellet_pin.',
+                "Stcd": "'.SALLERSTCD.'"
+            },
+
+            "ShipDtls": {
+                "Gstin": "'.$dt->gst_no.'",
+                "LglNm": "'.$dt->cust_name.'",
+                "TrdNm": "'.$dt->cust_name.'",
+                "Addr1": "'.$dt->cust_addr.'",
+                "Addr2": "",
+                "Loc": "'.$dt->buyer_district.'",
+                "Pin": '.$dt->pin.',
+                "Stcd": "19"
+            },
+            "ItemList": [
+                {
+                "SlNo": "1",
+                "PrdDesc": "'.$dt->product_desc.'",
+                "IsServc": "Y",
+
+                "HsnCd": "'.$dt->sac_code.'",
+                "Barcde": "",
+                "Qty": '.$dt->qty.',
+                
+                "FreeQty": "0",
+                "Unit": "UNT",
+                "UnitPrice": '.$dt->taxable_amt.',
+                "TotAmt": '.$dt->taxable_amt.',
+                "Discount": "",
+                "PreTaxVal": 0,
+                "AssAmt": '.$dt->taxable_amt.',
+                "GstRt": '.($dt->cgst_rt+$dt->sgst_rt).',
+                "IgstAmt": 0,
+
+                "CgstAmt":'.$dt->cgst_amt.',
+                "SgstAmt":'.$dt->sgst_amt.',
+
+                "CesRt": 0,
+                "CesAmt": 0,
+                "CesNonAdvlAmt": 0,
+                "StateCesRt": 0,
+                "StateCesAmt": 0,
+                "StateCesNonAdvlAmt":0,
+                "OthChrg": 0,
+                "TotItemVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+                "OrdLineRef": 0,
+                "OrgCntry": "IN",
+                "PrdSlNo": 0,
+                "BchDtls": {
+                    "Nm": "",
+                    "ExpDt": null,
+                    "WrDt": null
+                },
+                "AttribDtls": [
+                    {
+                    "Nm": "",
+                    "Val": 0
+                    }
+                ]
+                }
+            ],
+            "ValDtls": {
+                "AssVal": '.$dt->taxable_amt.',
+                "CgstVal": '.$dt->cgst_amt.',
+                "SgstVal": '.$dt->sgst_amt.',
+                "IgstVal": 0,
+                "CesVal": 0,
+                "StCesVal": 0,
+                "Discount": 0,
+                "OthChrg": 0,
+                "RndOffAmt": 0,
+                "TotInvVal": '.($dt->taxable_amt+$dt->cgst_amt+$dt->sgst_amt).',
+                "TotInvValFc": 0
+            },
+            "PayDtls": {
+                "Nm": "",
+                "AccDet": "",
+                "Mode": "",
+                "FinInsBr": "",
+                "PayTerm": "",
+                "PayInstr": "",
+                "CrTrn": "",
+                "DirDr": "",
+                "CrDay": 0,
+                "PaidAmt": 0,
+                "PaymtDue": 0
+            },
+            "RefDtls": {
+                "InvRm": "'.$dt->remarks.'",
+                "DocPerdDtls": {
+                "InvStDt": null,
+                "InvEndDt": null
+                },
+                "PrecDocDtls": [
+                {
+                    "InvNo": "",
+                    "InvDt": null,
+                    "OthRefNo": ""
+                }
+                ],
+                "ContrDtls": [
+                {
+                    "RecAdvRef": "",
+                    "RecAdvDt": null,
+                    "TendRefr": "",
+                    "ContrRefr": "",
+                    "ExtRefr": "",
+                    "ProjRefr": "",
+                    "PORefr": null,
+                    "PORefDt": null
+                }
+                ]
+            },
+            "AddlDocDtls": [
+                {
+                "Url": "",
+                "Docs": "",
+                "Info": ""
+                }
+            ],
+            "ExpDtls": {
+                "ShipBNo": "",
+                "ShipBDt": null,
+                "Port": null,
+                "RefClm": "",
+                "ForCur":null,
+                "CntCode": null
+            }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'x-cleartax-auth-token: ' . AUTHKOKEN,
+                'x-cleartax-product: ' . PRODUCT,
+                'Content-Type: application/json',
+                'owner_id: ' . OWNERID,
+                'gstin: ' . SALLERGSTIN
+            ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            echo $response;
+    }
+
+function save_service_irn(){
+    $data = $this->input->get();
+    $input = array(
+        'irn' => $data['irn'],
+        'ack_no' => $data['ack'],
+        'ack_dt' => $data['ack_dt'],
+        'pay_flag'=>$data['trn_type']
+    );
+    $this->db->where(array('invoice_no' => $data['trans_do']));
+    if($this->db->update('td_service_charge', $input)){
+        return 1;
+    }else{
+        return 0;
+    }
+  
 }
 
 

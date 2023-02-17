@@ -1,6 +1,6 @@
 <div class="wraper">
     <div class="col-md-10 container form-wraper">
-        <form method="POST" action="<?php echo site_url("handling-trandport-charges/htc_raise_invoice");?> " onsubmit="return valid_data()">
+        <form method="POST" action="<?php echo site_url("transaction/service_charge_invoice");?> " onsubmit="return valid_data()">
             <div class="form-header">
                 <h4>Service Invoice</h4>
             </div>
@@ -12,11 +12,18 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Product:</label>
+
+                <div class="col-sm-4">
+                <input type="text" value="" class="form-control" id="product_desc" name="product_desc" required />
+                </div>
+
+            </div>
+            <div class="form-group row">
                 <label for="voucher_mode" class="col-sm-2 col-form-label">Customer:</label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="customer" name="customer" required />
-                
                 </div>
 
                 <label for="supplier_Ref" class="col-sm-2 col-form-label">Supplier's Ref. :</label>
@@ -24,7 +31,55 @@
                     <input type="text" name="supplier_Ref" id="supplier_Ref" class="form-control">
                 </div>
             </div>
+            
+            <div class="form-group row">
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Gst No:</label>
 
+                <div class="col-sm-4">
+                <input type="text" value="" class="form-control" id="gst_no" name="gst_no" required />
+                </div>
+
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">PAN :</label>
+                <div class="col-sm-4">
+                    <input type="text" name="pan" id="pan" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Address:</label>
+
+                <div class="col-sm-4">
+                <input type="text" value="" class="form-control" id="cust_addr" name="cust_addr" required />
+                </div>
+
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">PIN. :</label>
+                <div class="col-sm-4">
+                    <input type="text" name="pin" id="pin" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="voucher_mode" class="col-sm-2 col-form-label">District Name:</label>
+
+                <div class="col-sm-4">
+                <input type="text" value="" class="form-control" id="district" name="district" required />
+                </div>
+
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">SAC COde. :</label>
+                <div class="col-sm-4">
+                    <input type="text" name="sac_code" id="sac_code" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Contact no:</label>
+
+                <div class="col-sm-4">
+                <input type="text" value="" class="form-control" id="phone_num" name="phone_num" required />
+                </div>
+
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">Email. :</label>
+                <div class="col-sm-4">
+                    <input type="text" name="email" id="email" class="form-control">
+                </div>
+            </div>
             <div class="form-group row">
                 <label for="trans_dt" class="col-sm-2 col-form-label">Amount:</label>
                 <div class="col-sm-4">
@@ -40,12 +95,12 @@
                 <label for="trans_dt" class="col-sm-2 col-form-label" >CGST:   </label>
                 <div class="col-sm-4">
                     <input type="text" name="cgst" id="cgst" class="form-control cgst" readonly>
-                    <input type="hidden" name="cgst_rt" id="cgst_rt" class="form-control cgst_rt">
+                    <!-- <input type="hidden" name="cgst_rt" id="cgst_rt" class="form-control cgst_rt"> -->
                 </div>
                 <label for="voucher_mode" class="col-sm-2 col-form-label">SGST: </label>
                 <div class="col-sm-4">
                     <input type="text" name="sgst" id="sgst" class="form-control sgst" readonly>
-                    <input type="hidden" name="sgst_rt" id="sgst_rt" class="form-control sgst_rt">
+                    <!-- <input type="hidden" name="sgst_rt" id="sgst_rt" class="form-control sgst_rt"> -->
                 </div>
             </div>
             <div class="form-group row">

@@ -1690,6 +1690,7 @@ function crn_appview()
     //  *********  End Code for cheque detail Screen     ****** //
 
     public function service_charge_list(){
+      
         $data["listData"]=$this->transaction_model->f_select('td_service_charge',NULL,NULL,0);
             //  $data["listData"]=$this->Rent_calculation_model->fetch_rent_collection($where=null);
         $this->load->view("post_login/finance_main");
@@ -1706,7 +1707,7 @@ function crn_appview()
 
             $customarName=$this->input->post('customer');
             $indoiceRemarks=$this->input->post('remarks');
-
+            $gst         = $this->input->post('gst'); 
 
             if(empty($last_invoice_no)){
                 $gettrans_no=0;
@@ -1714,19 +1715,26 @@ function crn_appview()
                 $gettrans_no=$last_invoice_no->trans_no;
             }
             $trans_no="SER-".$this->session->userdata['loggedin']['fin_yr']."-".($gettrans_no+1);
-           
-            
+         
                 $data=array(
                     "fin_yr"        =>  $this->session->userdata['loggedin']['fin_id'],
                     "trans_dt"      =>  $this->input->post('effectiveDate'),
                     "invoice_no"    =>  $trans_no,
-                 //   "prod_id"       =>  $this->input->post('product'),
-                    "cust_id"       =>  $this->input->post('customer'),
+                    "product_desc"       =>  $this->input->post('product_desc'),
+                    "cust_name"       =>  $this->input->post('customer'),
+                    "gst_no"       =>  $this->input->post('gst_no'),
+                    "pan"       =>  $this->input->post('pan'),
+                    "cust_addr"       =>  $this->input->post('cust_addr'),
+                    "pin"       =>  $this->input->post('pin'),
+                    "buyer_district"  =>  $this->input->post('district'),
+                    "sac_code"       =>  $this->input->post('sac_code'),
+                    "phone_num"       =>  $this->input->post('phone_num'),
+                    "email"       =>  $this->input->post('email'),
                     "qty"           =>  1,
                     "taxable_amt"   =>  $this->input->post('amount'),
-                    "cgst_rt"       =>  $this->input->post('cgst_rt'),
+                    "cgst_rt"       =>  $gst/2,
                     "cgst_amt"      =>  $this->input->post('cgst'),
-                    "sgst_rt"       =>  $this->input->post('sgst_rt'),
+                    "sgst_rt"       =>  $gst/2,
                     "sgst_amt"      =>  $this->input->post('sgst'),
                     "total_amt"     =>  $this->input->post('totalAmount'),
                     "irn"           =>  '',
@@ -1738,21 +1746,12 @@ function crn_appview()
                     "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
                     "created_dt"    =>  date("Y-m-d H:i:s"),
                 );
-                $this->Rent_calculation_model->f_insert('td_service_charge', $data);
-                // exit();
-                $sl_no    = $this->Transaction_model->f_get_voucher_id($this->session->userdata('loggedin')['fin_id']);
-     
-                $v_srl=$sl_no->sl_no;
-                $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
-
-
-                $cramt=($this->input->post('amount')+$this->input->post('cgst')+$this->input->post('sgst'));
-                $dramt=$this->input->post('totalAmount');
                
+                $this->transaction_model->f_insert('td_service_charge', $data);
+                // exit();
                 // $this->session->set_flashdata('msg', 'Successfully Added');
 
-
-                return redirect('/handling-trandport-charges/htc_raise_invoice_list');
+                return redirect('transaction/service_charge_list');
                 // print_r($data);
             
         }else{
@@ -1763,10 +1762,7 @@ function crn_appview()
                 'br_id' => $this->session->userdata("loggedin")["branch_id"],
             );
             $data=array(
-             //   "godown"=>$this->Rent_calculation_model->fetch_godown(),
-             //   "customer"=>$this->HTransportC_model->fetch_customer(),
-            //    "bank"=>$this->Rent_calculation_model->f_select('md_achead', $select=null, $where,0),
-             //   "rent_product"=>$this->Rent_calculation_model->f_select('md_rent_product', $select=null, array('sl_no'=>1),0),
+               "customer"=>$this->transaction_model->f_select('md_rent_customer',NULL,NULL,0),
             );
             $this->load->view("post_login/finance_main");
             $this->load->view("service/service_add",$data);

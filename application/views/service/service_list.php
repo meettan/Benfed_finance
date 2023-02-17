@@ -64,10 +64,8 @@
                     <th>Sl No.</th>
                     <th>Date</th>
                     <th>Invoice No</th>
-                   
                     <th>Customer</th>
                     <!-- <th>Godown</th> -->
-                    
                     <th>Amount</th>
                     <th>IRN</th>
                     <th>ACK No</th>
@@ -82,14 +80,13 @@
             <tbody>
 
                 <?php
-    // print_r($listData);
+   
                 if ($listData) {
                     $i = 1;
                     foreach ($listData as $rent_list) {
 						$disable_prnt=$rent_list->irn? 'hidden' : '';
                                 $disable_btn = $rent_list->irn ? 'hidden' : '';
                                 $enable_btn = $rent_list->irn ? '' : 'hidden';
-                        
                 ?>
 
                 <tr>
@@ -100,9 +97,6 @@
                     <td><?php echo $rent_list->cust_name; ?></td>
                     <td><?php echo $rent_list->total_amt; ?></td>
 
-
-                    
-               
 					
 					<td id="irn_clk_td_<?= $i ?>">
                                     <?php if($rent_list->irn ){echo ' <i class="fa fa-check fa-2x"  aria-hidden="true" style="color: green"></i>'; }
@@ -112,10 +106,6 @@
                                         </button>
                                         <?php } ?> 
                     </td>
-
-
-
-
 
                     <!--  <td><?php echo $rent_list->irn; ?></td>  -->
                      <td><?php echo $rent_list->ack_no	; ?></td> 
@@ -208,7 +198,7 @@ $(document).ready(function() {
         }else{
             $.ajax({
             type: "GET",
-            url: "<?php echo site_url('/api/get_api_htc'); ?>",
+            url: "<?php echo site_url('/api/get_api_service'); ?>",
             data: {trans_do: trans_do},
             dataType: 'html',
             beforeSend: function () {
@@ -262,7 +252,7 @@ $(document).ready(function() {
     function save_data(trans_do, irn,ack,ack_dt,trn_type){
         $.ajax({
             type: "GET",
-            url: "<?php echo site_url('api/save_htc_irn'); ?>",
+            url: "<?php echo site_url('api/save_service_irn'); ?>",
             data: {trans_do: trans_do, irn: irn,ack:ack,ack_dt:ack_dt,trn_type:trn_type},
             dataType: 'html',
             success: function (result) {
