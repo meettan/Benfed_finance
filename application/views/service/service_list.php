@@ -71,8 +71,8 @@
                     <th>ACK No</th>
                     <th>ACT DT</th>
                     <th>DOWNLOAD</th>
-                    <th>View</th>
-                    <th>B2C Print</th>
+                    <th>Delete</th>
+                    <!-- <th>B2C Print</th> -->
                 </tr>
 
             </thead>
@@ -113,21 +113,22 @@
 					 <td>
                         <button type="button" name="download_<?= $i ?>" class="download_" id="download"                  
                         data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>    
-                         <a href="<?php echo site_url('api/print_irn?irn='.$rent_list->irn.''); ?>" id="down_clk_td_<?= $i ?>" 										title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
+                         <a href="<?php echo site_url('api/print_irn?irn='.$rent_list->irn.''); ?>" id="down_clk_td_<?= $i ?>"		title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
                      </td>
 
-                    <td><a href="<?php echo site_url() ?>/handling-trandport-charges/htc_collection_edit/<?php  echo $rent_list->trans_no; ?>"
+                    <td>
+                        <!-- <a href="<?php //echo site_url() ?>/handling-trandport-charges/htc_collection_edit/<?php  //echo $rent_list->trans_no; ?>"
                             data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                             <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
-                        </a>
+                        </a> -->
+                        <?php if($rent_list->irn == ''){?>
+                        <button type="button" class="delete" date="<?php //echo $value->voucher_date; ?>" id="<?php echo $rent_list->trans_no; ?>" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                    <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                        </button>
+                        <?php } ?>
                     </td>
-                    <td>
-                                <button type="button" name="print_<?= $i ?>" class="print" id="print"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
-                                <a href="<?php echo site_url('handling-trandport-charges/rentb2c_rep?invoice_no='.$rent_list->invoice_no.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
-                                </td>
+                    
                 </tr>
 
                 <?php
@@ -158,8 +159,8 @@
                     <th>ACT DT</th>
                     <th>DOWNLOAD</th>
                     
-                    <th>View</th>
-                    <th>B2C Print</th>
+                    <th>Delete</th>
+                    
                 </tr>
 
             </tfoot>
@@ -181,6 +182,20 @@ $(document).ready(function() {
         // "scrollY": 250,
         // "scrollX": true
     } );
+
+    $('.delete').click(function() {
+    var id = $(this).attr('id'),
+        date = $(this).attr('date');
+
+    var result = confirm("Do you really want to delete this record?");
+
+    if (result) {
+
+        window.location = "<?php echo site_url('transaction/service_delete?id="+id+"'); ?>";
+
+    }
+
+    });
 } );
 </script>
 

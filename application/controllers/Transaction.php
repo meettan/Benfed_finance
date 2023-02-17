@@ -1770,4 +1770,14 @@ function crn_appview()
         }
     }
 
+    function service_delete()
+    {
+        $where = array(
+            "trans_no"  =>  $this->input->get('id')
+        );
+        $this->session->set_flashdata('msg', 'Successfully Deleted!');
+        $this->transaction_model->f_delete('td_service_charge', $where);
+        redirect("transaction/service_charge_list");
+    }
+
 }

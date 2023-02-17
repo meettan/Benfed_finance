@@ -63,7 +63,7 @@
                 <input type="text" value="" class="form-control" id="district" name="district" required />
                 </div>
 
-                <label for="supplier_Ref" class="col-sm-2 col-form-label">SAC COde. : <span style="color: red;"> *</span></label>
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">SAC Code. : <span style="color: red;"> *</span></label>
                 <div class="col-sm-4">
                     <input type="text" name="sac_code" id="sac_code" class="form-control">
                 </div>
