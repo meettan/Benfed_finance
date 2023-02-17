@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Product:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Product: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="product_desc" name="product_desc" required />
@@ -20,7 +20,7 @@
 
             </div>
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Customer:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Customer: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="customer" name="customer" required />
@@ -33,43 +33,43 @@
             </div>
             
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Gst No:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">GST No: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="gst_no" name="gst_no" required />
                 </div>
 
-                <label for="supplier_Ref" class="col-sm-2 col-form-label">PAN :</label>
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">PAN : <span style="color: red;"> *</span></label>
                 <div class="col-sm-4">
                     <input type="text" name="pan" id="pan" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Address:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Address: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="cust_addr" name="cust_addr" required />
                 </div>
 
-                <label for="supplier_Ref" class="col-sm-2 col-form-label">PIN. :</label>
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">PIN. : <span style="color: red;"> *</span></label>
                 <div class="col-sm-4">
                     <input type="text" name="pin" id="pin" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">District Name:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">District Name: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="district" name="district" required />
                 </div>
 
-                <label for="supplier_Ref" class="col-sm-2 col-form-label">SAC COde. :</label>
+                <label for="supplier_Ref" class="col-sm-2 col-form-label">SAC COde. : <span style="color: red;"> *</span></label>
                 <div class="col-sm-4">
                     <input type="text" name="sac_code" id="sac_code" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="voucher_mode" class="col-sm-2 col-form-label">Contact no:</label>
+                <label for="voucher_mode" class="col-sm-2 col-form-label">Contact no: <span style="color: red;"> *</span></label>
 
                 <div class="col-sm-4">
                 <input type="text" value="" class="form-control" id="phone_num" name="phone_num" required />
@@ -81,11 +81,11 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="trans_dt" class="col-sm-2 col-form-label">Amount:</label>
+                <label for="trans_dt" class="col-sm-2 col-form-label">Amount: <span style="color: red;"> *</span></label>
                 <div class="col-sm-4">
                     <input type="text" name="amount" id="amount" class="form-control">
                 </div>
-                <label for="trans_dt" class="col-sm-2 col-form-label" >GST Rate:  <span id="cgstp"></span> % </label>
+                <label for="trans_dt" class="col-sm-2 col-form-label" >GST Rate:  <span id="cgstp" style="color: red;">  %  </span></label>
                 <div class="col-sm-4">
                     <input type="text" name="gst" id="gst" class="form-control" >
                 </div>
