@@ -163,11 +163,10 @@ public function jrnlprn()
             $data['type']=$this->input->post('type');
                  
                  $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid,$type);
-
+                 
                  $this->load->view('post_login/finance_main');
                  $this->load->view('report/trail_bal/trail_bal.php',$data);
                  $this->load->view('post_login/footer');
-
             // }else{
 
             // // $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date);
