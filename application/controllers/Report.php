@@ -278,6 +278,7 @@ public function jrnlprn()
                 $data['fd_date']=$frm_date;
           
                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_subgroup($frm_date,$to_date,$opndt,$type,$subgroupId);
+               // echo $this->db->last_query();die();
                 $data['sbgrop']=$this->input->post('subgroupinputvalue');
                 $this->load->view('post_login/finance_main');
                 $this->load->view('report/trail_bal/consolidated_trail_bal_subgroup/trail_bal.php',$data);
