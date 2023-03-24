@@ -81,6 +81,9 @@ class Login extends CI_Controller
 					'fin_yr' => $fin_year->fin_yr
 				);
 				$this->session->set_userdata('loggedin', $loggedin);
+				$audit_trail_id = $this->login_model->f_insert_audit_trail($data['user_id']);
+				$this->session->set_userdata('audit_trail_id',$audit_trail_id);
+
 				redirect('dashboard');
 			}
 		} else {
@@ -93,7 +96,8 @@ class Login extends CI_Controller
 	public function logout(){
 
 			if($this->session->userdata('loggedin')){
-
+				$audit_trail_id  =  $this->session->userdata('audit_trail_id');
+				$this->login_model->f_update_audit_trail($audit_trail_id);
 				$this->session->unset_userdata('loggedin');
 				redirect(base_url());
 

@@ -47,6 +47,24 @@ class Login_model extends CI_Model
             return false;
         }
     }
+    public function f_insert_audit_trail($user_id){
+
+        $time = date("Y-m-d H:i:s");
+        $pcaddr = $_SERVER['REMOTE_ADDR'];
+
+        $value = array('login_dt'=> $time,
+                   'user_id' => $user_id,
+                         'terminal_name'=>$pcaddr);
+        $this->db->insert('td_audit_trail',$value);
+        return $this->db->insert_id();
+    }
+
+    public function f_update_audit_trail($audit_trail_id){
+        $time = date("Y-m-d H:i:s");
+        $value= array('logout'=>$time);
+        $this->db->where('id',$audit_trail_id);
+        $this->db->update('td_audit_trail',$value);
+    }
 
     function fin_year_by_id($sl_no)
     {
