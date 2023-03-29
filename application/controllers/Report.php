@@ -570,15 +570,17 @@ public function voucher_dtls(){
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
         //    echo $this->input->post('allaccounthead');
-      
-          if($this->input->post('allaccounthead')=='false'){
-            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
-            
+            if($this->session->userdata('loggedin')['branch_id']==342){
+                if($this->input->post('branch_id') == 0 ){
+                    $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
 
-          }else{
-            $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
-          }
-
+                }else{
+                    $branch_id = $this->input->post('branch_id');
+                    $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+                }
+            }else{
+                $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+            }
           
             $this->load->view('post_login/finance_main');
             $this->load->view('report/ac_detail/ac_detail.php',$data);
@@ -592,6 +594,7 @@ public function voucher_dtls(){
             // $fin_yr= $this->session->userdata['loggedin']['fin_id'];
 			// $fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],0,4);
 			// $data['acc_head'] = $this->master_model->f_select("md_achead ORDER BY 'ac_name'" , $select, $where = null, 2);
+            $data['branch'] = $this->master_model->f_select("md_branch", NULL, array('1 order by branch_name asc'=> NULL), 0);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/ac_detail/ac_detail_ip.php',$data);
             $this->load->view('post_login/footer');

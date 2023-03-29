@@ -64,12 +64,23 @@
 
             <div class="form-group row">
             <?php if($this->session->userdata('loggedin')['branch_id']==342){ ?>
-                <label for="allaccounthead" class="col-sm-2 col-form-label">All Branches:</label>
+                <!-- <label for="allaccounthead" class="col-sm-2 col-form-label">All Branches:</label>
                 <div class="col-sm-2">
 
                     <input type="checkbox" name="allaccounthead" class="" value="false" id="allaccounthead" />
 
-                </div>
+                </div> -->
+                <label for="" class="col-sm-2 col-form-label"> Branches:</label>
+                <div class="col-sm-6">
+                       <select class="form-control" name="branch_id" reqired>
+                       <option value="">Select Branch</option>
+                        <option value="0">All Branch</option>
+                        <?php foreach($branch as $br) { ?>
+                            <option value="<?=$br->id?>"><?=$br->branch_name?></option>
+                            <?php } ?>
+
+                       </select>
+                </div>       
                 <?php } ?>
             </div>
 
@@ -77,7 +88,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="submit" class="btn btn-info" value="Submit" onclick="myFunction()" />
+                    <input type="submit" class="btn btn-info" value="Submit" onclick="" />
                 </div>
 
             </div>
@@ -136,7 +147,7 @@
     //     var frmdt = $('#from_date').val();
     //     frmdt = frmdt.substring(0, 4);
     //     // alert(frmdt);
-    //     var fin_year_sort_code = <?php echo substr($this->session->userdata['loggedin']['fin_yr'], 0, 4) ?>;
+    //     var fin_year_sort_code = <?php //echo substr($this->session->userdata['loggedin']['fin_yr'], 0, 4) ?>;
 
     //     if (frmdt != fin_year_sort_code) {
     //         alert('Financial Year Not Matched');
