@@ -19,9 +19,6 @@ class Transaction extends CI_Controller
     function index()
     {
 
-       
-
-
         $achead_where = array(
             'br_id' => $this->session->userdata['loggedin']['branch_id'],
             'mngr_id' => 6,
@@ -65,12 +62,9 @@ class Transaction extends CI_Controller
             );
 		}
 
-
-        
         $this->load->helper('unaproved_helper');
-       $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
+        $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
 
-        
         $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/view", $voucher);
@@ -363,7 +357,8 @@ function approvedjournal()
                     "ins_no"            =>  NULL,
                     "ins_dt"            =>  NULL,
                     "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                    "created_dt"        =>  date('Y-m-d H:i:s')
+                    "created_dt"        =>  date('Y-m-d H:i:s'),
+                    'created_ip'        =>  $_SERVER['REMOTE_ADDR']
                 );
 
                 $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -389,7 +384,8 @@ function approvedjournal()
             "ins_no"                =>  NULL,
             "ins_dt"                =>  NULL,
             "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-            "created_dt"            =>  date('Y-m-d H:i:s')
+            "created_dt"            =>  date('Y-m-d H:i:s'),
+            'created_ip'            =>  $_SERVER['REMOTE_ADDR']
         );
 
         $this->transaction_model->f_insert('td_vouchers', $row_array);
@@ -438,7 +434,6 @@ function approvedjournal()
 
     function update()
     {
-        // echo '<pre>';
         $data = $this->input->post();
         $v_code  = $data['acc_code'];
 		
@@ -457,7 +452,8 @@ function approvedjournal()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $v_amt[$i],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d H:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s'),
+                        'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                     );
 					
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -474,7 +470,8 @@ function approvedjournal()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $data['tot_amt'],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d H:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s'),
+                        'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                 );
 					
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -803,7 +800,8 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d H:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s'),
+                'created_ip'            =>  $_SERVER['REMOTE_ADDR']
             );
             $this->transaction_model->f_insert('td_vouchers', $data_array);
         }
@@ -829,7 +827,8 @@ function crn_appview()
             "ins_no"                =>  NULL,
             "ins_dt"                =>  NULL,
             "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-            "created_dt"            =>  date('Y-m-d H:i:s')
+            "created_dt"            =>  date('Y-m-d H:i:s'),
+            'created_ip'            =>  $_SERVER['REMOTE_ADDR']
         );
         $this->transaction_model->f_insert('td_vouchers', $row_array);
         //  Code start for Bank Entry As Debit 
@@ -898,7 +897,8 @@ function crn_appview()
                         "remarks"           =>  $data['remarks'],
                         "amount"            =>  $v_amt[$i],
                         "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-                        "modified_dt"       =>  date('Y-m-d H:i:s')
+                        "modified_dt"       =>  date('Y-m-d H:i:s'),
+                        'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                     );
 
                     $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
@@ -942,7 +942,8 @@ function crn_appview()
             "remarks"               =>  $data['remarks'],
             "amount"                =>  $data['tot_amt'],
             "modified_by"           =>  $this->session->userdata('loggedin')['user_id'],
-            "modified_dt"           =>  date('Y-m-d H:i:s')
+            "modified_dt"           =>  date('Y-m-d H:i:s'),
+            'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
         );
 
         $this->transaction_model->f_edit('td_vouchers', $row_array, $where);
@@ -1233,8 +1234,6 @@ function crn_appview()
         //     "created_dt"            =>  date('Y-m-d H:i:s')
         // );
 
-        
-
 
 //var_export($row_array);
 //echo "</pre>";
@@ -1243,11 +1242,6 @@ function crn_appview()
 //exit();
 
         //$this->transaction_model->f_insert('td_vouchers', $row_array);
-
-
-
-
-
 
 
         $data = $this->input->post();
@@ -1289,7 +1283,8 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d H:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s'),
+                'created_ip'        =>  $_SERVER['REMOTE_ADDR']
             );
 
             $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -1317,7 +1312,8 @@ function crn_appview()
                 "ins_no"            =>  NULL,
                 "ins_dt"            =>  NULL,
                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d H:i:s')
+                "created_dt"        =>  date('Y-m-d H:i:s'),
+                'created_ip'            =>  $_SERVER['REMOTE_ADDR']
             );
 
             $this->transaction_model->f_insert('td_vouchers', $data_array);
@@ -1379,67 +1375,7 @@ function crn_appview()
 
     function jurnal_update()
     {
-        // $data = $this->input->post();
-		// $fin_id         = $this->session->userdata['loggedin']['fin_id'];
-        // $v_code  = $data['acc_code'];
-        // $v_dc    =  $data['dc_flg'];
-        // $v_amt   =  $data['amount'];
-        // for ($i = 0; $i < count($v_code); $i++) {
-        //     if ($v_code[$i] != '' || $v_code[$i] > 0) {
-        //         $select = array('COUNT(*) row');
-        //         $where = array(
-        //             'voucher_id' => $data['voucher_id'],
-        //             'acc_code' => $v_code[$i]
-        //         );
-        //         $dt = $this->transaction_model->f_select("td_vouchers", $select, $where, 1);
-        //         if ($dt->row > 0) {
-        //             $data_array = array(
-        //                 "remarks"           =>  $data['remarks'],
-        //                 "amount"            =>  $v_amt[$i],
-        //                 "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "modified_dt"       =>  date('Y-m-d H:i:s')
-        //             );
-
-        //             $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
-        //         } else {
-        //             $data_array = array(
-        //                 "voucher_date"      =>  $data['voucher_dt'],
-        //                 "sl_no"             =>  $data['sl_no'],
-        //                 "voucher_id"        =>  $data['voucher_id'],
-		// 				"fin_yr"            =>  $fin_id,
-        //                 "branch_id"         =>  $this->session->userdata['loggedin']['branch_id'],
-        //                 "trans_no"          =>  0,
-        //                 "voucher_type"      =>  $data['voucher_type'],
-        //                 "voucher_mode"      =>  'J',
-        //                 "voucher_through"   =>  'M',
-        //                 "acc_code"          =>  $v_code[$i],
-        //                 "dr_cr_flag"        =>  $v_dc[$i] == 'Debit' ? 'Dr' : 'Cr',
-        //                 "remarks"           =>  $data['remarks'],
-        //                 "amount"            =>  $v_amt[$i],
-        //                 "approval_status"   =>  'U',
-        //                 "user_flag"         =>  'S',
-        //                 "ins_no"            =>  NULL,
-        //                 "ins_dt"            =>  NULL,
-        //                 "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "created_dt"        =>  date('Y-m-d H:i:s'),
-        //                 "modified_by"       =>  $this->session->userdata('loggedin')['user_id'],
-        //                 "modified_dt"       =>  date('Y-m-d H:i:s')
-        //             );
-        //             $this->transaction_model->f_insert('td_vouchers', $data_array);
-        //         }
-        //     }
-        // }
-        // $where = array(
-        //     'voucher_id' => $data['voucher_id'],
-        //     'acc_code' => $data['topacc_code']
-        // );
-        // $row_array = array(
-            
-        //     "remarks"             =>  $data['remarks'],
-        //     "amount"              =>  $data['tot_amt'],
-        //     "modified_by"         =>  $this->session->userdata('loggedin')['user_id'],
-        //     "modified_dt"         =>  date('Y-m-d H:i:s')
-        // );
+       
         $data = $this->input->post();
         
         $id        =   $data['id'];
@@ -1455,7 +1391,8 @@ function crn_appview()
                 "remarks"           =>  $data['remarks'],
                 "amount"            =>  $v_amt[$i],
                 "modified_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "modified_dt"        =>  date('Y-m-d H:i:s')
+                "modified_dt"        =>  date('Y-m-d H:i:s'),
+                'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
             );
             $where = array(
                 'voucher_id' => $id,
@@ -1469,7 +1406,8 @@ function crn_appview()
                 "remarks"           =>  $data['remarks'],
                 "amount"            =>  $v_amt_Debit[$i],
                 "modified_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "modified_dt"        =>  date('Y-m-d H:i:s')
+                "modified_dt"        =>  date('Y-m-d H:i:s'),
+                'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
             );
             $where = array(
                 'voucher_id' => $id,
