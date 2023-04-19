@@ -83,8 +83,8 @@
                         <th rowspan='2'>Voucher Type</th>
                         <th rowspan='2'>Narration</th>
                         <th rowspan='2'>Voucher No</th>
-                        <th rowspan='2'>Transition No</th>
-                        <th colspan='2'>Trancation</th>
+                        <th rowspan='2'>Ref. No.</th>
+                        <th colspan='2'>Transaction</th>
                     </tr>
                     <tr>
                         <th>Debit</th>
@@ -173,7 +173,7 @@
             
         <?php }?> 
         
-        <tfoot>
+       
             <tr>
             <th>Total</th>
                 <th></th>
@@ -264,7 +264,7 @@
             </th>
 				
             </tr>
-        </tfoot>
+       
             
         </tbody>
         
