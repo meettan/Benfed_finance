@@ -29,6 +29,7 @@ tr:hover {background-color: #f5f5f5;}
 
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
             '                                         .inline { display: inline; }' +
+                                                     '.btn-primary { display:none; }' +
             '                                         .underline { text-decoration: underline; }' +
             '                                         .left { margin-left: 315px;} ' +
             '                                         .right { margin-right: 375px; display: inline; }' +
@@ -67,9 +68,9 @@ tr:hover {background-color: #f5f5f5;}
 
    
                         <?php }else{ ?>
-                            <h5>Sub Group Wise Consolidated Trial Balance Between: <?php echo $_SESSION['date']; ?></h5>
+                            <h5>Consolidated Group Details Between: <?php echo $_SESSION['date']; ?></h5>
                        <?php } ?>
-                       <h5>Sub Group : <?=$sbgrop?></h5>
+                       <h5> Group : <?=$sbgrop?></h5>
                     </div>
                     <div class="printTop023">
 						<div class="leftNo"><b>Type: </b> <?php foreach($type as $key => $value){ if($value==1){
