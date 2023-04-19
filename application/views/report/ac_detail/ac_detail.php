@@ -38,6 +38,7 @@
             '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">'
             );
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+                                                     '.dt-buttons {display: none;}' +
             '                                         .inline { display: inline; }' +
             '                                         .underline { text-decoration: underline; }' +
             '                                         .left { margin-left: 315px;} ' +
