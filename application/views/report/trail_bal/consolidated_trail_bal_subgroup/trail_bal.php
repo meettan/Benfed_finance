@@ -68,7 +68,7 @@ tr:hover {background-color: #f5f5f5;}
 
    
                         <?php }else{ ?>
-                            <h5>Consolidated Sub Group Trial Balance Between: <?php echo $_SESSION['date']; ?></h5>
+                            <h5>Consolidated Sub Group Balance Between: <?php echo $_SESSION['date']; ?></h5>
                        <?php } ?>
                        <h5>Sub Group : <?=$sbgrop?></h5>
                     </div>
