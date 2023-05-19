@@ -74,7 +74,7 @@
         $this->db->join('md_rent_product','md_rent_product.sl_no=td_rent_collection.prod_id');
         $this->db->join('md_rent_customer','md_rent_customer.id=td_rent_collection.cust_id');
         $this->db->join('md_godown','md_godown.id=td_rent_collection.godown_id');
-        $this->db->where('td_rent_collection.fin_yr >=',$this->session->userdata("loggedin")["fin_id"]);
+        $this->db->where('td_rent_collection.fin_yr',$this->session->userdata("loggedin")["fin_id"]);
         if($where!=''||$where!=null){
             $this->db->where('trans_no',$where);
         }
