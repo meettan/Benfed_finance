@@ -55,9 +55,13 @@
     }
 
     public function fetch_rentdata(){
+        $seaionyeardtls = $this->f_select('md_fin_year',NULL,array('sl_no'=>$this->session->userdata("loggedin")["fin_id"]),1);
         $this->db->select('*')->from('td_rent')->join('md_godown','md_godown.id=td_rent.godown_id');
         $this->db->join('md_rent_customer','md_rent_customer.id=td_rent.customer_id')->order_by('td_rent.sl_no','DESC');
+        $this->db->where('td_rent.rent_end_date >=',$seaionyeardtls->start_dt);
+        $this->db->where('td_rent.rent_end_date <=',$seaionyeardtls->end_dt);
         $q=$this->db->get();
+        //echo $this->db->last_query();die();
         return $q->result();
     }
     public function invoice_no(){
@@ -70,6 +74,7 @@
         $this->db->join('md_rent_product','md_rent_product.sl_no=td_rent_collection.prod_id');
         $this->db->join('md_rent_customer','md_rent_customer.id=td_rent_collection.cust_id');
         $this->db->join('md_godown','md_godown.id=td_rent_collection.godown_id');
+        $this->db->where('td_rent_collection.fin_yr >=',$this->session->userdata("loggedin")["fin_id"]);
         if($where!=''||$where!=null){
             $this->db->where('trans_no',$where);
         }
@@ -282,11 +287,9 @@ function save_irn($data){
         return 0;
     }
 }
+ 
 
-
-    
-
-    public function f_select($table, $select = NULL, $where = NULL, $type)
+    public function f_select($table, $select = NULL, $where = NULL, $type = NULL)
     {
 
         if (isset($select)) {
