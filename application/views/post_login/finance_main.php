@@ -252,6 +252,7 @@
 
 
                         <a href="<?php echo site_url('trailbal'); ?>">Trial balance </a>
+                        <a href="<?php echo site_url('balsh'); ?>">Balance Sheet</a>
                         <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                             <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
                             <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details</a>
