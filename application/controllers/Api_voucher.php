@@ -306,7 +306,7 @@ $input_sgst = array(
         'approved_by'    => 'AUTO',
         'approved_dt'    => $dt['data']['created_dt'],
         'fin_yr'         => $dt['data']['fin_yr']    
-    );
+     );
      
         $input_sale = array(
             'voucher_date'   => $dt['data']['do_dt'],
@@ -1691,6 +1691,88 @@ else{
         echo 0;
     }  
     
+        }
+
+        public function crn_voucher_tcs(){
+             
+            $input = file_get_contents("php://input");
+            // $dt = $input ? $input[0] : $input;
+            $dt = json_decode($input, true);
+            
+            $fin_yr['fin_yr']= $dt['data']['fin_yr'];
+            $sl_no    = $this->Transaction_model->f_get_voucher_id($fin_yr['fin_yr']);
+            $v_srl=$sl_no->sl_no;
+    
+            $v_id= $dt['data']['br_nm'].'/'.$dt['data']['fin_fulyr'].'/'.$v_srl;
+          
+                  
+            $input_cr= array(
+                'voucher_date'   => $dt['data']['trans_dt'],
+                // 'sl_no'          =>  $v_srl,
+                //'voucher_id'     => 'CRN'.$dt['data']['ro'],
+                'voucher_id'     =>$dt['data']['recpt_no'],
+                'branch_id'      => $dt['data']['branch_id'],
+                'trans_no'       =>  $dt['data']['trans_no'],
+                'trans_dt'       => $dt['data']['trans_dt'],  
+                'voucher_type'   => 'DRNTCS',
+                'transfer_type'  => 'T',
+                'voucher_mode'   => 'J',
+                'voucher_through'=> 'A',
+                'acc_code'       => $dt['data']['acc_cd'],
+                'dr_cr_flag'     => 'CR',
+                'amount'         => $dt['data']['tot_amt'],
+                'ins_no'         => '',
+                'ins_dt'         => '',
+                'bank_name'      => '',
+                'remarks'        => $dt['data']['rem'],
+                'approval_status'=> 'A',
+                'user_flag'      => '',
+                'created_dt'     => $dt['data']['created_dt'],
+                'created_by'     => $dt['data']['created_by'],
+                'modified_by'    => '',
+                'modified_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
+                'fin_yr'         => $dt['data']['fin_yr']    
+            );
+            $input_dr= array(
+                'voucher_date'   => $dt['data']['trans_dt'],
+                // 'sl_no'          =>  $v_srl,
+                //'voucher_id'     => 'CRN'.$dt['data']['ro'],
+                'voucher_id'     =>$dt['data']['recpt_no'],
+                'branch_id'      => $dt['data']['branch_id'],
+                'trans_no'       =>  $dt['data']['trans_no'],
+                'trans_dt'       => $dt['data']['trans_dt'],  
+                'voucher_type'   => 'DRNTCS',
+                'transfer_type'  => 'T',
+                'voucher_mode'   => 'J',
+                'voucher_through'=> 'A',
+                'acc_code'       => $dt['data']['dr_acc_cd'],
+                'dr_cr_flag'     => 'DR',
+                'amount'         => $dt['data']['tot_amt'],
+                'ins_no'         => '',
+                'ins_dt'         => '',
+                'bank_name'      => '',
+                'remarks'        => $dt['data']['rem'],
+                'approval_status'=> 'A',
+                'user_flag'      => '',
+                'created_dt'     => $dt['data']['created_dt'],
+                'created_by'     => $dt['data']['created_by'],
+                'modified_by'    => '',
+                'modified_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
+                'fin_yr'         => $dt['data']['fin_yr']    
+            );
+         
+            if($this->db->insert('td_vouchers', $input_cr) && $this->db->insert('td_vouchers', $input_dr)){
+
+            echo 1;
+        }
+        else{
+            echo 0;
+        }  
+        
         }
 
         public function totcrn_voucher(){
