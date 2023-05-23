@@ -104,6 +104,7 @@ $route['cheqdtl']   = 'transaction/cheqdtl';
 $route['advjrnlr'] = 'report/advjrnl';
 $route['trailbal'] = 'report/trailbal';
 $route['balsh'] = 'report/balsh';
+$route['pl'] = 'report/pl';
 $route['consolidated-trailbal'] = 'report/consolidated_trailbal';
 $route['consolidated-trailbal-subgroup'] = 'report/consolidated_trailbal_subgroup';
 $route['consolidated-trailbal-group'] = 'report/consolidated_trailbal_group';
