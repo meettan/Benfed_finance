@@ -83,39 +83,17 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div>
 
-                <!-- <div class="form-group row">
-
-                    <label for="to_date" class="col-sm-2 col-form-label">Type:</label>
-
-                    <div class="col-sm-6">
-						<select class="form-control"  name="voucher_type" required>
-						   <option value="">Select</option>
-						   <option value="PUR">Purchase</option>
-						   <option value="A">Advance</option>
-						   <option value="CRN">Credit note</option>
-						   <option value="SL">Sale</option>
-						   <option value="P">Payment</option>
-						   <option value="R">Receive</option>
-						   <option value="OTH">Other</option>
-						   
-						</select>
-
-                    </div>
-
-                </div> -->	
-
                 <div class="form-group row">
 
                     <label for="to_date" class="col-sm-2 col-form-label">Group:</label>
 
                     <div class="col-sm-6">
-						<select class="form-control"  name="group_id" id="group">
+						<select class="form-control"  name="group_id" id="group" required>
 						   <option value="">Select group</option>
+                           <option value="0">All group</option>
 						   <?php foreach($group as $gr){?>
 						   <option value="<?=$gr->sl_no?>"><?=$gr->name?></option>
 						   <?php } ?>
-
-						   
 						</select>
 
                     </div>
