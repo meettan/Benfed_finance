@@ -500,46 +500,89 @@ order by type,ac_name";
         $dmo = date('m-d', strtotime($frm_date));
         if($group_id == 0){
 
-            $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, name,dr_cr_flag,type
+            // $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, name,dr_cr_flag,type
+            //     from(
+            //     SELECT if(type=2,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=1,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, name,dr_cr_flag,type
+            //     from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, name,type,dr_cr_flag
+            //     from(
+            //     SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id, d.name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag
+            //     FROM td_vouchers a ,md_achead b,mda_mngroup c,mda_subgroub d
+            //     WHERE a.acc_code=b.sl_no
+            //     and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt'
+            //     AND a.trans_dt<='$frm_date'
+            //     and a.approval_status ='A'
+            //     and c.sl_no= d.mngr_id
+            //     and b.subgr_id=d.sl_no
+            //     group by d.name,c.type,b.mngr_id
+            //     union
+            //     SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag)
+            //     from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
+            //     where d.balance_dt=(select max(balance_dt)
+            //     from td_opening where balance_dt<='$frm_date')
+            //     and b.mngr_id = c.sl_no
+            //     and b.sl_no=d.acc_code
+            //     and b.subgr_id=e.sl_no
+            //     and c.sl_no= e.mngr_id
+            //     group by e.name,c.type,b.mngr_id)b
+            //     group by mngr_id, name,type)a
+            //     union
+            //     SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id , d.name,a.dr_cr_flag,c.type
+            //     FROM td_vouchers a,md_achead b,mda_mngroup c,mda_subgroub d
+            //     WHERE a.acc_code=b.sl_no
+            //     and b.mngr_id = c.sl_no
+            //     and a.voucher_date >= '$frm_date'
+            //     and a.approval_status = 'A'
+            //     and c.sl_no= d.mngr_id
+            //     and b.subgr_id=d.sl_no
+            //     AND a.voucher_date <= '$to_date'
+            //     group by d.name,a.dr_cr_flag,d.name,b.mngr_id)C
+            //     where type in (". $type . ")
+            //     group by mngr_id, name,type
+            //     order by type,name";
+
+                $sql = "select op_dr,op_cr,trans_dr,trans_cr,mngr_id, name,type,cl,
+                (CASE
+                    WHEN (((type=1 OR type=4 )and  cl>0)) THEN 'CR'
+                    WHEN (((type=1 OR type=4) and  cl< 0)) THEN 'DR'
+                   WHEN (((type=2 OR type=3 )and  cl>0)) THEN 'DR'
+                   WHEN (((type=2 OR type=3 )and  cl<0)) THEN 'CR'
+                    ELSE '0'
+                END)dr_cr_flag
+                from (
+                select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(trans_dr)trans_dr,sum(trans_cr)trans_cr,mngr_id, name,type,if(type=2 or type=3,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,
+                sum(op_cr)-sum(op_dr)+trans_cr-trans_dr)cl
                 from(
-                SELECT if(type=2,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=1,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, name,dr_cr_flag,type
-                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, name,type,dr_cr_flag
-                from(
+                select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, name,type,dr_cr_flag
+                                from(
                 SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id, d.name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag
                 FROM td_vouchers a ,md_achead b,mda_mngroup c,mda_subgroub d
-                WHERE a.acc_code=b.sl_no
-                and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt'
-                AND a.trans_dt<='$frm_date'
-                and a.approval_status ='A'
-                and c.sl_no= d.mngr_id
-                and b.subgr_id=d.sl_no
-                group by d.name,c.type,b.mngr_id
-                union
-                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag)
-                from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
-                where d.balance_dt=(select max(balance_dt)
-                from td_opening where balance_dt<='$frm_date')
-                and b.mngr_id = c.sl_no
-                and b.sl_no=d.acc_code
-                and b.subgr_id=e.sl_no
-                and c.sl_no= e.mngr_id
-                group by e.name,c.type,b.mngr_id)b
-                group by mngr_id, name,type)a
-
-                union
-                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id , d.name,a.dr_cr_flag,c.type
-                FROM td_vouchers a,md_achead b,mda_mngroup c,mda_subgroub d
-                WHERE a.acc_code=b.sl_no
-                and b.mngr_id = c.sl_no
-                and a.voucher_date >= '$frm_date'
-                and a.approval_status = 'A'
-                and c.sl_no= d.mngr_id
-                and b.subgr_id=d.sl_no
-                AND a.voucher_date <= '$to_date'
-                group by d.name,a.dr_cr_flag,d.name,b.mngr_id)C
-                where type in (". $type . ")
-                group by mngr_id, name,type
-                order by type,name";
+                 WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no
+                 and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+                  and c.sl_no= d.mngr_id and b.subgr_id=d.sl_no and c.sl_no=1
+                     group by d.name,c.type,b.mngr_id ,dr_cr_flag
+                 union
+                 SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag) from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
+                 where d.balance_dt=(select max(balance_dt)
+                                         from td_opening
+                                         where balance_dt<='$frm_date')
+                  and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+                 and b.subgr_id=e.sl_no
+                     and c.sl_no= e.mngr_id
+                     and c.sl_no=1
+                 group by e.name,c.type,b.mngr_id,UPPER(d.trans_flag)
+                 union
+                 SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id , d.name,c.type ,UPPER(a.dr_cr_flag)dr_cr_flag
+                 FROM td_vouchers a,md_achead b,mda_mngroup c,mda_subgroub d
+                 WHERE a.acc_code=b.sl_no
+                 and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
+                 and a.approval_status = 'A'
+                 and c.sl_no= d.mngr_id
+                 and b.subgr_id=d.sl_no
+                 and c.sl_no=1
+                 AND a.voucher_date <= '$to_date'
+                 group by d.name,a.dr_cr_flag,d.name,b.mngr_id)a
+                 group by mngr_id, name,type,dr_cr_flag)x
+                 group by mngr_id, name,type)y;";
 
         }else{
 

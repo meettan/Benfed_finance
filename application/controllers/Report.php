@@ -313,11 +313,11 @@ public function jrnlprn()
             
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             
-                $type=implode(',',$this->input->post('type'));
-                $data['type']=$this->input->post('type');
+                // $type=implode(',',$this->input->post('type'));
+                // $data['type']=$this->input->post('type');
                 $data['fd_date']=$frm_date;
                 $group_id = $this->input->post('group_id');
-                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,$type,$group_id);
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id);
                 //echo $this->db->last_query();die();
                 $data['sbgrop']=$this->input->post('subgroupinputvalue');
                 $this->load->view('post_login/finance_main');
@@ -903,8 +903,12 @@ public function voucher_dtls(){
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
             $brid=$this->session->userdata['loggedin']['branch_id'];
-            $data['trail_balnce']     = $this->Report_Model->f_get_balsh_br($frm_date,$to_date,$opndt,$brid);
-           // echo $this->db->last_query(); die();
+            $data['mngrl']           = $this->Report_Model->f_get_balsh_mngr_lib($frm_date,$to_date,$opndt,$brid);
+            $data['mngra']           = $this->Report_Model->f_get_balsh_mngr_asst($frm_date,$to_date,$opndt,$brid);
+            
+            $data['trail_balnce']   = $this->Report_Model->f_get_balsh_br($frm_date,$to_date,$opndt,$brid);
+
+            //echo $this->db->last_query(); die();
             $this->load->view('post_login/finance_main');
             $this->load->view('report/balsh/balsh.php',$data);
             $this->load->view('post_login/footer');

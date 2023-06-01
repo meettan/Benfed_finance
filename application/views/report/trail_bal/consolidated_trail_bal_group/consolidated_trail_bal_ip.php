@@ -103,15 +103,15 @@ tr:hover {background-color: #f5f5f5;}
                 
             
                 
-                
+<!--                 
                 <div class="form-check form-check-inline">
   <input class="form-check-input bracnhclass" type="checkbox" id="allbranch">
   <label class="form-check-label" for="allbranch">All</label>
-</div><br>
+</div><br> -->
 
 
 				
-                <div class="form-check form-check-inline" style="margin-right: 20px;">
+                <!-- <div class="form-check form-check-inline" style="margin-right: 20px;">
                     <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="1" >
                     <label class="form-check-label" for="inlineCheckbox">Liabilites</label>
                 </div>
@@ -126,7 +126,7 @@ tr:hover {background-color: #f5f5f5;}
                 <div class="form-check form-check-inline" style="margin-right: 20px;">
                     <input class="form-check-input bracnhclass2" name="type[]" type="checkbox" id="inlineCheckbox" value="4" >
                     <label class="form-check-label" for="inlineCheckbox">Revenue</label>
-                </div>
+                </div> -->
 
                 
 
