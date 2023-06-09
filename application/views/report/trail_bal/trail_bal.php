@@ -95,6 +95,7 @@ tr:hover {background-color: #f5f5f5;}
                         <thead>
                             <tr>
                                 <th rowspan='2'>Sl</th>
+                                <th rowspan='2'>System Ac Code</th>
                                 <th rowspan='2'>Benfed Ac Code</th>
                                 <th rowspan='2' style="width:40%">Particulars</th>
 								<th colspan='2'>Opening</th>
@@ -130,6 +131,7 @@ tr:hover {background-color: #f5f5f5;}
                                      
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
+                                     <td ><?php echo $tb->sl_no; ?></td>
                                      <td ><?php echo $tb->benfed_ac_code; ?></td>
 									 <td ><?php echo $tb->ac_name; ?></td>
 
@@ -189,6 +191,7 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <tr style="font-weight: bold;">
 								    <td>Total</td>
+                                    <td></td>
 								    <td></td>
 								    <td></td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_dr),2)?></td>
