@@ -573,13 +573,16 @@ public function voucher_dtls(){
             if($this->session->userdata('loggedin')['branch_id']==342){
                 if($this->input->post('branch_id') == 0 ){
                     $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil_all($frm_date,$to_date,$acc_head);
-
+                    $data['inv_detail']   = $this->Report_Model->f_selects('td_purchase',array('ro_no','invoice_no'),array('trans_dt >='=> $frm_date,'trans_dt <='=>$to_date),0);
                 }else{
                     $branch_id = $this->input->post('branch_id');
                     $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+                    $data['inv_detail']   = $this->Report_Model->f_selects('td_purchase',array('ro_no','invoice_no'),
+                    array('trans_dt >='=> $frm_date,'trans_dt <='=>$to_date,'br'=>$branch_id),0);
                 }
             }else{
                 $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
+                $data['inv_detail']   = $this->Report_Model->f_selects('td_purchase',array('ro_no','invoice_no'),array('trans_dt >='=> $frm_date,'trans_dt <='=>$to_date,'br'=>$branch_id),0);
             }
           
             $this->load->view('post_login/finance_main');

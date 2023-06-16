@@ -85,6 +85,7 @@
                         <th rowspan='2'>Narration</th>
                         <th rowspan='2'>Voucher No</th>
                         <th rowspan='2'>Ref. No.</th>
+                        <th rowspan='2'>Invoice No.</th>
                         <th colspan='2'>Transaction</th>
                     </tr>
                     <tr>
@@ -161,6 +162,12 @@
   			<td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
 
             <td><?php if(!empty($tb->trans_no)){echo $tb->trans_no;} ?></td>
+            <td><?php foreach($inv_detail as $inv) {
+                if(!empty($tb->trans_no)){
+                    if($tb->trans_no == $inv->ro_no){ echo $inv->invoice_no; }
+                }
+                
+            } ?></td>
             <td align="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
             <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
 
@@ -182,10 +189,12 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th align="right"><?=$tot_debit?></th>
                 <th align="right"><?=$tot_cre?></th>
             </tr>
             <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
