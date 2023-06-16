@@ -123,6 +123,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td><?php  if($opebalcal){ if($opebalcal->trans_flag=='DR'){
                                             echo abs($ope_bal);
                                             }else{
