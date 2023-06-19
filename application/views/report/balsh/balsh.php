@@ -25,7 +25,7 @@ tr:hover {background-color: #f5f5f5;}
         var WindowObject = window.open('', 'Print-Window');
         WindowObject.document.open();
         WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title><style type="text/css">');
+        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">');
 
 
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
@@ -59,8 +59,8 @@ tr:hover {background-color: #f5f5f5;}
 
                     <div style="text-align:center;">
 
-                        <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
-                        <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                         <h4>BARRACKPORE CENTRAL ZONE WHOLESALE CONSUMERS' COOPERATIVE SOCIETY LIMITED.</h4>
+						 <h5>87, MADHUPANDIT  ROAD, P.O-TALPUKUR, 24 PARGANAS (NORTH) ,700123</h5>
                         
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
 
@@ -79,28 +79,37 @@ tr:hover {background-color: #f5f5f5;}
                     <tbody> 
                       <tr>
                         <td> 
-                        <table>
+                        <table style="width: 100%;">
                             <tr>
                             <th>Sl</th> 
-                            <th>A/C Code</th> 
                             <th>LIABILITIES</th>
-                            <th>Cr.</th>  
+                            <th>Amount(Rs)</th>  
                             
-                            </tr> 
-                            <?php
-                                if($trail_balnce){
-
-                                    $i = 1;$otot_dr =0.00;$otot_cr =0.00;
+                             
+                            <?php    $i = 1;$otot_dr =0.00;$otot_cr =0.00;
                                     $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
                                     $val =0; $ope_bal = 0.00;$cls_bal = 0.00;$type='';
 									$ctot_dr =0.00;$ctot_cr =0.00;
+
+                                if($lib_bal){
+                                      foreach($mngrl as  $mn){
                                 ?>
-                                <?php   foreach($trail_balnce as $tb){ $type = $tb->type; 
-                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
-                                 <?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt)  {  ?>  
+                                </tr><td></td><td><b><?=$mn->mng_name?></b></td><td></td></tr>
+                                </tr>
+                                <?php   foreach($lib_bal as $tb){
+                                       if($mn->mngr_id == $tb->mngr_id) {
+                                    
+                                    $type = $tb->type; 
+                                   if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) { 
+                                        
+                                        ?>
+                                 <?php 
+                                 
+                             // if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt)  { 
+                                    ?>  
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                     <td ><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt) echo $tb->benfed_ac_code; ?></td>
+                             
 									 
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
@@ -122,16 +131,15 @@ tr:hover {background-color: #f5f5f5;}
                                         } ?>
 									       								
                                      <?php } ?>
-
                                   
                                     <?php $tot_dr +=$tb->dr_amt; ?>
                                    <?php  $tot_cr +=$tb->cr_amt; ?>
-                                   
-                                     <td><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt) echo $tb->ac_name;  ?></td>
-                                     <td style="text-align: right;"><?php if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt){ ?>
+                                     <td><?php //if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt) 
+                                     echo $tb->ac_name;  ?></td>
+                                     <td style="text-align: right;">
 										  <?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
+                                         // echo $tb->mngr_id;
 													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
-										 <?php } ?>
 									 </td>
                                      <?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
 									       <?php 
@@ -141,16 +149,23 @@ tr:hover {background-color: #f5f5f5;}
 								
                                 </tr>
  
-                                <?php   }
-                                    }                    
+                                <?php  
+                                
+                     //      }
+                                   } 
+                                    }
                                     }
                                 ?>
+
                                 <tr style="font-weight: bold;">
 								    
 
 								</tr>
                                 <?php 
-                                       }
+
+                                          }
+
+                                }
                                 else{
                                     echo "<tr><td colspan='4' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
@@ -160,27 +175,27 @@ tr:hover {background-color: #f5f5f5;}
                         </table>
                     </td>
                     <td>        
-                        <table>
+                        <table style="width: 100%;">
                             <tr>
-                            <th>A/C Code</th>
                             <th>ASSETS</th>
-                            <th>Dr.</th>
+                            <th>Amount(Rs)</th>
                             </tr>
                      
                             <?php
-                                if($trail_balnce){
-
-                                    // $i = 1;$otot_dr =0.00;$otot_cr =0.00;
-                                    // $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
-                                    // $val =0; $ope_bal = 0.00;$cls_bal = 0.00;$type='';
-									// $ctot_dr =0.00;$ctot_cr =0.00;
+                                if($assets_bal){
+                                     foreach($mngra as  $mna){
                                 ?>
-                                <?php   foreach($trail_balnce as $tb){ $type = $tb->type; 
+                                 </tr><td><b><?=$mna->mng_name?></b></td><td></td></tr>
+                                <?php   foreach($assets_bal as $tb){ $type = $tb->type; 
                                     if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
-                                  <?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) { ?>   
+                                  <?php 
+                                  
+                             //     if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) { 
+                                    
+                                    ?>   
                                 <tr class="rep">
                                    
-                                     <td ><?php echo $tb->benfed_ac_code; ?></td>
+                                 
 									 
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
@@ -207,27 +222,28 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <?php  $tot_dr +=$tb->dr_amt; ?></td>
                                      <?php $tot_cr +=$tb->cr_amt; ?>
-                                   
-                                  
 								
-                                     <td ><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) echo $tb->ac_name; ?></td>
+                                     <td ><?php // if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) 
+                                     echo $tb->ac_name; ?></td>
                                    
-                                     <td style="text-align: right;"><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
+                                     <td style="text-align: right;"><?php //if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ 
+                                        ?>
 									       <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
 													$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
 										   ?>
-								         <?php }  ?>
+								         <?php //}  ?>
 									 </td>
                                 </tr>
  
-                                <?php  }
+                                <?php 
+                                // }
                                     }                    
                                     }
                                 ?>
                                 <tr style="font-weight: bold;">
 								   
 								</tr>
-                                <?php 
+                                <?php }
                                        }
                                 else{
                                     echo "<tr><td colspan='6' style='text-align:center;'>No Data Found</td></tr>";
@@ -242,9 +258,36 @@ tr:hover {background-color: #f5f5f5;}
                     </tr>
                     <tr style="font-weight: bold;">     
                             
+                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format(abs($ctot_cr),2)?></td>
+                            <td style="text-align: right;"><?php echo number_format(abs($ctot_dr),2)?></td>
+                    </tr> 
+
+                    <?php 
+                            $calamt  = $ctot_cr -$ctot_dr;
+                          if($calamt > 0){   ?>
+                         <tr style="font-weight: bold;"> 
+                        <td style="text-align: right;"> </td>
+                          <td style="text-align:right;">Current Loss: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($calamt),2)?></td>
+                          </tr>
+
+                          <tr style="font-weight: bold;">     
                             <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($ctot_cr),2)?></td>
-                            <td style="text-align: right;"><?=number_format(abs($ctot_dr),2)?></td>
-                    </tr>
+                            <td style="text-align:right;"><?=number_format((abs($ctot_dr)+abs($calamt)),2)?></td>
+                         </tr>
+
+                     
+
+                       <?php      }else {  ?>
+
+                        <tr style="font-weight: bold;"> 
+                          <td style="text-align: right;">Current Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($calamt),2)?></td>
+                          <td style="text-align:right;"> </td>
+                          </tr>      
+                          <tr style="font-weight: bold;">     
+                            <td style="text-align: right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($ctot_dr+$calamt),2)?></td>
+                            <td style="text-align:right;"><?=number_format(abs($ctot_cr),2)?> kkkk</td>
+                         </tr>
+                        <?php } ?>
                 </table>
 
 
