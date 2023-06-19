@@ -495,7 +495,7 @@ order by type,ac_name";
                   and c.sl_no= e.mngr_id
                   group by e.name,c.type,b.mngr_id,UPPER(d.trans_flag)
                   union
-                  SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0)), sum(if(dr_cr_flag='Cr',a.amount,0)),b.mngr_id , d.name,c.type ,UPPER(a.dr_cr_flag)dr_cr_flag
+                  SELECT 0 op_dr,0 op_cr,if(dr_cr_flag='Dr',sum(a.amount),0), if(dr_cr_flag='Cr',sum(a.amount),0),b.mngr_id , d.name,c.type ,UPPER(a.dr_cr_flag)dr_cr_flag
                   FROM td_vouchers a,md_achead b,mda_mngroup c,mda_subgroub d
                   WHERE a.acc_code=b.sl_no
                   and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
