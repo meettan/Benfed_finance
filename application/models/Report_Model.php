@@ -486,7 +486,7 @@ order by type,ac_name";
                    and c.sl_no= d.mngr_id and b.subgr_id=d.sl_no
                       group by d.name,c.type,b.mngr_id ,b.subgr_id,dr_cr_flag
                   union
-                  SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag) from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
+                  SELECT if(d.trans_flag='DR',sum(d.amount),0),if(d.trans_flag='CR',sum(d.amount),0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag) from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
                   where d.balance_dt=(select max(balance_dt)
                                           from td_opening
                                           where balance_dt<='$frm_date')
@@ -531,7 +531,7 @@ order by type,ac_name";
                c.sl_no=$group_id
                  group by d.name,c.type,b.mngr_id ,b.subgr_id,dr_cr_flag
              union
-             SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag) from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
+             SELECT if(d.trans_flag='DR',sum(d.amount),0),if(d.trans_flag='CR',sum(d.amount),0),0 ,0 ,b.mngr_id, e.name,c.type,UPPER(d.trans_flag) from md_achead b,mda_mngroup c,td_opening d, mda_subgroub e
              where d.balance_dt=(select max(balance_dt)
                                      from td_opening
                                      where balance_dt<='$frm_date')
