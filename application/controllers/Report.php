@@ -231,7 +231,7 @@ public function jrnlprn()
                 // echo $this->db->last_query();
                 // exit();
                 $this->load->view('post_login/finance_main');
-                $this->load->view('report/trail_bal/trail_bal.php',$data);
+                $this->load->view('report/trail_bal/con_trail_bal.php',$data);
                 $this->load->view('post_login/footer');
             // }
 
@@ -318,6 +318,7 @@ public function jrnlprn()
                 $data['fd_date']=$frm_date;
                 $group_id = $this->input->post('group_id');
                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id);
+                //echo $this->db->last_query();die();
                 $data['sbgrop']=$this->input->post('subgroupinputvalue');
                 $this->load->view('post_login/finance_main');
                 $this->load->view('report/trail_bal/consolidated_trail_bal_group/trail_bal.php',$data);
