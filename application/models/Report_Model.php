@@ -966,7 +966,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         return $this->db->where('br_id', $branch_id)->where('BNK_flag', 'B')->get('md_achead')->result();
     }
     function f_get_balsh_mngr_lib($frm_date, $to_date, $op_dt, $brid)
-    {
+    {   
         $sql = "select distinct c.mngr_id,g.name mng_name
             from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
                 from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
@@ -1193,36 +1193,228 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
                     and c.type in (3,4)                                            
                     group by c.mngr_id,c.subgr_id,f.name,g.name,c.type  
                 ORDER BY C.mngr_id ASC";
-        // }else{
        
-        // $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code
-        // from( SELECT if(type=3,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=4,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code
-        // from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code
-        // from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id, b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code
-        // FROM td_vouchers a ,md_achead b,mda_mngroup c
-        // WHERE a.acc_code=b.sl_no
-        // and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt'
-        // AND a.trans_dt<='$frm_date'
-        // and a.approval_status='A' and a.branch_id=$brid
-        // group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id
-        // union
-        // SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code from md_achead b,mda_mngroup c,td_opening d where d.balance_dt=(select max(balance_dt)
-        // from td_opening
-        // where balance_dt<='$frm_date') and b.mngr_id = c.sl_no
-        // and b.sl_no=d.acc_code and b.br_id=$brid group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id )b group by mngr_id, ac_name,type,benfed_ac_code )a group by benfed_ac_code
-        // union
-        // SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id , b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
-        // FROM td_vouchers a,md_achead b,mda_mngroup c
-        // WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no
-        // and a.voucher_date >= '$frm_date'
-        // AND a.voucher_date <= '$to_date'
-        // And a.branch_id=$brid and a.approval_status='A'
-        // AND a.branch_id =$brid
-        // group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
-        // where type in (3,4)
-        // group by mngr_id, ac_name,type,benfed_ac_code
-        // order by type, ac_name";
-        // }
+        $query  = $this->db->query($sql);
+        return $query->result();
+    }
+
+    function f_get_con_balsh_mngr_lib($frm_date, $to_date, $op_dt)
+    {   
+        $sql = "select distinct c.mngr_id,g.name mng_name
+            from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
+                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+            from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
+            FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
+            and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+            group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+                union 
+                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
+                from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) 
+            from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+                group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a                                                                     group by benfed_ac_code 
+                union 
+                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+                FROM td_vouchers a,md_achead b,mda_mngroup c 
+                WHERE a.acc_code=b.sl_no 
+                and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
+                and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+                where c.subgr_id=f.sl_no
+                and c.mngr_id=g.sl_no
+                and c.type in (1)                                            
+            ORDER BY C.mngr_id ASC";
+            $query  = $this->db->query($sql);
+            return $query->result();
+    }
+    function f_get_con_balsh_mngr_asst($frm_date, $to_date, $op_dt)
+    {
+        $sql = "select distinct c.mngr_id,g.name mng_name
+            from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
+                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+            from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
+            FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
+            and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+            group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+                union 
+                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
+                from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) 
+            from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code 
+                group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a                                                                     group by benfed_ac_code 
+                union 
+                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+                FROM td_vouchers a,md_achead b,mda_mngroup c 
+                WHERE a.acc_code=b.sl_no 
+                and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
+                and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+                where c.subgr_id=f.sl_no
+                and c.mngr_id=g.sl_no
+                and c.type in (2)                                            
+            ORDER BY C.mngr_id ASC";
+            $query  = $this->db->query($sql);
+            return $query->result();
+    }
+    function f_get_con_balsh_br_lib($frm_date, $to_date, $op_dt)
+    {
+        $dmo = date('m-d', strtotime($frm_date));
+
+            $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,c.subgr_id,g.name mng_name
+            ,f.name ac_name,dr_cr_flag,c.type 
+            from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
+                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+            from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
+            FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
+            and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+            group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+                union 
+                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
+                from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) 
+            from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+                group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a group by benfed_ac_code 
+                union 
+                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+                FROM td_vouchers a,md_achead b,mda_mngroup c 
+                WHERE a.acc_code=b.sl_no 
+                and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
+                and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+                where c.subgr_id=f.sl_no
+                and c.mngr_id=g.sl_no
+                and c.type=1
+				and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0
+                group by c.mngr_id,c.subgr_id,f.name,g.name,c.type  
+            ORDER BY C.mngr_id ASC";
+
+        $query  = $this->db->query($sql);
+        return $query->result();
+    }
+    function f_get_con_balsh_br_asst($frm_date, $to_date, $op_dt)
+    {
+            $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,c.subgr_id,g.name mng_name
+            ,f.name ac_name,dr_cr_flag,c.type 
+            from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
+                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+            from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
+            FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
+            and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+            group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+                union 
+                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
+                from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) 
+            from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+                group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a group by benfed_ac_code 
+                union 
+                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+                FROM td_vouchers a,md_achead b,mda_mngroup c 
+                WHERE a.acc_code=b.sl_no 
+                and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
+                and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+                where c.subgr_id=f.sl_no
+                and c.mngr_id=g.sl_no
+                and c.type =2
+				and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0
+                group by c.mngr_id,c.subgr_id,f.name,g.name,c.type  
+            ORDER BY C.mngr_id ASC";
+        $query  = $this->db->query($sql);
+        return $query->result();
+    }
+    function f_get_group_balsh_br_lib($frm_date, $to_date, $op_dt)
+    {
+        $dmo = date('m-d', strtotime($frm_date));
+
+//             $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,c.subgr_id,g.name mng_name
+//             ,f.name ac_name,dr_cr_flag,c.type
+//             from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code
+//                 from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+//             from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code
+//             FROM td_vouchers a ,md_achead b,mda_mngroup c
+//             WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no
+//             and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+//             group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+//                 union
+//                 SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code
+//                 from md_achead b,mda_mngroup c,td_opening d
+//             where d.balance_dt=(select max(balance_dt)
+//             from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+//                 group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b
+//             group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a                                                                     group by benfed_ac_code
+//                 union
+//                 SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code
+//                 FROM td_vouchers a,md_achead b,mda_mngroup c
+//                 WHERE a.acc_code=b.sl_no
+//                 and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
+//                 and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+//                 where c.subgr_id=f.sl_no
+//                 and c.mngr_id=g.sl_no
+//                 and c.type=1
+// and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0
+//                 group by c.mngr_id,g.name,c.type  
+//             ORDER BY C.mngr_id ASC";
+            $sql ="select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,
+            c.subgr_id,g.name mng_name ,f.name ac_name,dr_cr_flag,c.type from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,
+            0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code from( select sum(op_dr)op_dr, 
+            sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,
+            subgr_id from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , 
+            sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, 
+            UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='2023-04-01' AND a.trans_dt<='2023-04-01' 
+            and a.approval_status ='A' group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id 
+            union SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,
+            c.type,UPPER(d.trans_flag),b.benfed_ac_code from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) from td_opening where balance_dt<='2023-04-01') 
+            and b.mngr_id = c.sl_no and b.sl_no=d.acc_code group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a group by benfed_ac_code 
+            union SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,
+            b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+            FROM td_vouchers a,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '2023-04-01' 
+            and a.approval_status = 'A' AND a.voucher_date <= '2024-03-31' group by b.ac_name,a.dr_cr_flag,
+            b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g where c.subgr_id=f.sl_no 
+            and c.mngr_id=g.sl_no and c.type=1 and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0 group by c.mngr_id,g.name,c.type
+            ORDER BY C.mngr_id ASC";
+
+        $query  = $this->db->query($sql);
+        return $query->result();
+    }
+    function f_get_group_balsh_br_asst($frm_date, $to_date, $op_dt)
+    {
+            $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,g.name mng_name
+            ,dr_cr_flag,c.type 
+            from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
+                from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
+            from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
+            FROM td_vouchers a ,md_achead b,mda_mngroup c 
+            WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
+            and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
+            group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
+                union 
+                SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
+                from md_achead b,mda_mngroup c,td_opening d 
+            where d.balance_dt=(select max(balance_dt) 
+            from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
+                group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
+            group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a group by benfed_ac_code 
+                union 
+                SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
+                FROM td_vouchers a,md_achead b,mda_mngroup c 
+                WHERE a.acc_code=b.sl_no 
+                and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
+                and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
+                where c.subgr_id=f.sl_no
+                and c.mngr_id=g.sl_no
+                and c.type =2
+				and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0
+                group by c.mngr_id,g.name,c.type  
+            ORDER BY C.mngr_id ASC";
         $query  = $this->db->query($sql);
         return $query->result();
     }

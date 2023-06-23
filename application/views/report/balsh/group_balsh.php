@@ -64,7 +64,7 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
-                            <h4><?php if($district == 0) { echo 'Consolidated'; ?>  <?php } ?>Balance Sheet as on : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
+                            <h4>Group Wise Balance Sheet as on : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
                   
                     </div>
                     <div class="printTop023">
@@ -83,8 +83,7 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             <!-- <th>Sl</th>  -->
                             <th>LIABILITIES</th>
-                            <th>Amount(Rs)</th> 
-                            <th>DR/CR FLAG</th> 
+                            <th>Amount(Rs)</th>  
                             
                              
                             <?php    $i = 1;$otot_dr =0.00;$otot_cr =0.00;
@@ -93,18 +92,20 @@ tr:hover {background-color: #f5f5f5;}
 									$ctot_dr =0.00;$ctot_cr =0.00;
 
                                 if($lib_bal){
-                                      foreach($mngrl as  $mn){
+                                //      foreach($mngrl as  $mn){
                                 ?>
-                                </tr><td><b><?=$mn->mng_name?></b></td><td></td></tr>
+                                </tr><td><b></b></td><td></td></tr>
                                 </tr>
                                 <?php   foreach($lib_bal as $tb){
-                                       if($mn->mngr_id == $tb->mngr_id) {
+                                  //     if($mn->mngr_id == $tb->mngr_id) {
                                     
                                     $type = $tb->type; 
                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) { 
                                         
                                         ?>
                                  <?php 
+                                 
+                             // if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt)  { 
                                     ?>  
                                 <tr class="rep">
                                      <!-- <td class="report"><?php //echo $i++; ?></td> -->
@@ -134,29 +135,26 @@ tr:hover {background-color: #f5f5f5;}
                                     <?php $tot_dr +=$tb->dr_amt; ?>
                                    <?php  $tot_cr +=$tb->cr_amt; ?>
                                      <td><?php //if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt) 
-                                     echo $tb->ac_name;  ?></td>
+                                     echo $tb->mng_name;  ?></td>
                                      <td style="text-align: right;">
 										  <?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
                                          // echo $tb->mngr_id;
-													$ctot_cr +=($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
+													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
 									 </td>
-                                    <td>
-                                   <?php 
-                                      if($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt) > 0) {
-                                         echo 'CR';
-                                      }else{ echo 'DR'; }
-                                     ?>
-                                    
-                                    </td>
-                                     
+                                     <?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
+									       <?php 
+													//$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
+										   ?>
+								         <?php }  ?>
+								
                                 </tr>
  
                                 <?php  
                                 
                      //      }
                                    } 
-                                    }
-                                    }
+                                   }
+                            //        }
                                 ?>
 
                                 <tr style="font-weight: bold;">
@@ -165,7 +163,7 @@ tr:hover {background-color: #f5f5f5;}
 								</tr>
                                 <?php 
 
-                                          }
+                                     //     }
 
                                 }
                                 else{
@@ -181,21 +179,28 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             <th>ASSETS</th>
                             <th>Amount(Rs)</th>
-                            <th>DR/CR FLAG</th> 
                             </tr>
                      
                             <?php
                                 if($assets_bal){
-                                     foreach($mngra as  $mna){
+                                 //    foreach($mngra as  $mna){
                                 ?>
-                                 </tr><td><b><?=$mna->mng_name?></b></td><td></td></tr>
-                                <?php   foreach($assets_bal as $tb){ 
-                                         if($mna->mngr_id == $tb->mngr_id) {
-                                    $type = $tb->type; 
+                                 </tr>
+                                 <td><b>
+                                    <!-- <?php // $mna->mng_name ?> -->
+                                </b></td><td></td>
+                                </tr>
+                                <?php   foreach($assets_bal as $tb){ $type = $tb->type; 
                                     if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
+                                  <?php 
+                                  
+                             //     if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) { 
                                     
+                                    ?>   
                                 <tr class="rep">
                                    
+                                 
+									 
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
 
@@ -222,32 +227,27 @@ tr:hover {background-color: #f5f5f5;}
                                      <?php  $tot_dr +=$tb->dr_amt; ?></td>
                                      <?php $tot_cr +=$tb->cr_amt; ?>
 								
-                                     <td ><?php echo $tb->ac_name; ?></td>
-                                     <td style="text-align: right;">
+                                     <td ><?php // if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) 
+                                     echo $tb->mng_name; ?></td>
+                                   
+                                     <td style="text-align: right;"><?php //if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ 
+                                        ?>
 									       <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
-													$ctot_dr += ($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
+													$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
 										   ?>
+								         <?php //}  ?>
 									 </td>
-                                     <td> <?php 
-                                      if($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)> 0) {
-                                         echo 'DR';
-                                      }else{ echo 'CR'; }
-                                     ?></td>
                                 </tr>
  
                                 <?php 
-                             
-                                    }     
-                                    
-                                }
-
+                                // }
+                                    }                    
                                     }
                                 ?>
                                 <tr style="font-weight: bold;">
 								   
 								</tr>
-                                <?php 
-                                }
+                                <?php    // }
                                        }
                                 else{
                                     echo "<tr><td colspan='6' style='text-align:center;'>No Data Found</td></tr>";

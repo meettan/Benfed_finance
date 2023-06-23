@@ -906,10 +906,8 @@ public function voucher_dtls(){
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
             $brid=$this->session->userdata['loggedin']['branch_id'];
-            // $data['mngrl']           = $this->Report_Model->f_get_balsh_mngr_lib($frm_date,$to_date,$opndt,$brid);
-            // $data['mngra']           = $this->Report_Model->f_get_balsh_mngr_asst($frm_date,$to_date,$opndt,$brid);
-            // $data['trail_balnce']   = $this->Report_Model->f_get_balsh_br($frm_date,$to_date,$opndt,$brid);
-
+          
+            $data['district']     = 1;      //  Represent Districtwise 
             $data['mngrl']        = $this->Report_Model->f_get_balsh_mngr_lib($frm_date,$to_date,$opndt,$brid);
             $data['mngra']        = $this->Report_Model->f_get_balsh_mngr_asst($frm_date,$to_date,$opndt,$brid);
             $data['lib_bal']      = $this->Report_Model->f_get_balsh_br_lib($frm_date,$to_date,$opndt,$brid);
@@ -924,6 +922,84 @@ public function voucher_dtls(){
 			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/balsh/balsh_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+    public function con_balsh(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date   =   $_POST['from_date'];
+            $to_date    =   $_POST['to_date'];
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+                $year = $yr;
+            }else{
+                $year = $yr - 1;
+            }
+
+            $opndt      =  date($year.'-04-01');
+            $data['fd_date']=$frm_date;
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $brid=$this->session->userdata['loggedin']['branch_id'];
+            $data['district']     = 0;
+            $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);
+            $data['mngra']        = $this->Report_Model->f_get_con_balsh_mngr_asst($frm_date,$to_date,$opndt);
+            $data['lib_bal']      = $this->Report_Model->f_get_con_balsh_br_lib($frm_date,$to_date,$opndt);
+			$data['assets_bal']   = $this->Report_Model->f_get_con_balsh_br_asst($frm_date,$to_date,$opndt);
+
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/balsh.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/con_balsh_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+    public function group_balsh(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date   =   $_POST['from_date'];
+            $to_date    =   $_POST['to_date'];
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+                $year = $yr;
+            }else{
+                $year = $yr - 1;
+            }
+
+            $opndt      =  date($year.'-04-01');
+            $data['fd_date']=$frm_date;
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $brid=$this->session->userdata['loggedin']['branch_id'];
+            $data['district']     = 0;
+            $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);
+            $data['mngra']        = $this->Report_Model->f_get_con_balsh_mngr_asst($frm_date,$to_date,$opndt);
+            $data['lib_bal']      = $this->Report_Model->f_get_group_balsh_br_lib($frm_date,$to_date,$opndt);
+			$data['assets_bal']   = $this->Report_Model->f_get_group_balsh_br_asst($frm_date,$to_date,$opndt);
+
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/group_balsh.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/group_balsh_ip.php',$data);
             $this->load->view('post_login/footer');
         }
 
