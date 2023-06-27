@@ -249,15 +249,27 @@
                         <a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
                         <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a>
 
-
-
-                        <a href="<?php echo site_url('trailbal'); ?>">Trial balance </a>
-                        <a href="<?php echo site_url('balsh'); ?>">Balance Sheet</a>
-                        <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet</a>
-                        <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet</a>
+                        
+                        <div class="sub-dropdown">
+                                <a class="sub-dropbtn">Trial balance <i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <div class="sub-dropdown-content">
+                                    <a href="<?php echo site_url('trailbal'); ?>">Trial balance</a>
+                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
+                                    <a href="<?php echo site_url('groupwise-trailbal'); ?>">Group wise Consolidated Trial</a>
+                                </div>
+                        </div>
+                        <div class="sub-dropdown">
+                                <a class="sub-dropbtn">Balance Sheet<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <div class="sub-dropdown-content">
+                                <a href="<?php echo site_url('balsh'); ?>">Balance Sheet</a>
+                                <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet</a>
+                                <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet</a>
+                                </div>
+                        </div>
+                       
                         <a href="<?php echo site_url('pl'); ?>">Profit & Loss(pl)</a>
                         <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
-                            <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
+                            
                             <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details</a>
                             <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Acc details</a>
                         <?php } ?>
@@ -276,15 +288,9 @@
                                     <!--  <a href="<?php //echo site_url('trailbal_group'); 
                                                     ?>">Trial balance group</a> 
                                 <?php } ?>
-
                             </div>
                         </div> -->
                         <!-- </div> -->
-
-
-
-
-
 
                         <!-- <a href="<?php //echo site_url('gl'); 
                                         ?>">GL</a> -->
