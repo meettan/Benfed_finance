@@ -255,7 +255,7 @@
                                 <div class="sub-dropdown-content">
                                     <a href="<?php echo site_url('trailbal'); ?>">Trial balance</a>
                                     <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
-                                    <a href="<?php echo site_url('groupwise-trailbal'); ?>">Group wise Consolidated Trial</a>
+                                    <a href="<?php echo site_url('report/groupwise_trailbal'); ?>">Group wise Consolidated Trial</a>
                                 </div>
                         </div>
                         <div class="sub-dropdown">
