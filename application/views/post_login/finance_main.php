@@ -253,17 +253,25 @@
                         <div class="sub-dropdown">
                                 <a class="sub-dropbtn">Trial balance <i class="fa fa-angle-right" style="float: right;"></i></a>
                                 <div class="sub-dropdown-content">
+                                <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                                     <a href="<?php echo site_url('trailbal'); ?>">Trial balance</a>
                                     <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial</a>
                                     <a href="<?php echo site_url('report/groupwise_trailbal'); ?>">Group wise Consolidated Trial</a>
+                                    <?php }else{ ?>
+                                    <a href="<?php echo site_url('report/groupwise_districtwise_trailbal'); ?>">Group wise Consolidated Trial</a>
+                                    <?php } ?>
                                 </div>
                         </div>
                         <div class="sub-dropdown">
                                 <a class="sub-dropbtn">Balance Sheet<i class="fa fa-angle-right" style="float: right;"></i></a>
                                 <div class="sub-dropdown-content">
+                                <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                                 <a href="<?php echo site_url('balsh'); ?>">Balance Sheet</a>
                                 <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet</a>
                                 <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet</a>
+                                <?php }else{ ?>
+                                <a href="<?php echo site_url('report/group_dist_balsh'); ?>">Group Wise Balance Sheet</a>
+                                <?php } ?>
                                 </div>
                         </div>
                        
