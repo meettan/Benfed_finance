@@ -817,7 +817,27 @@ public function voucher_dtls(){
 	        $this->load->view('post_login/footer');
 			
 		}elseif($type=='RECV'){
-            
+                        
+                     $select3        = array("comp_id","comp_name");
+                     $product['compdtls']   = $this->Report_Model->f_selects('mm_company_dtls',$select3,NULL,0);
+                            
+                    $select2         = array("ro_no","qty");
+        
+                    $product['rodtls']      = $this->Report_Model->f_selects('td_purchase',$select2,NULL,0);
+        
+                    $where1  =array('district'=> $this->session->userdata['loggedin']['branch_id']);
+                    
+                    $select1          = array("soc_id","soc_name","soc_add","gstin");
+                    $product['socdtls']    = $this->Report_Model->f_selects('mm_ferti_soc',$select1,$where1,0);
+        
+                    $select          = array("prod_id","prod_desc","gst_rt");
+                    $product['proddtls']   = $this->Report_Model->f_selects('mm_product',$select,NULL,0);	
+                   
+                    $product['paydtls']    = $this->Report_Model->f_get_cust_paydtls($trans_no);
+        
+                    $this->load->view('post_login/finance_main');
+                    $this->load->view("trans_detail_fertilizer/receive_payment",$product);
+                    $this->load->view('post_login/footer');
 
         }
 
@@ -874,9 +894,7 @@ public function voucher_dtls(){
             
             
             $data['cashbook']     = $this->Report_Model->f_get_cashbook($frm_date,$to_date);
-        
-// echo $this->db->last_query();
-//             exit();
+
             $this->load->view('post_login/finance_main');
             $this->load->view('report/cashbook/cashbook.php',$data);
             $this->load->view('post_login/footer');
@@ -923,12 +941,6 @@ public function voucher_dtls(){
           }else{
             $data['trail_balnce']     = $this->Report_Model->f_get_acdeatil($frm_date,$to_date,$acc_head,$branch_id);
           }
-
-          
-        //     $this->load->view('post_login/finance_main');
-        //     $this->load->view('report/ac_detail/ac_detail.php',$data);
-        //     $this->load->view('post_login/footer');
-        //    // $this->load->view('post_login/footer');
 
 
 

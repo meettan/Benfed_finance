@@ -65,6 +65,60 @@ class Report_model extends CI_Model
             return $value->result();
         }
     }
+    public function f_get_cust_paydtls($bnk_id){
+	
+		$data =  $this->db2->query("select  a.sl_no,
+		a.paid_id as paid_id,
+		a.paid_dt,
+		a.soc_id,
+		a.sale_invoice_no,
+		a.sale_invoice_dt,
+		a.ro_no,
+		a.pay_type,
+		a.ref_no,
+		a.ref_dt,
+		a.bnk_id,
+		a.tot_recvble_amt,
+		a.adj_dr_note_amt,
+		a.adj_adv_amt,
+		a.net_recvble_amt,
+		a.cshbnk_flag,
+		a.paid_amt,b.bank_name,b.ifsc,b.ac_no,a.remarks as remarks
+		from tdf_payment_recv a,mm_feri_bank b
+		where a.bnk_id=b.sl_no
+		and paid_id = '$bnk_id'
+		and  cshbnk_flag = '1'
+		UNION
+		select  sl_no,
+		paid_id as paid_id,
+		paid_dt,
+		soc_id,
+		sale_invoice_no,
+		sale_invoice_dt,
+		ro_no,
+		pay_type,
+		ref_no,
+		ref_dt,
+		bnk_id,
+		tot_recvble_amt,
+		adj_dr_note_amt,
+		adj_adv_amt,
+		net_recvble_amt,
+		cshbnk_flag,
+		paid_amt,
+		''bank_name,
+		''ifsc,
+		''ac_no,
+		remarks as remarks
+		from tdf_payment_recv 
+		where  paid_id = '$bnk_id'
+		and    cshbnk_flag = '0'
+		");
+							   
+		$result = $data->result();  
+ 		return $result;
+	   
+   }
 
     public function js_get_sale_rate($br_cd, $comp_id, $ro_dt, $prod_id)
     {
@@ -1614,4 +1668,5 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         $query  = $this->db->query($sql);
         return $query->result();
     }
+    
 }
