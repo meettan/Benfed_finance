@@ -244,7 +244,6 @@
                             </div>
                         </div>
                         <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details</a>
-
                         <!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
                         <a href="<?php echo site_url('cashbook'); ?>">Cashbook</a>
                         <a href="<?php echo site_url('bankbook'); ?>">Bankbook</a>
@@ -276,10 +275,10 @@
                         </div>
                        
                         <a href="<?php echo site_url('pl'); ?>">Profit & Loss(pl)</a>
+                        <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details</a>
+                        <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Acc details</a>
                         <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                             
-                            <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details</a>
-                            <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Acc details</a>
                         <?php } ?>
                         <!-- <div class="dropdown-content"> -->
                         <!-- <div class="sub-dropdown">

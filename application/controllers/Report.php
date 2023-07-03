@@ -150,30 +150,17 @@ public function jrnlprn()
 
             $data['fd_date']=$frm_date;
 
-            
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
             $brid=$this->session->userdata['loggedin']['branch_id'];
-           // if($this->session->userdata['loggedin']['branch_id']!=342){
 
             $type=implode(',',$this->input->post('type'));
-
             $data['type']=$this->input->post('type');
-                 
-                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid,$type);
-                 
-                 $this->load->view('post_login/finance_main');
-                 $this->load->view('report/trail_bal/trail_bal.php',$data);
-                 $this->load->view('post_login/footer');
-            // }else{
-
-            // // $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date);
-            //     $data['trail_balnce']     = $this->Report_Model->f_get_trailbal($frm_date,$to_date,$opndt);
-            //     $this->load->view('post_login/finance_main');
-            //     $this->load->view('report/trail_bal/trail_bal.php',$data);
-            //     $this->load->view('post_login/footer');
-            // }
-
+            $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_br($frm_date,$to_date,$opndt,$brid,$type);
+            $data['dist']         = 0;
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/trail_bal/trail_bal.php',$data);
+            $this->load->view('post_login/footer');
         }else{
 			
 			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
@@ -338,9 +325,15 @@ public function jrnlprn()
 
                 $data['type']=$this->input->post('type');
                 $data['fd_date']=$frm_date;
+                if( $this->session->userdata['loggedin']['branch_id'] == 342){
+                    $br_id = NULL;
+                    $data['dist'] = 0; 
+                }else{
+                    $br_id = $this->session->userdata['loggedin']['branch_id'];
+                    $data['dist'] = 1; 
+                }
           
-                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_subgroup($frm_date,$to_date,$opndt,$type,$subgroupId);
-                //echo $this->db->last_query();die();
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_subgroup($frm_date,$to_date,$opndt,$type,$subgroupId,$br_id=NULL);
                 $data['sbgrop']=$this->input->post('subgroupinputvalue');
                 $this->load->view('post_login/finance_main');
                 $this->load->view('report/trail_bal/consolidated_trail_bal_subgroup/trail_bal.php',$data);
@@ -375,16 +368,21 @@ public function jrnlprn()
             
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             
-                // $type=implode(',',$this->input->post('type'));
-                // $data['type']=$this->input->post('type');
-                $data['fd_date']=$frm_date;
-                $group_id = $this->input->post('group_id');
-                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id);
-                //echo $this->db->last_query();die();
-                $data['sbgrop']=$this->input->post('subgroupinputvalue');
-                $this->load->view('post_login/finance_main');
-                $this->load->view('report/trail_bal/consolidated_trail_bal_group/trail_bal.php',$data);
-                $this->load->view('post_login/footer');
+            $data['fd_date']=$frm_date;
+            $group_id = $this->input->post('group_id');
+            if($this->session->userdata['loggedin']['branch_id'] == 342) {
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id,$br_id=NULL);
+                $data['dist']         = 0;
+            }else{
+                $br_id = $this->session->userdata['loggedin']['branch_id'];
+                $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id,$br_id);
+                $data['dist']         = 1;
+            }
+            
+            $data['sbgrop']=$this->input->post('subgroupinputvalue');
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/trail_bal/consolidated_trail_bal_group/trail_bal.php',$data);
+            $this->load->view('post_login/footer');
 
         }else{
 			$sel=array('name','sl_no');
@@ -396,6 +394,7 @@ public function jrnlprn()
         }
 
     }
+    
 
     public function get_subgroup(){
         // echo $this->input->get('group_id');
@@ -666,6 +665,7 @@ public function voucher_dtls(){
         }
 
     }
+    
 	public function f_get_soc(){
 
 		$select   = array("soc_id","soc_add","gstin");
@@ -782,14 +782,11 @@ public function voucher_dtls(){
             $where3 = array(
 
               	"trans_dt" => $this->input->get('trans_dt'),
-                    
                 "trans_no" => $trans_no
             );
 
 			$select        = array("soc_id soc_id","soc_name soc_name");
-
 			$select1       = array("COMP_ID comp_id","COMP_NAME comp_name");
-
 			$select3       =array("a.trans_dt",
 									"a.trans_no",
 									"a.soc_id",
@@ -807,9 +804,7 @@ public function voucher_dtls(){
 							"recpt_no" => $trans_no);
 			 
 			$product['socdtls']    = $this->Report_Model->f_selects('mm_ferti_soc',$select,NULL,0);
-			
 			$product['compdtls']   = $this->Report_Model->f_selects('mm_company_dtls',$select1,NULL,0);
-
 			$product['dr_dtls']    = $this->Report_Model->f_selects('tdf_dr_cr_note a,mm_cr_note_category b ',$select3,$where,1);
 		
 	        $this->load->view('post_login/finance_main');
@@ -818,21 +813,17 @@ public function voucher_dtls(){
 			
 		}elseif($type=='RECV'){
                         
-                     $select3        = array("comp_id","comp_name");
-                     $product['compdtls']   = $this->Report_Model->f_selects('mm_company_dtls',$select3,NULL,0);
-                            
-                    $select2         = array("ro_no","qty");
+                    $select3       = array("comp_id","comp_name");
+                    $product['compdtls']   = $this->Report_Model->f_selects('mm_company_dtls',$select3,NULL,0);
+                    $select2       = array("ro_no","qty");
         
                     $product['rodtls']      = $this->Report_Model->f_selects('td_purchase',$select2,NULL,0);
-        
                     $where1  =array('district'=> $this->session->userdata['loggedin']['branch_id']);
-                    
                     $select1          = array("soc_id","soc_name","soc_add","gstin");
                     $product['socdtls']    = $this->Report_Model->f_selects('mm_ferti_soc',$select1,$where1,0);
         
                     $select          = array("prod_id","prod_desc","gst_rt");
                     $product['proddtls']   = $this->Report_Model->f_selects('mm_product',$select,NULL,0);	
-                   
                     $product['paydtls']    = $this->Report_Model->f_get_cust_paydtls($trans_no);
         
                     $this->load->view('post_login/finance_main');
