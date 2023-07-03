@@ -611,7 +611,7 @@ class Report_model extends CI_Model
             AND a.voucher_date <= '$to_date'
             $dist_vou
             and c.sl_no= d.mngr_id and d.sl_no='$subgroupId'
-            group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
+            group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.benfed_ac_code)C
             where type in (" . $type . ")
             group by mngr_id, ac_name,type,benfed_ac_code
             order by type,ac_name";
@@ -657,7 +657,7 @@ class Report_model extends CI_Model
                 $dist_vou
                 and d.sl_no='$subgroupId'
                 and b.subgr_id=d.sl_no
-                AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
+                AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.benfed_ac_code)C
                 where type in (" . $type . ")
                 group by mngr_id, ac_name,type,benfed_ac_code
                 order by type,ac_name";
