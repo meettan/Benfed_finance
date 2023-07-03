@@ -1629,8 +1629,7 @@ function crn_appview()
 
     public function service_charge_list(){
       
-        $data["listData"]=$this->transaction_model->f_select('td_service_charge',NULL,NULL,0);
-            //  $data["listData"]=$this->Rent_calculation_model->fetch_rent_collection($where=null);
+        $data["listData"]=$this->transaction_model->f_select('td_service_charge',NULL,array('fin_yr'=>$this->session->userdata['loggedin']['fin_id']),0);
         $this->load->view("post_login/finance_main");
         $this->load->view("service/service_list", $data);
         $this->load->view("post_login/footer");
