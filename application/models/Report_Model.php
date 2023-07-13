@@ -565,6 +565,7 @@ class Report_model extends CI_Model
    
     function f_get_trailbal_subgroup($frm_date, $to_date, $op_dt, $type,$subgroupId,$br_id)
     {
+        
         $dist_vou = '';$dist_ope= '';
         if($br_id != ''){
             $dist_vou  = 'and a.branch_id='.$br_id;
@@ -955,9 +956,10 @@ class Report_model extends CI_Model
                                                       and a.branch_id=$branch_id
                                                       and voucher_id in(select a.voucher_id
                                                       from td_vouchers a
-                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' )
+                                                      where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head' and a.branch_id=$branch_id )
                                                       and acc_code=b.sl_no   
                                                       and a.branch_id=$branch_id
+
                                                       group by voucher_id)d
          where a.voucher_date >= '$frm_date' AND a.voucher_date <= '$to_date' and a.acc_code ='$acc_head'
         and a.acc_code = b.sl_no and b.mngr_id = c.sl_no 
