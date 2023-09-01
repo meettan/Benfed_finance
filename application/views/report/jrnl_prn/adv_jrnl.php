@@ -232,13 +232,14 @@
 										'60' => 'sixty', '70' => 'seventy',
 										'80' => 'eighty', '90' => 'ninety'
 									);
-									$digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+									$digits = array('', 'hundred', 'thousand', 'lakh', 'crore','hundred');
 									while ($i < $digits_1) {
 										$divider = ($i == 2) ? 10 : 100;
 										$number = floor($no % $divider);
 										$no = floor($no / $divider);
 										$i += ($divider == 10) ? 1 : 2;
 										if ($number) {
+										
 											$plural = (($counter = count($str)) && $number > 9) ? 's' : null;
 											$hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
 											$str[] = ($number < 21) ? $words[$number] .
