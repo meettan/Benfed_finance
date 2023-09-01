@@ -1152,36 +1152,6 @@ function crn_appview()
         $v_code_Debit   =   $data['acc_code_Debit'];
         $v_dc_Debit     =   $data['dc_flg_Debit'];
         $v_amt_Debit    =   $data['amount_Debit'];
-        
-
-        for ($i = 0; $i < count($v_code); $i++) {
-            $data_array = array(
-                "voucher_date"      =>  $data['voucher_dt'],
-                "sl_no"             =>  $v_id,
-                "voucher_id"        =>  $voucher_id,
-				"fin_yr"            =>  $fin_id,
-                "branch_id"         =>  $this->session->userdata['loggedin']['branch_id'],
-                "trans_no"          =>  0,
-                "voucher_type"      =>  'P',
-                "voucher_mode"      =>  'J',
-                "voucher_through"   =>  'M',
-                "acc_code"          =>  $v_code[$i],
-                "dr_cr_flag"        =>  $v_dc[$i] == 'Debit' ? 'Dr' : 'Cr',
-                "remarks"           =>  $data['remarks'],
-                "amount"            =>  $v_amt[$i],
-                "approval_status"   =>  'U',
-                "user_flag"         =>  'S',
-                "ins_no"            =>  NULL,
-                "ins_dt"            =>  NULL,
-                "created_by"        =>  $this->session->userdata('loggedin')['user_id'],
-                "created_dt"        =>  date('Y-m-d H:i:s')
-            );
-            
-        
-
-            //$this->transaction_model->f_insert('td_vouchers', $data_array);
-            echo '<pre>'; print_r($data_array);
-        }
 
         
         for ($i = 0; $i < count($v_code_Debit); $i++) {
@@ -1211,32 +1181,6 @@ function crn_appview()
            // echo '<pre>'; print_r($data_array);
         }
 
-
-        // $row_array = array(
-        //     "voucher_date"          =>  $data['voucher_dt'],
-        //     "sl_no"                 =>  $v_id,
-        //     "voucher_id"            =>  $voucher_id,
-		// 	"fin_yr"                =>  $fin_id,
-        //     "branch_id"             =>  $this->session->userdata['loggedin']['branch_id'],
-        //     "trans_no"              =>  0,
-        //     "voucher_type"          =>  'P',
-        //     "voucher_mode"          =>  'J',
-        //     "voucher_through"       =>  'M',
-        //     //"acc_code"              =>  $data['acc_cd'],
-        //     //"dr_cr_flag"            =>  $data['dr_cr_flag'] == 'Debit' ? 'Dr' : 'Cr',
-        //     "remarks"               =>  $data['remarks'],
-        //     "amount"                =>  $data['tot_amt'],
-        //     "approval_status"       =>  'U',
-        //     "user_flag"             =>  'M',
-        //     "ins_no"                =>  NULL,
-        //     "ins_dt"                =>  NULL,
-        //     "created_by"            =>  $this->session->userdata('loggedin')['user_id'],
-        //     "created_dt"            =>  date('Y-m-d H:i:s')
-        // );
-
-
-//var_export($row_array);
-//echo "</pre>";
 
 
 //exit();
