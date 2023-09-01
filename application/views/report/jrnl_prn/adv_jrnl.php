@@ -13,7 +13,7 @@
 		font-size: 14px;
 	}
 
-	th {   
+	th {
 
 		text-align: center;
 
