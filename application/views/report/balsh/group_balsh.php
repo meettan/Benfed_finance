@@ -77,14 +77,9 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-lg-12">
                     <table style="width: 100%;" class="table table-hover" id="example">
                     <tbody> 
-                      <tr>
-                        <td> 
-                        <table style="width: 100%;">
                             <tr>
-                            <!-- <th>Sl</th>  -->
                             <th>LIABILITIES</th>
                             <th>Amount(Rs)</th>  
-                            
                              
                             <?php    $i = 1;$otot_dr =0.00;$otot_cr =0.00;
                                     $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
@@ -92,24 +87,16 @@ tr:hover {background-color: #f5f5f5;}
 									$ctot_dr =0.00;$ctot_cr =0.00;
 
                                 if($lib_bal){
-                                //      foreach($mngrl as  $mn){
+                               
                                 ?>
-                                </tr><td><b></b></td><td></td></tr>
                                 </tr>
                                 <?php   foreach($lib_bal as $tb){
-                                  //     if($mn->mngr_id == $tb->mngr_id) {
                                     
                                     $type = $tb->type; 
                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) { 
                                         
-                                        ?>
-                                 <?php 
-                                 
-                             // if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt)  { 
-                                    ?>  
+                                ?>
                                 <tr class="rep">
-                                     <!-- <td class="report"><?php //echo $i++; ?></td> -->
-                             
 									 
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
@@ -134,81 +121,54 @@ tr:hover {background-color: #f5f5f5;}
                                   
                                     <?php $tot_dr +=$tb->dr_amt; ?>
                                    <?php  $tot_cr +=$tb->cr_amt; ?>
-                                     <td><?php //if($tb->op_cr+$tb->cr_amt>$tb->op_dr+$tb->dr_amt) 
-                                     echo $tb->mng_name;  ?></td>
-                                     <td style="text-align: right;">
-										  <?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
-                                         // echo $tb->mngr_id;
-													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
-									 </td>
-                                     <?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
-									       <?php 
-													//$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
-										   ?>
-								         <?php }  ?>
-								
+                                    <td><?php echo $tb->mng_name;  ?></td>
+                                    <td style="text-align: right;">
+										<?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
+											$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
+									</td>
                                 </tr>
  
                                 <?php  
-                                
-                     //      }
                                    } 
                                    }
-                            //        }
                                 ?>
-
-                                <tr style="font-weight: bold;">
-								    
-
-								</tr>
-                                <?php 
-
-                                     //     }
+                                <?php
 
                                 }
                                 else{
                                     echo "<tr><td colspan='4' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
                             ?>
-                          
-                    
-                        </table>
-                    </td>
-                    <td>        
-                        <table style="width: 100%;">
+                            <tr style="font-weight: bold;">     
+                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td style="text-align: right;"><?php echo number_format(abs($ctot_cr),2)?></td>
+                            </tr> 
+                        
+
+                </table>
+
+                <table style="width: 100%;" class="table table-hover" id="example">
+                    <tbody> 
+                  
                             <tr>
                             <th>ASSETS</th>
                             <th>Amount(Rs)</th>
                             </tr>
-                     
                             <?php
                                 if($assets_bal){
-                                 //    foreach($mngra as  $mna){
                                 ?>
-                                 </tr>
-                                 <td><b>
-                                    <!-- <?php // $mna->mng_name ?> -->
-                                </b></td><td></td>
-                                </tr>
+                                
                                 <?php   foreach($assets_bal as $tb){ $type = $tb->type; 
                                     if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
-                                  <?php 
                                   
-                             //     if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) { 
-                                    
-                                    ?>   
                                 <tr class="rep">
-                                   
-                                 
-									 
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
-
                           
-                            <?php   $otot_dr +=$tb->op_dr; ?>
-                            <?php $otot_cr +=$tb->op_cr; ?>
+                                    <?php $otot_dr +=$tb->op_dr; ?>
+                                    <?php $otot_cr +=$tb->op_cr; ?>
                            
-                           <?php  }else{ ?>
+                                    <?php  }else{ ?>
                                      
                                      <?php if($tb->op_dr > 0 && $tb->dr_cr_flag=='DR' ){
                                               $otot_dr +=$tb->op_dr;
@@ -226,93 +186,42 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <?php  $tot_dr +=$tb->dr_amt; ?></td>
                                      <?php $tot_cr +=$tb->cr_amt; ?>
-								
-                                     <td ><?php // if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt) 
-                                     echo $tb->mng_name; ?></td>
-                                   
-                                     <td style="text-align: right;"><?php //if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ 
-                                        ?>
-									       <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
-													$ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
-										   ?>
-								         <?php //}  ?>
+                                     <td ><?php echo $tb->mng_name; ?></td>
+                                     <td style="text-align: right;">
+                                    <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
+                                            $ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
+                                    ?>
 									 </td>
                                 </tr>
  
                                 <?php 
-                                // }
+                            
                                     }                    
                                     }
                                 ?>
-                                <tr style="font-weight: bold;">
-								   
-								</tr>
-                                <?php    // }
+                                <?php   
                                        }
                                 else{
                                     echo "<tr><td colspan='6' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
                             ?>
-                          
-                     
-                        </table>
-
-
-                        </td>
-                    </tr>
-                    <tr style="font-weight: bold;">     
-                            
-                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo number_format(abs($ctot_cr),2)?></td>
+                              <tr style="font-weight: bold;">     
+                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr),2)?></td>
                     </tr> 
-
-                    <?php 
-                            $calamt  = $ctot_cr -$ctot_dr;
-                          if($calamt > 0){   ?>
-                         <tr style="font-weight: bold;"> 
-                        <td style="text-align: right;"> </td>
-                          <td style="text-align:right;">Current Loss: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($calamt),2)?></td>
-                          </tr>
-
-                          <tr style="font-weight: bold;">     
-                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($ctot_cr),2)?></td>
-                            <td style="text-align:right;"><?=number_format((abs($ctot_dr)+abs($calamt)),2)?></td>
-                         </tr>
-
-                     
-
-                       <?php      }else {  ?>
-
-                        <tr style="font-weight: bold;"> 
-                          <td style="text-align: right;">Current Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($calamt),2)?></td>
-                          <td style="text-align:right;"> </td>
-                          </tr>      
-                          <tr style="font-weight: bold;">     
-                            <td style="text-align: right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=number_format(abs($ctot_dr+$calamt),2)?></td>
-                            <td style="text-align:right;"><?=number_format(abs($ctot_cr),2)?></td>
-                         </tr>
-                        <?php } ?>
+                        
                 </table>
-
-
                     </div>
                 </div>   
                 
                 <div style="text-align: center;">
-
                     <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
                    <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
-
                 </div>
-
             </div>
-            
         </div>
-        
 
         <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
-
-
         <script>
             function exportReportToExcel() {
   let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
@@ -324,4 +233,3 @@ tr:hover {background-color: #f5f5f5;}
   });
 }
         </script>
-
