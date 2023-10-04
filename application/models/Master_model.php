@@ -21,7 +21,7 @@ class Master_model extends CI_Model
         return;
     }
 
-    public function f_select($table, $select = NULL, $where = NULL, $type)
+    public function f_select($table, $select = NULL, $where = NULL, $type = NULL)
     {
 
         if (isset($select)) {
