@@ -60,7 +60,7 @@ tr:hover {background-color: #f5f5f5;}
                     <div style="text-align:center;">
 
                     <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
-                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                    <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
@@ -78,12 +78,13 @@ tr:hover {background-color: #f5f5f5;}
                     <table style="width: 100%;" class="table table-hover" id="example">
                     <tbody> 
                             <tr style="text-align:center;font-weight:bold">
-                                
+                                <th>Code</th>
                                 <td></td>
                                 <td><?php echo $this->session->userdata['loggedin']['fin_yr']; ?></td>
                                 <td><?php echo $pre_session->fin_yr; ?></td>
                             </tr>
                             <tr>
+                            <th></th>
                             <th>LIABILITIES</th>
                             <th>Amount(Rs)</th>  
                             <th>Amount(Rs)</th>  
@@ -127,6 +128,7 @@ tr:hover {background-color: #f5f5f5;}
                                   
                                     <?php $tot_dr +=$tb->dr_amt; ?>
                                    <?php  $tot_cr +=$tb->cr_amt; ?>
+                                   <td></td>
                                     <td><?php echo $tb->mng_name;  ?></td>
                                     <td style="text-align: right;">
 										<?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
@@ -158,13 +160,15 @@ tr:hover {background-color: #f5f5f5;}
                                     echo "<tr><td colspan='4' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
                             ?>
-                            <tr style="font-weight: bold;">     
+                            <tr style="font-weight: bold;">
+                            <td></td>      
                             <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr),2)?></td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr1),2)?></td>
                             </tr> 
 
                             <tr>
+                            <th></th>
                             <th>ASSETS</th>
                             <th>Amount(Rs)</th>
                             <th>Amount(Rs)</th>
@@ -202,7 +206,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <?php  $tot_dr +=$tb->dr_amt; ?></td>
                                      <?php $tot_cr +=$tb->cr_amt; ?>
-                                     <td ><?php echo $tb->mng_name; ?></td>
+                                     <td></td>
+                                     <td><?php echo $tb->mng_name; ?></td>
                                      <td style="text-align: right;">
                                     <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
                                             $ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
@@ -233,7 +238,8 @@ tr:hover {background-color: #f5f5f5;}
                                     echo "<tr><td colspan='6' style='text-align:center;'>No Data Found</td></tr>";
                                 }   
                             ?>
-                              <tr style="font-weight: bold;">     
+                            <tr style="font-weight: bold;">
+                            <td></td>     
                             <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr),2)?></td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr1),2)?></td>
