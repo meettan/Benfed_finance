@@ -61,8 +61,6 @@ public function jrnlprn()
     
 	$voucher_id = $this->input->get('voucher_id');
 	$adv['voucher']    = $this->Report_Model->f_get_cashjrnl_prt($voucher_id);
-	// echo $this->db->last_query();
-    // die();
 	$adv['receipt_no'] = $voucher_id;
 
     $this->load->view('post_login/finance_main');
@@ -1004,8 +1002,9 @@ public function voucher_dtls(){
             $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);
             $data['mngra']        = $this->Report_Model->f_get_con_balsh_mngr_asst($frm_date,$to_date,$opndt);
             $data['lib_bal']      = $this->Report_Model->f_get_con_balsh_br_lib($frm_date,$to_date,$opndt);
+            //echo $this->db->last_query();
 			$data['assets_bal']   = $this->Report_Model->f_get_con_balsh_br_asst($frm_date,$to_date,$opndt);
-
+            //echo $this->db->last_query();die();
             $this->load->view('post_login/finance_main');
             $this->load->view('report/balsh/balsh.php',$data);
             $this->load->view('post_login/footer');
@@ -1015,6 +1014,45 @@ public function voucher_dtls(){
 			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/balsh/con_balsh_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+    public function group_balsh_old(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date   =   $_POST['from_date'];
+            $to_date    =   $_POST['to_date'];
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+                $year = $yr;
+            }else{
+                $year = $yr - 1;
+            }
+
+            $opndt      =  date($year.'-04-01');
+            $data['fd_date']=$frm_date;
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $brid=$this->session->userdata['loggedin']['branch_id'];
+            $data['district']     = 0;
+            $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);
+            $data['mngra']        = $this->Report_Model->f_get_con_balsh_mngr_asst($frm_date,$to_date,$opndt);
+            $data['lib_bal']      = $this->Report_Model->f_get_group_balsh_br_lib_old($frm_date,$to_date,$opndt);
+			$data['assets_bal']   = $this->Report_Model->f_get_group_balsh_br_asst_old($frm_date,$to_date,$opndt);
+
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/group_balsh_old.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/balsh/group_balsh_ip_old.php',$data);
             $this->load->view('post_login/footer');
         }
 
@@ -1038,6 +1076,7 @@ public function voucher_dtls(){
             $data['fd_date']=$frm_date;
             $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
             $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $data['pre_session'] = $this->master_model->f_select("md_fin_year", NULL, array('sl_no'=>($fin_yr-1)), 1);
             $brid=$this->session->userdata['loggedin']['branch_id'];
             $data['district']     = 0;
             $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);

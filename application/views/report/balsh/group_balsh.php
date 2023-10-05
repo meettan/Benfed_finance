@@ -72,19 +72,25 @@ tr:hover {background-color: #f5f5f5;}
 						
 					</div>
                     <br>  
-                    <!-- <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button> -->
+                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button>
                     <br><br>
                     <div class="col-lg-12">
                     <table style="width: 100%;" class="table table-hover" id="example">
                     <tbody> 
+                            <tr style="text-align:center;font-weight:bold">
+                                
+                                <td></td>
+                                <td><?php echo $this->session->userdata['loggedin']['fin_yr']; ?></td>
+                                <td><?php echo $pre_session->fin_yr; ?></td>
+                            </tr>
                             <tr>
                             <th>LIABILITIES</th>
                             <th>Amount(Rs)</th>  
-                             
+                            <th>Amount(Rs)</th>  
                             <?php    $i = 1;$otot_dr =0.00;$otot_cr =0.00;
                                     $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
                                     $val =0; $ope_bal = 0.00;$cls_bal = 0.00;$type='';
-									$ctot_dr =0.00;$ctot_cr =0.00;
+									$ctot_dr =0.00;$ctot_cr =0.00;$ctot_cr1 =0.00;
 
                                 if($lib_bal){
                                
@@ -126,6 +132,19 @@ tr:hover {background-color: #f5f5f5;}
 										<?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
 											$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
 									</td>
+                                    <td style="text-align: right;">
+										<?php 
+                                            if($this->session->userdata['loggedin']['fin_id'] > 3){
+                                                echo number_format(abs($tb->op_cr1+$tb->cr_amt1-($tb->op_dr1)-($tb->dr_amt1)),2);
+                                                $ctot_cr1 +=abs($tb->op_cr1+$tb->cr_amt1-($tb->op_dr1)-($tb->dr_amt1));
+                                            }else{
+                                                echo 0;
+                                                $ctot_cr1 += 0;
+                                            }
+                                            
+                                            
+                                            ?>
+									</td>
                                 </tr>
  
                                 <?php  
@@ -142,24 +161,21 @@ tr:hover {background-color: #f5f5f5;}
                             <tr style="font-weight: bold;">     
                             <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr),2)?></td>
+                            <td style="text-align: right;"><?php echo number_format(abs($ctot_cr1),2)?></td>
                             </tr> 
-                        
 
-                </table>
-
-                <table style="width: 100%;" class="table table-hover" id="example">
-                    <tbody> 
-                  
                             <tr>
                             <th>ASSETS</th>
                             <th>Amount(Rs)</th>
+                            <th>Amount(Rs)</th>
                             </tr>
-                            <?php
+                            <?php   $ctot_dr1 = 0;
                                 if($assets_bal){
                                 ?>
                                 
                                 <?php   foreach($assets_bal as $tb){ $type = $tb->type; 
-                                    if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {?>
+                               //     if($tb->op_dr+$tb->op_cr+$tb->dr_amt+$tb->cr_amt!=0) {   
+                                        ?>
                                   
                                 <tr class="rep">
                                      <?php $dmo = date('m-d', strtotime($fd_date));
@@ -192,11 +208,23 @@ tr:hover {background-color: #f5f5f5;}
                                             $ctot_dr += abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt));
                                     ?>
 									 </td>
+                                     <td style="text-align: right;">
+                                    <?php 
+                                     if($this->session->userdata['loggedin']['fin_id'] > 3){
+                                    echo  number_format(abs($tb->op_dr1+$tb->dr_amt1-($tb->op_cr1)-($tb->cr_amt1)),2);
+                                            $ctot_dr1 += abs($tb->op_dr1+$tb->dr_amt1-($tb->op_cr1)-($tb->cr_amt1));
+                                        }else{
+                                            echo 0;
+                                            $ctot_dr1 += 0;
+                                        }
+                                        
+                                    ?>
+									 </td>
                                 </tr>
  
                                 <?php 
                             
-                                    }                    
+                            //        }                    
                                     }
                                 ?>
                                 <?php   
@@ -208,9 +236,13 @@ tr:hover {background-color: #f5f5f5;}
                               <tr style="font-weight: bold;">     
                             <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr),2)?></td>
+                            <td style="text-align: right;"><?php echo number_format(abs($ctot_dr1),2)?></td>
                     </tr> 
                         
+
                 </table>
+
+                
                     </div>
                 </div>   
                 
@@ -228,7 +260,7 @@ tr:hover {background-color: #f5f5f5;}
   TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
     name: `TrialBalance.xlsx`, // fileName you could use any name
     sheet: {
-      name: 'Trial Balance' // sheetName
+      name: 'Balance_Sheet ' // sheetName
     }
   });
 }

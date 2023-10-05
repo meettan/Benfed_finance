@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Transaction_model extends CI_Model
 {
-    public function f_select($table, $select = NULL, $where = NULL, $type)
+    public function f_select($table, $select = NULL, $where = NULL, $type = NULL)
     {
 
         if (isset($select)) {
@@ -117,7 +117,7 @@ select voucher_date,
         }
     }
 
-    public function f_select_fertidb($table, $select = NULL, $where = NULL, $type)
+    public function f_select_fertidb($table, $select = NULL, $where = NULL, $type = NULL)
     {
         $db2 = $this->load->database('seconddb', TRUE);
         if (isset($select)) {

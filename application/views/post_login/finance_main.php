@@ -268,6 +268,7 @@
                                 <a href="<?php echo site_url('balsh'); ?>">Balance Sheet</a>
                                 <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet</a>
                                 <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet</a>
+                                <a href="<?php echo site_url('report/group_balsh_old'); ?>">Group Wise Balance Sheet(Old)</a>
                                 <?php }else{ ?>
                                 <a href="<?php echo site_url('report/group_dist_balsh'); ?>">Group Wise Balance Sheet</a>
                                 <?php } ?>
