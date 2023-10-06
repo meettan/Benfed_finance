@@ -64,7 +64,7 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
-                            <h4><?php if($district == 0) { echo 'Consolidated'; ?>  <?php } ?>Trading Account : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
+                            <h4><?php if($district == 0) { echo 'Consolidated'; ?>  <?php } ?>Profit & Loss : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
                   
                     </div>
                     <div class="printTop023">
@@ -79,10 +79,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php       $totrev_markt =0.00;$totexp_markt =0.00;
                                             $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
                                             $totrev_fer =0.00;$totexp_fer =0.00;
-                                            $ctot_dr =0.00;$ctot_cr =0.00; ?>
-                                <tr>
-                                    <td colspan="4" style="text-align:center;font-weight: bold;">MARKETING DEPARTMENT:</td>
-                                </tr>
+                                            $ctot_dr =0.00;$appro_tot = 0.00;
+                                            $pro_tax_tot =0.00; ?>
+                              
                                 <tr style="font-weight: bold;text-align:center;">
                                     <td >PARTICULARS</td>
                                     <td>SGC</td>
@@ -115,7 +114,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td>Amount Rs.</td>
                                     <td>Amount Rs.</td>
                                 </tr>
-                                <?php foreach($operational_marketing as $operm) { ?>
+                                <?php foreach($operational_expense as $operm) { ?>
                                 <tr>
                                     <td><?=$operm->name?></td>
                                     <td><?=$operm->benfed_subgr_id?></td>
@@ -130,21 +129,19 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">GROSS PROFIT OF MARKETING DEPT. (A) - (B)</td>
+                                    <td style="text-align:center;">(C) GROSS PROFIT (A) - (B)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt?></td>
                                     <td></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="4" style="text-align:center;font-weight: bold;">FERTILISER DEPARTMENT:</td>
-                                </tr>
+                                
                                 <tr style="font-weight: bold;">
-                                    <td>REVENUE FROM OPERATION</td>
+                                    <td>INDIRECT INCOME</td>
                                     <td></td>
                                     <td>Amount Rs.</td>
                                     <td>Amount Rs.</td>
                                 </tr>
-                                <?php foreach($revenue_fertilizer as $revfer) { ?>
+                                <?php foreach($indirect_income as $revfer) { ?>
                                 <tr>
                                     <td><?=$revfer->name?></td>
                                     <td><?=$revfer->benfed_subgr_id?></td>
@@ -152,7 +149,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(A) TOTAL</td>
+                                    <td style="text-align:center;">(D) TOTAL</td>
                                     <td></td>
                                     <td><?=$totrev_fer?></td>
                                     <td></td>
@@ -164,7 +161,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td>Amount Rs.</td>
                                     <td>Amount Rs.</td>
                                 </tr>
-                                <?php foreach($operational_fertilizer as $operfer) { ?>
+                                <?php foreach($indirect_expense as $operfer) { ?>
                                 <tr>
                                     <td><?=$operfer->name?></td>
                                     <td><?=$operfer->benfed_subgr_id?></td>
@@ -173,17 +170,39 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(B) TOTAL</td>
+                                    <td style="text-align:center;">(E) TOTAL</td>
                                     <td></td>
                                     <td><?=$totexp_fer?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">GROSS PROFIT OF FERTILISER DEPT. (A) - (B)</td>
+                                    <td style="text-align:center;">(F) NET PROFIT BEFORE PROVISIONS AND TAX (C+D-E)</td>
                                     <td></td>
-                                    <td><?=$totrev_fer-$totexp_fer?></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer?></td>
                                     <td></td>
                                 </tr>
+                                <?php foreach($provision_tax as $pro_tax) { ?>
+                                <tr>
+                                    <td><?=$pro_tax->name?></td>
+                                    <td><?=$pro_tax->benfed_subgr_id?></td>
+                                    <td><?php echo $pro_tax->dcrdrtot;  $pro_tax_tot +=$pro_tax->dcrdrtot; ?></td>
+                                    <td></td>
+                                </tr>
+                                <?php } ?>
+                                <tr style="font-weight: bold;">
+                                    <td style="text-align:center;">(H) NET PROFIT AFTER TAX (F-G)</td>
+                                    <td></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot?></td>
+                                    <td></td>
+                                </tr>
+                                <?php foreach($appropration as $appro) { ?>
+                                <tr>
+                                    <td><?=$appro->name?></td>
+                                    <td><?=$appro->benfed_subgr_id?></td>
+                                    <td><?php echo $appro->dcrdrtot;  $appro_tot +=$appro->dcrdrtot; ?></td>
+                                    <td></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -208,9 +227,9 @@ tr:hover {background-color: #f5f5f5;}
             function exportReportToExcel() {
   let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
   TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
-    name: `Trading_account.xlsx`, // fileName you could use any name
+    name: `profit_loss.xlsx`, // fileName you could use any name
     sheet: {
-      name: 'Trading_account' // sheetName
+      name: 'profit_loss' // sheetName
     }
   });
 }

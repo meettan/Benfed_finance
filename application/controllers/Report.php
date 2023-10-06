@@ -1199,10 +1199,50 @@ public function voucher_dtls(){
             $this->load->view('post_login/footer');
 
         }else{
-			
 			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
             $this->load->view('post_login/finance_main');
             $this->load->view('report/trading_account/trading_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+    public function profit_loss(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date   =   $_POST['from_date'];
+            $to_date    =   $_POST['to_date'];
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+                $year = $yr;
+            }else{
+                $year = $yr - 1;
+            }
+            $opndt      =  date($year.'-04-01');
+            $data['fd_date']=$frm_date;
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $data['pre_session'] = $this->master_model->f_select("md_fin_year", NULL, array('sl_no'=>($fin_yr-1)), 1);
+            $brid=$this->session->userdata['loggedin']['branch_id'];
+            $data['district']     = 0;
+            $data['revenue_market']         = $this->Report_Model->f_get_revenu_ope($frm_date,$to_date);
+            $data['operational_expense']  = $this->Report_Model->f_get_operational_expense($frm_date,$to_date);
+            $data['indirect_income']     = $this->Report_Model->f_get_indirect_income($frm_date,$to_date);
+			$data['indirect_expense'] = $this->Report_Model->f_get_indirect_expense($frm_date,$to_date);
+            $data['provision_tax'] = $this->Report_Model->f_get_provision_tax($frm_date,$to_date);
+            $data['appropration'] = $this->Report_Model->f_get_appropration($frm_date,$to_date);
+            
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/profit_loss/pl.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/profit_loss/pl_ip.php',$data);
             $this->load->view('post_login/footer');
         }
 

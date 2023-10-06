@@ -1855,7 +1855,8 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         AND `acc_code` in( select `sl_no` from md_achead where `subgr_id` in( SELECT sl_no 
         FROM `mda_subgroub` 
         WHERE substr(`benfed_subgr_id`,1,1)=4 
-        and substr(`benfed_subgr_id`,-1,1)=2 
+        and substr(`benfed_subgr_id`,-1,1)=2
+        and substr(`benfed_subgr_id`,-2,1) between 1 and 3
         and length(benfed_subgr_id)=4) )
         group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
         group by c.name,c.benfed_subgr_id";
@@ -1871,7 +1872,9 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         where td_vouchers.voucher_date >= '$frm_date' AND td_vouchers.voucher_date <= '$to_date' 
         AND `acc_code` in( select `sl_no` from md_achead 
         where `subgr_id` in( SELECT sl_no FROM `mda_subgroub` WHERE substr(`benfed_subgr_id`,1,1)=3 
-        and substr(`benfed_subgr_id`,-1,1)=2 and length(benfed_subgr_id)=4)) group by dr_cr_flag,acc_code )a,
+        and substr(`benfed_subgr_id`,-1,1)=2 
+        and substr(`benfed_subgr_id`,-2,1) between 1 and 3
+        and length(benfed_subgr_id)=4)) group by dr_cr_flag,acc_code )a,
         md_achead b,mda_subgroub c where a.acc_code=b.sl_no and b.subgr_id=c.sl_no group by c.name,c.benfed_subgr_id";
         $query  = $this->db->query($sql);
         return $query->result();
@@ -1884,6 +1887,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         from td_vouchers  where td_vouchers.voucher_date >= '$frm_date' AND td_vouchers.voucher_date <= '$to_date' 
         AND acc_code in( select sl_no from md_achead where subgr_id 
         in( SELECT sl_no FROM mda_subgroub WHERE substr(benfed_subgr_id,1,1)=4 and substr(benfed_subgr_id,-1,1)=1 
+        and substr(`benfed_subgr_id`,-2,1) between 1 and 3
         and length(benfed_subgr_id)=4)) group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
         where a.acc_code=b.sl_no and b.subgr_id=c.sl_no group by c.name,c.benfed_subgr_id";
         $query  = $this->db->query($sql);
@@ -1898,10 +1902,126 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         AND td_vouchers.voucher_date <= '$to_date' 
         AND acc_code in( select sl_no from md_achead 
         where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE substr(benfed_subgr_id,1,1)=3 and substr(benfed_subgr_id,-1,1)=1 
+        and substr(`benfed_subgr_id`,-2,1) between 1 and 3
         and length(benfed_subgr_id)=4)) group by dr_cr_flag,acc_code )a,
         md_achead b,mda_subgroub c where a.acc_code=b.sl_no and b.subgr_id=c.sl_no group by c.name,c.benfed_subgr_id;";
         $query  = $this->db->query($sql);
         return $query->result();
 
     }
+
+    //     Profit and Loss latest report     06/102023
+
+    public function f_get_revenu_ope($frm_date,$to_date){
+
+        $sql ="select c.name,sum(cr_amt)-sum(Dr_amt)as dcrdrtot,c.benfed_subgr_id
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '$frm_date' and '$to_date'
+        and acc_code in( select sl_no
+                     from md_achead where subgr_id in( SELECT sl_no 
+                                          FROM mda_subgroub 
+                                         WHERE substr(benfed_subgr_id,1,1)=4 
+                                                                     and substr(benfed_subgr_id,2,1)between 1 and 3 
+                                                                     and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+    public function f_get_operational_expense($frm_date,$to_date){
+
+        $sql ="select c.name,sum(Dr_amt)-sum(cr_amt)as dcrdrtot,c.benfed_subgr_id 
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '$frm_date' and '$to_date'
+        and acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no 
+        FROM mda_subgroub
+        WHERE substr(benfed_subgr_id,1,1)=3 and substr(benfed_subgr_id,2,1)between 1 and 3 
+        and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name;";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+    public function f_get_indirect_income($frm_date,$to_date){
+
+        $sql ="select c.name,sum(cr_amt)-sum(Dr_amt)as dcrdrtot,c.benfed_subgr_id
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '$frm_date' and '$to_date'
+        and acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no 
+        FROM mda_subgroub 
+        WHERE substr(benfed_subgr_id,1,1)=4 and substr(benfed_subgr_id,2,1)=4
+        and  substr(benfed_subgr_id,-1,1) between 1 and 4
+        and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+    public function f_get_indirect_expense($frm_date,$to_date){
+
+        $sql ="select c.name,sum(cr_amt)-sum(Dr_amt)as dcrdrtot,c.benfed_subgr_id
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '$frm_date' and '$to_date'
+        and acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no 
+        FROM mda_subgroub 
+        WHERE substr(benfed_subgr_id,1,1)=4 and substr(benfed_subgr_id,2,1)=4
+        and  substr(benfed_subgr_id,-1,1) between 1 and 4
+        and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+
+    public function f_get_provision_tax($frm_date,$to_date){
+
+        $sql ="select c.name,sum(Dr_amt) - sum(cr_amt)as dcrdrtot,c.benfed_subgr_id
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '$frm_date,' and '$to_date'
+        and acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no 
+        FROM mda_subgroub
+        WHERE substr(benfed_subgr_id,1,1)=3 and substr(benfed_subgr_id,2,1)=4
+        and  substr(benfed_subgr_id,-1,1) =8
+        and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+    public function f_get_appropration($frm_date,$to_date){
+
+        $sql ="select c.name,sum(Dr_amt) - sum(cr_amt)as dcrdrtot,c.benfed_subgr_id
+        from( select acc_code,IF(dr_cr_flag='Cr',sum(amount),0)cr_amt,IF(dr_cr_flag='Dr',sum(amount),0)Dr_amt 
+        from td_vouchers 
+        where voucher_date between '2022-01-04' and '2023-03-31'
+        and acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no 
+        FROM mda_subgroub
+        WHERE substr(benfed_subgr_id,1,1)=3 and substr(benfed_subgr_id,2,1)=4
+        and  substr(benfed_subgr_id,-1,1) =9
+        and length(benfed_subgr_id)=4)) 
+        group by dr_cr_flag,acc_code )a,md_achead b,mda_subgroub c 
+        where a.acc_code=b.sl_no and b.subgr_id=c.sl_no 
+        group by c.name;";
+        $query  = $this->db->query($sql);
+        return $query->result();
+        
+    }
+
+
+    
 }
