@@ -1233,6 +1233,8 @@ public function voucher_dtls(){
 			$data['indirect_expense'] = $this->Report_Model->f_get_indirect_expense($frm_date,$to_date);
             $data['provision_tax'] = $this->Report_Model->f_get_provision_tax($frm_date,$to_date);
             $data['appropration'] = $this->Report_Model->f_get_appropration($frm_date,$to_date);
+            $data['accumulated'] = $this->Report_Model->f_get_accumulated($frm_date,$to_date);
+           // echo $this->db->last_query();die();
             
             $this->load->view('post_login/finance_main');
             $this->load->view('report/profit_loss/pl.php',$data);

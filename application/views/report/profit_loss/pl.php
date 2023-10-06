@@ -79,7 +79,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php       $totrev_markt =0.00;$totexp_markt =0.00;
                                             $total = 0.00;$tot_dr =0.00; $tot_cr =0.00;
                                             $totrev_fer =0.00;$totexp_fer =0.00;
-                                            $ctot_dr =0.00;$appro_tot = 0.00;
+                                            $ctot_dr =0.00;$appro_tot = 0.00;$tot_accul= 0.00;
                                             $pro_tax_tot =0.00; ?>
                               
                                 <tr style="font-weight: bold;text-align:center;">
@@ -203,6 +203,18 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <?php } ?>
+                                <tr>
+                                    <td>(J) ACCUMULATED PROFIT OR LOSS OF THE LAST YEAR</td>
+                                    <td></td>
+                                    <td><?php echo $accumulated->amount;  $tot_accul += $accumulated->amount ? $accumulated->amount:0; ?></td>
+                                    <td></td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td style="text-align:center;">(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
+                                    <td></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot-$appro_tot+$tot_accul?></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

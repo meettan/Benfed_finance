@@ -2019,7 +2019,13 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         group by c.name;";
         $query  = $this->db->query($sql);
         return $query->result();
-        
+    }
+    public function f_get_accumulated($frm_date,$to_date){
+
+        $sql ="SELECT a.acc_name,ifnull(a.amount,0)as amount,a.`trans_flag` FROM td_opening a 
+               WHERE `acc_code`=9166 and `balance_dt`=TIMESTAMPADD(MONTH, -12, '$frm_date')" ;
+        $query  = $this->db->query($sql);
+        return $query->row();
     }
 
 
