@@ -166,7 +166,6 @@ tr:hover {background-color: #f5f5f5;}
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr),2)?></td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr1),2)?></td>
                             </tr> 
-
                             <tr>
                             <th></th>
                             <th>ASSETS</th>

@@ -274,6 +274,15 @@
                                 <?php } ?>
                                 </div>
                         </div>
+                        <?php if($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
+                            <a href="<?php echo site_url('report/trading_account'); ?>">Trading Account</a>
+                            <!-- <div class="sub-dropdown">
+                                <a class="sub-dropbtn">Trading Account<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <div class="sub-dropdown-content">
+                                <a href="">Balance Sheet</a>
+                                </div>
+                            </div> -->
+                        <?php } ?>
                        
                         <a href="<?php echo site_url('pl'); ?>">Profit & Loss(pl)</a>
                         <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details</a>

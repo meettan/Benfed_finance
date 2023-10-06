@@ -1169,6 +1169,44 @@ public function voucher_dtls(){
         }
 
     }
+    public function trading_account(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date   =   $_POST['from_date'];
+            $to_date    =   $_POST['to_date'];
+			$mth        =  date('n',strtotime($frm_date));
+            $yr         =  date('Y',strtotime($frm_date));
+          
+            if($mth > 3){
+                $year = $yr;
+            }else{
+                $year = $yr - 1;
+            }
+            $opndt      =  date($year.'-04-01');
+            $data['fd_date']=$frm_date;
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $data['pre_session'] = $this->master_model->f_select("md_fin_year", NULL, array('sl_no'=>($fin_yr-1)), 1);
+            $brid=$this->session->userdata['loggedin']['branch_id'];
+            $data['district']     = 0;
+            $data['revenue_market']         = $this->Report_Model->f_get_revenu_markting($frm_date,$to_date);
+            $data['operational_marketing']  = $this->Report_Model->f_get_operational_expense_markting($frm_date,$to_date);
+            $data['revenue_fertilizer']     = $this->Report_Model->f_get_revenu_fertilizer($frm_date,$to_date);
+			$data['operational_fertilizer'] = $this->Report_Model->f_get_operational_expense_fertilizer($frm_date,$to_date);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/trading_account/trading.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/trading_account/trading_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
 
 
 }
