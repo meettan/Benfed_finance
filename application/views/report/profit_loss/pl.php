@@ -148,13 +148,14 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><?php echo $revfer->dcrdrtot;     $totrev_fer +=$revfer->dcrdrtot; ?></td>
                                     <td></td>
                                 </tr>
+                               
+                                <?php } ?>
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">(D) TOTAL</td>
                                     <td></td>
                                     <td><?=$totrev_fer?></td>
                                     <td></td>
                                 </tr>
-                                <?php } ?>
                                 <tr style="font-weight: bold;">
                                     <td>OPERATIONAL EXPENSES</td>
                                     <td></td>
