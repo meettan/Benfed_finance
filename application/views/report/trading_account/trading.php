@@ -106,7 +106,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">(A) TOTAL</td>
                                     <td></td>
-                                    <td><?=$totrev_markt?></td>
+                                    <td><?=round($totrev_markt,2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
@@ -126,7 +126,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">(B) TOTAL</td>
                                     <td></td>
-                                    <td><?=$totexp_markt?></td>
+                                    <td><?=round($totexp_markt,2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
@@ -154,7 +154,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">(A) TOTAL</td>
                                     <td></td>
-                                    <td><?=$totrev_fer?></td>
+                                    <td><?=round($totrev_fer,2)?></td>
                                     <td></td>
                                 </tr>
                                 <?php } ?>
@@ -175,13 +175,13 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">(B) TOTAL</td>
                                     <td></td>
-                                    <td><?=$totexp_fer?></td>
+                                    <td><?=round($totexp_fer,2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:center;">GROSS PROFIT OF FERTILISER DEPT. (A) - (B)</td>
                                     <td></td>
-                                    <td><?=$totrev_fer-$totexp_fer?></td>
+                                    <td><?=round(($totrev_fer-$totexp_fer),2)?></td>
                                     <td></td>
                                 </tr>
                             </tbody>
