@@ -60,7 +60,8 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
-                            <h4><?php if($district == 0) { echo 'Consolidated'; ?>  <?php } ?>Trading Account : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
+                            <h4>DEPARTMENTAL TRADING ACCOUNTS FOR THE YEAR ENDED ON <?php echo date('d',strtotime($this->input->post('to_date'))); ?>-<?php echo date('F',strtotime($this->input->post('to_date'))); ?>, <?php echo date('Y',strtotime($this->input->post('to_date'))); ?>			
+Trading Account : </h4>
                   
                     </div>
                     <div class="printTop023">

@@ -60,12 +60,11 @@ tr:hover {background-color: #f5f5f5;}
                     <div style="text-align:center;">
 
                     <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
-                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                    <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
-                            <h4><?php if($district == 0) { echo 'Consolidated'; ?>  <?php } ?>Profit & Loss : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
-                  
+                            <h4>CONSOLIDATED TRADING AND PROFIT & LOSS ACCOUNT FOR THE YEAR ENDED ON <?php echo date('d',strtotime($this->input->post('to_date'))); ?>-<?php echo date('F',strtotime($this->input->post('to_date'))); ?>, <?php echo date('Y',strtotime($this->input->post('to_date'))); ?></h4>
                     </div>
                     <div class="printTop023">
 						<div class="leftNo"></div>
@@ -103,7 +102,7 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(A) TOTAL</td>
+                                    <td >(A) TOTAL</td>
                                     <td></td>
                                     <td><?=$totrev_markt?></td>
                                     <td></td>
@@ -123,13 +122,13 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(B) TOTAL</td>
+                                    <td >(B) TOTAL</td>
                                     <td></td>
                                     <td><?=$totexp_markt?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(C) GROSS PROFIT (A) - (B)</td>
+                                    <td >(C) GROSS PROFIT (A) - (B)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt?></td>
                                     <td></td>
@@ -151,7 +150,7 @@ tr:hover {background-color: #f5f5f5;}
                                
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(D) TOTAL</td>
+                                    <td >(D) TOTAL</td>
                                     <td></td>
                                     <td><?=$totrev_fer?></td>
                                     <td></td>
@@ -171,13 +170,13 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(E) TOTAL</td>
+                                    <td >(E) TOTAL</td>
                                     <td></td>
                                     <td><?=$totexp_fer?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(F) NET PROFIT BEFORE PROVISIONS AND TAX (C+D-E)</td>
+                                    <td >(F) NET PROFIT BEFORE PROVISIONS AND TAX (C+D-E)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer?></td>
                                     <td></td>
@@ -191,7 +190,7 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(H) NET PROFIT AFTER TAX (F-G)</td>
+                                    <td >(H) NET PROFIT AFTER TAX (F-G)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot?></td>
                                     <td></td>
@@ -211,7 +210,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
+                                    <td >(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot-$appro_tot+$tot_accul?></td>
                                     <td></td>
