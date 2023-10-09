@@ -1604,7 +1604,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
             // ORDER BY C.mngr_id ASC";
 
             $sql = "select a.*,b.* from(
-            select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id, c.subgr_id,g.name mng_name ,
+            select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id, c.subgr_id,g.name mng_name ,g.benfed_srl,
             f.name ac_name,dr_cr_flag,c.type from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr , 0 dr_amt,0 cr_amt,mngr_id, subgr_id,
             ac_name,dr_cr_flag,type,benfed_ac_code from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , 
             sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code , subgr_id from(SELECT 0 op_dr,0 op_cr,
@@ -1624,7 +1624,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
               mda_subgroub f,mda_mngroup g where c.subgr_id=f.sl_no and c.mngr_id=g.sl_no and c.type=1 
               and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0 group by c.mngr_id,g.name,c.type)a,
             (select sum(op_dr)op_dr1,sum(op_cr)op_cr1,sum(dr_amt)dr_amt1,sum(cr_amt)cr_amt1,c.mngr_id mngr_id1, c.subgr_id,
-            g.name mng_name1 ,f.name ac_name1,dr_cr_flag dr_cr_flag1,c.type type1
+            g.name mng_name1 ,f.name ac_name1,dr_cr_flag dr_cr_flag1,c.type type1,g.benfed_srl benfed_srl1
              from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr , 0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,
              benfed_ac_code from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id,
               ac_name,type,dr_cr_flag,benfed_ac_code , subgr_id 
@@ -1687,38 +1687,10 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
     }        
     function f_get_group_balsh_br_asst($frm_date, $to_date, $op_dt)
     {
-            // $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,g.name mng_name
-            // ,dr_cr_flag,c.type 
-            // from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code 
-            //     from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id
-            // from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,b.subgr_id, b.ac_name,c.type, UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
-            // FROM td_vouchers a ,md_achead b,mda_mngroup c 
-            // WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
-            // and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date' and a.approval_status ='A'
-            // group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id ,b.subgr_id
-            //     union 
-            //     SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.subgr_id,b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
-            //     from md_achead b,mda_mngroup c,td_opening d 
-            // where d.balance_dt=(select max(balance_dt) 
-            // from td_opening where balance_dt<='$frm_date') and b.mngr_id = c.sl_no and b.sl_no=d.acc_code
-            //     group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id,b.subgr_id)b 
-            // group by mngr_id, subgr_id,ac_name,type,benfed_ac_code )a group by benfed_ac_code 
-            //     union 
-            //     SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,b.subgr_id, b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
-            //     FROM td_vouchers a,md_achead b,mda_mngroup c 
-            //     WHERE a.acc_code=b.sl_no 
-            //     and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' 
-            //     and a.approval_status = 'A' AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.subgr_id)C ,mda_subgroub f,mda_mngroup g
-            //     where c.subgr_id=f.sl_no
-            //     and c.mngr_id=g.sl_no
-            //     and c.type =2
-			// 	and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0
-            //     group by c.mngr_id,g.name,c.type  
-            // ORDER BY C.mngr_id ASC";
 
             $sql ="select a.*,b.*
             from(
-            select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,g.name mng_name ,dr_cr_flag,
+            select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,c.mngr_id,g.name mng_name ,g.benfed_srl,dr_cr_flag,
             c.type from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, subgr_id,ac_name,dr_cr_flag,type,
             benfed_ac_code from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, 
             ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr,
@@ -1741,7 +1713,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
              group by c.mngr_id,g.name,c.type)a,
             
             (select sum(op_dr)op_dr1,sum(op_cr)op_cr1,sum(dr_amt)dr_amt1,sum(cr_amt)cr_amt1,c.mngr_id mngr_id1,g.name mng_name1 ,
-            dr_cr_flag dr_cr_flag1,c.type type1 from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, 
+            dr_cr_flag dr_cr_flag1,c.type type1,g.benfed_srl benfed_srl1 from( SELECT sum(op_dr) op_dr,sum(op_cr)op_cr ,0 dr_amt,0 cr_amt,mngr_id, 
             subgr_id,ac_name,dr_cr_flag,type,benfed_ac_code from( select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , 
             sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code ,subgr_id 
             from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,

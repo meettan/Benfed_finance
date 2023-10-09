@@ -147,7 +147,6 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><?php echo $revfer->dcrdrtot;     $totrev_fer +=$revfer->dcrdrtot; ?></td>
                                     <td></td>
                                 </tr>
-                               
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
                                     <td >(D) TOTAL</td>
@@ -210,7 +209,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td >(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
+                                    <td>(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
                                     <td></td>
                                     <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot-$appro_tot+$tot_accul?></td>
                                     <td></td>

@@ -64,7 +64,7 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
-                            <h4>Group Wise Balance Sheet as on : <?php echo date('d-m-Y',strtotime($this->input->post('to_date'))); ?></h4>
+                            <h4>BALANCE SHEET AS AT <?php echo date('d',strtotime($this->input->post('to_date'))); ?>-<?php echo date('F',strtotime($this->input->post('to_date'))); ?>, <?php echo date('Y',strtotime($this->input->post('to_date'))); ?></h4>
                   
                     </div>
                     <div class="printTop023">
@@ -78,7 +78,7 @@ tr:hover {background-color: #f5f5f5;}
                     <table style="width: 100%;" class="table table-hover" id="example">
                     <tbody> 
                             <tr style="text-align:center;font-weight:bold">
-                                <th>Code</th>
+                                <th>GC</th>
                                 <td></td>
                                 <td><?php echo $this->session->userdata['loggedin']['fin_yr']; ?></td>
                                 <td><?php echo $pre_session->fin_yr; ?></td>
@@ -128,7 +128,7 @@ tr:hover {background-color: #f5f5f5;}
                                   
                                     <?php $tot_dr +=$tb->dr_amt; ?>
                                    <?php  $tot_cr +=$tb->cr_amt; ?>
-                                   <td></td>
+                                   <td><?php echo $tb->benfed_srl;  ?></td>
                                     <td><?php echo $tb->mng_name;  ?></td>
                                     <td style="text-align: right;">
 										<?php echo number_format(abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt)),2);
@@ -162,7 +162,7 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
                             <tr style="font-weight: bold;">
                             <td></td>      
-                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td >Total:</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr),2)?></td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_cr1),2)?></td>
                             </tr> 
@@ -205,7 +205,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <?php  $tot_dr +=$tb->dr_amt; ?></td>
                                      <?php $tot_cr +=$tb->cr_amt; ?>
-                                     <td></td>
+                                     <td><?php echo $tb->benfed_srl;  ?></td>
                                      <td><?php echo $tb->mng_name; ?></td>
                                      <td style="text-align: right;">
                                     <?php echo  number_format(abs($tb->op_dr+$tb->dr_amt-($tb->op_cr)-($tb->cr_amt)),2);
@@ -239,7 +239,7 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
                             <tr style="font-weight: bold;">
                             <td></td>     
-                            <td style="text-align:right;">Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td >Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr),2)?></td>
                             <td style="text-align: right;"><?php echo number_format(abs($ctot_dr1),2)?></td>
                     </tr> 
