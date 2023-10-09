@@ -52,15 +52,11 @@ tr:hover {background-color: #f5f5f5;}
 </script>
 
         <div class="wraper"> 
-
             <div class="col-lg-12 container contant-wraper">
-                
                 <div id="divToPrint">
-
                     <div style="text-align:center;">
-
                     <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
-                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                    <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <?php if($district == 1) { ?>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
                         <?php } ?>
@@ -104,7 +100,7 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(A) TOTAL</td>
+                                    <td style="text-align:left;">(A) TOTAL</td>
                                     <td></td>
                                     <td><?=round($totrev_markt,2)?></td>
                                     <td></td>
@@ -124,15 +120,15 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(B) TOTAL</td>
+                                    <td style="text-align:left;">(B) TOTAL</td>
                                     <td></td>
                                     <td><?=round($totexp_markt,2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">GROSS PROFIT OF MARKETING DEPT. (A) - (B)</td>
+                                    <td style="text-align:left;">GROSS PROFIT OF MARKETING DEPT. (A) - (B)</td>
                                     <td></td>
-                                    <td><?=$totrev_markt-$totexp_markt?></td>
+                                    <td><?=round(($totrev_markt-$totexp_markt),2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -152,7 +148,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(A) TOTAL</td>
+                                    <td style="text-align:left;">(A) TOTAL</td>
                                     <td></td>
                                     <td><?=round($totrev_fer,2)?></td>
                                     <td></td>
@@ -173,13 +169,13 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">(B) TOTAL</td>
+                                    <td style="text-align:left;">(B) TOTAL</td>
                                     <td></td>
                                     <td><?=round($totexp_fer,2)?></td>
                                     <td></td>
                                 </tr>
                                 <tr style="font-weight: bold;">
-                                    <td style="text-align:center;">GROSS PROFIT OF FERTILISER DEPT. (A) - (B)</td>
+                                    <td style="text-align:left;">GROSS PROFIT OF FERTILISER DEPT. (A) - (B)</td>
                                     <td></td>
                                     <td><?=round(($totrev_fer-$totexp_fer),2)?></td>
                                     <td></td>
@@ -188,7 +184,6 @@ tr:hover {background-color: #f5f5f5;}
                         </table>
                     </div>
                 </div>   
-                
                 <div style="text-align: center;">
 
                     <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
