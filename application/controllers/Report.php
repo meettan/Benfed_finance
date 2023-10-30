@@ -1081,8 +1081,9 @@ public function voucher_dtls(){
             $data['district']     = 0;
             $data['mngrl']        = $this->Report_Model->f_get_con_balsh_mngr_lib($frm_date,$to_date,$opndt);
             $data['mngra']        = $this->Report_Model->f_get_con_balsh_mngr_asst($frm_date,$to_date,$opndt);
+            $data['share_capital'] = $this->master_model->f_select("md_parameters", NULL,array('sl_no'=>1), 1);
             $data['lib_bal']      = $this->Report_Model->f_get_group_balsh_br_lib($frm_date,$to_date,$opndt);
-          //  echo $this->db->last_query(); die();
+            //echo $this->db->last_query(); die();
 			$data['assets_bal']   = $this->Report_Model->f_get_group_balsh_br_asst($frm_date,$to_date,$opndt);
 
             $this->load->view('post_login/finance_main');
