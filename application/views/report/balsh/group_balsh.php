@@ -100,8 +100,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                 <td></td>
                                 <td><?=$share_capital->param_desc?></td>
-                                <td style="text-align: right;"><?=$share_capital->param_value?></td>
-                                <td style="text-align: right;"><?=$share_capital->param_value?></td>
+                                <td style="text-align: right;"><?=number_format($share_capital->param_value)?></td>
+                                <td style="text-align: right;"><?=number_format($share_capital->param_value)?></td>
                                 </tr>
                                 <?php   foreach($lib_bal as $tb){
                                     
