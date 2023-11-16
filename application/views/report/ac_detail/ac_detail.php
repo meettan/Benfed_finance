@@ -76,7 +76,7 @@
             </div>
             <br>
 
-            <table id="example" class="display" style="width:100%">
+            <table id="example" class="display"  style="table-layout: fixed; width: 100%">
             <thead>
                     <tr>
                         <th rowspan='2'>Date</th>
@@ -158,7 +158,7 @@
            
            ?>
             </td>
-            <td><?php echo $tb->remarks; ?></td>
+            <td style="width:30%;word-wrap: break-word"><?php echo $tb->remarks; ?></td>
          
   			<td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
 
@@ -208,7 +208,8 @@
                     if($opebalcal->trans_flag=='DR'&& abs($ope_bal)+$tot_debit>$tot_cre ){ 
                             $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                             //echo abs($clBl);
-                            echo number_format((float)abs($clBl), 2, '.', '');
+                            //echo number_format((float)abs($clBl), 2, '.', '');
+                            echo round(abs($clBl), 2);
                     }else{
                         echo '';
                     }
@@ -217,7 +218,8 @@
                     if(abs($ope_bal)+$tot_debit>$tot_cre ){ 
                          $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                          //echo abs($clBl);
-                         echo number_format((float)abs($clBl), 2, '.', '');
+                        // echo number_format((float)abs($clBl), 2, '.', '');
+                        echo round(abs($clBl), 2);
                       }
 
                  }
@@ -228,8 +230,9 @@
                 if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre <$tot_debit && abs($ope_bal) + $tot_cre - $tot_debit <0)
                  { 
                     $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
-                    //echo abs($clBl);
-                    echo number_format((float)abs($clBl), 2, '.', '');
+                
+                   // echo number_format((float)abs($clBl), 2, '.', '');
+                    echo round(abs($clBl), 2);
                  }else{
                      echo '';
                  }
