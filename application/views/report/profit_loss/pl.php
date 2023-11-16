@@ -182,7 +182,7 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
                                 <?php foreach($provision_tax as $pro_tax) { ?>
                                 <tr>
-                                    <td><?=$pro_tax->name?></td>
+                                    <td>(G)<?=$pro_tax->name?></td>
                                     <td><?=$pro_tax->benfed_subgr_id?></td>
                                     <td><?php echo $pro_tax->dcrdrtot;  $pro_tax_tot +=$pro_tax->dcrdrtot; ?></td>
                                     <td></td>

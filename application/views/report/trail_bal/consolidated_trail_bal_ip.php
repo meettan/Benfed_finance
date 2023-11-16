@@ -52,7 +52,7 @@ tr:hover {background-color: #f5f5f5;}
                 </div>
 
                 <div class="form-group row">
-
+                <?php $fyear=$this->session->userdata['loggedin']['fin_yr']; $year=explode('-',$fyear) ?>
                     <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
 
                     <div class="col-sm-6">
@@ -60,7 +60,8 @@ tr:hover {background-color: #f5f5f5;}
                         <input type="date"
                                name="from_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
+                               min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31"
+                               value="<?=$year[0]?>-04-01" 
                         />  
 
                     </div>
@@ -77,7 +78,7 @@ tr:hover {background-color: #f5f5f5;}
                         <input type="date"
                                name="to_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
+                               value="<?=$year[0]+1?>-03-31" min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31"
                         />  
 
                     </div>
