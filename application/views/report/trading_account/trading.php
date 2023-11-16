@@ -148,13 +148,14 @@ Trading Account : </h4>
                                     <td><?php echo $revfer->dcrdrtot;     $totrev_fer +=$revfer->dcrdrtot; ?></td>
                                     <td></td>
                                 </tr>
+                              
+                                <?php } ?>
                                 <tr style="font-weight: bold;">
                                     <td style="text-align:left;">(A) TOTAL</td>
                                     <td></td>
                                     <td><?=round($totrev_fer,2)?></td>
                                     <td></td>
                                 </tr>
-                                <?php } ?>
                                 <tr style="font-weight: bold;">
                                     <td>OPERATIONAL EXPENSES</td>
                                     <td></td>

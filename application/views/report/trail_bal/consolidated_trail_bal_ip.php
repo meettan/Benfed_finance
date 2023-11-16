@@ -61,18 +61,15 @@ tr:hover {background-color: #f5f5f5;}
                                name="from_date"
                                class="form-control required"
                                min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31"
-                               value="<?=$year[0]?>-04-01" 
-                        />  
+                               value="<?=$year[0]?>-04-01" />  
 
                     </div>
-
 
                 </div>
 
                 <div class="form-group row">
 
                     <label for="to_date" class="col-sm-2 col-form-label">To Date:</label>
-
                     <div class="col-sm-6">
 
                         <input type="date"
