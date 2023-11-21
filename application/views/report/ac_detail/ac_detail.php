@@ -75,11 +75,10 @@
                     <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
             </div>
             <br>
-
-            <table id="example" class="display"  style="table-layout: fixed; width: 100%">
+            <table id="example" class="display"  style=" width: 100%">
             <thead>
                     <tr>
-                        <th rowspan='2'>Date</th>
+                        <th rowspan='2' style="width:90px !important">Date</th>
                         <th rowspan='2'>Particulars</th>
                         <th rowspan='2'>Voucher Type</th>
                         <th rowspan='2'>Narration</th>
@@ -169,7 +168,7 @@
                 }
                 
             } ?></td>
-            <td align="right"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
+            <td align="right" style="width:90px !important"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
             <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
 
             </tr>
@@ -178,8 +177,6 @@
             ?>
 
 
-            
-            
         <?php }?> 
         
        
@@ -321,6 +318,7 @@ text: 'Export to excel'
    }
 ]
    });
+
 </script>
 <script>
 function voucherdtls(vid){
