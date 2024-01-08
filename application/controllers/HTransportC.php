@@ -205,45 +205,17 @@ class HTransportC extends CI_Controller
             }
             $trans_no="HTC-".$this->session->userdata['loggedin']['fin_yr']."-".($gettrans_no+1);
             // echo $trans_no;
-            // exit();
-            
-                $data=array(
-                    "fin_yr"        =>  $this->session->userdata['loggedin']['fin_id'],
-                    "trans_dt"      =>  $this->input->post('effectiveDate'),
-                    "invoice_no"    =>  $trans_no,
-                    "trans_type"    =>  $this->input->post('mode'),
-                    "prod_id"       =>  $this->input->post('product'),
-                    "cust_id"       =>  $this->input->post('customer'),
-                    "qty"           =>  1,
-                    "taxable_amt"   =>  $this->input->post('amount'),
-                    "cgst_rt"       =>  $this->input->post('cgst_rt'),
-                    "cgst_amt"      =>  $this->input->post('cgst'),
-                    "sgst_rt"       =>  $this->input->post('sgst_rt'),
-                    "sgst_amt"      =>  $this->input->post('sgst'),
-                    "total_amt"     =>  $this->input->post('totalAmount'),
-                    "irn"           =>  '',
-                    "ack_no"        =>  '',
-                    "ack_dt"        =>  '',
-                    "remarks"       =>  $this->input->post('remarks'),
-                    "suppliers_ref" =>  $this->input->post('supplier_Ref'),
-                    "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
-                    "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
-                    "created_dt"    =>  date("Y-m-d H:i:s"),
-                );
-                $this->Rent_calculation_model->f_insert('td_htc_rent_collection', $data);
-                // exit();
+               
                 $sl_no    = $this->Transaction_model->f_get_voucher_id($this->session->userdata('loggedin')['fin_id']);
-     
                 $v_srl=$sl_no->sl_no;
                 $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
-
-
                 $cramt=($this->input->post('amount')+$this->input->post('cgst')+$this->input->post('sgst'));
                 $dramt=$this->input->post('totalAmount');
+
                 if($cramt==$dramt){
 
                 
-// H&t vouchers
+                // H&t vouchers
                     $vouchersCr = array(
                         'voucher_date'   => date("Y-m-d"),
                         'sl_no'          =>  $v_srl,
@@ -276,7 +248,7 @@ class HTransportC extends CI_Controller
                    
                     // print_r($vouchersCr);
                     // exit();
-                    $this->Transaction_model->f_insert('td_vouchers', $vouchersCr);
+                    $check_insert = $this->Transaction_model->f_insert('td_vouchers', $vouchersCr);
 
                 //}
             
@@ -374,7 +346,32 @@ class HTransportC extends CI_Controller
                 );
                 $this->Transaction_model->f_insert('td_vouchers', $vouchersSgst);
               
-               
+                $data=array(
+                    "fin_yr"        =>  $this->session->userdata['loggedin']['fin_id'],
+                    "trans_dt"      =>  $this->input->post('effectiveDate'),
+                    "invoice_no"    =>  $trans_no,
+                    "trans_type"    =>  $this->input->post('mode'),
+                    "prod_id"       =>  $this->input->post('product'),
+                    "cust_id"       =>  $this->input->post('customer'),
+                    "qty"           =>  1,
+                    "taxable_amt"   =>  $this->input->post('amount'),
+                    "cgst_rt"       =>  $this->input->post('cgst_rt'),
+                    "cgst_amt"      =>  $this->input->post('cgst'),
+                    "sgst_rt"       =>  $this->input->post('sgst_rt'),
+                    "sgst_amt"      =>  $this->input->post('sgst'),
+                    "total_amt"     =>  $this->input->post('totalAmount'),
+                    "irn"           =>  '',
+                    "ack_no"        =>  '',
+                    "ack_dt"        =>  '',
+                    "remarks"       =>  $this->input->post('remarks'),
+                    "suppliers_ref" =>  $this->input->post('supplier_Ref'),
+                    "colc_brn"      =>  $this->session->userdata['loggedin']['branch_id'],
+                    "created_by"    =>  $this->session->userdata("loggedin")["user_id"],
+                    "created_dt"    =>  date("Y-m-d H:i:s"),
+                );
+                if($check_insert > 0 ){
+                $this->Rent_calculation_model->f_insert('td_htc_rent_collection', $data);
+                }
                 
             }else{
                 $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal');
