@@ -820,7 +820,7 @@ class Report_model extends CI_Model
         and a.voucher_date >= '$frm_date' and a.approval_status = 'A'
         AND a.voucher_date <= '$to_date'
         AND a.branch_id =$brid
-        group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C
+        group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.benfed_ac_code)C
         where type in (" . $type . ")
         group by mngr_id, ac_name,type,benfed_ac_code
         order by type,ac_name";
@@ -850,7 +850,7 @@ class Report_model extends CI_Model
         AND a.voucher_date <= '$to_date'
         And a.branch_id=$brid and a.approval_status='A'
         AND a.branch_id =$brid
-        group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
+        group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id,b.benfed_ac_code)C
         where type in (1,2,3,4)
         group by mngr_id, ac_name,type,benfed_ac_code
         order by type, ac_name";
