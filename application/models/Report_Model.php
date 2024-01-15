@@ -796,7 +796,7 @@ class Report_model extends CI_Model
         FROM td_vouchers a ,md_achead b,mda_mngroup c
         WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no
         and a.trans_dt>='$op_dt'
-        AND a.trans_dt<='$frm_date'
+        AND a.voucher_date<='$frm_date'
         and a.approval_status ='A'
         AND a.branch_id=$brid
         group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id
@@ -826,42 +826,6 @@ class Report_model extends CI_Model
         order by type,ac_name";
 
     }else{
-
-// ===========================================================================
-        // $sql = " select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
-        // from(
-        // SELECT if(type=2,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=1,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code 
-        // from( 
-        //         select sum(op_dr)op_dr, sum(op_cr)op_cr,sum(trans_dr)trans_dr , sum(trans_cr)trans_cr,mngr_id, ac_name,type,dr_cr_flag,benfed_ac_code 
-        //         from(SELECT 0 op_dr,0 op_cr,sum(if(a.dr_cr_flag='DR',a.amount,0 ))trans_dr , sum(if(a.dr_cr_flag='CR',a.amount,0 ))trans_cr,b.mngr_id,    
-        //         b.ac_name,c.type,UPPER(a.dr_cr_flag)dr_cr_flag,b.benfed_ac_code 
-        //         FROM td_vouchers a ,md_achead b,mda_mngroup c
-        //         WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt' AND a.trans_dt<='$frm_date'
-        //         and a.approval_status='A'
-        //         and b.br_id=$brid
-        //         group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id 
-        //         union 
-        //         SELECT if(d.trans_flag='DR',d.amount,0),if(d.trans_flag='CR',d.amount,0),0 ,0 ,b.mngr_id, b.ac_name,c.type,UPPER(d.trans_flag),b.benfed_ac_code 
-        //         from md_achead b,mda_mngroup c,td_opening d 
-        //         where d.balance_dt=(select max(balance_dt) from td_opening 
-        //                         where balance_dt<='$frm_date') 
-        //         and b.mngr_id = c.sl_no and b.sl_no=d.acc_code and  b.br_id=$brid
-                
-        //         group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id )b 
-        //         group by mngr_id, ac_name,type,benfed_ac_code )a
-        //         group by benfed_ac_code 
-        // union 
-        // SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id ,
-        // b.ac_name,a.dr_cr_flag,c.type,b.benfed_ac_code
-        // FROM td_vouchers a,md_achead b,mda_mngroup c 
-        // WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date'
-        // AND a.voucher_date <= '$to_date'  and b.br_id=$brid
-        // and a.approval_status='A'
-        // AND a.branch_id =$brid
-        // group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id )C
-        // where type in (" . $type . ")
-        // group by mngr_id, ac_name,type,benfed_ac_code
-        // order by type, ac_name";
         
         $sql = "select sum(op_dr)op_dr,sum(op_cr)op_cr,sum(dr_amt)dr_amt,sum(cr_amt)cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code
         from( SELECT if(type=2,sum(op_dr)-sum(op_cr)+trans_dr-trans_cr,0) op_dr,if(type=1,sum(op_cr)-sum(op_dr)+trans_cr-trans_dr,0)op_cr ,0 dr_amt,0 cr_amt,mngr_id, ac_name,dr_cr_flag,type,benfed_ac_code
@@ -870,7 +834,7 @@ class Report_model extends CI_Model
         FROM td_vouchers a ,md_achead b,mda_mngroup c
         WHERE a.acc_code=b.sl_no
         and b.mngr_id = c.sl_no and a.trans_dt>='$op_dt'
-        AND a.trans_dt<='$frm_date'
+        AND a.voucher_date<='$frm_date'
         and a.approval_status='A' and a.branch_id=$brid
         group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id
         union
