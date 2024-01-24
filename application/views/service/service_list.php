@@ -91,7 +91,7 @@
 
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td id="do_dt"><?php echo date("d/m/Y",strtotime($rent_list->trans_dt)); ?></td>
+                    <td id="do_dt_<?= $i ?>"><?php echo date("d/m/Y",strtotime($rent_list->trans_dt)); ?></td>
                     <td><?php echo $rent_list->invoice_no; ?></td>
                     <!-- <td><?php echo $rent_list->product_desc; ?></td> -->
                     <td><?php echo $rent_list->cust_name; ?></td>
@@ -101,7 +101,7 @@
 					<td id="irn_clk_td_<?= $i ?>">
                                     <?php if($rent_list->irn ){echo ' <i class="fa fa-check fa-2x"  aria-hidden="true" style="color: green"></i>'; }
                                         else{ ?>
-                                        <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?= $rent_list->invoice_no ?>',<?php echo date('d/m/Y',strtotime($rent_list->trans_dt)); ?>)">
+                                        <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?= $rent_list->invoice_no ?>')">
                                         <i class="fa fa-upload fa-2x"  aria-hidden="true" style="color: blue"></i>
                                         </button>
                                         <?php } ?> 
@@ -200,10 +200,10 @@ $(document).ready(function() {
 </script>
 
 <script>
-        function irn_clk(i, trans_do,do_dt){
+        function irn_clk(i, trans_do){
         // alert(i);
-       // var do_dt=$('#do_dt').text();
-        var do_dt=do_dt; 
+        var do_dt=$('#do_dt_'+i).text();
+      //  var do_dt=do_dt; 
         var curr_dt=new Date();
         var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
         console.log({'do_dt': do_dt, 'curr_dt': curr});
