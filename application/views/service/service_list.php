@@ -91,7 +91,7 @@
 
                 <tr>
                     <td><?php echo $i; ?></td>
-                    <td id="do_dt"><?php echo date("d/m/Y",strtotime($rent_list->trans_dt)); ?></td>
+                    <td id="do_dt_<?= $i ?>"><?php echo date("d/m/Y",strtotime($rent_list->trans_dt)); ?></td>
                     <td><?php echo $rent_list->invoice_no; ?></td>
                     <!-- <td><?php echo $rent_list->product_desc; ?></td> -->
                     <td><?php echo $rent_list->cust_name; ?></td>
@@ -202,7 +202,7 @@ $(document).ready(function() {
 <script>
         function irn_clk(i, trans_do){
         // alert(i);
-        var do_dt=$('#do_dt').text();
+        var do_dt=$('#do_dt_'+i).text();
             
         var curr_dt=new Date();
         var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
