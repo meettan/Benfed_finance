@@ -1210,7 +1210,7 @@ if($dt['data']['total_tds']>0){
         
         $cramt=0.0;
         $dramt=0.0;
-
+        $count = 0;
         $rndoff = 0.0;
              
         $input = file_get_contents("php://input");
@@ -1237,7 +1237,51 @@ if($dt['data']['total_tds']>0){
         // echo json_encode(array($dramt,$cramt));
         // exit();
         if($cramt == $dramt){
+            $query1 = $this->db->get_where('td_vouchers', array('trans_no =' => $dt['data']['ro_no'],'acc_code ='=>$dt['data']['comp_acc_cd']))->result();
+    
+            if(count($query1) == 0){
+
                 $input_data = array(
+                    'voucher_date'   => $dt['data']['trans_dt'],
+                    'sl_no'          => $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => $dt['data']['br'],
+                    'trans_no'       => $dt['data']['ro_no'],
+                    'trans_dt'       => $dt['data']['trans_dt'],  
+                    'voucher_type'   => 'PUR',
+                    'transfer_type'  => 'T',
+                    'voucher_mode'   => 'J',
+                    'voucher_through'=> 'A',
+                    'acc_code'       => $dt['data']['comp_acc_cd'],
+                    'dr_cr_flag'     => 'CR',
+                    'amount'         => $dt['data']['tot_amt'],
+                    'ins_no'         => '',
+                    'ins_dt'         => '',
+                    'bank_name'      => '',
+                    'remarks'        => $dt['data']['rem'],
+                    'approval_status'=> 'A',
+                    'user_flag'      =>'',
+                    'created_dt'     => $dt['data']['created_dt'],
+                    'created_by'     => $dt['data']['created_by'],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => 'AUTO',
+                    'approved_dt'    => $dt['data']['created_dt'],
+                    'fin_yr'         => $dt['data']['fin_yr']    
+                );
+    
+                if($this->db->insert('td_vouchers', $input_data)){
+                    $count ++;
+                }
+                
+            }
+                
+
+            $query2 = $this->db->get_where('td_vouchers', array('trans_no =' => $dt['data']['ro_no'],'acc_code ='=> 8197 ));
+    
+            if($query2->num_rows() == 0){
+
+            $input_cgst = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
                 'sl_no'          => $v_srl,
                 // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
@@ -1249,16 +1293,15 @@ if($dt['data']['total_tds']>0){
                 'transfer_type'  => 'T',
                 'voucher_mode'   => 'J',
                 'voucher_through'=> 'A',
-                //'acc_code'       => 2209,
-                'acc_code'       => $dt['data']['comp_acc_cd'],
-                'dr_cr_flag'     => 'CR',
-                'amount'         => $dt['data']['tot_amt'],
+                'acc_code'       => 8197,             // Change on 31/03/2023  will effect from 01/04/2023
+                'dr_cr_flag'     => 'DR',
+                'amount'         => $dt['data']['cgst'],
                 'ins_no'         => '',
                 'ins_dt'         => '',
                 'bank_name'      => '',
                 'remarks'        => $dt['data']['rem'],
                 'approval_status'=> 'A',
-                'user_flag'      =>'',
+                'user_flag'      => '',
                 'created_dt'     => $dt['data']['created_dt'],
                 'created_by'     => $dt['data']['created_by'],
                 'modified_by'    => '',
@@ -1267,12 +1310,93 @@ if($dt['data']['total_tds']>0){
                 'approved_dt'    => $dt['data']['created_dt'],
                 'fin_yr'         => $dt['data']['fin_yr']    
             );
+
+            if($this->db->insert('td_vouchers', $input_cgst)){
+                $count ++;
+            }
+
+        }
+
+        $query3 = $this->db->get_where('td_vouchers', array('trans_no =' => $dt['data']['ro_no'],'acc_code ='=> 8198 ));
+    
+        if($query3->num_rows() == 0){
+            $input_sgst = array(
+                'voucher_date'   => $dt['data']['trans_dt'],
+                'sl_no'          => $v_srl,
+                'voucher_id'     => $v_id,
+                'branch_id'      => $dt['data']['br'],
+                'trans_no'       => $dt['data']['ro_no'],
+                'trans_dt'       => $dt['data']['trans_dt'],  
+                'voucher_type'   => 'PUR',
+                'transfer_type'  => 'T',
+                'voucher_mode'   => 'J',
+                'voucher_through'=> 'A',
+                //'acc_code'       => 2206,
+                'acc_code'       => 8198,      // Change on 31/03/2023  will effect from 01/04/2023
+                'dr_cr_flag'     => 'DR',
+                'amount'         => $dt['data']['sgst'],
+                'ins_no'         => '',
+                'ins_dt'         => '',
+                'bank_name'      => '',
+                'remarks'        => $dt['data']['rem'],
+                'approval_status'=> 'A',
+                'user_flag'      => '',
+                'created_dt'     => $dt['data']['created_dt'],
+                'created_by'     => $dt['data']['created_by'],
+                'modified_by'    => '',
+                'modified_dt'    => '',
+                'approved_by'    => 'AUTO',
+                'approved_dt'    => $dt['data']['created_dt'],
+                'fin_yr'         => $dt['data']['fin_yr']    
+            );
+            
+            if($this->db->insert('td_vouchers', $input_sgst)){
+                $count ++;
+            }
+
+        }
+        $query4 = $this->db->get_where('td_vouchers', array('trans_no =' => $dt['data']['ro_no'],'acc_code ='=> 2208 ));
+    
+        if($query4->num_rows() == 0){
+                $input_pur= array(
+                    'voucher_date'   => $dt['data']['trans_dt'],
+                    'sl_no'          => $v_srl,
+                    'voucher_id'     => $v_id,
+                    'branch_id'      => $dt['data']['br'],
+                    'trans_no'       => $dt['data']['ro_no'],
+                    'trans_dt'       => $dt['data']['trans_dt'],  
+                    'voucher_type'   => 'PUR',
+                    'transfer_type'  => 'T',
+                    'voucher_mode'   => 'J',
+                    'voucher_through'=> 'A',
+                    'acc_code'       => 2208,
+                    'dr_cr_flag'     => 'DR',
+                    'amount'         => $dt['data']['net_amt'],
+                    'ins_no'         => '',
+                    'ins_dt'         => '',
+                    'bank_name'      => '',
+                    'remarks'        => $dt['data']['rem'],
+                    'approval_status'=> 'A',
+                    'user_flag'      => '',
+                    'created_dt'     => $dt['data']['created_dt'],
+                    'created_by'     => $dt['data']['created_by'],
+                    'modified_by'    => '',
+                    'modified_dt'    => '',
+                    'approved_by'    => 'AUTO',
+                    'approved_dt'    => $dt['data']['created_dt'],
+                    'fin_yr'         => $dt['data']['fin_yr']    
+                );
+
+                if($this->db->insert('td_vouchers', $input_pur)){
+                    $count ++;
+                }
+
+        }
         if ($dt['data']['rnd_of_add']>0){
 
             $input_rndcr = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
                 'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
                 'voucher_id'     => $v_id,
                 'branch_id'      => $dt['data']['br'],
                 'trans_no'       => $dt['data']['ro_no'],
@@ -1300,99 +1424,7 @@ if($dt['data']['total_tds']>0){
             );
 
             $this->db->insert('td_vouchers', $input_rndcr) ;
-        }
-
-            $input_cgst = array(
-                'voucher_date'   => $dt['data']['trans_dt'],
-                'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
-                'voucher_id'     => $v_id,
-                'branch_id'      => $dt['data']['br'],
-                'trans_no'       => $dt['data']['ro_no'],
-                'trans_dt'       => $dt['data']['trans_dt'],  
-                'voucher_type'   => 'PUR',
-                'transfer_type'  => 'T',
-                'voucher_mode'   => 'J',
-                'voucher_through'=> 'A',
-             //   'acc_code'       => 2205,
-                'acc_code'       => 8197,             // Change on 31/03/2023  will effect from 01/04/2023
-                'dr_cr_flag'     => 'DR',
-                'amount'         => $dt['data']['cgst'],
-                'ins_no'         => '',
-                'ins_dt'         => '',
-                'bank_name'      => '',
-                'remarks'        => $dt['data']['rem'],
-                'approval_status'=> 'A',
-                'user_flag'      => '',
-                'created_dt'     => $dt['data']['created_dt'],
-                'created_by'     => $dt['data']['created_by'],
-                'modified_by'    => '',
-                'modified_dt'    => '',
-                'approved_by'    => 'AUTO',
-                'approved_dt'    => $dt['data']['created_dt'],
-                'fin_yr'         => $dt['data']['fin_yr']    
-            );
-    
-            $input_sgst = array(
-                'voucher_date'   => $dt['data']['trans_dt'],
-                'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
-                'voucher_id'     => $v_id,
-                'branch_id'      => $dt['data']['br'],
-                'trans_no'       => $dt['data']['ro_no'],
-                'trans_dt'       => $dt['data']['trans_dt'],  
-                'voucher_type'   => 'PUR',
-                'transfer_type'  => 'T',
-                'voucher_mode'   => 'J',
-                'voucher_through'=> 'A',
-                //'acc_code'       => 2206,
-                'acc_code'       => 8198,      // Change on 31/03/2023  will effect from 01/04/2023
-                'dr_cr_flag'     => 'DR',
-                'amount'         => $dt['data']['sgst'],
-                'ins_no'         => '',
-                'ins_dt'         => '',
-                'bank_name'      => '',
-                'remarks'        => $dt['data']['rem'],
-                'approval_status'=> 'A',
-                'user_flag'      => '',
-                'created_dt'     => $dt['data']['created_dt'],
-                'created_by'     => $dt['data']['created_by'],
-                'modified_by'    => '',
-                'modified_dt'    => '',
-                'approved_by'    => 'AUTO',
-                'approved_dt'    => $dt['data']['created_dt'],
-                'fin_yr'         => $dt['data']['fin_yr']    
-            );
-
-                $input_pur= array(
-                    'voucher_date'   => $dt['data']['trans_dt'],
-                    'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
-                'voucher_id'     => $v_id,
-                    'branch_id'      => $dt['data']['br'],
-                    'trans_no'       => $dt['data']['ro_no'],
-                    'trans_dt'       => $dt['data']['trans_dt'],  
-                    'voucher_type'   => 'PUR',
-                    'transfer_type'  => 'T',
-                    'voucher_mode'   => 'J',
-                    'voucher_through'=> 'A',
-                    'acc_code'       => 2208,
-                    'dr_cr_flag'     => 'DR',
-                    'amount'         => $dt['data']['net_amt'],
-                    'ins_no'         => '',
-                    'ins_dt'         => '',
-                    'bank_name'      => '',
-                    'remarks'        => $dt['data']['rem'],
-                    'approval_status'=> 'A',
-                    'user_flag'      => '',
-                    'created_dt'     => $dt['data']['created_dt'],
-                    'created_by'     => $dt['data']['created_by'],
-                    'modified_by'    => '',
-                    'modified_dt'    => '',
-                    'approved_by'    => 'AUTO',
-                    'approved_dt'    => $dt['data']['created_dt'],
-                    'fin_yr'         => $dt['data']['fin_yr']    
-                );
+        }        
 
         if ($dt['data']['rnd_of_less']>0){
 
@@ -1400,7 +1432,6 @@ if($dt['data']['total_tds']>0){
             $input_rndcr = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
                 'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
                 'voucher_id'     => $v_id,
                 'branch_id'      => $dt['data']['br'],
                 'trans_no'       => $dt['data']['ro_no'],
@@ -1471,11 +1502,9 @@ if($dt['data']['total_tds']>0){
 
         if ($dt['data']['rbt_less']>0){
 
-            
             $input_rbt = array(
                 'voucher_date'   => $dt['data']['trans_dt'],
                 'sl_no'          => $v_srl,
-                // 'voucher_id'     => 'Purchase'.$dt['data']['ro_no'],
                 'voucher_id'     => $v_id,
                 'branch_id'      => $dt['data']['br'],
                 'trans_no'       => $dt['data']['ro_no'],
@@ -1509,7 +1538,7 @@ if($dt['data']['total_tds']>0){
 
     // if(!empty($input_data)&&!empty($input_cgst)&&!empty($input_sgst)&&!empty($input_pur)){
         
-        if($this->db->insert('td_vouchers', $input_data) && $this->db->insert('td_vouchers', $input_cgst) && $this->db->insert('td_vouchers', $input_sgst) && $this->db->insert('td_vouchers', $input_pur) ){
+        if($count == 4){
             echo json_encode(1);
         }
         else{
