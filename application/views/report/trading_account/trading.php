@@ -133,7 +133,7 @@ Trading Account : </h4>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" style="text-align:center;font-weight: bold;">FERTILISER DEPARTMENT:</td>
+                                    <td colspan="4" style="text-align:center;font-weight:bold;">FERTILISER DEPARTMENT:</td>
                                 </tr>
                                 <tr style="font-weight: bold;">
                                     <td>REVENUE FROM OPERATION</td>
