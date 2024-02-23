@@ -365,7 +365,7 @@ public function jrnlprn()
                 $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_group($frm_date,$to_date,$opndt,NULL,$group_id,$br_id);
                 $data['dist']         = 1;
             }
-            
+            $data['cu_por'] = $this->master_model->f_select("td_cur_prof a,md_achead b", array('b.ac_name','a.*'), array('a.acc_head=b.sl_no'=>NULL,'acc_head'=>11371), 1);
             $data['sbgrop']=$this->input->post('subgroupinputvalue');
             $this->load->view('post_login/finance_main');
             $this->load->view('report/trail_bal/consolidated_trail_bal_group/trail_bal.php',$data);
