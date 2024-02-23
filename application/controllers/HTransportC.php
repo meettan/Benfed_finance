@@ -371,15 +371,16 @@ class HTransportC extends CI_Controller
                 );
                 if($check_insert > 0 ){
                 $this->Rent_calculation_model->f_insert('td_htc_rent_collection', $data);
+                $result_query = $this->db->last_query();
                 }
                 
             }else{
                 $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal');
             }
                
-                // $this->session->set_flashdata('msg', 'Successfully Added');
+                 $this->session->set_flashdata('msg', $result_query);
 
-
+                 echo $result_query;
                 return redirect('/handling-trandport-charges/htc_raise_invoice_list');
                 // print_r($data);
             

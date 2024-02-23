@@ -52,7 +52,7 @@
         <h3>
             <a href="<?php echo site_url("handling-trandport-charges/htc_raise_invoice"); ?>" class="btn btn-primary"
                 style="width: 100px;">Add</a>
-            <span class="confirm-div" style="float:right; color:green;"></span>
+            <span class="confirm-div" style="float:right; color:green;"><?php if($this->session->flashdata('msg')) echo $this->session->flashdata('msg') ?></span>
         </h3>
 
         <table class="table table-bordered table-hover" id="example">
