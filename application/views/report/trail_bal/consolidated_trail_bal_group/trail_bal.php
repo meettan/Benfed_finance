@@ -137,20 +137,17 @@ tr:hover {background-color: #f5f5f5;}
                                      <td ><?php //echo $tb->benfed_ac_code; ?></td>
 									 <td ><?php echo $tb->name; ?></td>
 
-
                                      <?php $dmo = date('m-d', strtotime($fd_date));
                                         if($dmo=='04-01'){ ?>
 
- <td style="text-align: right;">
- <?php  echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
- </td>
- <td style="text-align: right;">
- <?php echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
- </td>
+                                    <td style="text-align: right;">
+                                    <?php  echo number_format(abs($tb->op_dr),2); $otot_dr +=$tb->op_dr; ?>
+                                    </td>
+                                    <td style="text-align: right;">
+                                    <?php echo number_format(abs($tb->op_cr),2); $otot_cr +=$tb->op_cr; ?>
+                                    </td>
 
-<?php  }else{ ?>
-
-
+                                    <?php  }else{ ?>
 									
                                      <td style="text-align: right;">
                                      
@@ -171,7 +168,7 @@ tr:hover {background-color: #f5f5f5;}
 									       
 								        
 									 </td>
-<?php } ?>
+                                     <?php } ?>
                                      <td  style="text-align: right;"><?php echo number_format($tb->dr_amt,2); $tot_dr +=$tb->dr_amt; ?></td>
                                      <td  style="text-align: right;"><?php echo number_format($tb->cr_amt,2); $tot_cr +=$tb->cr_amt; ?></td>
                                      <td style="text-align: right;"><?php if($tb->op_dr+$tb->dr_amt>$tb->op_cr+$tb->cr_amt){ ?>
@@ -193,6 +190,22 @@ tr:hover {background-color: #f5f5f5;}
                                     }                    
                                     }
                                 ?>
+
+                                <tr style="">
+                                    <td style="text-align: right;"></td>
+									<td style="text-align: right;"></td>
+									<td ><?=$cu_por->ac_name?></td>
+									<td style="text-align: right;"></td>
+									<td style="text-align: right;"></td>
+									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo $cu_por->amount;
+                                    $tot_dr +=$cu_por->amount;
+                                    }?></td>
+									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo $cu_por->amount;
+                                    $tot_cr +=$cu_por->amount;
+                                    }?></td>
+									<td style="text-align: right;"></td>
+									<td style="text-align: right;"></td>
+								</tr>
                                 <tr style="font-weight: bold;">
 								    <td colspan='3'>Total</td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_dr),2)?></td>
