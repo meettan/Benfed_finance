@@ -378,8 +378,7 @@ class HTransportC extends CI_Controller
             }else{
                 $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal'.'DR-'.$cramt.'CR-'.$dramt);
             }
-                 $this->session->set_flashdata('msg', $result_query.'CHECKINSERT'.$check_insert);
-              //   echo $result_query;
+                 $this->session->set_flashdata('msg', $result_query.'CHECKINSERT'.$check_insert.'DR-'.$cramt.'CR-'.$dramt);
                 return redirect('/handling-trandport-charges/htc_raise_invoice_list');
 
         }else{
