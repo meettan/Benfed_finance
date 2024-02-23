@@ -210,10 +210,11 @@ class HTransportC extends CI_Controller
                 $sl_no    = $this->Transaction_model->f_get_voucher_id($this->session->userdata('loggedin')['fin_id']);
                 $v_srl=$sl_no->sl_no;
                 $v_id= 'HO/'.$this->session->userdata('loggedin')['fin_yr'].'/'.$v_srl;
+
                 $cramt=($this->input->post('amount')+$this->input->post('cgst')+$this->input->post('sgst'));
                 $dramt=$this->input->post('totalAmount');
-
-                if($cramt==$dramt){
+             
+                if(round($cramt,2) == round($dramt,2)){
 
                 
                 // H&t vouchers
@@ -374,11 +375,12 @@ class HTransportC extends CI_Controller
                 $this->Rent_calculation_model->f_insert('td_htc_rent_collection', $data);
                 $result_query = $this->db->last_query();
                 }
-                
+              //  $this->session->set_flashdata('msg', $result_query.'CHECKINSERT'.$check_insert.'DR-'.$cramt.'CR-'.$dramt);
+               $this->session->set_flashdata('msg', 'Saved successfully');
             }else{
-                $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal'.'DR-'.$cramt.'CR-'.$dramt);
+               $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal'.'DR-'.$cramt.'CR-'.$dramt);
             }
-                 $this->session->set_flashdata('msg', $result_query.'CHECKINSERT'.$check_insert.'DR-'.$cramt.'CR-'.$dramt);
+                
                 return redirect('/handling-trandport-charges/htc_raise_invoice_list');
 
         }else{
