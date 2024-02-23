@@ -190,7 +190,7 @@ class HTransportC extends CI_Controller
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $mode=$this->input->post('mode');
             $last_invoice_no=$this->HTransportC_model->invoice_no();
-
+            $result_query = '';
             $select	=	array("acchead","cust_name");
             $where = array('id' =>$this->input->post('customer'));
             $dr_acccd =$this->Transaction_model->f_select("md_htc_customer", $select, $where , 1);
@@ -377,11 +377,9 @@ class HTransportC extends CI_Controller
             }else{
                 $this->session->set_flashdata('msg', 'Dr Amount Cr amount are not equal');
             }
-               
                  $this->session->set_flashdata('msg', $result_query);
-
                  echo $result_query;
-                return redirect('/handling-trandport-charges/htc_raise_invoice_list');
+                //return redirect('/handling-trandport-charges/htc_raise_invoice_list');
                 // print_r($data);
             
         }else{
