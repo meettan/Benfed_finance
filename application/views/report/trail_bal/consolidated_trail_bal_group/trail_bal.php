@@ -182,15 +182,13 @@ tr:hover {background-color: #f5f5f5;}
 													$ctot_cr +=abs($tb->op_cr+$tb->cr_amt-($tb->op_dr)-($tb->dr_amt));?>
 										 <?php } ?>
 									 </td>
-                                     
-									
                                 </tr>
  
                                 <?php  
                                     }                    
                                     }
                                 ?>
-
+                                <?php if($group_id == 26) { ?>
                                 <tr style="">
                                     <td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
@@ -206,6 +204,7 @@ tr:hover {background-color: #f5f5f5;}
 									<td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
 								</tr>
+                                <?php } ?>
                                 <tr style="font-weight: bold;">
 								    <td colspan='3'>Total</td>
 									<td style="font-size: 12px !important; text-align: right;"><?=number_format(abs($otot_dr),2)?></td>

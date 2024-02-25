@@ -1966,6 +1966,40 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         return $query->row();
     }
 
+    public function update_cur_profit($start_dt,$end_dt,$fin_id){
+
+        $sql ="select x- e   + (select sum(cr)-sum(dr) from(select if(dr_cr_flag='Cr',sum(amount),0)cr,if(dr_cr_flag='Dr',sum(amount),0)dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(3408 ))) and voucher_date between '$start_dt' and '$end_dt' group by dr_cr_flag)a) as prof
+                from(select  sum(cr)-sum(dr) E
+                from(select if(dr_cr_flag='Cr',sum(amount),0)as cr,if(dr_cr_flag='Dr',sum(amount),0)as dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(3401,   3402, 3403,3404,3405,3406 ))) and voucher_date between '$start_dt' and '$end_dt'
+                group by dr_cr_flag)a)e ,
+                (select c+d  x from
+                (select a+b as c
+                from(select sum(cr)-sum(dr) as A from(select if(dr_cr_flag='Cr',sum(amount),0)cr,if(dr_cr_flag='Dr',sum(amount),0)dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(4101, 4102, 4201, 4202, 4301, 4302 ))) and voucher_date between '$start_dt' and '$end_dt' group by dr_cr_flag)a)a, 
+                (select sum(cr)-sum(dr) as B from(select if(dr_cr_flag='Cr',sum(amount),0)cr,if(dr_cr_flag='Dr',sum(amount),0)dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(3201, 3301, 3302, 3202,3102,3101 ))) and voucher_date between '$start_dt' and '$end_dt' group by dr_cr_flag)a)b)c,
+                (select  sum(cr)-sum(dr) as d
+                from(select if(dr_cr_flag='Cr',sum(amount),0)cr,if(dr_cr_flag='Dr',sum(amount),0)dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(4401,  4402, 4403, 4404 ))) and voucher_date between '$start_dt' and '$end_dt'
+                group by dr_cr_flag)a)d)x";
+
+              
+        $result = $this->db->query($sql)->row();
+        if($result){
+            $cur_profit =   $result->prof;
+        }else{
+            $cur_profit = 0 ;
+        }
+
+        $sql_check =$this->db->query('SELECT * FROM `td_cur_prof` where fin_id = '.$fin_id)->result();  
+        
+        if(count($sql_check) > 0){
+            $this->db->where(array('fin_id'=>$fin_id,'acc_head'=>11371));
+            $this->db->update('td_cur_prof', array('amount'=>$cur_profit));
+        }else{
+            $this->db->insert('td_cur_prof', array('st_date'=>$start_dt,'fin_id'=>$fin_id,'acc_head'=>11371,'amount'=>$cur_profit));
+        }
+        
+        return null;
+    }
+
 
     
 }
