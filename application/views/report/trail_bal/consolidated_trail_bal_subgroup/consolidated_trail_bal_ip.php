@@ -110,7 +110,7 @@ tr:hover {background-color: #f5f5f5;}
                     <label for="to_date" class="col-sm-2 col-form-label">Group:</label>
 
                     <div class="col-sm-6">
-						<select class="form-control"  name="" id="group">
+						<select class="form-control"  name="group" id="group">
 						   <option value="">Select group</option>
 						   <?php foreach($group as $gr){?>
 						   <option value="<?=$gr->sl_no?>"><?=$gr->name?></option>

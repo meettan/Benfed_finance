@@ -320,8 +320,18 @@ public function jrnlprn()
                 $br_id = $this->session->userdata['loggedin']['branch_id'];
                 $data['dist'] = 1; 
             }
+
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+            $fin_date = $this->master_model->f_select("md_fin_year", NULL,array('sl_no'=>$fin_yr), 1);
             
+            if($this->input->post('group') == 26){
+                $query = $this->Report_Model->update_cur_profit($fin_date->start_dt,$fin_date->end_dt,$fin_yr);
+            }
+            $data['cu_por'] = $this->master_model->f_select("td_cur_prof a,md_achead b", array('b.ac_name','a.*'), array('a.acc_head=b.sl_no'=>NULL,'acc_head'=>11371), 1);
+            $data['group_id']=$this->input->post('group');
             $data['trail_balnce']     = $this->Report_Model->f_get_trailbal_subgroup($frm_date,$to_date,$opndt,$type,$subgroupId,$br_id);
+
+
             $data['sbgrop']=$this->input->post('subgroupinputvalue');
             $this->load->view('post_login/finance_main');
             $this->load->view('report/trail_bal/consolidated_trail_bal_subgroup/trail_bal.php',$data);
