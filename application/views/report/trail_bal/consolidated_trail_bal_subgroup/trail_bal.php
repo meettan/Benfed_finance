@@ -194,10 +194,10 @@ tr:hover {background-color: #f5f5f5;}
 									<td ><?=$cu_por->ac_name?></td>
 									<td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
-									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo $cu_por->amount;
+									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo abs($cu_por->amount);
                                     $tot_dr +=$cu_por->amount;
                                     }?></td>
-									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo $cu_por->amount;
+									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo abs($cu_por->amount);
                                     $tot_cr +=$cu_por->amount;
                                     }?></td>
 									<td style="text-align: right;"></td>
