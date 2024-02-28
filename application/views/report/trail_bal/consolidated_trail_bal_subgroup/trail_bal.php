@@ -190,14 +190,14 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php if($group_id == 26) { ?>
                                 <tr style="">
                                     <td style="text-align: right;"></td>
-									<td style="text-align: right;"></td>
+									<td><?=$cu_por->acc_head?></td>
 									<td ><?=$cu_por->ac_name?></td>
 									<td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
-									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo abs($cu_por->amount);
+									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2);
                                     $tot_dr +=$cu_por->amount;
                                     }?></td>
-									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo abs($cu_por->amount);
+									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
                                     $tot_cr +=$cu_por->amount;
                                     }?></td>
 									<td style="text-align: right;"></td>
