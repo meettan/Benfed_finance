@@ -1980,7 +1980,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
         //         from(select if(dr_cr_flag='Cr',sum(amount),0)cr,if(dr_cr_flag='Dr',sum(amount),0)dr from td_vouchers where acc_code in( select sl_no from md_achead where subgr_id in( SELECT sl_no FROM mda_subgroub WHERE benfed_subgr_id in(4401,  4402, 4403, 4404 ))) and voucher_date between '$start_dt' and '$end_dt'
         //         group by dr_cr_flag)a)d)x";
 
-        $sql = "select revn-exps  as prof
+        $sql = "select (revn-exps)*-1  as prof
          from(
          select sum(cr)-sum(dr) as revn
          from (
