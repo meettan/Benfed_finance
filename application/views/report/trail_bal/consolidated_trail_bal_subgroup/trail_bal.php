@@ -188,9 +188,9 @@ tr:hover {background-color: #f5f5f5;}
                                     }
                                 ?>
                                 <?php if($group_id == 26) { ?>
-                                <tr style="text-align: right;">
+                                <tr style="text-align: left;">
                                     <td style="text-align: right;"></td>
-									<td ><?=$cu_por->acc_head?></td>
+									<td ><?=$cu_por->benfed_ac_code?></td>
 									<td ><?=$cu_por->ac_name?></td>
 									<td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
