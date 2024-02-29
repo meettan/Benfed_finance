@@ -202,8 +202,10 @@ tr:hover {background-color: #f5f5f5;}
                                     $tot_cr +=abs($cu_por->amount);
                                     $ctot_cr+=abs($cu_por->amount);
                                     }?></td>
-									<td style="text-align: right;"></td>
-									<td style="text-align: right;"></td>
+									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2);
+                                    }?></td>
+									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
+                                    }?></td>
 								</tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
