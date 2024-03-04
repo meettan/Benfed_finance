@@ -380,7 +380,7 @@ public function jrnlprn()
             if($group_id == 26){
                 $query = $this->Report_Model->update_cur_profit($fin_date->start_dt,$fin_date->end_dt,$fin_yr);
             }
-            $data['cu_por'] = $this->master_model->f_select("td_cur_prof a,md_achead b", array('b.ac_name','a.*'), array('a.acc_head=b.sl_no'=>NULL,'acc_head'=>11371), 1);
+            $data['cu_por'] = $this->master_model->f_select("td_cur_prof a,md_achead b", array('b.ac_name','a.*'), array('a.acc_head=b.sl_no'=>NULL,'acc_head'=>11371,'a.fin_id'=>$fin_yr), 1);
             $data['sbgrop']=$this->input->post('subgroupinputvalue');
             $data['group_id']=$this->input->post('group_id');
            
@@ -411,7 +411,6 @@ public function jrnlprn()
             $output.='<option value="'.$key->sl_no.'">'.$key->name.'</option>';
         }
 echo  $output;
-
 
     }
 	
