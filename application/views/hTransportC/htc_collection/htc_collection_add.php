@@ -124,8 +124,8 @@
                 $('#amount').val(data.htc_amt);
 
                 var amount=data.htc_amt;
-                var cgst=((amount/100)*cgst_rt);
-                var sgst=((amount/100)*sgst_rt);
+                var cgst=Math.ceil(((amount/100)*cgst_rt));
+                var sgst=Math.ceil(((amount/100)*sgst_rt));
                 $('#cgst').val(cgst);
                 $('#sgst').val(sgst);
                 var totalamt=(cgst + sgst + parseFloat(amount));
