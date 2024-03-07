@@ -148,20 +148,14 @@
                 $('#cgst_rt').val(data.htm_cgst_rt);
                 $('#sgst_rt').val(data.htm_sgst_rt);
 
-
-
-
-                
-
-
-                // var cgst_rt=$('#cgst_rt').val();
+                 // var cgst_rt=$('#cgst_rt').val();
                 // var sgst_rt =$('#sgst_rt').val();
                 var amount=$("#amount").val();
                 var cgst=((amount/100)*data.htm_cgst_rt);
                 var sgst=((amount/100)*data.htm_sgst_rt);
                 $('#cgst').val(cgst.toFixed(2));
                 $('#sgst').val(sgst.toFixed(2));
-                var totalamt=(cgst + cgst + parseFloat(amount));
+                var totalamt=(parseFloat(cgst) + parseFloat(cgst) + parseFloat(amount));
                 $('#totalAmount').val(totalamt.toFixed(2));
                
             }
@@ -182,8 +176,6 @@
                 $('#sgstp').html(data.sgst_rt);
                 $('#cgst_rt').val(data.htm_cgst_rt);
                 $('#sgst_rt').val(data.htm_sgst_rt);
-
-
                 var amount=$("#amount").val();
                 var cgst=((amount/100)*data.htm_cgst_rt);
                 var sgst=((amount/100)*data.htm_sgst_rt);
@@ -197,11 +189,7 @@
 
     });
 
-    
-
-
-
-    $('#ac_type').change(function(){
+        $('#ac_type').change(function(){
         var customer=$(this).val();
         var product=$('#product').val();
 
@@ -215,13 +203,12 @@
             dataType: "json",
             success: function(data) {
                 // $('#amount').val(data.htc_amt);
-
                 var amount=data.htc_amt;
                 var cgst=((amount/100)*cgst_rt);
                 var sgst=((amount/100)*sgst_rt);
                 // $('#cgst').val(cgst);
                 // $('#sgst').val(sgst);
-                var totalamt=(cgst + sgst + parseFloat(amount));
+                var totalamt=(parseFloat(cgst) + parseFloat(sgst) + parseFloat(amount));
                 // $('#totalAmount').val(totalamt);
             }
         });
@@ -235,7 +222,7 @@
         var sgst=((amount/100)*sgst_rt);
         $('#cgst').val(cgst.toFixed(2));
         $('#sgst').val(sgst.toFixed(2));
-        var totalamt=(cgst + sgst + parseFloat(amount));
+        var totalamt=(parseFloat(cgst) + parseFloat(sgst) + parseFloat(amount));
         $('#totalAmount').val(totalamt.toFixed(2));
     })
 
