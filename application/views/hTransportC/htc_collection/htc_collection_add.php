@@ -124,11 +124,11 @@
                 $('#amount').val(data.htc_amt);
 
                 var amount=data.htc_amt;
-                var cgst=Math.ceil(((amount/100)*cgst_rt));
-                var sgst=Math.ceil(((amount/100)*sgst_rt));
+                var cgst=((amount/100)*cgst_rt);
+                var sgst=((amount/100)*sgst_rt);
                 $('#cgst').val(cgst);
                 $('#sgst').val(sgst);
-                var totalamt=(cgst + sgst + parseFloat(amount));
+                var totalamt=(parseFloat(cgst) + parseFloat(sgst) + parseFloat(amount));
                 // $('#totalAmount').val(totalamt);
             }
         });
