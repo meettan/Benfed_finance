@@ -222,7 +222,7 @@
         var sgst=((amount/100)*sgst_rt);
         $('#cgst').val(cgst.toFixed(2));
         $('#sgst').val(sgst.toFixed(2));
-        var totalamt=(parseFloat(cgst) + parseFloat(sgst) + parseFloat(amount));
+        var totalamt=(parseFloat(cgst.toFixed(2)) + parseFloat(sgst.toFixed(2)) + parseFloat(amount.toFixed(2)));
         $('#totalAmount').val(totalamt.toFixed(2));
     })
 
