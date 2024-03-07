@@ -218,12 +218,21 @@
         var cgst_rt=$('#cgst_rt').val();
         var sgst_rt =$('#sgst_rt').val();
         var amount=$(this).val();
+        //alert(amount);
         var cgst=((amount/100)*cgst_rt);
         var sgst=((amount/100)*sgst_rt);
-        $('#cgst').val(cgst.toFixed(2));
-        $('#sgst').val(sgst.toFixed(2));
-        var totalamt=(parseFloat(cgst.toFixed(2)) + parseFloat(sgst.toFixed(2)) + parseFloat(amount.toFixed(2)));
-        $('#totalAmount').val(totalamt.toFixed(2));
+        cgst=cgst.toFixed(2);
+        sgst =sgst.toFixed(2);
+
+        $('#cgst').val(cgst);
+        $('#sgst').val(sgst);
+        //alert(cgst);
+        var totalamt=parseFloat(cgst) + parseFloat(sgst) + parseFloat(amount);
+        //totalamt=totalamt + amount;
+        
+     var totalamt= parseFloat(totalamt);
+      //alert(totalamt);
+        $('#totalAmount').val(totalamt);
     })
 
 
