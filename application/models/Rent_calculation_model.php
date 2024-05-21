@@ -58,8 +58,8 @@
         $seaionyeardtls = $this->f_select('md_fin_year',NULL,array('sl_no'=>$this->session->userdata("loggedin")["fin_id"]),1);
         $this->db->select('*')->from('td_rent')->join('md_godown','md_godown.id=td_rent.godown_id');
         $this->db->join('md_rent_customer','md_rent_customer.id=td_rent.customer_id')->order_by('td_rent.sl_no','DESC');
-        $this->db->where('td_rent.rent_end_date >=',$seaionyeardtls->start_dt);
-        $this->db->where('td_rent.rent_end_date <=',$seaionyeardtls->end_dt);
+        $this->db->where('td_rent.effective_date >=',$seaionyeardtls->start_dt);
+        $this->db->where('td_rent.effective_date <=',$seaionyeardtls->end_dt);
         $q=$this->db->get();
         //echo $this->db->last_query();die();
         return $q->result();
