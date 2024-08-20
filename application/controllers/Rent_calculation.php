@@ -258,8 +258,8 @@ class Rent_calculation extends CI_Controller{
 
             $select	=	array("acchead");
             $where = array('id' =>$this->input->post('customer'));
-            // $dr_acccd =$this->Transaction_model->f_select("md_rent_customer", $select, $where , 1);
-            $dr_acccd = 7154;
+            $dr_acccd =$this->Transaction_model->f_select("md_rent_customer", $select, $where , 1);
+            // $dr_acccd = 7154;
             if(empty($last_invoice_no)){
                 $trans_no=0;
             }else{
