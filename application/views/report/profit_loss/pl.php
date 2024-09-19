@@ -177,7 +177,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td >(F) NET PROFIT BEFORE PROVISIONS AND TAX (C+D-E)</td>
                                     <td></td>
-                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer?></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer -$totexp_fer?></td>
                                     <td></td>
                                 </tr>
                                 <?php foreach($provision_tax as $pro_tax) { ?>
@@ -191,7 +191,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td >(H) NET PROFIT AFTER TAX (F-G)</td>
                                     <td></td>
-                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot?></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer -$totexp_fer-$pro_tax_tot?></td>
                                     <td></td>
                                 </tr>
                                 <?php foreach($appropration as $appro) { ?>
@@ -211,7 +211,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr style="font-weight: bold;">
                                     <td>(K) BALANCE CARRIED TO BALANCE SHEET (H-I+J)</td>
                                     <td></td>
-                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer +$totexp_fer-$pro_tax_tot-$appro_tot+$tot_accul?></td>
+                                    <td><?=$totrev_markt-$totexp_markt +$totrev_fer -$totexp_fer-$pro_tax_tot-$appro_tot+$tot_accul?></td>
                                     <td></td>
                                 </tr>
                             </tbody>
