@@ -189,23 +189,31 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                 <?php if($group_id == 26) { ?>
                                 <tr style="text-align: left;">
-                                    <td style="text-align: right;"></td>
+                                    <!-- <td style="text-align: right;"></td>
 									<td ><?=$cu_por->benfed_ac_code?></td>
 									<td ><?=$cu_por->ac_name?></td>
 									<td style="text-align: right;"></td>
 									<td style="text-align: right;"></td>
-									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2);
+									<td style="text-align: right;">-->
+                                        <?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2); 
                                     $tot_dr +=abs($cu_por->amount);
                                     $ctot_dr+=abs($cu_por->amount);
-                                    }?></td>
-									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
+                                    }?>
+                                    <!-- </td> -->
+									<!-- <td style="text-align: right;"> -->
+                                        <?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
                                     $tot_cr +=abs($cu_por->amount);
                                     $ctot_cr+=abs($cu_por->amount);
-                                    }?></td>
-									<td style="text-align: right;"><?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2);
-                                    }?></td>
-									<td style="text-align: right;"><?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
-                                    }?></td>
+                                    }?>
+                                    <!-- </td> -->
+									<!-- <td style="text-align: right;"> -->
+                                    <?php if($cu_por->amount> 0) { echo number_format(abs($cu_por->amount),2);
+                                    }?>
+                                    <!-- </td> -->
+									<!-- <td style="text-align: right;"> -->
+                                    <?php if($cu_por->amount < 0) { echo number_format(abs($cu_por->amount),2);
+                                    }?>
+                                    <!-- </td> -->
 								</tr>
                                 <?php } ?>
                                 <tr style="font-weight: bold;">
