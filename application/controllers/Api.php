@@ -5,7 +5,7 @@ class Api extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->model('Rent_calculation_model');
-
+        $this->load->model('SaleModel');
         $this->load->model('HTransportC_model');
     }
     function get_api_cancel(){
@@ -85,7 +85,7 @@ class Api extends CI_Controller{
         $dt = $data ? $data[0] : $data;
         $HsnCd = strlen($dt->sac_code)==4 ? $dt->sac_code . '00' : $dt->sac_code;
         // echo '<pre>';
-        $str_arr = explode('-', $dt->invoice_no);
+         $str_arr = explode('-', $dt->invoice_no);
         $suf = substr($str_arr[1],2);
 
      
@@ -349,12 +349,34 @@ public function api_callcr($trans_do)
 function get_api_res_cr(){
 // echo 'hi';
 // exit;
-$trans_do = $this->input->post('trans_do');
+$trans_do = $this->input->post('invoice_no');
+// $data_for_insert = $this->SaleModel->
 
+$data_array = array(
+    "irn_no"          =>  trim($this->input->post('irn_no')),
+    "invoice_dt"      =>  $this->input->post('invoice_dt'),
+    "invoice_number"  =>  $this->input->post('invoice_number'),
+    "prod_id"         =>  $this->input->post('prod_id'),
+    "cust_id"         =>  $this->input->post('cust_id'),
+    "goodown_id"      =>  $this->session->userdata['loggedin']['branch_id'],
+    "goodown_id"      =>  $this->input->post('goodown_id'),
+    "sgst"            =>  $this->input->post('sgst'),
+    "cgst"            =>  $this->input->post('cgst'),
+    "tot_amt"         =>  $this->input->post('tot_amt'),
+    "remarks"         =>  $this->input->post('remarks'),
+    "created_by"      =>  $this->session->userdata['loggedin']['user_name'],
+    "created_dt"      =>  date('Y-m-d H:i:s')
+);  
+$this->SaleModel->f_insert('td_irn_cancel_detail', $data_array);
+$where  =   array(    "invoice_number"  =>  $this->input->post('invoice_number'));
+
+$this->SaleModel->f_delete('td_rent_collection', $where);
+// die();
 $data = $this->api_callcr($trans_do);
+
 // echo '<pre>';
 $dt = $data ? $data[0] : $data;
-
+// die();
 $HsnCd = strlen($dt->HsnCd)==4 ? $dt->HsnCd . '00' : $dt->HsnCd;
 // echo '<pre>';
 $str_arr = explode('/', $dt->No);
@@ -365,7 +387,7 @@ $send_str1 = str_replace('_', '-',substr($str_arr[5], 0,10));
 // $doc_no = $suf . '/' .$send_str. substr(str_replace('_', '-', $dt->No), 20,6);
 $doc_no = $suf . '/' .$send_str. '/'  .$send_str1 ;
 
-//     $result = '{
+//     $result ='{
 //         "Version": "'.$dt->Version.'",
 //         "TranDtls": {
 //             "TaxSch": "'.$dt->TaxSch.'",

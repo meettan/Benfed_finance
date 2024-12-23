@@ -189,7 +189,13 @@
                                     <a href="<?php echo site_url("collectRent"); ?>">Collect Rent</a>
                                 </div>
                             </div>
-
+                            <div class="sub-dropdown">
+                               <a class="sub-dropbtn">IRN Cancel<i class="fa fa-angle-right" style="float: right;"></i></a> 
+                               <div class="sub-dropdown-content">
+                               <!-- <a href="<?php echo site_url("irncan");?>">Within 24 Hours </a> -->
+                             <a href="<?php echo site_url("irncancr");?>"> After 24 Hours </a>
+                             </div>
+                            </div>
                             <div class="sub-dropdown">
                                 <a class="sub-dropbtn">Handling & Transport Charges<i class="fa fa-angle-right" style="float: right;"></i></a>
                                 <div class="sub-dropdown-content">

@@ -100,6 +100,10 @@ $route['jurnalVoucher/entry'] = 'transaction/jurnal_entry';
 $route['cheqdtl']   = 'transaction/cheqdtl';
 $route['cheqdtladd']   = 'transaction/cheqdtladd';
 $route['cheqdtl']   = 'transaction/cheqdtl';
+$route['irncancr']           = 'irncancel/irnAft24';
+$route['irncancelcrv']           = 'irncancel/irncancelcrv';
+
+
 ///   ***** Start code for report 
 $route['advjrnlr'] = 'report/advjrnl';
 $route['trailbal'] = 'report/trailbal';
