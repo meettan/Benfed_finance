@@ -445,10 +445,10 @@ class Report_model extends CI_Model
                     FROM td_vouchers a,md_achead b,mda_mngroup c 
                     WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no 
                     and a.voucher_date >= '$frm_date' and a.approval_status = 'A' 
-                    AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)C ,mda_mngroup g 
+                    AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag,b.ac_name,b.mngr_id)c ,mda_mngroup g 
                     where  c.mngr_id=g.sl_no and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0 
                 group by c.mngr_id,g.name,c.type
-                ORDER BY C.type ASC;";
+                ORDER BY c.type ASC;";
 
         }else{
         // ===========================================================================
