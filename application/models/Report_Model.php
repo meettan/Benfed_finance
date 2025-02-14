@@ -1622,7 +1622,7 @@ from( SELECT if(dr_cr_flag='Dr',sum(a.amount),0)as dr_amt,b.mngr_id, if(dr_cr_fl
              sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt, b.mngr_id ,b.subgr_id,
               b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code FROM td_vouchers a,md_achead b,mda_mngroup c 
               WHERE a.acc_code=b.sl_no and b.mngr_id = c.sl_no and a.voucher_date >= '$frm_date' and a.approval_status = 'A' 
-              AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag, b.ac_name,b.mngr_id,b.subgr_id)C ,
+              AND a.voucher_date <= '$to_date' group by b.ac_name,a.dr_cr_flag, b.ac_name,b.mngr_id,b.subgr_id)c ,
               mda_subgroub f,mda_mngroup g where c.subgr_id=f.sl_no and c.mngr_id=g.sl_no and c.type=1 
               and c.op_dr+c.op_cr+c.dr_amt+c.cr_amt>0 group by c.mngr_id,g.name,c.type)a,
             (select sum(op_dr)op_dr1,sum(op_cr)op_cr1,sum(dr_amt)dr_amt1,sum(cr_amt)cr_amt1,c.mngr_id mngr_id1, c.subgr_id,
