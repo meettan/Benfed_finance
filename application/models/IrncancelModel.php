@@ -287,7 +287,8 @@ return $result;
 			$this->db->from('td_rent_collection a');
 			$this->db->join('md_rent_customer b', 'a.cust_id = b.id');
 			//$this->db->join('md_district c', 'a.br_cd = c.district_code');
-			$this->db->where('HOUR(TIMEDIFF(now(),a.ack_dt))>24',null);
+			// $this->db->where('HOUR(TIMEDIFF(now(),a.ack_dt))>24',null);
+			$this->db->where('CURDATE()- a.ack_dt>1',null);
 			$this->db->where('a.irn is not null',null);
 			$this->db->where('fin_yr',$this->session->userdata['loggedin']['fin_id']);
 			
@@ -321,7 +322,8 @@ return $result;
 		function count_all_Data($serch,$formdate,$todate){
 			$this->joinTabel($serch,$formdate,$todate);
 			$q=$this->db->get();
-			
+			// $q;
+			// exit();
 			return $q->num_rows();
 		}
 	
