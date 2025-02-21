@@ -1025,7 +1025,7 @@ ORDER BY `C`.`ac_name` ASC";
                WHEN (type=2 or type=3)&& sum(amt) <0 THEN 'CR'
                 WHEN (type=1 or type=4)&& sum(amt) >0 THEN 'CR'
                 WHEN (type=1 or type=4)&& sum(amt) <0 THEN 'DR'
-                  ELSE ''
+                  ELSE 'DR'
               END as trans_flag
                from(
                select if(((c.type=2 or c.type=3) && trans_flag='DR') or ((c.type=1 or c.type=4) && trans_flag='CR'),a.amount,-1*a.amount)amt,
@@ -1044,6 +1044,7 @@ ORDER BY `C`.`ac_name` ASC";
         $query  = $this->db->query($sql);
         return $query->row();
     }
+
     function get_ope_gl_re($ope_date, $acc_head)
     {
 
@@ -1060,7 +1061,7 @@ ORDER BY `C`.`ac_name` ASC";
         return $query->row();
     }
     /*****Day Book Report Blocked On 07/10/2022*** */
-    /*function f_get_daybook($frm_date,$to_date){
+       /*function f_get_daybook($frm_date,$to_date){
 		$branch_id = $this->session->userdata['loggedin']['branch_id'];
 		$sql ="SELECT if(dr_cr_flag='Dr',a.amount,0)as dr_amt,b.mngr_id,a.voucher_id,a.voucher_date,a.voucher_type,
 		       if(dr_cr_flag='Cr',a.amount,0)as cr_amt,b.ac_name,a.dr_cr_flag 
