@@ -231,9 +231,9 @@ class Api extends CI_Controller{
             },
             "PayDtls": {
                 "Nm": "",
-                "AccDet": "098301002773",
+                "AccDet": "",
                 "Mode": "NEFT/RTGS/EPAY",
-                "FinInsBr": "ICIC0000983",
+                "FinInsBr": "",
                 "PayTerm": "NA",
                 "PayInstr": "",
                 "CrTrn": "",
@@ -497,13 +497,7 @@ $doc_no = $suf . '/' .$send_str. '/'  .$send_str1 ;
 //             "Discount": '.$dt->Discount.',
 //             "OthChrg": '.$dt->OthChrg.',
 //             "RndOffAmt": '.$dt->RndOffAmt.',
-//             "TotInvVal": '.$dt->TotInvVal.',
-//             "TotInvValFc": '.$dt->TotInvValFc.'
-//         },
-//         "PayDtls": {
-//             "Nm": "",
-//             "AccDet": "",
-//             "Mode": "",
+-//             "Mode": "",
 //             "FinInsBr": "",
 //             "PayTerm": "",
 //             "PayInstr": "",
@@ -782,7 +776,6 @@ echo $res;
 }
 
 
-
 public function api_call_htc($trans_do)
     {
         // $trans_do = $this->input->get('trans_do');
@@ -795,7 +788,6 @@ public function api_call_htc($trans_do)
     }
 
 
-
 function get_api_htc(){
     $trans_do = $this->input->get('trans_do');
     $data = $this->api_call_htc($trans_do);
@@ -803,16 +795,12 @@ function get_api_htc(){
     // print_r($data);
     // exit();
 
-
-
-
     $dt = $data ? $data[0] : $data;
     $HsnCd = strlen($dt->sac_code)==4 ? $dt->sac_code . '00' : $dt->sac_code;
     // echo '<pre>';
     $str_arr = explode('-', $dt->invoice_no);
     $suf = substr($str_arr[1],2);
 
- 
     $doc_no = $str_arr[0].'/'. $suf .$str_arr[2]. '/' .$str_arr[3] ;
     
 
