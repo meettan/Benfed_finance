@@ -195,7 +195,25 @@ class Report_model extends CI_Model
 
         return $query->result();
     }
+/******red voucher **** */
 
+function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
+    {
+        $sql = "Select voucher_date,voucher_id,sum(IF(dr_cr_flag = 'Dr', amount, 0)), sum(IF(dr_cr_flag = 'Cr', amount, 0))
+                From td_vouchers
+                where voucher_date between '$frm_date' and '$to_date'
+                and branch_id='$branch_id'
+                and fin_yr='$fin_id'
+                Group By voucher_date,voucher_id
+                Having sum(IF(dr_cr_flag = 'Dr',amount, 0))<> sum(IF(dr_cr_flag = 'Cr', amount, 0))
+                order by voucher_date ";
+
+        $query  = $this->db->query($sql);
+
+        return $query->result();
+    }
+
+/******** */
     /******************************* */
     function f_get_voucher($frm_date, $to_date, $fin_id, $branch_id)
     {

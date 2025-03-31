@@ -106,6 +106,7 @@ $route['irncancelcrv']           = 'irncancel/irncancelcrv';
 
 ///   ***** Start code for report 
 $route['advjrnlr'] = 'report/advjrnl';
+$route['redjrnl'] = 'report/redjrnlr';
 $route['trailbal'] = 'report/trailbal';
 $route['balsh'] = 'report/balsh';
 $route['group_balsh'] = 'report/group_balsh';

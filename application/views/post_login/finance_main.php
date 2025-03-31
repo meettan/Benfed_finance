@@ -313,6 +313,7 @@
                         <!-- <a href="<?php //echo site_url('gl'); 
                                         ?>">GL</a> -->
                         <a href="<?php echo site_url('ac_detail'); ?>">Acount detail</a>
+                        <a href="<?php echo site_url('redjrnl'); ?>">Mismatch Voucher</a>
                         <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
                             <a href="<?php echo site_url('rent_report'); ?>">Rent Collection</a>
                             <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection</a>

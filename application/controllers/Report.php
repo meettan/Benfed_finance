@@ -124,7 +124,47 @@ public function jrnlprn()
         }
 
     }
-	
+	///******red voucher *** */
+    public function redjrnlr(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $frm_date     =   $_POST['from_date'];
+            $to_date      =   $_POST['to_date'];
+			$voucher_type =   '';
+			if($this->session->userdata['loggedin']['branch_id']==342){ 
+                $branch_id=$_POST['branch_id'];
+            }else{
+                $branch_id=$this->session->userdata['loggedin']['branch_id'];
+            };
+            
+            $_SESSION["date"]= date('d-m-Y',strtotime($frm_date)).' - '. date('d-m-Y',strtotime($to_date));
+            $fin_yr= $this->session->userdata['loggedin']['fin_id'];
+
+            $data['voucher']     = $this->Report_Model->f_get_redvoucher($frm_date,$to_date,$fin_yr,$branch_id);
+            // echo $this->db->last_query();
+            // exit();
+            $data['advance']     = $this->Report_Model->f_get_advjnl($frm_date,$to_date,$fin_yr,$branch_id);
+						   
+			
+			$where = array('id' => $branch_id );
+			$select = array('branch_name');
+			$data['type']   = $this->input->post('voucher_type');
+
+            $data['branch'] = $this->master_model->f_select("md_branch", $select, $where, 1);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/red_jrnl/adv_jrnl.php',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+			
+			$data['branch'] = $this->master_model->f_select("md_branch", NULL, $where = null, 2);
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/red_jrnl/adv_jrnl_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+    //******* */
 	public function trailbal(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -629,7 +669,7 @@ public function voucher_dtls(){
 			
             }else{
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
-			//	echo $this->db->last_query();
+				echo $this->db->last_query();
 		
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
@@ -1265,7 +1305,7 @@ public function voucher_dtls(){
             $this->load->view('report/profit_loss/pl_ip.php',$data);
             $this->load->view('post_login/footer');
         }
-
+      
     }
 
 
