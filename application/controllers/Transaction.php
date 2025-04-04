@@ -117,13 +117,14 @@ function approvedjournal()
     }
     function approvedbankvoucher()
     {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $select = array("voucher_date","voucher_id","voucher_type","voucher_mode","dr_cr_flag","amount");
         
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			$fr_dt    = $this->input->post('fr_dt');
 			$to_dt    = $this->input->post('to_dt');
-			$fin_id = $this->session->userdata['loggedin']['fin_id'];
+			// $fin_id = $this->session->userdata['loggedin']['fin_id'];
 			$where = array(
 			"voucher_mode"    => 'B',
 			"voucher_date >="    => $fr_dt,
@@ -141,6 +142,7 @@ function approvedjournal()
             "voucher_mode"    => 'B',
 			"voucher_date"    => date('Y-m-d'),
 			//"voucher_through" => 'M',
+            "fin_yr"=>$fin_id,
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
             //"approval_status" => 'A',
 			"1 group by voucher_id" => NULL
