@@ -123,11 +123,12 @@ function approvedjournal()
 			
 			$fr_dt    = $this->input->post('fr_dt');
 			$to_dt    = $this->input->post('to_dt');
-			
+			$fin_id = $this->session->userdata['loggedin']['fin_id'];
 			$where = array(
 			"voucher_mode"    => 'B',
 			"voucher_date >="    => $fr_dt,
 			"voucher_date <="    => $to_dt,
+            "fin_yr"=>$fin_id,
 			//"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
            // "approval_status" => 'A',
@@ -311,6 +312,8 @@ function approvedjournal()
         );
         
         $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 0);
+        // echo $this->db->last_query();
+        // die();
         $data['cash_head'] = $cashcd;//->ac_name;
         // $data['cash_code'] = $cashcd->sl_no;
         $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $where, 0);
@@ -1610,7 +1613,7 @@ function crn_appview()
                     "buyer_district"  =>  $this->input->post('district'),
                     "sac_code"       =>  $this->input->post('sac_code'),
                     "phone_num"       =>  $this->input->post('phone_num'),
-                    "email"       =>  $this->input->post('email'),
+                    "email"          =>  $this->input->post('email'),
                     "qty"           =>  1,
                     "taxable_amt"   =>  $this->input->post('amount'),
                     "cgst_rt"       =>  $gst/2,
