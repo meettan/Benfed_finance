@@ -206,7 +206,7 @@
                             $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                             //echo abs($clBl);
                             //echo number_format((float)abs($clBl), 2, '.', '');
-                            echo round(abs($clBl), 2);
+                            echo number_format(round(abs($clBl), 2),2);
                     }else{
                         echo '';
                     }
@@ -216,7 +216,7 @@
                          $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                          //echo abs($clBl);
                         // echo number_format((float)abs($clBl), 2, '.', '');
-                        echo round(abs($clBl), 2);
+                        echo number_format(round(abs($clBl), 2),2);
                       }
 
                  }
@@ -229,7 +229,7 @@
                     $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
                 
                    // echo number_format((float)abs($clBl), 2, '.', '');
-                    echo round(abs($clBl), 2);
+                    echo number_format(round(abs($clBl), 2),2);
                  }else{
                      echo '';
                  }
