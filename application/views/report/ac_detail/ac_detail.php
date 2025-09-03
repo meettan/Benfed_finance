@@ -194,8 +194,8 @@
             <tr>
             <th></th>
             <th></th>
-            <th>Closing Balance</th>
             <th></th>
+            <th>Closing Balance</th>
             <th></th>
             <th></th>            
             <th></th>
