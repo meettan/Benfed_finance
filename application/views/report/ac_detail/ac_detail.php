@@ -246,12 +246,13 @@
                         }else{
                             echo '';
                         }
-                    }else{
-                        if(abs($ope_bal)+$tot_cre>$tot_debit){
-                        $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
-                        echo round(abs($clBl),2);
-                        }
                     }
+                    // else{
+                    //     if(abs($ope_bal)+$tot_cre>$tot_debit){
+                    //     $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
+                    //     echo round(abs($clBl),2);
+                    //     }
+                    // }
 			?>
 
 			<?php 
