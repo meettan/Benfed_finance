@@ -168,8 +168,8 @@
                 }
                 
             } ?></td>
-            <td align="right" style="width:90px !important"><?php echo $tb->dr_amt; $tot_debit +=$tb->dr_amt; ?></td>
-            <td align="right"><?php echo $tb->cr_amt; $tot_cre +=$tb->cr_amt;?></td>
+            <td align="right" style="width:90px !important"><?php echo number_format( $tb->dr_amt,2, '.', ''); $tot_debit +=$tb->dr_amt; ?></td>
+            <td align="right"><?php echo  number_format($tb->cr_amt,2, '.', ''); $tot_cre +=$tb->cr_amt;?></td>
 
             </tr>
             <?php  
