@@ -242,7 +242,7 @@
             <?php   if($opebalcal){
                         if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit){
                             $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
-                            echo round(abs($clBl),2);
+                            echo number_format(round(abs($clBl),2),2);
                         }else{
                             echo '';
                         }
@@ -260,7 +260,7 @@
                         if($opebalcal->trans_flag=='DR' && abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
                 
                             $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
-                            echo round(abs($clBl),2);
+                            echo number_format(round(abs($clBl),2),2);
                         }else{
                             echo '';
                         }
@@ -269,7 +269,7 @@
                             if(abs($ope_bal)+$tot_debit<$tot_cre && abs($ope_bal) + $tot_debit - $tot_cre <0){ 
                         
                                 $clBl=(abs($ope_bal)+$tot_debit)-$tot_cre;
-                                echo round(abs($clBl),2);
+                                echo number_format(round(abs($clBl),2),2);
                             }
                    }
             ?>
