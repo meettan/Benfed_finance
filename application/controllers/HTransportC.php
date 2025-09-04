@@ -105,7 +105,7 @@ class HTransportC extends CI_Controller
         }
     }
 
-    public function customar_htc_entry(){
+    public function customar_rent_collection_entry(){
         if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             
@@ -298,7 +298,7 @@ class HTransportC extends CI_Controller
                     'transfer_type'  => 'T',
                     'voucher_mode'   => 'J',
                     'voucher_through'=> 'A',
-                    'acc_code'       => 2205,
+                    'acc_code'       => 8245,
                     'dr_cr_flag'     => 'CR',
                     'amount'         => $this->input->post('cgst'),
                     'ins_no'         => $this->input->post('rfNo'),
@@ -319,7 +319,7 @@ class HTransportC extends CI_Controller
 
                 $vouchersSgst = array(
                     'voucher_date'   => date("Y-m-d"),
-                    'sl_no'          =>  $v_srl,
+                    'sl_no'          =>  $v_srl,   
                     'voucher_id'     => $v_id,
                     'branch_id'      => 342,
                     'trans_no'       => $trans_no,
@@ -329,7 +329,7 @@ class HTransportC extends CI_Controller
                     'transfer_type'  =>  'T',
                     'voucher_mode'   => 'J',
                     'voucher_through'=> 'A',
-                    'acc_code'       => 2206,
+                    'acc_code'       => 8246,
                     'dr_cr_flag'     => 'CR',
                     'amount'         => $this->input->post('sgst'),
                     'ins_no'         => $this->input->post('rfNo'),
