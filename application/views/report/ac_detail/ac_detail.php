@@ -43,7 +43,7 @@
 		var WindowObject = window.open('', 'Print-Window');
 		WindowObject.document.open();
 		WindowObject.document.writeln('<!DOCTYPE html>');
-		WindowObject.document.writeln('<html><head><title>Cash/Bank/Journal</title><style type="text/css">');
+		WindowObject.document.writeln('<html><head><title>Account Details</title><style type="text/css">');
 
 		// CSS inside print window
 		WindowObject.document.writeln(
