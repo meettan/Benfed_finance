@@ -124,6 +124,7 @@
 
         <div style="text-align: center; margin-top:15px;">
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+            <button class="btn btn-success" id="excelButton">Export to Excel</button>
             <button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
         </div>
     </div>
@@ -143,21 +144,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-    // Initialize DataTable
-    $('#example').dataTable({
-        destroy: true,
+   $(document).ready(function() {
+    var table = $('#example').DataTable({
+        dom: 'Bfrtip',
+        paging: false,
         searching: false,
         ordering: false,
-        paging: false,
-        dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: 'Accounts Details',
-                text: 'Export to excel'
+                title: 'Account Details',
+                className: 'buttons-excel'
             }
         ]
     });
+
+    // Trigger DataTable Excel button from custom button
+    $('#excelButton').on('click', function() {
+        table.button('.buttons-excel').trigger();
+    });
+});
 
     // Print function
     function printDiv() {
