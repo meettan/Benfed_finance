@@ -36,7 +36,7 @@
 		var WindowObject = window.open('', 'Print-Window');
 		WindowObject.document.open();
 		WindowObject.document.writeln('<!DOCTYPE html>');
-		WindowObject.document.writeln('<html><head><title>Journal</title><style type="text/css">');
+		WindowObject.document.writeln('<html><head><title>Cash/Bank/Journal</title><style type="text/css">');
 
 		// CSS inside print window
 		WindowObject.document.writeln(
@@ -68,7 +68,7 @@
 
 		var opt = {
 			margin: 0.5,
-			filename: 'Journal.pdf',
+			filename: 'Cash_Bank_Journal.pdf',
 			image: { type: 'jpeg', quality: 0.98 },
 			html2canvas: { scale: 2 },
 			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
@@ -195,7 +195,7 @@
 		buttons: [
 			{
 				extend: 'excelHtml5',
-				title: 'Journal',
+				title: 'Cash_Bank_Journal',
 				text: 'Export to Excel'
 			}
 		]
