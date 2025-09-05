@@ -348,7 +348,7 @@
         searching: false,
         ordering: false,
         paging: false,
-        scrollX: true,   // still allows horizontal scroll in browser
+        scrollX: false,   // still allows horizontal scroll in browser
 
         dom: 'Bfrtip',
         buttons: [
