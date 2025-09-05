@@ -179,7 +179,7 @@
         WindowObject.document.close();
     }
 
-    // PDF generation using jsPDF + AutoTable (landscape + proper column widths)
+    // PDF generation using jsPDF + AutoTable
     function savePDF() {
         const { jsPDF } = window.jspdf;
         var doc = new jsPDF('l', 'pt', 'a4'); // landscape
@@ -209,8 +209,8 @@
                 4: { cellWidth: 60 },   // Voucher No
                 5: { cellWidth: 60 },   // Ref No
                 6: { cellWidth: 60 },   // Invoice No
-                7: { cellWidth: 60 },   // Debit
-                8: { cellWidth: 60 }    // Credit
+                7: { cellWidth: 'auto', halign: 'right', fontSize: 7 },  // Debit
+                8: { cellWidth: 'auto', halign: 'right', fontSize: 7 }   // Credit
             },
             didDrawPage: function (data) {
                 var pageCount = doc.getNumberOfPages();
