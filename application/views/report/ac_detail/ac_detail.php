@@ -146,22 +146,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-   $(document).ready(function() {
+  $(document).ready(function() {
+    // Initialize DataTable
     var table = $('#example').DataTable({
         dom: 'Bfrtip',
         paging: false,
         searching: false,
         ordering: false,
         buttons: [
-            {
-                extend: 'excelHtml5',
-                title: 'Account Details',
-                className: 'buttons-excel'
-            }
+            { extend: 'excelHtml5', title: 'Account Details', className: 'buttons-excel' }
         ]
     });
 
-    // Trigger DataTable Excel button from custom button
+    // Trigger Excel from custom button
     $('#excelButton').on('click', function() {
         table.button('.buttons-excel').trigger();
     });
