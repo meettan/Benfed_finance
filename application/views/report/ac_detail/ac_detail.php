@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Account Details</title>
+<meta charset="UTF-8">
+<title>Account Details</title>
 
-    <!-- DataTables & Buttons CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        table, td, th {
-            border: 1px solid #dddddd;
-            padding: 6px;
-            font-size: 14px;
-        }
-        th {
-            text-align: center;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    table, td, th {
+        border: 1px solid #dddddd;
+        padding: 6px;
+        font-size: 14px;
+    }
+    th {
+        text-align: center;
+    }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 
-        /* Hide DataTables buttons only in print */
-        @media print {
-            .dt-buttons,
-            .print-btn,
-            .pdf-btn {
-                display: none !important;
-                visibility: hidden !important;
-            }
+    /* Hide buttons in print */
+    @media print {
+        .dt-buttons,
+        .print-btn,
+        .pdf-btn,
+        #excelButton {
+            display: none !important;
+            visibility: hidden !important;
         }
-    </style>
+    }
+</style>
 </head>
 <body>
+
 <div class="wraper">
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
@@ -54,14 +56,14 @@
             <table id="example" class="display" style="width: 100%">
                 <thead>
                     <tr>
-                        <th rowspan='2' style="width:90px !important">Date</th>
-                        <th rowspan='2'>Particulars</th>
-                        <th rowspan='2'>Voucher Type</th>
-                        <th rowspan='2'>Narration</th>
-                        <th rowspan='2'>Voucher No</th>
-                        <th rowspan='2'>Ref. No.</th>
-                        <th rowspan='2'>Invoice No.</th>
-                        <th colspan='2'>Transaction</th>
+                        <th rowspan="2" style="width:90px;">Date</th>
+                        <th rowspan="2">Particulars</th>
+                        <th rowspan="2">Voucher Type</th>
+                        <th rowspan="2">Narration</th>
+                        <th rowspan="2">Voucher No</th>
+                        <th rowspan="2">Ref. No.</th>
+                        <th rowspan="2">Invoice No.</th>
+                        <th colspan="2">Transaction</th>
                     </tr>
                     <tr>
                         <th>Debit</th>
@@ -69,45 +71,53 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    if($accdetail){
-                        $tot_debit = 0.00; $tot_cre = 0.00;
-                        $ope_bal = 0.00;
-                        if($opebalcal){
-                            $opdr = $opebalcal->dr_amt;
-                            $opcr = $opebalcal->cr_amt;
-                            if($opebalcal->type == 1){
-                                $ope_bal = $opcr - $opdr;
-                            } else if($opebalcal->type == 2){
-                                $ope_bal = $opdr - $opcr;
-                            } else {
-                                $ope_bal = 0.00;
-                            }
+                <?php 
+                if($accdetail){
+                    $tot_debit = 0.00;
+                    $tot_cre = 0.00;
+                    $ope_bal = 0.00;
+                    $opdr = 0.00;
+                    $opcr = 0.00;
+
+                    if($opebalcal){
+                        $opdr = $opebalcal->dr_amt;
+                        $opcr = $opebalcal->cr_amt;
+                        if($opebalcal->type == 1 ){
+                            $ope_bal = $opcr - $opdr;
+                        } else if($opebalcal->type == 2 ){
+                            $ope_bal = $opdr - $opcr;
+                        } else {
+                            $ope_bal = 0.00;
                         }
-                    ?>
+                    }
+                ?>
+                    <!-- Opening Balance -->
                     <tr>
                         <td></td>
                         <td>Opening Balance</td>
                         <td></td><td></td><td></td><td></td><td></td>
-                        <td><?php if($opebalcal && $opebalcal->trans_flag=='DR'){ echo abs($ope_bal); } ?></td>
-                        <td><?php if($opebalcal && $opebalcal->trans_flag=='CR'){ echo abs($ope_bal); } ?></td>
+                        <td align="right"><?php if($opebalcal && $opebalcal->trans_flag=='DR'){ echo number_format(abs($ope_bal),2,'.',''); } ?></td>
+                        <td align="right"><?php if($opebalcal && $opebalcal->trans_flag=='CR'){ echo number_format(abs($ope_bal),2,'.',''); } ?></td>
                     </tr>
 
+                    <!-- Transaction rows -->
                     <?php foreach($trail_balnce as $tb){ ?>
-                    <tr class="rep">
+                    <tr>
                         <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
                         <td><?php echo $tb->ac_name; ?></td>
-                        <td><?php 
-                            if($tb->voucher_mode == 'C') echo 'Cash'; 
-                            elseif($tb->voucher_mode == 'J') echo 'Journal'; 
-                            elseif($tb->voucher_mode == 'B') echo 'Bank'; 
-                        ?></td>
-                        <td style="width:30%;word-wrap: break-word"><?php echo $tb->remarks; ?></td>
-                        <td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
-                        <td><?php echo !empty($tb->trans_no) ? $tb->trans_no : ''; ?></td>
                         <td>
                             <?php 
-                            foreach($inv_detail as $inv) {
+                                if($tb->voucher_mode == 'C') echo 'Cash';
+                                elseif($tb->voucher_mode == 'J') echo 'Journal';
+                                elseif($tb->voucher_mode == 'B') echo 'Bank';
+                            ?>
+                        </td>
+                        <td style="word-wrap: break-word;"><?php echo $tb->remarks; ?></td>
+                        <td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
+                        <td><?php echo !empty($tb->trans_no)? $tb->trans_no : ''; ?></td>
+                        <td>
+                            <?php 
+                            foreach($inv_detail as $inv){
                                 if(!empty($tb->trans_no) && $tb->trans_no == $inv->ro_no){
                                     echo $inv->invoice_no;
                                 }
@@ -119,13 +129,14 @@
                     </tr>
                     <?php } ?>
 
+                    <!-- Total -->
                     <tr>
                         <th>Total</th>
                         <th colspan="6"></th>
-                        <th align="right"><?=$tot_debit?></th>
-                        <th align="right"><?=$tot_cre?></th>
+                        <th align="right"><?=number_format($tot_debit,2,'.','')?></th>
+                        <th align="right"><?=number_format($tot_cre,2,'.','')?></th>
                     </tr>
-                    <?php } ?>
+                <?php } ?>
                 </tbody>
             </table>
 
@@ -139,22 +150,18 @@
     </div>
 </div>
 
-<!-- jQuery -->
+<!-- JS Libraries -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-<!-- DataTables & Buttons JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-<!-- jsPDF + jsPDF-AutoTable -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 
 <script>
 $(document).ready(function() {
-    // Initialize DataTable with Excel button
+    // Initialize DataTable
     var table = $('#example').DataTable({
         dom: 'Bfrtip',
         paging: false,
@@ -165,7 +172,7 @@ $(document).ready(function() {
         ]
     });
 
-    // Trigger Excel export from custom button
+    // Trigger Excel from custom button
     $('#excelButton').on('click', function() {
         table.button('.buttons-excel').trigger();
     });
@@ -177,23 +184,25 @@ function printDiv() {
     var WindowObject = window.open('', 'Print-Window');
     WindowObject.document.open();
     WindowObject.document.writeln('<!DOCTYPE html><html><head><title>Account Details</title><style>');
-    WindowObject.document.writeln('table { border-collapse: collapse; }'+
-                                   'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }'+
-                                   'th { text-align: center; }'+
-                                   '.dt-buttons, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; }'+
-                                   'body { padding:0; margin:0; }');
+    WindowObject.document.writeln(
+        'table { border-collapse: collapse; }'+
+        'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }'+
+        'th { text-align: center; }'+
+        '.dt-buttons, .print-btn, .pdf-btn, #excelButton { display: none !important; visibility: hidden !important; }'+
+        'body { padding:0; margin:0; }'
+    );
     WindowObject.document.writeln('</style></head><body onload="window.print()">');
     WindowObject.document.writeln(divToPrint.innerHTML);
     WindowObject.document.writeln('</body></html>');
     WindowObject.document.close();
 }
 
-// PDF generation using jsPDF + AutoTable
+// PDF export
 function savePDF() {
     const { jsPDF } = window.jspdf;
-    var doc = new jsPDF('l', 'pt', 'a4'); // landscape
+    var doc = new jsPDF('l', 'pt', 'a4');
     doc.setFontSize(10);
-    
+
     // Header
     doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
     doc.text("HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.", 40, 55);
@@ -218,8 +227,8 @@ function savePDF() {
             4: { cellWidth: 60 },
             5: { cellWidth: 60 },
             6: { cellWidth: 60 },
-            7: { cellWidth: 'auto', halign: 'right', fontSize: 7 },
-            8: { cellWidth: 'auto', halign: 'right', fontSize: 7 }
+            7: { halign: 'right', cellWidth: 60 },
+            8: { halign: 'right', cellWidth: 60 }
         },
         didDrawPage: function (data) {
             var pageCount = doc.getNumberOfPages();
@@ -236,5 +245,6 @@ function voucherdtls(vid){
     window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid, '_blank');
 }
 </script>
+
 </body>
 </html>
