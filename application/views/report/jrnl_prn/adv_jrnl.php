@@ -20,14 +20,15 @@
 	}
 
 	@media print {
-		/* Hide DataTable buttons */
+		/* Hide DataTable buttons and custom buttons */
 		.dt-buttons,
 		.dt-button,
 		.buttons-html5,
 		.buttons-excel,
 		.buttons-pdf,
 		.buttons-print,
-		.print-btn {
+		.print-btn,
+		.pdf-btn {
 			display: none !important;
 			visibility: hidden !important;
 		}
@@ -48,19 +49,10 @@
 			'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }' +
 			'th { text-align: center; }' +
 			'tr:hover { background-color: #f5f5f5; }' +
-
-			/* 👇 Hide DataTables export buttons inside print window */
-			'@media print {' +
-			'.dt-buttons, .dt-button, .buttons-html5, .buttons-excel, .buttons-pdf, .buttons-print, .print-btn { display: none !important; visibility: hidden !important; }' +
-			'}' +
-
+			'@media print { .dt-buttons, .dt-button, .buttons-html5, .buttons-excel, .buttons-pdf, .buttons-print, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; } }' +
 			'.center { text-align: center; }' +
 			'body { padding: 0; margin:0; }' +
-			'.billPrintWrapper { padding: 15px; color: #333; }' +
-			'.billPrintWrapper .topSec{border-bottom: #ccc solid 1px; display: inline-block; width: 100%; margin: 0 0 4px 0; padding: 0 0 4px 0;}' +
-			'.billPrintWrapper h2{font-size: 18px;color: #333;margin:0;padding: 0;text-align: center;font-weight: 700;line-height: 20px;}' +
-			'.billPrintWrapper h2 span{font-size: 14px; font-weight: 400; display: block;}' +
-			'.billPrintWrapper .topSec p{font-size: 14px;color: #333; margin: 0; padding: 0; text-align: center;}'
+			'.billPrintWrapper { padding: 15px; color: #333; }'
 		);
 
 		WindowObject.document.writeln('</style></head><body onload="window.print()">');
@@ -71,6 +63,19 @@
 		setTimeout(function () {
 			WindowObject.close();
 		}, 10);
+	}
+
+	// Save as PDF (html2pdf.js)
+	function savePDF() {
+		var element = document.getElementById('divToPrint');
+		var opt = {
+			margin: 0.5,
+			filename: 'Cash_Voucher.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+		};
+		html2pdf().set(opt).from(element).save();
 	}
 </script>
 
@@ -92,7 +97,7 @@
 						<?php if ($vou->transfer_type != 'T') { ?>
 							<div class="leftNo"><b>Branch: </b><?= $vou->branch_name ?></div>
 						<?php } ?>
-						<div class="rightDate"><b>Status:</b> 
+						<div class="rightDate"><b>Status:</b>
 							<?php if ($vou->approval_status == 'A') { echo 'Approved'; } elseif ($vou->approval_status == 'U') { echo 'Unpproved'; } ?>
 						</div>
 					</div>
@@ -166,7 +171,7 @@
 						<div class="leftNo"><b>Created By</b>: <?= $vou->created_by; ?></div>
 						<div class="rightDate"><b>Approved By</b>: <?= $vou->approved_by; ?></div> <br>
 						<div class="leftNo"><b>Created Date</b>: <?= date("d/m/Y H:i:s", strtotime($vou->created_dt)); ?></div>
-						<div class="rightDate"><b>Approved Date</b>: 
+						<div class="rightDate"><b>Approved Date</b>:
 							<?php if (!empty($vou->approved_dt) && $vou->approved_dt != '0000-00-00 00:00:00') { echo date("d/m/Y H:i:s", strtotime($vou->approved_dt)); } ?>
 						</div>
 					</div>
@@ -175,8 +180,9 @@
 			</div>
 		</div>
 
-		<div style="text-align: center;">
+		<div style="text-align: center; margin-top:10px;">
 			<button class="btn btn-primary print-btn" type="button" onclick="printDiv();">Print</button>
+			<button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
 		</div>
 	</div>
 </div>
@@ -189,8 +195,9 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+<!-- html2pdf.js for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 	$('#example').dataTable({
@@ -205,30 +212,8 @@
 				extend: 'excelHtml5',
 				title: 'Cash Voucher',
 				text: 'Export to Excel'
-			},
-			{
-				extend: 'pdfHtml5',
-				title: 'Cash Voucher',
-				text: 'Save as PDF',
-				orientation: 'landscape',
-				pageSize: 'A3',
-				exportOptions: { columns: ':visible' },
-				customize: function (doc) {
-					doc.defaultStyle.fontSize = 6;
-					doc.styles.tableHeader.fontSize = 7;
-					var table = doc.content[1].table;
-					var columnCount = table.body[0].length;
-					table.widths = new Array(columnCount).fill('*');
-					doc.content[1].layout = {
-						hLineWidth: function () { return 0.5; },
-						vLineWidth: function () { return 0.5; },
-						paddingLeft: function () { return 2; },
-						paddingRight: function () { return 2; },
-						paddingTop: function () { return 2; },
-						paddingBottom: function () { return 2; }
-					};
-				}
 			}
+			// Removed pdfHtml5 because we use custom Save as PDF
 		]
 	});
 </script>
