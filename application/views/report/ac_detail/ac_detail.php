@@ -75,7 +75,7 @@
 
 		var opt = {
 			margin: 0.5,
-			filename: 'Cash_Bank_Journal.pdf',
+			filename: 'Account Details.pdf',
 			image: { type: 'jpeg', quality: 0.98 },
 			html2canvas: { scale: 2 },
 			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
