@@ -163,39 +163,26 @@ function approvedjournal()
         $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
        
        // $cashcd = $cashcd->sl_no;
-        // $select = array(
-        //     "voucher_date",
-        //     "voucher_id",
-        //     "voucher_type",
-        //     "voucher_mode",
-        //     "amount"
-        // );
-
         $select = array(
-            "a.voucher_id",
-            "a.voucher_date",
-            "min(a.acc_code)",
-            "b.ac_name",
-            "a.voucher_type",
-            "a.voucher_mode",
-            "a.amount"
-            );
-
+            "voucher_date",
+            "voucher_id",
+            "voucher_type",
+            "voucher_mode",
+            "amount"
+        );
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			$fr_dt    = $this->input->post('fr_dt');
 			$to_dt    = $this->input->post('to_dt');
 			
 			$where = array(
-			"a.voucher_mode"    => 'C',
-			"a.voucher_date >="    => $fr_dt,
-			"a.voucher_date <="    => $to_dt,
-            "a.acc_code not in(select sl_no from  md_achead c where mngr_id=6 and subgr_id=56 and br_id=344)",
-			"a.branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-          	"group by  a.voucher_id,a.voucher_date,b.ac_name,
-              a.voucher_type,
-              a.voucher_mode,
-              a.amount" => NULL
+			"voucher_mode"    => 'C',
+			"voucher_date >="    => $fr_dt,
+			"voucher_date <="    => $to_dt,
+		//	"voucher_through" => 'M',
+			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
+          //  "approval_status" => 'A',
+			"1 group by voucher_id " => NULL
             );
         
 		}else{
@@ -203,11 +190,13 @@ function approvedjournal()
 			$where = array(
 			"voucher_mode"    => 'C',
 			"voucher_date"    => date('Y-m-d'),
+		//	"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
-            "1 group by voucher_id " => NULL
+            //"approval_status" => 'A',
+			"1 group by voucher_id " => NULL
             );
 		}
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers a, md_achead b", $select, $where, 0);
+        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/cashvoucherlst", $voucher);
         $this->load->view('post_login/footer');
