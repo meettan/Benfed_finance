@@ -19,14 +19,14 @@
 		background-color: #f5f5f5;
 	}
 
+	/* Always hide DataTables buttons (Excel, PDF, etc.) */
+	.dt-buttons {
+		display: none !important;
+	}
+
 	@media print {
-		/* Hide DataTable buttons and custom buttons */
+		/* Hide buttons during print */
 		.dt-buttons,
-		.dt-button,
-		.buttons-html5,
-		.buttons-excel,
-		.buttons-pdf,
-		.buttons-print,
 		.print-btn,
 		.pdf-btn {
 			display: none !important;
@@ -41,7 +41,7 @@
 		var WindowObject = window.open('', 'Print-Window');
 		WindowObject.document.open();
 		WindowObject.document.writeln('<!DOCTYPE html>');
-		WindowObject.document.writeln('<html><head><title>Test Print</title><style type="text/css">');
+		WindowObject.document.writeln('<html><head><title>Cash Voucher</title><style type="text/css">');
 
 		// Inject CSS into popup
 		WindowObject.document.writeln(
@@ -49,7 +49,7 @@
 			'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }' +
 			'th { text-align: center; }' +
 			'tr:hover { background-color: #f5f5f5; }' +
-			'@media print { .dt-buttons, .dt-button, .buttons-html5, .buttons-excel, .buttons-pdf, .buttons-print, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; } }' +
+			'.dt-buttons, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; }' +
 			'.center { text-align: center; }' +
 			'body { padding: 0; margin:0; }' +
 			'.billPrintWrapper { padding: 15px; color: #333; }'
@@ -213,7 +213,6 @@
 				title: 'Cash Voucher',
 				text: 'Export to Excel'
 			}
-			// Removed pdfHtml5 because we use custom Save as PDF
 		]
 	});
 </script>
