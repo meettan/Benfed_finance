@@ -330,19 +330,51 @@
 
 </div>
 
+<script>
+    $('#example').dataTable({
+        destroy: true,
+        searching: false,
+        ordering: false,
+        paging: false,
+        scrollX: true,   // still allows horizontal scroll in browser
 
-<!-- <script>
-            $(document).ready(function() {
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Cash Voucher',
+                text: 'Export to Excel'
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'Cash Voucher',
+                text: 'Save as PDF',
+                orientation: 'landscape',   // wider page
+                pageSize: 'A3',             // bigger page
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    // Reduce font size
+                    doc.defaultStyle.fontSize = 6;
+                    doc.styles.tableHeader.fontSize = 7;
 
-$('.total').each(function() {
-  var prevClass = $(this).prev().attr('class');
-  var sum = 0;
-  $('.' + prevClass).each(function() {
-    sum += Number($(this).text());
-  })
+                    // Force all columns to share space evenly
+                    var table = doc.content[1].table;
+                    var columnCount = table.body[0].length;
+                    table.widths = new Array(columnCount).fill('*');
 
-  $(this).text('Total :'+sum);
-})
-
-});
-        </script> -->
+                    // Optional: shrink to fit page width
+                    doc.content[1].layout = {
+                        hLineWidth: function() { return 0.5; },
+                        vLineWidth: function() { return 0.5; },
+                        paddingLeft: function() { return 2; },
+                        paddingRight: function() { return 2; },
+                        paddingTop: function() { return 2; },
+                        paddingBottom: function() { return 2; }
+                    };
+                }
+            }
+        ]
+    });
+</script>
