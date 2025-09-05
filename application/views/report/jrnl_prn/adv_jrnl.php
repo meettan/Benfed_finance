@@ -68,7 +68,7 @@
 
 		var opt = {
 			margin: 0.5,
-			filename: 'Cash_Voucher.pdf',
+			filename: 'Journal.pdf',
 			image: { type: 'jpeg', quality: 0.98 },
 			html2canvas: { scale: 2 },
 			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
@@ -195,7 +195,7 @@
 		buttons: [
 			{
 				extend: 'excelHtml5',
-				title: 'Cash Voucher',
+				title: 'Journal',
 				text: 'Export to Excel'
 			}
 		]
