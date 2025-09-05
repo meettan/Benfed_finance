@@ -5,59 +5,86 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
 
    
-
 <style>
-    table {
-        border-collapse: collapse;
-    }
+	table {
+		border-collapse: collapse;
+	}
 
-    table,
-    td,
-    th {
-        border: 1px solid #dddddd;
-        padding: 6px;
-        font-size: 14px;
-    }
+	table,
+	td,
+	th {
+		border: 1px solid #dddddd;
+		padding: 6px;
+		font-size: 14px;
+	}
 
-    th {
-        text-align: center;
-    }
+	th {
+		text-align: center;
+	}
 
-    tr:hover {
-        background-color: #f5f5f5;
-    }
+	tr:hover {
+		background-color: #f5f5f5;
+	}
+
+	/* Hide DataTables buttons only in print */
+	@media print {
+		.dt-buttons,
+		.print-btn,
+		.pdf-btn {
+			display: none !important;
+			visibility: hidden !important;
+		}
+	}
 </style>
-<script>
-    function printDiv() {
 
-        var divToPrint = document.getElementById('divToPrint');
-        var WindowObject = window.open('', 'Print-Window');
-        WindowObject.document.open();
-        WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln(
-            '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">'
-            );
-        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-                                                     '.dt-buttons {display: none;}' +
-            '                                         .inline { display: inline; }' +
-            '                                         .underline { text-decoration: underline; }' +
-            '                                         .left { margin-left: 315px;} ' +
-            '                                         .right { margin-right: 375px; display: inline; }' +
-            '                                          table { border-collapse: collapse; font-size: 12px;}' +
-            '                                          th, td { border: 1px solid black; border-collapse: collapse; padding: 6px;}' +
-            '                                           th, td { }' +
-            '                                         .border { border: 1px solid black; } ' +
-            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
-            '                                       ' +
-            '                                   } } </style>');
-        WindowObject.document.writeln('</head><body onload="window.print()">');
-        WindowObject.document.writeln(divToPrint.innerHTML);
-        WindowObject.document.writeln('</body></html>');
-        WindowObject.document.close();
-        setTimeout(function () {
-            WindowObject.close();
-        }, 10);
-    }
+<script>
+	function printDiv() {
+		var divToPrint = document.getElementById('divToPrint');
+		var WindowObject = window.open('', 'Print-Window');
+		WindowObject.document.open();
+		WindowObject.document.writeln('<!DOCTYPE html>');
+		WindowObject.document.writeln('<html><head><title>Cash/Bank/Journal</title><style type="text/css">');
+
+		// CSS inside print window
+		WindowObject.document.writeln(
+			'table { border-collapse: collapse; }' +
+			'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }' +
+			'th { text-align: center; }' +
+			'.dt-buttons, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; }' +
+			'.center { text-align: center; }' +
+			'body { padding: 0; margin:0; }' +
+			'.billPrintWrapper { padding: 15px; color: #333; }'
+		);
+
+		WindowObject.document.writeln('</style></head><body onload="window.print()">');
+		WindowObject.document.writeln(divToPrint.innerHTML);
+		WindowObject.document.writeln('</body></html>');
+		WindowObject.document.close();
+
+		setTimeout(function () {
+			WindowObject.close();
+		}, 10);
+	}
+
+	// Save as PDF (html2pdf.js)
+	function savePDF() {
+		var element = document.getElementById('divToPrint');
+		// Temporarily hide Excel button for PDF
+		var excelBtn = document.querySelector('.dt-buttons');
+		if (excelBtn) excelBtn.style.display = "none";
+
+		var opt = {
+			margin: 0.5,
+			filename: 'Cash_Bank_Journal.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+		};
+		html2pdf().set(opt).from(element).save().then(() => {
+			// Show back Excel button after PDF
+			if (excelBtn) excelBtn.style.display = "block";
+		});
+	}
 </script>
 
 <div class="wraper">
