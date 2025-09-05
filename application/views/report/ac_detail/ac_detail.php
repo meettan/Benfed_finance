@@ -179,11 +179,13 @@
         WindowObject.document.close();
     }
 
-    // PDF generation using jsPDF + AutoTable
+    // PDF generation using jsPDF + AutoTable (landscape + proper column widths)
     function savePDF() {
         const { jsPDF } = window.jspdf;
-        var doc = new jsPDF('p', 'pt', 'a4');
+        var doc = new jsPDF('l', 'pt', 'a4'); // landscape
         doc.setFontSize(10);
+        
+        // Header
         doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
         doc.text("HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.", 40, 55);
         doc.text("Ledger Name: <?=$accdetail->ac_name?>", 40, 70);
@@ -191,17 +193,26 @@
         doc.text("Account Detail: <?php echo $_SESSION['date']; ?>", 40, 100);
         doc.text("District: <?php echo $this->session->userdata['loggedin']['branch_name']; ?>", 40, 115);
 
-        // AutoTable for table
         doc.autoTable({
             html: '#example',
             startY: 130,
             theme: 'grid',
-            styles: { fontSize: 8 },
+            styles: { fontSize: 8, overflow: 'linebreak' },
             headStyles: { fillColor: [52, 73, 94], textColor: 255 },
             footStyles: { fillColor: [52, 73, 94], textColor: 255 },
-            margin: { left: 40, right: 40 },
+            margin: { left: 20, right: 20 },
+            columnStyles: {
+                0: { cellWidth: 60 },   // Date
+                1: { cellWidth: 120 },  // Particulars
+                2: { cellWidth: 60 },   // Voucher Type
+                3: { cellWidth: 180 },  // Narration
+                4: { cellWidth: 60 },   // Voucher No
+                5: { cellWidth: 60 },   // Ref No
+                6: { cellWidth: 60 },   // Invoice No
+                7: { cellWidth: 60 },   // Debit
+                8: { cellWidth: 60 }    // Credit
+            },
             didDrawPage: function (data) {
-                // Optional: Add page number
                 var pageCount = doc.getNumberOfPages();
                 doc.setFontSize(8);
                 doc.text('Page ' + pageCount, data.settings.margin.left, doc.internal.pageSize.height - 10);
