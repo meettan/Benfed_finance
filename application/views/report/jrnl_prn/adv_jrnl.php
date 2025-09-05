@@ -24,12 +24,19 @@
 	}
 
 	@media print {
-        .dt-buttons,
-        .print-btn {
-            display: none !important;
-        }
+    /* Hide DataTable buttons */
+    .dt-buttons,
+    .dt-button,
+    .buttons-html5,
+    .buttons-excel,
+    .buttons-pdf,
+    .buttons-print,
+    .print-btn {
+        display: none !important;
+        visibility: hidden !important;
     }
 }
+
 </style>
 <script>
 	function printDiv() {
