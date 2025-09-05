@@ -17,26 +17,7 @@
         background-color: #f5f5f5;
     }
 
-    /* DataTables sorting icons */
-    table.dataTable thead .sorting:after {
-        content: "↕";
-        color: #888;
-        font-size: 16px;
-    }
-    table.dataTable thead .sorting_asc:after {
-        content: "▲";
-        color: #4caf50;
-        font-weight: bold;
-        font-size: 16px;
-    }
-    table.dataTable thead .sorting_desc:after {
-        content: "▼";
-        color: #f44336;
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-    /* Hide buttons in print */
+    /* Hide DataTables buttons only in print */
     @media print {
         .dt-buttons,
         .print-btn,
@@ -45,15 +26,12 @@
             visibility: hidden !important;
         }
     }
-
-    .tip {
-        color: blue;
-    }
 </style>
 
 <div class="wraper">
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
+
             <div style="text-align:center;">
                 <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
@@ -64,8 +42,6 @@
                     <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
             </div>
             <br>
-
-            <p class="tip"><b>Tip:</b> Click column headers to sort rows. Drag to reorder columns.</p>
 
             <table id="example" class="display" style="width: 100%">
                 <thead>
@@ -85,129 +61,169 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php 
-                if($accdetail){
-                    $tot_debit = 0.00;
-                    $tot_cre = 0.00;
-
-                    // Opening balance row
-                    $dr_amt = ($opebalcal && $opebalcal->trans_flag=='DR') ? abs($ope_bal) : 0;
-                    $cr_amt = ($opebalcal && $opebalcal->trans_flag=='CR') ? abs($ope_bal) : 0;
-                    echo "<tr>
-                        <td></td>
-                        <td>Opening Balance</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td align='right'>{$dr_amt}</td>
-                        <td align='right'>{$cr_amt}</td>
-                    </tr>";
-
-                    foreach($trail_balnce as $tb){
-                        $dr = number_format($tb->dr_amt, 2, '.', '');
-                        $cr = number_format($tb->cr_amt, 2, '.', '');
-                        $tot_debit += $tb->dr_amt;
-                        $tot_cre += $tb->cr_amt;
-
-                        // Safe invoice lookup
-                        $invoice_no = '';
-                        foreach($inv_detail as $inv) {
-                            if(!empty($tb->trans_no) && $tb->trans_no == $inv->ro_no){ 
-                                $invoice_no = $inv->invoice_no; 
-                                break;
+                    <?php 
+                    if($accdetail){
+                        $i = 1;
+                        $total = 0.00;$ope_bal = 0.00;$cls_bal = 0.00;$opdr=0.00;$opcr=0.00;
+                        $tot_debit = 0.00;$tot_cre =0.00;
+                        $val =0;
+                        $type =0;
+                        if($opebalcal){
+                            $opdr =$opebalcal->dr_amt;
+                            $opcr =$opebalcal->cr_amt;
+                            if($opebalcal->type == 1 ){
+                               $ope_bal = $ope_bal+$opcr-$opdr;
+                            } else if($opebalcal->type == 2 ){
+                               $ope_bal = $ope_bal+$opdr-$opcr;
+                            } else if( $opebalcal->type ==3|| $opebalcal->type == 4){
+                                $ope_bal=0.00;
                             }
-                        }
+                        } ?>
+                        <tr>
+                            <td></td>
+                            <td>Opening Balance</td>
+                            <td></td><td></td><td></td><td></td><td></td>
+                            <td><?php if($opebalcal){ if($opebalcal->trans_flag=='DR'){ echo abs($ope_bal); } }?></td>
+                            <td><?php if($opebalcal){ if($opebalcal->trans_flag=='CR'){ echo abs($ope_bal); } }?></td>
+                        </tr>
 
-                        echo "<tr class='rep'>
-                            <td>".date('d-m-Y',strtotime($tb->voucher_date))."</td>
-                            <td>{$tb->ac_name}</td>
-                            <td>";
-                        if($tb->voucher_mode=='C') echo 'Cash';
-                        elseif($tb->voucher_mode=='J') echo 'Journal';
-                        elseif($tb->voucher_mode=='B') echo 'Bank';
-                        echo "</td>
-                            <td style='width:30%;word-wrap: break-word'>{$tb->remarks}</td>
-                            <td><a href='javascript:void(0)' onclick=\"voucherdtls('{$tb->voucher_id}')\">{$tb->voucher_id}</a></td>
-                            <td>".(!empty($tb->trans_no)?$tb->trans_no:'')."</td>
-                            <td>{$invoice_no}</td>
-                            <td align='right'>{$dr}</td>
-                            <td align='right'>{$cr}</td>
-                        </tr>";
-                    }
+                        <?php foreach($trail_balnce as $tb){
+                            $type = $tb->type;
+                        ?>
+                        <tr class="rep">
+                            <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
+                            <td><?php echo $tb->ac_name; ?></td>
+                            <td><?php if($tb->voucher_mode == 'C'){echo 'Cash'; } 
+                                elseif($tb->voucher_mode == 'J'){ echo 'Journal'; }
+                                elseif($tb->voucher_mode == 'B'){ echo 'Bank'; }
+                            ?></td>
+                            <td style="width:30%;word-wrap: break-word"><?php echo $tb->remarks; ?></td>
+                            <td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
+                            <td><?php if(!empty($tb->trans_no)){echo $tb->trans_no;} ?></td>
+                            <td><?php foreach($inv_detail as $inv) {
+                                if(!empty($tb->trans_no)){
+                                    if($tb->trans_no == $inv->ro_no){ echo $inv->invoice_no; }
+                                }
+                            } ?></td>
+                            <td align="right" style="width:90px !important"><?php echo number_format( $tb->dr_amt,2, '.', ''); $tot_debit +=$tb->dr_amt; ?></td>
+                            <td align="right"><?php echo  number_format($tb->cr_amt,2, '.', ''); $tot_cre +=$tb->cr_amt;?></td>
+                        </tr>
+                        <?php } ?>
 
-                    // Total row
-                    echo "<tr>
-                        <th>Total</th>
-                        <th colspan='6'></th>
-                        <th align='right'>".number_format($tot_debit,2,'.','')."</th>
-                        <th align='right'>".number_format($tot_cre,2,'.','')."</th>
-                    </tr>";
-                }
-                ?>
+                        <tr>
+                            <th>Total</th>
+                            <th colspan="6"></th>
+                            <th align="right"><?=$tot_debit?></th>
+                            <th align="right"><?=$tot_cre?></th>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
+
         </div>
 
         <div style="text-align: center; margin-top:15px;">
-            <button class="btn btn-primary print-btn" type="button" onclick="printDiv();">Print</button>
+            <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
             <button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
         </div>
     </div>
 </div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<!-- DataTables & Buttons -->
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<!-- jsPDF + jsPDF-AutoTable -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    $('#example').DataTable({
+    // Initialize DataTable
+    $('#example').dataTable({
         destroy: true,
         searching: false,
-        ordering: true,
+        ordering: false,
         paging: false,
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: 'Account Details',
-                text: 'Export to Excel'
+                title: 'Accounts Details',
+                text: 'Export to excel'
             }
         ]
     });
-});
 
-function printDiv() {
-    var divToPrint = document.getElementById('divToPrint');
-    var WinPrint = window.open('', '', 'width=900,height=650');
-    WinPrint.document.write('<html><head><title>Print</title>');
-    WinPrint.document.write('<style>table {border-collapse: collapse;} table, td, th {border:1px solid #ddd; padding:6px;}</style>');
-    WinPrint.document.write('</head><body>');
-    WinPrint.document.write(divToPrint.innerHTML);
-    WinPrint.document.write('</body></html>');
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-}
+    // Print function
+    function printDiv() {
+        var divToPrint = document.getElementById('divToPrint');
+        var WindowObject = window.open('', 'Print-Window');
+        WindowObject.document.open();
+        WindowObject.document.writeln('<!DOCTYPE html>');
+        WindowObject.document.writeln('<html><head><title>Account Details</title><style>');
+        WindowObject.document.writeln(
+            'table { border-collapse: collapse; }'+
+            'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }'+
+            'th { text-align: center; }'+
+            '.dt-buttons, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; }'+
+            'body { padding:0; margin:0; }'
+        );
+        WindowObject.document.writeln('</style></head><body onload="window.print()">');
+        WindowObject.document.writeln(divToPrint.innerHTML);
+        WindowObject.document.writeln('</body></html>');
+        WindowObject.document.close();
+    }
 
-function savePDF() {
-    const { jsPDF } = window.jspdf;
-    var doc = new jsPDF('l', 'pt', 'a4');
-    doc.setFontSize(10);
-    doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
-    doc.text("Ledger Name: <?=$accdetail->ac_name?>", 40, 55);
-    doc.autoTable({ html: '#example', startY: 70, theme:'grid', styles:{ fontSize:8, overflow:'linebreak' } });
-    doc.save('Account_Details.pdf');
-}
+    // PDF generation using jsPDF + AutoTable
+    function savePDF() {
+        const { jsPDF } = window.jspdf;
+        var doc = new jsPDF('l', 'pt', 'a4'); // landscape
+        doc.setFontSize(10);
+        
+        // Header
+        doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
+        doc.text("HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.", 40, 55);
+        doc.text("Ledger Name: <?=$accdetail->ac_name?>", 40, 70);
+        doc.text("Ledger Code: <?=$accdetail->benfed_ac_code?>", 40, 85);
+        doc.text("Account Detail: <?php echo $_SESSION['date']; ?>", 40, 100);
+        doc.text("District: <?php echo $this->session->userdata['loggedin']['branch_name']; ?>", 40, 115);
 
-function voucherdtls(vid){
-    window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid,'_blank');
-}
+        doc.autoTable({
+            html: '#example',
+            startY: 130,
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            footStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            margin: { left: 20, right: 20 },
+            columnStyles: {
+                0: { cellWidth: 60 },   // Date
+                1: { cellWidth: 120 },  // Particulars
+                2: { cellWidth: 60 },   // Voucher Type
+                3: { cellWidth: 180 },  // Narration
+                4: { cellWidth: 60 },   // Voucher No
+                5: { cellWidth: 60 },   // Ref No
+                6: { cellWidth: 60 },   // Invoice No
+                7: { cellWidth: 'auto', halign: 'right', fontSize: 7 },  // Debit
+                8: { cellWidth: 'auto', halign: 'right', fontSize: 7 }   // Credit
+            },
+            didDrawPage: function (data) {
+                var pageCount = doc.getNumberOfPages();
+                doc.setFontSize(8);
+                doc.text('Page ' + pageCount, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            }
+        });
+
+        doc.save('Account_Details.pdf');
+    }
+
+    // Voucher details popup
+    function voucherdtls(vid){
+        window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid, '_blank');
+    }
 </script>
