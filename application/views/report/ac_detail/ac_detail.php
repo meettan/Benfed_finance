@@ -332,6 +332,48 @@ text: 'Export to excel'
 
 </script>
 <script>
+    function savePDF() {
+        const { jsPDF } = window.jspdf;
+        var doc = new jsPDF('l', 'pt', 'a4'); // landscape
+        doc.setFontSize(10);
+        
+        // Header
+        doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
+        doc.text("HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.", 40, 55);
+        doc.text("Ledger Name: <?=$accdetail->ac_name?>", 40, 70);
+        doc.text("Ledger Code: <?=$accdetail->benfed_ac_code?>", 40, 85);
+        doc.text("Account Detail: <?php echo $_SESSION['date']; ?>", 40, 100);
+        doc.text("District: <?php echo $this->session->userdata['loggedin']['branch_name']; ?>", 40, 115);
+
+        doc.autoTable({
+            html: '#example',
+            startY: 130,
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            footStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            margin: { left: 20, right: 20 },
+            columnStyles: {
+                0: { cellWidth: 60 },   // Date
+                1: { cellWidth: 120 },  // Particulars
+                2: { cellWidth: 60 },   // Voucher Type
+                3: { cellWidth: 180 },  // Narration
+                4: { cellWidth: 60 },   // Voucher No
+                5: { cellWidth: 60 },   // Ref No
+                6: { cellWidth: 60 },   // Invoice No
+                7: { cellWidth: 'auto', halign: 'right', fontSize: 7 },  // Debit
+                8: { cellWidth: 'auto', halign: 'right', fontSize: 7 }   // Credit
+            },
+            didDrawPage: function (data) {
+                var pageCount = doc.getNumberOfPages();
+                doc.setFontSize(8);
+                doc.text('Page ' + pageCount, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            }
+        });
+
+        doc.save('Account_Details.pdf');
+    }
+
 function voucherdtls(vid){
 
 window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid, '_blank');
