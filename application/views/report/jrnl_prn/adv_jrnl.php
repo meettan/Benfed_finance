@@ -302,7 +302,7 @@
 
 									<td>Prepared By</td>
 
-									<?php if ($this->session->userdata('loggedin')['branch_id'] ==100) { ?>
+									<?php if ($this->session->userdata('loggedin')['branch_id'] ==342) { ?>
 										<td>Asst Manager/Dy. Manager</td>
 										<td>Departmental Manager(S)</td>
 										<td>CA&AO</td>
