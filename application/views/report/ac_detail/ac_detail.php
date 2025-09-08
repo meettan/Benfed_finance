@@ -228,7 +228,7 @@
 <!-- jsPDF + jsPDF-AutoTable -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
-<button id="btnExcel" class="btn btn-success excel-btn" type="button">Save as Excel</button>
+<!-- <button id="btnExcel" class="btn btn-success excel-btn" type="button">Save as Excel</button> -->
 <script>
     // Initialize DataTable
     $('#example').dataTable({
