@@ -231,28 +231,27 @@
 
 <script>
     // Initialize DataTable
-    // Excel export using DataTables
+    $('#example').dataTable({
+        destroy: true,
+        searching: false,
+        ordering: false,
+        paging: false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Accounts Details',
+                text: 'Export to excel'
+            }
+        ]
+    });
+// Hide default Excel button from DataTables UI
+table.buttons().container().hide();
+
+// Custom Excel export function
 function exportExcel() {
-    $('#example').DataTable().button('.buttons-excel').trigger();
+    table.button('.buttons-excel').trigger();
 }
-
-// Initialize DataTable with Excel button
-$('#example').DataTable({
-    destroy: true,
-    searching: false,
-    ordering: false,
-    paging: false,
-    dom: 'Bfrtip',
-    buttons: [
-        {
-            extend: 'excelHtml5',
-            title: 'Accounts Details',
-            text: 'Export to Excel',
-            className: 'd-none buttons-excel' // hide default Excel button
-        }
-    ]
-});
-
     // Print function
     function printDiv() {
         var divToPrint = document.getElementById('divToPrint');
