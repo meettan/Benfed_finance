@@ -231,27 +231,30 @@
 <!-- <button id="btnExcel" class="btn btn-success excel-btn" type="button">Save as Excel</button> -->
 <script>
     // Initialize DataTable
-    $('#example').dataTable({
-        destroy: true,
-        searching: false,
-        ordering: false,
-        paging: false,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                title: 'Accounts Details',
-                text: 'Export to excel'
-            }
-        ]
-    });
-// Hide default Excel button from DataTables UI
+   // Initialize DataTable and store reference in a global variable
+var table = $('#example').DataTable({
+    destroy: true,
+    searching: false,
+    ordering: false,
+    paging: false,
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            title: 'Accounts Details',
+            text: 'Export to Excel'
+        }
+    ]
+});
+
+// Hide the default Excel button from DataTables UI
 table.buttons().container().hide();
 
 // Custom Excel export function
 function exportExcel() {
     table.button('.buttons-excel').trigger();
 }
+
     // Print function
     function printDiv() {
         var divToPrint = document.getElementById('divToPrint');
