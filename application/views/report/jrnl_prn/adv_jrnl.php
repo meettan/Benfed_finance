@@ -22,6 +22,14 @@
 	tr:hover {
 		background-color: #f5f5f5;
 	}
+	@media print {
+		.dt-buttons,
+		.print-btn,
+		.pdf-btn {
+			display: none !important;
+			visibility: hidden !important;
+		}
+	}
 </style>
 <script>
 	function printDiv() {
@@ -324,7 +332,7 @@
 
 			<button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
 			<!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
-
+			<button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
 		</div>
 
 	</div>
@@ -332,18 +340,24 @@
 </div>
 
 
-<!-- <script>
-            $(document).ready(function() {
+<script>
+           // Save as PDF (html2pdf.js)
+	function savePDF() {
+		var element = document.getElementById('divToPrint');
+		// Temporarily hide Excel button for PDF
+		var excelBtn = document.querySelector('.dt-buttons');
+		if (excelBtn) excelBtn.style.display = "none";
 
-$('.total').each(function() {
-  var prevClass = $(this).prev().attr('class');
-  var sum = 0;
-  $('.' + prevClass).each(function() {
-    sum += Number($(this).text());
-  })
-
-  $(this).text('Total :'+sum);
-})
-
-});
-        </script> -->
+		var opt = {
+			margin: 0.5,
+			filename: 'Cash_Bank_Journal.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+		};
+		html2pdf().set(opt).from(element).save().then(() => {
+			// Show back Excel button after PDF
+			if (excelBtn) excelBtn.style.display = "block";
+		});
+	}
+        </script> 
