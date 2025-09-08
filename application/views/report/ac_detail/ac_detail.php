@@ -142,7 +142,7 @@
                          $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                          //echo abs($clBl);
                         // echo number_format((float)abs($clBl), 2, '.', '');
-                        echo round(abs($clBl), 2);
+                        echo number_format(round(abs($clBl), 2),2, '.', '');
                       }
 
                  }
