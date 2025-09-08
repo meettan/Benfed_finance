@@ -132,7 +132,7 @@
                             $clBl=abs($ope_bal)+$tot_debit-$tot_cre;
                             //echo abs($clBl);
                             //echo number_format((float)abs($clBl), 2, '.', '');
-                            echo round(abs($clBl), 2);
+                            echo number_format(round(abs($clBl), 2),2, '.', '');
                     }else{
                         echo '';
                     }
@@ -155,7 +155,7 @@
                     $clBl=abs($ope_bal)+$tot_cre-$tot_debit;
                 
                    // echo number_format((float)abs($clBl), 2, '.', '');
-                    echo round(abs($clBl), 2);
+                    echo number_format(round(abs($clBl), 2), 2, '.', '');
                  }else{
                      echo '';
                  }
@@ -168,14 +168,14 @@
             <?php   if($opebalcal){
                         if($opebalcal->trans_flag=='CR' && abs($ope_bal)+$tot_cre>$tot_debit){
                             $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
-                            echo round(abs($clBl),2);
+                            echo number_format(round(abs($clBl),2),2, '.', '');
                         }else{
                             echo '';
                         }
                     }else{
                         if(abs($ope_bal)+$tot_cre>$tot_debit){
                         $clBl=(abs($ope_bal)+$tot_cre) - $tot_debit;
-                        echo round(abs($clBl),2);
+                        echo number_format(round(abs($clBl),2),2, '.', '');
                         }
                     }
 			?>
