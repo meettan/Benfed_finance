@@ -26,6 +26,14 @@
     tr:hover {
         background-color: #f5f5f5;
     }
+    @media print {
+        .dt-buttons,
+        .print-btn,
+        .pdf-btn {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    }
 </style>
 <script>
     function printDiv() {
@@ -288,7 +296,7 @@
 
         <div style="text-align: center;">
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
-          
+            <button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
         </div>
     </div>
 </div>
