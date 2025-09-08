@@ -230,30 +230,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 <!-- <button id="btnExcel" class="btn btn-success excel-btn" type="button">Save as Excel</button> -->
 <script>
+    var table; // global reference
+
+    $(document).ready(function () {
+        // Initialize with new API
+        table = $('#example').DataTable({
+            destroy: true,
+            searching: false,
+            ordering: false,
+            paging: false,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Accounts Details',
+                    text: 'Export to Excel',
+                    className: 'buttons-excel'
+                }
+            ]
+        });
+
+        // Hide default Excel button UI
+        table.buttons().container().hide();
+    });
+
+    // Custom Excel export
+    function exportExcel() {
+        table.button('.buttons-excel').trigger();
+    }
+</script>
+
+<script>
     // Initialize DataTable
    // Initialize DataTable and store reference in a global variable
-var table = $('#example').DataTable({
-    destroy: true,
-    searching: false,
-    ordering: false,
-    paging: false,
-    dom: 'Bfrtip',
-    buttons: [
-        {
-            extend: 'excelHtml5',
-            title: 'Accounts Details',
-            text: 'Export to Excel'
-        }
-    ]
-});
-
-// Hide the default Excel button from DataTables UI
-table.buttons().container().hide();
-
-// Custom Excel export function
-function exportExcel() {
-    table.button('.buttons-excel').trigger();
-}
 
     // Print function
     function printDiv() {
