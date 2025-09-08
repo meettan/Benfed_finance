@@ -210,7 +210,7 @@
 
         <div style="text-align: center; margin-top:15px;">
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
-            
+            <button class="btn btn-success excel-btn" type="button" onclick="exportExcel();">Save as Excel</button>
             <button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
         </div>
     </div>
@@ -231,20 +231,27 @@
 
 <script>
     // Initialize DataTable
-    $('#example').dataTable({
-        destroy: true,
-        searching: false,
-        ordering: false,
-        paging: false,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                title: 'Accounts Details',
-                text: 'Export to excel'
-            }
-        ]
-    });
+    // Excel export using DataTables
+function exportExcel() {
+    $('#example').DataTable().button('.buttons-excel').trigger();
+}
+
+// Initialize DataTable with Excel button
+$('#example').DataTable({
+    destroy: true,
+    searching: false,
+    ordering: false,
+    paging: false,
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            title: 'Accounts Details',
+            text: 'Export to Excel',
+            className: 'd-none buttons-excel' // hide default Excel button
+        }
+    ]
+});
 
     // Print function
     function printDiv() {
