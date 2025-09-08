@@ -73,14 +73,13 @@
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
 
-            <div style="text-align:center;">
-            
-                <h2>Sripur Swami Vivekananda Welfare Society (SSVWS)</h2>
-                <h4>Sripur, P.O - Kashimpur,Dist- South 24 Pgs,West Bengal-743372.</h4>
+        <div style="text-align:center;">
+                <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
+                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                 <h4>Ledger Name: <?=$accdetail->ac_name?></h4>
                 <h4>Ledger Code: <?=$accdetail->benfed_ac_code?></h4>
                 <h4>Account Detail: <?php echo $_SESSION['date']; ?></h4>
-                <h5 style="text-align:left"><label>Branch: </label>
+                <h5 style="text-align:left"><label>District: </label>
                     <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
             </div>
             <br>
