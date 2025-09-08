@@ -121,8 +121,8 @@
             <th></th>
             <th></th>
             <th></th>
-            <th></th>
-            <th>Closing Balance</th>
+            <th>Closing Balance<</th>
+            <th>/th>
             <th></th>            
             <th></th>
                <th align="right">
