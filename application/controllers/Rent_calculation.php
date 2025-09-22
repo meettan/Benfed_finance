@@ -396,7 +396,7 @@ class Rent_calculation extends CI_Controller{
                     'transfer_type'  =>  'T',
                     'voucher_mode'   => 'B',
                     'voucher_through'=> 'A',
-                    'acc_code'       => 8245,
+                    'acc_code'       => 8246,
                     'dr_cr_flag'     => 'CR',
                     'amount'         => $this->input->post('sgst'),
                     'ins_no'         => $this->input->post('rfNo'),
