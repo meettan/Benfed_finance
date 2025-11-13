@@ -27,7 +27,7 @@
                         <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Transaction No</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th>Edit</th>
                         <!-- <th style="width: 6%;">Approve</th> -->
                         <!-- <th>Delete</th> -->
@@ -85,7 +85,7 @@
                     <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Transaction No</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th>Edit</th>
                     </tr>
 

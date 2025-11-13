@@ -339,7 +339,7 @@
                     <div class="dropbtn">
 
                         <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
-                        Setting
+                        User Administration
                         <i class="fa fa-angle-down"></i>
                     </div>
                     <div class="dropdown-content">
