@@ -30,6 +30,7 @@
                     <!-- <li> <a href="<?php echo site_url('bankbook'); ?>">Cheque Entry</a></li> -->
                     <li><a href="<?php echo site_url('ac_detail'); ?>">Account Detail</a></li>
                     
+                    
                 </ul>
             <?php // } else { ?>
 
