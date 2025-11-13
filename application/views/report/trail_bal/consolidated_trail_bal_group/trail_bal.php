@@ -165,7 +165,7 @@ tr:hover {background-color: #f5f5f5;}
                                         }else if($tb->op_dr < 0 && $tb->dr_cr_flag=='CR'){
                                             echo number_format(abs($tb->op_dr),2); $otot_cr +=abs($tb->op_dr);
                                         } ?>
-									       
+									     
 								        
 									 </td>
                                      <?php } ?>
