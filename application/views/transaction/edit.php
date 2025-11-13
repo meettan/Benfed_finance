@@ -177,7 +177,7 @@
                         <th width="25%">A/C Head</th>
                         <th width="18%">Group</th>
                         <th width="18%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
                         <th><!--<button class="btn btn-success" type="button" id="newrow">
                                 <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button>  -->
@@ -229,7 +229,10 @@
                 <div class="col-sm-10">
 
                     <input type="submit" name="submit" id="submit" value="Update" class="btn btn-info" />
-
+                    <a href="<?php echo site_url("cashVoucher"); ?>" 
+                    class="btn btn-danger" 
+                    style="width: 100px; margin-left:10px;">Back
+                    </a>
                 </div>
 
             </div>

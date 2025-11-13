@@ -76,7 +76,7 @@
                     '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' +
                     '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required ></td>' +
                     '<td><input type = "text" id = "dc_flg" name = "dc_flg[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "' + g_flg + '" readonly required ></td>' +
-                    '<td><button type = "button" class = "btn btn-danger" id = "removeRow"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
+                    '<td><button type = "button" class = "btn btn-danger" id = "removeRow" data-toggle="tooltip" data-placement="bottom" title="Remove this row"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
 			  $( ".select2" ).select2();
             		 
             } else {
@@ -197,9 +197,9 @@
                         <th style="width: 12%;">A/C Code</th>
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
-                        <th><button class="btn btn-success" type="button" id="newrow">
+                        <th><button class="btn btn-success" type="button" id="newrow" data-toggle="tooltip" data-placement="bottom" title="Add new row">
                                 <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button>
                         </th>
                     </tr>
@@ -248,7 +248,10 @@
                 <div class="col-sm-10">
 
                     <input type="submit" name="submit" id="submit" value="Save" class="btn btn-info" />
-
+                    <a href="<?php echo site_url("cashVoucher"); ?>" 
+                    class="btn btn-danger" 
+                    style="width: 100px; margin-left:10px;">Back
+                    </a>
                 </div>
 
             </div>
@@ -359,4 +362,9 @@
     $('.mindate').attr('min',
     		'<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01'
     		);
+</script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 </script>

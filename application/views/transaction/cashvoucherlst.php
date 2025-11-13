@@ -20,14 +20,21 @@
 		<div class="col-sm-8" style="margin-top:20px">
 			<form method="POST" action="<?php echo site_url("transaction\approvedCashvoucher") ?>" >
             <label for="voucher_dt" class="col-sm-2 col-form-label">From Date:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="date" name="fr_dt" class="form-control" value="" required />
             </div>
             <label for="voucher_mode" class="col-sm-2 col-form-label">To Date:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                     <input type="date" name="to_dt" class="form-control" value="" required />
             </div>
 			<div class="col-sm-2"><input type="submit" value="submit"></div>
+            <a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-primary" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
+
+
 			</form>
 		</div>		
 
@@ -40,7 +47,7 @@
                     <th>Voucher No.</th>
                     <th>Type</th>
                     <th>Mode</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <!-- <th>Edit</th> -->
                     <!-- <th>Delete</th> -->
                     <th>Print</th>
@@ -117,7 +124,7 @@
                     <th>Voucher No.</th>
                     <th>Type</th>
                     <th>Mode</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <!-- <th>Edit</th> -->
                     <!-- <th>Delete</th> -->
                     <th>Print</th>
