@@ -39,7 +39,7 @@
                     <th>Society </th>
                     <th>Cheque No.</th>
                     <th>Cheque Dt</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <th>Bank Name</th>
                     <th>Option</th>
                 </tr>
@@ -89,7 +89,7 @@
                     <th>Society </th>
                     <th>Cheque No.</th>
                     <th>Cheque Dt</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <th>Bank Name</th>
                     <th>Option</th>
                 </tr>

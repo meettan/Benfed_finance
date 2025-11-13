@@ -100,9 +100,12 @@
 				</div>
 				<div class="printTop023">
 					<?php if(!empty($vou->trans_no)){ ?>
-					<div class="leftNo">Transaction No: <a
+					<div class="leftNo">Transaction No:
+						 <!-- <a
 							href="<?=base_url()?>index.php/report/trans_detail?trans_no=<?php echo base64_encode($vou->trans_no);?>&type=<?=base64_encode($type)?>&trans_dt=<?=$vou->trans_dt?>"
-							target="_blank"><?=$vou->trans_no?></a>
+							target="_blank"><?=$vou->trans_no?></a> -->
+							<a href="<?=base_url()?>index.php/report/trans_detail?trans_no=<?=base64_encode($vou->trans_no)?>&type=<?=base64_encode($voucher_type)?>&trans_dt=<?=$vou->trans_dt?>" target="_blank"><?=$vou->trans_no?></a>
+
 					</div>
 					<?php } ?>
 					<br>

@@ -41,7 +41,7 @@
                         <th>Voucher No.</th>
                         <th>Type</th>
                         <th>Mode</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <!-- <th>Edit</th>
                         <th>Delete</th> -->
                         <th>Print</th>
@@ -126,7 +126,7 @@
                         <th>Voucher No.</th>
                         <th>Type</th>
                         <th>Mode</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <!-- <th>Edit</th>
                        
                         <th>Delete</th> -->
