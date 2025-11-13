@@ -274,7 +274,7 @@
                         <!-- <th style="width: 12%;">A/C Code</th> -->
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
                         <!-- <th><button class="btn btn-success" type="button" id="debitnewrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th> -->
                     
@@ -371,7 +371,7 @@
                         <!-- <th style="width: 12%;">A/C Code</th> -->
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
                         <!-- <th><button class="btn btn-success" type="button" id="newrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th> -->
                     </tr>
@@ -428,7 +428,11 @@
                 <div class="col-sm-10">
 
                     <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
-
+                    <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
+                    <a href="<?php echo site_url("jurnalVoucher"); ?>" 
+                    class="btn btn-primary" 
+                    style="width: 100px; margin-left:10px;">Back
+                    </a>
                 </div>
 
             </div>

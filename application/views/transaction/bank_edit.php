@@ -156,7 +156,7 @@
                 <div class="col-sm-3">
                     <select class="form-control select2" id="t_type" onchange="set_dr_cr()" class="input_text" disabled>
                         <option value="">Select</option>
-                        <option value="C" <?= $voucher_detail->transfer_type == 'C' ? 'selected' : '' ?>>Checque</option>
+                        <option value="C" <?= $voucher_detail->transfer_type == 'C' ? 'selected' : '' ?>>Cheque</option>
                         <option value="N" <?= $voucher_detail->transfer_type == 'N' ? 'selected' : '' ?>>NEFT</option>
                         <option value="R" <?= $voucher_detail->transfer_type == 'R' ? 'selected' : '' ?>>RTGS</option>
                     </select>
@@ -233,7 +233,7 @@
                         <th width="25%">A/C Head</th>
                         <th width="18%">Group</th>
                         <th width="18%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
                         <th><button class="btn btn-success" type="button" id="newrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
                     </tr>
@@ -289,6 +289,10 @@
                     <?php if($voucher_detail->approval_status == 'U'){ ?>
                     <input type="submit" name="submit" id="submit" value="Update" class="btn btn-info" />
                     <?php }?>
+                    <a href="<?php echo site_url("bankVoucher"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">Back
+            </a>
                 </div>
 
             </div>
@@ -321,8 +325,8 @@
         var t_label_no = '';
         var t_label_dt = '';
         if (t_val == 'C') {
-            t_label_no = 'Checque No.:';
-            t_label_dt = 'Checque Date:';
+            t_label_no = 'Cheque No.:';
+            t_label_dt = 'Cheque Date:';
         } else {
             t_label_no = 'Reference No.:';
             t_label_dt = 'Reference Date:';

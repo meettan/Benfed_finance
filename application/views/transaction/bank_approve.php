@@ -89,7 +89,7 @@
                         <th width="25%">A/C Head</th>
                         <th width="18%">Group</th>
                         <th width="18%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
                     </tr>
                 </thead>

@@ -109,7 +109,7 @@
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
 							 
                         }
-                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_'+ x +'" name="benfedcode_id[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_' + x + '" name="gr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required ></td>' + '<td><h5>Credit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Credit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
+                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_'+ x +'" name="benfedcode_id[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_' + x + '" name="gr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required ></td>' + '<td><h5>Credit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Credit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow" data-toggle="tooltip" data-placement="bottom" title="Remove this row"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
 			  $( ".select2" ).select2();
 
             } else {
@@ -216,7 +216,7 @@
                             echo "<option value='" . $value->sl_no . "'>" . $value->ac_name . "-". $value->benfed_ac_code ."</option>";
 							 
                         }
-                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_Debit_'+ x +'" name="benfedcode_id_Debit[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_Debit_' + x + '" name="gr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_Debit_' + x + '" name="subgr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls_Debit" style="width: 100%; text-align: right;" id="amt" name="amount_Debit[]" oninput="validate(this)" required ></td>' + '<td><h5>Debit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg_Debit[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Debit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow_Debit"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
+                        ?>" + '</select></td>' + '<td><input type="text" class="transparent_tag" id="benfedcode_Debit_'+ x +'" name="benfedcode_id_Debit[]" style="width: 100%;" readonly></td>'+ '<td><input type="text" class="transparent_tag" id="gr_id_Debit_' + x + '" name="gr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="transparent_tag" id="subgr_id_Debit_' + x + '" name="subgr_id_Debit[]" style="width: 100%;" readonly></td>' + '<td><input type="text" class="form-control amount_cls_Debit" style="width: 100%; text-align: right;" id="amt" name="amount_Debit[]" oninput="validate(this)" required ></td>' + '<td><h5>Debit</h5><input type = "hidden" id = "dc_flg" name = "dc_flg_Debit[]" class = "transparent_tag" style = "width: 100%; text-align: center;" value = "Debit" readonly required ></td>' + '<td><button type = "button" class = "btn btn-danger" id = "removeRow_Debit" data-toggle="tooltip" data-placement="bottom" title="Remove this row"> <i class = "fa fa-undo" aria-hidden = "true" > </i></button> </td></tr> ');
 			  $( ".select2" ).select2();
 
             } else {
@@ -281,9 +281,9 @@
                         <th style="width: 12%;">A/C Code</th>
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
-                        <th><button class="btn btn-success" type="button" id="debitnewrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
+                        <th><button class="btn btn-success" type="button" id="debitnewrow" data-toggle="tooltip" data-placement="bottom" title="Add new row"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
                     
                     </tr>
                 </thead>
@@ -366,9 +366,9 @@
                         <th style="width: 12%;">A/C Code</th>
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
-                        <th><button class="btn btn-success" type="button" id="newrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
+                        <th><button class="btn btn-success" type="button" id="newrow" data-toggle="tooltip" data-placement="bottom" title="Add new row"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
                     </tr>
                 </thead>
                 <tbody id="add">
@@ -405,7 +405,10 @@
                 <div class="col-sm-10">
 
                     <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
-
+                    <a href="<?php echo site_url("jurnalVoucher"); ?>" 
+                    class="btn btn-danger" 
+                    style="width: 100px; margin-left:10px;">Back
+                    </a>
                 </div>
 
             </div>

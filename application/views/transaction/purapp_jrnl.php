@@ -189,8 +189,8 @@ function printDiv() {
 					<tr>
 					  <th class="tdFirst">A/C Head</th>
 					  <th class="tdSecound">Trans Type</th>
-					  <th class="tdTHird">Dr Amount</th>
-					  <th class="tdFourth">Cr Amount</th>
+					  <th class="tdTHird">Dr Amount(₹)</th>
+					  <th class="tdFourth">Cr Amount(₹)</th>
 					</tr>
 				</thead>
 				<tbody>
