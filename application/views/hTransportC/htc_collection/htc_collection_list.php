@@ -64,10 +64,8 @@
                     <th>Sl No.</th>
                     <th>Date</th>
                     <th>Invoice No</th>
-                   
                     <th>Customer</th>
                     <!-- <th>Godown</th> -->
-                    
                     <th>Amount</th>
                     <th>IRN</th>
                     <th>ACK No</th>
