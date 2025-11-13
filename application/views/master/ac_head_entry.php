@@ -103,7 +103,10 @@ $subgr_dtls = json_decode($subgr_dtls);
                 <div class="col-sm-10">
 
                     <input type="submit" class="btn btn-info" value="Save" />
-
+                    <a href="<?php echo site_url("achead"); ?>" 
+                    class="btn btn-danger" 
+                    style="width: 100px; margin-left:10px;">Back
+            </a>
                 </div>
 
             </div>
