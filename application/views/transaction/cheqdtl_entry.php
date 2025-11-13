@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="amt" class="col-sm-2 col-form-label">Amount:</label>
+                <label for="amt" class="col-sm-2 col-form-label">Amount(₹):</label>
                 <div class="col-sm-4">
                     <input type="text" name="amt" class="form-control" value=""  required />
                 </div>

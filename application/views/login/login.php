@@ -172,9 +172,14 @@
 	<script src="<?php echo base_url("/assets/login/js/main.js") ?>"></script>
 
 	<script>
-		$(document).ready(function() {
-			$('.select2').select2();
-		});
+		
+
+	$(document).ready(function() {
+    $('.select2').select2();
+
+    // Automatically select last financial year
+    $('#fin_yr option:last').prop('selected', true);
+});
 		//$('#user_id').change(function() {
 	  $('#user_id').on("keyup change", function(e) {
 			$.get("<?= site_url() ?>/login/check_user", {

@@ -34,6 +34,13 @@
             </div>
 
         </div> -->
+        <div>
+        <a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-primary" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
+        </div>
         <div id="v_list">
             <br>
             <table class="table table-bordered table-hover" id="example">
@@ -43,7 +50,7 @@
                         <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Status</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th>Edit</th>
                         <!-- <th style="width: 6%;">Approve</th> -->
                         <!-- <th>Delete</th> -->
@@ -109,7 +116,7 @@
                         <th>Voucher No.</th>
                         <th>voucher Date</th>
                         <th>Status</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th>Edit</th>
                     </tr>
 

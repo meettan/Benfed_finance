@@ -33,7 +33,14 @@
             <div class="col-sm-3">
                     <input type="date" name="to_dt" class="form-control" value="" required />
             </div>
-			<div class="col-sm-2"><input type="submit" value="Filter"></div>
+			<div class="col-sm-2"><input type="submit" value="Filter">
+            <a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
+
+            </div>
 			</form>
 		</div>	
 
@@ -46,7 +53,7 @@
                     <th>Voucher No.</th>
                     <!-- <th>Type</th> -->
                     <th>Mode</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -126,7 +133,7 @@
                     <th>Voucher No.</th>
                     <!-- <th>Type</th> -->
                     <th>Mode</th>
-                    <th>Amount</th>
+                    <th>Amount(₹)</th>
                     <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>

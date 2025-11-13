@@ -66,7 +66,7 @@
                     '<td><input type="text" class="transparent_tag" id="subgr_id_' + x + '" name="subgr_id[]" style="width: 100%;" readonly></td>' +
                     '<td><input type="text" class="form-control amount_cls" style="width: 100%; text-align: right;" id="amt" name="amount[]" oninput="validate(this)" required></td>' +
                     '<td><input type="text"  id="dc_flg" name="dc_flg[]" class="transparent_tag" style="width: 100%; text-align: center;" value="' + g_flg + '" readonly></td>' +
-                    '<td><button type="button" class="btn btn-danger" id="removeRow"><i class="fa fa-undo" aria-hidden="true"></i></button></td></tr>');
+                    '<td><button type="button" class="btn btn-danger" id="removeRow"data-toggle="tooltip" data-placement="bottom" title="Remove this row"><i class="fa fa-undo" aria-hidden="true"></i></button></td></tr>');
                 //$('.preferenceSelect').change();
                 $(".select_2").select2();
             } else {
@@ -166,7 +166,7 @@
                 <div class="col-sm-3">
                     <select class="form-control " name="transfer_type" id="t_type" onchange="set_dr_cr()" class="input_text" required>
                         <option value="">Select</option>
-                        <option value="C">Checque</option>
+                        <option value="C">Cheque</option>
                         <option value="N" selected>NEFT</option>
                         <option value="R">RTGS</option>
                         <option value="H">CASH</option>
@@ -246,9 +246,9 @@
                         <th style="width: 12%;">A/C Code</th>
                         <th width="12%">Group</th>
                         <th width="12%">Subgroup</th>
-                        <th>Amount</th>
+                        <th>Amount(₹)</th>
                         <th></th>
-                        <th><button class="btn btn-success" type="button" id="newrow"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
+                        <th><button class="btn btn-success" type="button" id="newrow" data-toggle="tooltip" data-placement="bottom" title="Add new row"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></button></th>
                     </tr>
                 </thead>
                 <tbody id="add">
@@ -289,7 +289,10 @@
                 <div class="col-sm-10">
 
                     <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
-
+                    <a href="<?php echo site_url("bankVoucher"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">Back
+            </a>
                 </div>
 
             </div>
@@ -322,8 +325,8 @@
         var t_label_no = '';
         var t_label_dt = '';
         if (t_val == 'C') {
-            t_label_no = 'Checque No.:';
-            t_label_dt = 'Checque Date:';
+            t_label_no = 'Cheque No.:';
+            t_label_dt = 'Cheque Date:';
         } else {
             t_label_no = 'Reference No.:';
             t_label_dt = 'Reference Date:';
