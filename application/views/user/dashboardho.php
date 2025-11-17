@@ -14,7 +14,13 @@
 <input type="radio" id="status" name="user_status" class="status" value="U"><label for="approve">Pending</label> &nbsp; &nbsp; &nbsp; 
 <input type="radio" id="status" name="user_status" class="status" value="D"> <label for="html">Inactive</label> 
 <!-- </center> -->
-
+<div>
+<a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
+</div>
 </small>
 
 <span class="confirm-div" style="float:right; color:green;"></span>
