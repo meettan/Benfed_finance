@@ -76,7 +76,11 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-10">
 
                         <input type="submit" class="btn btn-info" value="Submit" />
-
+                        <a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
                     </div>
 
                 </div>
