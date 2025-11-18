@@ -73,6 +73,12 @@
                 <div class="col-sm-10">
 
                     <input type="submit" name="submit" id="submit" value="Save" class="btn btn-info" />
+                    <input type="submit" name="submit" id="submit" value="Save" class="btn btn-info" />
+                    <a href="<?php echo site_url("cheqdtl"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
 
                 </div>
 
