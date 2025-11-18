@@ -736,6 +736,14 @@ function crn_appview()
                           'approved_by'       => $this->session->userdata('loggedin')['user_id'],
                           'approved_dt'       => date('Y-m-d H:i:s')   
                           );
+                }else
+                {
+                    $data_array = array(
+                       
+                        'approval_status'   => $this->input->post('appstatus'),
+                        'approved_by'       => $this->session->userdata('loggedin')['user_id'],
+                        'approved_dt'       => date('Y-m-d H:i:s')   
+                        );    
                 }
             $where = array(
                     "voucher_date" => $this->input->post('voucher_date'),
