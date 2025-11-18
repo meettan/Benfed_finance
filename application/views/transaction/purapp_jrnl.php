@@ -259,6 +259,11 @@ function printDiv() {
 					
                    <!-- <button class="btn btn-primary" type="submit" id="submit" onclick='approve("<?php echo  $vou->voucher_id ?>");'>Update</button> -->
 				   <button class="btn btn-primary" type="submit" id="submit" >Save</button>
+				   <a href="<?php echo site_url("purchasevu"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>
                 </div>
 				</form>
             </div>
