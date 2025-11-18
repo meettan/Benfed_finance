@@ -6,7 +6,7 @@ class Transaction extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('transaction_model');
+        $this->load->model('Transaction_model');
 		$this->load->model('Report_Model');
         $this->load->model('master_model');
         $this->load->library('form_validation');
@@ -24,7 +24,7 @@ class Transaction extends CI_Controller
             'mngr_id' => 6,
             'subgr_id' => 56
         );
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
+        $cashcd = $this->Transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
        
        // $cashcd = $cashcd->sl_no; hello
         $select = array(
@@ -65,7 +65,7 @@ class Transaction extends CI_Controller
         $this->load->helper('unaproved_helper');
         $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
 
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/view", $voucher);
         $this->load->view('post_login/footer');
@@ -109,7 +109,7 @@ function approvedjournal()
 			);
 		}
 
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
 
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/approvedjournal", $voucher);
@@ -148,7 +148,7 @@ function approvedjournal()
 			"1 group by voucher_id" => NULL
             );
 		}
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view('transaction/approvedbankvoucher', $voucher);
         $this->load->view('post_login/footer');
@@ -160,7 +160,7 @@ function approvedjournal()
             'mngr_id' => 6,
             'subgr_id' => 56
         );
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
+        $cashcd = $this->Transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
        
        // $cashcd = $cashcd->sl_no;
         $select = array(
@@ -196,7 +196,7 @@ function approvedjournal()
 			"1 group by voucher_id " => NULL
             );
 		}
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/cashvoucherlst", $voucher);
         $this->load->view('post_login/footer');
@@ -239,21 +239,21 @@ function approvedjournal()
         $fin_id              = $this->session->userdata['loggedin']['fin_id'];
 
         $where               = array("sl_no"=>$fin_id);
-        $data['finyrdtls']   = $this->transaction_model->f_select('md_fin_year',NULL,$where,1);
+        $data['finyrdtls']   = $this->Transaction_model->f_select('md_fin_year',NULL,$where,1);
        
         $select              = array("district_code","district_name");
-        $data['distDtls']    = $this->transaction_model->f_select('md_district',$select,NULL,0);
+        $data['distDtls']    = $this->Transaction_model->f_select('md_district',$select,NULL,0);
         
         $select_lastend      = array("ifnull(max(end_mnth),0)+1 as mnth");
         $where_lastend       = array("end_yr"=>$fin_id);
-        $data['lastend']     = $this->transaction_model->f_select('td_month_end',$select_lastend,$where_lastend,0);
+        $data['lastend']     = $this->Transaction_model->f_select('td_month_end',$select_lastend,$where_lastend,0);
           
         $where_mn            = array('id'=>$data['lastend'][0] ->mnth);
-        $data['monthdtls']   = $this->transaction_model->f_select('md_month',NULL,$where_mn,1);
+        $data['monthdtls']   = $this->Transaction_model->f_select('md_month',NULL,$where_mn,1);
         // echo $this->db->last_query();
         // die();
 
-        $data['row']         = $this->transaction_model->f_select("td_month_end", NULL, NULL, 0);
+        $data['row']         = $this->Transaction_model->f_select("td_month_end", NULL, NULL, 0);
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             
@@ -271,7 +271,7 @@ function approvedjournal()
           
 
     
-            $this->transaction_model->f_insert('td_month_end', $data_array);
+            $this->Transaction_model->f_insert('td_month_end', $data_array);
             $this->inser_mntEnd($data_array);
             return redirect(site_url("mnthend"));
     
@@ -291,7 +291,7 @@ function approvedjournal()
     public function f_acc_code(){
 		 
         $select	=	array("a.*");
-        $data    = $this->transaction_model->f_select("md_achead a",$select,NULL,0);
+        $data    = $this->Transaction_model->f_select("md_achead a",$select,NULL,0);
         // $curl = curl_init();
         echo json_encode($data);
     }
@@ -313,14 +313,14 @@ function approvedjournal()
             'subgr_id' => 56
         );
         
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 0);
+        $cashcd = $this->Transaction_model->f_select("md_achead", $select = null, $achead_where, 0);
         // echo $this->db->last_query();
         // die();
         $data['cash_head'] = $cashcd;//->ac_name;
         // $data['cash_code'] = $cashcd->sl_no;
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $where, 0);
-        // $product['mntend'] = $this->transaction_model->f_get_mnthend($br_cd);
-        $data['date']   = $this->transaction_model->get_monthendDate();
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $where, 0);
+        // $product['mntend'] = $this->Transaction_model->f_get_mnthend($br_cd);
+        $data['date']   = $this->Transaction_model->get_monthendDate();
 
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/entry", $data);
@@ -333,8 +333,8 @@ function approvedjournal()
         $where  = array('id' => $this->session->userdata['loggedin']['branch_id']);
 		$fin_id = $this->session->userdata['loggedin']['fin_id'];
 		$fin_yr = str_replace("-","",$this->session->userdata['loggedin']['fin_yr']);
-        $dis = $this->transaction_model->f_select("md_branch", $select = null, $where, 1);
-        $v_id    = $this->transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
+        $dis = $this->Transaction_model->f_select("md_branch", $select = null, $where, 1);
+        $v_id    = $this->Transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
         $v_id    = $v_id->sl_no;
         $voucher_id = $dis->dist_sort_code .'-'. $fin_yr .'/'. $v_id;
         $v_code  = $data['acc_code'];
@@ -366,7 +366,7 @@ function approvedjournal()
                     'created_ip'        =>  $_SERVER['REMOTE_ADDR']
                 );
 
-                $this->transaction_model->f_insert('td_vouchers', $data_array);
+                $this->Transaction_model->f_insert('td_vouchers', $data_array);
             }
         }
 
@@ -393,7 +393,7 @@ function approvedjournal()
             'created_ip'            =>  $_SERVER['REMOTE_ADDR']
         );
 
-        $this->transaction_model->f_insert('td_vouchers', $row_array);
+        $this->Transaction_model->f_insert('td_vouchers', $row_array);
 
 
         $this->session->set_flashdata('msg', 'Successfully Added');
@@ -407,7 +407,7 @@ function approvedjournal()
         $ac_dtls = array();
         $head_tag = array();
 		
-		$data['voucher_detail']  = $this->transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
+		$data['voucher_detail']  = $this->Transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
 		$voucher_type            = $data['voucher_detail']->voucher_type;
         $where = array(
             //'mngr_id !=' => 6,
@@ -419,7 +419,7 @@ function approvedjournal()
             'mngr_id' => 6,
             'subgr_id' => 56
         );
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
+        $cashcd = $this->Transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
 		$select = array(
             'a.*','g.name gr_name','s.name subgr_name'
         );
@@ -428,10 +428,10 @@ function approvedjournal()
 						   'a.acc_code=b.sl_no' => null,
                            'b.mngr_id = g.sl_no' => null,
                            'b.subgr_id = s.sl_no' => null );
-        $data['ac_dtls'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
+        $data['ac_dtls'] = $this->Transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
         $data['cash_head'] = $cashcd->ac_name;
         $data['cash_code'] = $cashcd->sl_no;
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, NULL, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, NULL, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/edit", $data);
         $this->load->view('post_login/footer');
@@ -461,7 +461,7 @@ function approvedjournal()
                         'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                     );
 					
-                    $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
+                    $this->Transaction_model->f_edit('td_vouchers', $data_array, $where);
 
            // }
         }
@@ -479,7 +479,7 @@ function approvedjournal()
                         'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                 );
 					
-                    $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
+                    $this->Transaction_model->f_edit('td_vouchers', $data_array, $where);
 	
 		
         $this->session->set_flashdata('msg', 'Successfully Updated');
@@ -492,7 +492,7 @@ function approvedjournal()
             "voucher_id"  =>  $this->input->get('id')
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_vouchers', $where);
+        $this->Transaction_model->f_delete('td_vouchers', $where);
         redirect("cashVoucher");
     }
 
@@ -507,7 +507,7 @@ function approvedjournal()
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
             );
-            $this->transaction_model->f_edit('td_vouchers', $input, $ap_where);
+            $this->Transaction_model->f_edit('td_vouchers', $input, $ap_where);
             $this->session->set_flashdata('msg', 'Successfully Approved');
             redirect('cashVoucher');
         }
@@ -524,7 +524,7 @@ function approvedjournal()
             'b.mngr_id = d.sl_no' => null,
             'b.subgr_id = c.sl_no' => null
         );
-        $tnx_dtls = $this->transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
+        $tnx_dtls = $this->Transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
         // var_dump($tnx_dtls);
         // exit;
         foreach ($tnx_dtls as $k => $dt) {
@@ -555,12 +555,12 @@ function approvedjournal()
             'mngr_id' => 6,
             'subgr_id' => 56
         );
-        $cashcd = $this->transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
+        $cashcd = $this->Transaction_model->f_select("md_achead", $select = null, $achead_where, 1);
         $data['ac_dtls'] = $ac_dtls;
         $data['head_tag'] = $head_tag;
         $data['cash_head'] = $cashcd->ac_name;
         $data['cash_code'] = $cashcd->sl_no;
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $where, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/approve", $data);
         $this->load->view('post_login/footer');
@@ -600,7 +600,7 @@ function approvedjournal()
         $this->load->helper('unaproved_helper');
        $voucher["count_data"]=unaproved_voucher($this->session->userdata['loggedin']['branch_id'],'U');
 
-        $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view('transaction/bank_view', $voucher);
         $this->load->view('post_login/footer');
@@ -622,7 +622,7 @@ function adv_appview()
         "approval_status" => 'U',
         "1 group by voucher_id" => NULL
     );
-    $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+    $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
     $this->load->view('post_login/finance_main');
     $this->load->view('transaction/adv_appview', $voucher);
     $this->load->view('post_login/footer');
@@ -646,7 +646,7 @@ function crn_appview()
         "approval_status" => 'U',
         "1 group by voucher_id" => NULL
     );
-    $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+    $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
     $this->load->view('post_login/finance_main');
     $this->load->view('transaction/crn_appview', $voucher);
     $this->load->view('post_login/footer');
@@ -682,7 +682,7 @@ function crn_appview()
 
 
 
-        $voucher['row']    = $this->transaction_model->select_purchase_appview($this->session->userdata['loggedin']['fin_id'],$br_cd);
+        $voucher['row']    = $this->Transaction_model->select_purchase_appview($this->session->userdata['loggedin']['fin_id'],$br_cd);
         //->f_select("td_vouchers", $select, $where, 0);
         //echo $this->db->last_query();
         //print_r($voucher['row']);
@@ -703,7 +703,7 @@ function crn_appview()
 			"voucher_type" => $vtype,
 			"1 group by voucher_id" => NULL
             );
-        $voucher    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
 		echo json_encode($voucher);
 	}
     /***************************************** */
@@ -726,12 +726,17 @@ function crn_appview()
     }
     public function f_upd_app(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            if($this->input->post('appstatus') == 'A') 
+            {
+
             $data_array = array(
+                          'voucher_date'=> date('Y-m-d'),
 				          'approval_status'   => $this->input->post('appstatus'),
                           'approved_by'       => $this->session->userdata('loggedin')['user_id'],
                           'approved_dt'       => date('Y-m-d H:i:s')   
                           );
-                
+                }
             $where = array(
                     "voucher_date" => $this->input->post('voucher_date'),
                     "voucher_id"   => $this->input->post('voucher_id')
@@ -759,10 +764,10 @@ function crn_appview()
             //'subgr_id !=' => '57',
             'br_id IN ('.$br_cd.', 0)' => NULL
         );
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_where, 0);
-        $data['bank']  =   $this->transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_where, 0);
+        $data['bank']  =   $this->Transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
 
-        $data['date']   = $this->transaction_model->get_monthendDate();
+        $data['date']   = $this->Transaction_model->get_monthendDate();
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/bank_entry", $data);
         $this->load->view('post_login/footer');
@@ -775,8 +780,8 @@ function crn_appview()
         $where          = array('id' => $this->session->userdata['loggedin']['branch_id']);
 		$fin_id         = $this->session->userdata['loggedin']['fin_id'];
 		$fin_yr         = str_replace("-","",$this->session->userdata['loggedin']['fin_yr']);
-        $dis            = $this->transaction_model->f_select("md_branch", $select = null, $where, 1);
-        $v_id           =   $this->transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
+        $dis            = $this->Transaction_model->f_select("md_branch", $select = null, $where, 1);
+        $v_id           =   $this->Transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
         $v_id           =   $v_id->sl_no;
 		$voucher_id     = $dis->dist_sort_code .'-'. $fin_yr .'/'. $v_id;
         $v_code         =   $data['acc_code'];
@@ -808,7 +813,7 @@ function crn_appview()
                 "created_dt"        =>  date('Y-m-d H:i:s'),
                 'created_ip'            =>  $_SERVER['REMOTE_ADDR']
             );
-            $this->transaction_model->f_insert('td_vouchers', $data_array);
+            $this->Transaction_model->f_insert('td_vouchers', $data_array);
         }
 		//  Code start for Bank Entry As Debit  
         $row_array = array(
@@ -835,7 +840,7 @@ function crn_appview()
             "created_dt"            =>  date('Y-m-d H:i:s'),
             'created_ip'            =>  $_SERVER['REMOTE_ADDR']
         );
-        $this->transaction_model->f_insert('td_vouchers', $row_array);
+        $this->Transaction_model->f_insert('td_vouchers', $row_array);
         //  Code start for Bank Entry As Debit 
 
         $this->session->set_flashdata('msg', 'Successfully Added');
@@ -848,9 +853,9 @@ function crn_appview()
         $id = $this->input->get('id');
         $ac_dtls = array();
         $head_tag = array();
-		$data['voucher_detail']  = $this->transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
+		$data['voucher_detail']  = $this->Transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
         $voucher_type            = $data['voucher_detail']->voucher_type;
-		$data['bank_detail']     = $this->transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id,'dr_cr_flag' =>$voucher_type == 'R' ? 'Dr' : 'Cr'), 1);
+		$data['bank_detail']     = $this->Transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id,'dr_cr_flag' =>$voucher_type == 'R' ? 'Dr' : 'Cr'), 1);
         
         $bnk_head_where = array(
             'mngr_id' => 6,
@@ -862,8 +867,8 @@ function crn_appview()
 			//'subgr_id !=' => 57,
             'br_id IN ('.$br_cd.', 0)' => NULL
         );
-        $data['row']      =  $this->transaction_model->f_select("md_achead", NULL, $achead_where, 0);
-        $data['bank']     =  $this->transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
+        $data['row']      =  $this->Transaction_model->f_select("md_achead", NULL, $achead_where, 0);
+        $data['bank']     =  $this->Transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
 		$select = array(
             'a.*','g.name gr_name','s.name subgr_name'
         );
@@ -872,7 +877,7 @@ function crn_appview()
 						   'a.acc_code=b.sl_no' => null,
                            'b.mngr_id = g.sl_no' => null,
                            'b.subgr_id = s.sl_no' => null);
-        $data['ac_dtls'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
+        $data['ac_dtls'] = $this->Transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
         $data['head_tag'] =  $head_tag;
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/bank_edit", $data);
@@ -894,7 +899,7 @@ function crn_appview()
                     'voucher_id' => $data['voucher_id'],
                     'acc_code' => $v_code[$i]
                 );
-                $dt = $this->transaction_model->f_select("td_vouchers", $select, $where, 1);
+                $dt = $this->Transaction_model->f_select("td_vouchers", $select, $where, 1);
                 if ($dt->count_row > 0) {
                     $data_array = array(
 					    "trans_no"          =>  $data['inst_num'],
@@ -906,7 +911,7 @@ function crn_appview()
                         'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
                     );
 
-                    $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
+                    $this->Transaction_model->f_edit('td_vouchers', $data_array, $where);
                 } else {
                     $data_array = array(
                         "voucher_date"          =>  $data['voucher_dt'],
@@ -933,7 +938,7 @@ function crn_appview()
                         "modified_by"           =>  $this->session->userdata('loggedin')['user_id'],
                         "modified_dt"           =>  date('Y-m-d H:i:s')
                     );
-                    $this->transaction_model->f_insert('td_vouchers', $data_array);
+                    $this->Transaction_model->f_insert('td_vouchers', $data_array);
                 }
             }
         }
@@ -951,7 +956,7 @@ function crn_appview()
             'modified_ip'       =>  $_SERVER['REMOTE_ADDR']
         );
 
-        $this->transaction_model->f_edit('td_vouchers', $row_array, $where);
+        $this->Transaction_model->f_edit('td_vouchers', $row_array, $where);
         $this->session->set_flashdata('msg', 'Successfully Updated');
         redirect('bankVoucher');
     }
@@ -962,7 +967,7 @@ function crn_appview()
             "voucher_id"  =>  $this->input->get('id')
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_vouchers', $where);
+        $this->Transaction_model->f_delete('td_vouchers', $where);
         redirect("bankVoucher");
     }
 	
@@ -974,7 +979,7 @@ function crn_appview()
             'acc_code'    =>  $id[0]
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_vouchers', $where);
+        $this->Transaction_model->f_delete('td_vouchers', $where);
         redirect("transaction/bank_edit?id=".$id[1]);
     }
 
@@ -989,7 +994,7 @@ function crn_appview()
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
             );
-            $this->transaction_model->f_edit('td_vouchers', $input, $ap_where);
+            $this->Transaction_model->f_edit('td_vouchers', $input, $ap_where);
             $this->session->set_flashdata('msg', 'Successfully Approved');
             redirect('bankVoucher');
         }
@@ -1006,7 +1011,7 @@ function crn_appview()
             'b.mngr_id = d.sl_no' => null,
             'b.subgr_id = c.sl_no' => null
         );
-        $tnx_dtls = $this->transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
+        $tnx_dtls = $this->Transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
         foreach ($tnx_dtls as $k => $dt) {
             $chk = $dt->voucher_type == 'R' ? 'Dr' : 'Cr';
             if ($dt->dr_cr_flag != $chk) {
@@ -1039,8 +1044,8 @@ function crn_appview()
             'subgr_id !=' => 56,
             'br_id' => $this->session->userdata['loggedin']['branch_id']
         );
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_where, 0);
-        $data['bank']  =   $this->transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_where, 0);
+        $data['bank']  =   $this->Transaction_model->f_select("md_achead", NULL, $bnk_head_where, 0);
         $data['ac_dtls'] = $ac_dtls;
         $data['head_tag'] = $head_tag;
         $this->load->view('post_login/finance_main');
@@ -1091,8 +1096,8 @@ function crn_appview()
 			// "1 group by voucher_id, voucher_type, voucher_mode" => NULL
 			);
 		}
-        // $voucher['row']    = $this->transaction_model->f_select("td_vouchers", $select, $where, 0);
-        $voucher['row']    = $this->transaction_model->jurnalVoucher("td_vouchers", $select, $where, $group);
+        // $voucher['row']    = $this->Transaction_model->f_select("td_vouchers", $select, $where, 0);
+        $voucher['row']    = $this->Transaction_model->jurnalVoucher("td_vouchers", $select, $where, $group);
 
 
         $this->load->helper('unaproved_helper');
@@ -1113,9 +1118,9 @@ function crn_appview()
 			'subgr_id !=' => 56,
 			'br_id IN ('.$br_cd.', 0)' => NULL
         );
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_where, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_where, 0);
 
-        $data['date']   = $this->transaction_model->get_monthendDate();
+        $data['date']   = $this->Transaction_model->get_monthendDate();
 
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/jurnal_entry", $data);
@@ -1125,7 +1130,7 @@ function crn_appview()
         $year=$this->input->get('year');
         $nowMon= date("F");
         
-        $data=$this->transaction_model->f_select("md_month", NULL, array("month_name"=>$nowMon), 1);
+        $data=$this->Transaction_model->f_select("md_month", NULL, array("month_name"=>$nowMon), 1);
        // echo $this->db->last_query();die();
         $month=$data->id;
         if($month >= $year){
@@ -1143,8 +1148,8 @@ function crn_appview()
         $where          =   array('id' => $this->session->userdata['loggedin']['branch_id']);
 		$fin_id         =   $this->session->userdata['loggedin']['fin_id'];
 		$fin_yr         =   str_replace("-","",$this->session->userdata['loggedin']['fin_yr']);
-        $dis            =   $this->transaction_model->f_select("md_branch", $select = null, $where, 1);
-        $v_id           =   $this->transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
+        $dis            =   $this->Transaction_model->f_select("md_branch", $select = null, $where, 1);
+        $v_id           =   $this->Transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
         $v_id           =   $v_id->sl_no;
         $voucher_id     =   $dis->dist_sort_code .'-'. $fin_yr .'/'. $v_id;
 
@@ -1182,7 +1187,7 @@ function crn_appview()
                 "created_dt"        =>  date('Y-m-d H:i:s')
             );
 
-           // $this->transaction_model->f_insert('td_vouchers', $data_array);
+           // $this->Transaction_model->f_insert('td_vouchers', $data_array);
            // echo '<pre>'; print_r($data_array);
         }
 
@@ -1190,15 +1195,15 @@ function crn_appview()
 
 //exit();
 
-        //$this->transaction_model->f_insert('td_vouchers', $row_array);
+        //$this->Transaction_model->f_insert('td_vouchers', $row_array);
 
 
         $data = $this->input->post();
         $where          =   array('id' => $this->session->userdata['loggedin']['branch_id']);
 		$fin_id         =   $this->session->userdata['loggedin']['fin_id'];
 		$fin_yr         =   str_replace("-","",$this->session->userdata['loggedin']['fin_yr']);
-        $dis            =   $this->transaction_model->f_select("md_branch", $select = null, $where, 1);
-        $v_id           =   $this->transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
+        $dis            =   $this->Transaction_model->f_select("md_branch", $select = null, $where, 1);
+        $v_id           =   $this->Transaction_model->f_get_voucher_id($fin_id);  // Incremented Sl No
         $v_id           =   $v_id->sl_no;
         $voucher_id     =   $dis->dist_sort_code .'-'. $fin_yr .'/'. $v_id;
 
@@ -1236,7 +1241,7 @@ function crn_appview()
                 'created_ip'        =>  $_SERVER['REMOTE_ADDR']
             );
 
-            $this->transaction_model->f_insert('td_vouchers', $data_array);
+            $this->Transaction_model->f_insert('td_vouchers', $data_array);
            // echo '<pre>'; print_r($data_array);
         }
 
@@ -1265,7 +1270,7 @@ function crn_appview()
                 'created_ip'            =>  $_SERVER['REMOTE_ADDR']
             );
 
-            $this->transaction_model->f_insert('td_vouchers', $data_array);
+            $this->Transaction_model->f_insert('td_vouchers', $data_array);
            // echo '<pre>'; print_r($data_array);
         }
 
@@ -1281,9 +1286,9 @@ function crn_appview()
         $id = $this->input->get('id');
         $ac_dtls = array();
         $head_tag = array();
-		$data['voucher_detail']  = $this->transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
+		$data['voucher_detail']  = $this->Transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id), 1);
         $voucher_type            = $data['voucher_detail']->voucher_type;
-		// $data['topacc_head']     = $this->transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id,'dr_cr_flag' =>$voucher_type == 'R' ? 'Dr' : 'Cr'), 1);
+		// $data['topacc_head']     = $this->Transaction_model->f_select("td_vouchers", NULL,array('voucher_id' => $id,'dr_cr_flag' =>$voucher_type == 'R' ? 'Dr' : 'Cr'), 1);
         $br_cd = $this->session->userdata['loggedin']['branch_id'];
         $achead_where = array(
             'mngr_id !=' => 6,
@@ -1295,7 +1300,7 @@ function crn_appview()
 			'subgr_id !=' => 56,
 			'br_id IN ('.$br_cd.', 0)' => NULL
         );
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_wheree, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_wheree, 0);
 		$select = array(
             'a.*','g.name gr_name','s.name subgr_name'
         );
@@ -1305,18 +1310,18 @@ function crn_appview()
                            'b.mngr_id = g.sl_no' => null,
                            'b.subgr_id = s.sl_no' => null );
        
-        $data['ac_dtls'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
+        $data['ac_dtls'] = $this->Transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_where, 0);
 
         $vou_wheree = array('a.voucher_id' => $id,
         'a.dr_cr_flag' =>'Dr',
         'a.acc_code=b.sl_no' => null,
         'b.mngr_id = g.sl_no' => null,
         'b.subgr_id = s.sl_no' => null );
-        $data['topacc_head'] = $this->transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_wheree, 0);
+        $data['topacc_head'] = $this->Transaction_model->f_select("td_vouchers a,md_achead b,mda_mngroup g,mda_subgroub s", $select,$vou_wheree, 0);
         $data['head_tag'] = $head_tag;
         $data['id']=$id;
 
-        // $data['row_acc']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_wheree, 0);
+        // $data['row_acc']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_wheree, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/jurnal_edit", $data);
         $this->load->view('post_login/footer');
@@ -1347,7 +1352,7 @@ function crn_appview()
                 'voucher_id' => $id,
                 'acc_code' => $v_code[$i],
                 );
-            $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
+            $this->Transaction_model->f_edit('td_vouchers', $data_array, $where);
         }
         for ($i = 0; $i < count($v_code_Debit); $i++) {
             $data_array = array(
@@ -1362,7 +1367,7 @@ function crn_appview()
                 'voucher_id' => $id,
                 'acc_code' => $v_code_Debit[$i],
                 );
-            $this->transaction_model->f_edit('td_vouchers', $data_array, $where);
+            $this->Transaction_model->f_edit('td_vouchers', $data_array, $where);
            
         }
          $this->session->set_flashdata('msg', 'Successfully Updated');
@@ -1375,7 +1380,7 @@ function crn_appview()
             "voucher_id"  =>  $this->input->get('id')
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_vouchers', $where);
+        $this->Transaction_model->f_delete('td_vouchers', $where);
         redirect("jurnalVoucher");
     }
 	function jurnal_rowdelete(){
@@ -1386,7 +1391,7 @@ function crn_appview()
             'acc_code'    =>  $id[0]
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_vouchers', $where);
+        $this->Transaction_model->f_delete('td_vouchers', $where);
         redirect("transaction/jurnal_edit?id=".$id[1]);
     }
 
@@ -1401,7 +1406,7 @@ function crn_appview()
             $ap_where = array(
                 'voucher_id' => $this->input->post('voucher_id'),
             );
-            $this->transaction_model->f_edit('td_vouchers', $input, $ap_where);
+            $this->Transaction_model->f_edit('td_vouchers', $input, $ap_where);
             $this->session->set_flashdata('msg', 'Successfully Approved');
             redirect('jurnalVoucher');
         }
@@ -1418,7 +1423,7 @@ function crn_appview()
             'b.mngr_id = d.sl_no' => null,
             'b.subgr_id = c.sl_no' => null
         );
-        $tnx_dtls = $this->transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
+        $tnx_dtls = $this->Transaction_model->f_select("td_vouchers a, md_achead b, mda_subgroub c, mda_mngroup d", $select, $tnx_where, 2);
         foreach ($tnx_dtls as $k => $dt) {
             $chk = $dt->voucher_type == 'R' ? 'Dr' : 'Cr';
             if ($dt->dr_cr_flag != $chk) {
@@ -1446,7 +1451,7 @@ function crn_appview()
             'mngr_id !=' => 6,
             'br_id' => $this->session->userdata['loggedin']['branch_id']
         );
-        $data['row']   =   $this->transaction_model->f_select("md_achead", NULL, $achead_where, 0);
+        $data['row']   =   $this->Transaction_model->f_select("md_achead", NULL, $achead_where, 0);
         $data['ac_dtls'] = $ac_dtls;
         $data['head_tag'] = $head_tag;
         $this->load->view('post_login/finance_main');
@@ -1457,7 +1462,7 @@ function crn_appview()
     function get_gr_dtls()
     {
         $achead_id = $this->input->get('ac_id');
-        $data = $this->transaction_model->get_gr_dtls($achead_id);
+        $data = $this->Transaction_model->get_gr_dtls($achead_id);
         echo json_encode($data);
     }
     //  *********     Start Code for cheque detail Screen     ****** //
@@ -1484,8 +1489,8 @@ function crn_appview()
 			);
 		}
         $br_cd = $this->session->userdata['loggedin']['branch_id'];
-        $data['society']   =   $this->transaction_model->f_select_fertidb("mm_ferti_soc",array('soc_id','soc_name'),array('district =' => $br_cd), 0);
-        $data['row']    = $this->transaction_model->f_select("td_chequedetail",NULL, $where, 0);
+        $data['society']   =   $this->Transaction_model->f_select_fertidb("mm_ferti_soc",array('soc_id','soc_name'),array('district =' => $br_cd), 0);
+        $data['row']    = $this->Transaction_model->f_select("td_chequedetail",NULL, $where, 0);
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/cheqdtl_view", $data);
         $this->load->view('post_login/footer');
@@ -1497,7 +1502,7 @@ function crn_appview()
         $where = array(
             'district =' => $br_cd
         );
-        $data['row']   =   $this->transaction_model->f_select_fertidb("mm_ferti_soc", NULL, $where, 0);
+        $data['row']   =   $this->Transaction_model->f_select_fertidb("mm_ferti_soc", NULL, $where, 0);
 
         $this->load->view('post_login/finance_main');
         $this->load->view("transaction/cheqdtl_entry", $data);
@@ -1527,7 +1532,7 @@ function crn_appview()
                 "created_by"     =>  $this->session->userdata('loggedin')['user_id'],
                 "created_dt"     =>  date('Y-m-d H:i:s')
             );
-            $this->transaction_model->f_insert('td_chequedetail', $data_array);
+            $this->Transaction_model->f_insert('td_chequedetail', $data_array);
             $this->session->set_flashdata('msg', 'Successfully Added');
             redirect('cheqdtl');
         }else{
@@ -1549,7 +1554,7 @@ function crn_appview()
                 "modified_by"     =>  $this->session->userdata('loggedin')['user_id'],
                 "modified_dt"     =>  date('Y-m-d H:i:s')
             );
-            $this->transaction_model->f_edit('td_chequedetail', $data_array,$where);
+            $this->Transaction_model->f_edit('td_chequedetail', $data_array,$where);
             $this->session->set_flashdata('msg', 'Successfully Updated');
            redirect('cheqdtl');
         }else{
@@ -1559,8 +1564,8 @@ function crn_appview()
             $where = array(
                 'district =' => $br_cd
             );
-            $data['row']   =   $this->transaction_model->f_select_fertidb("mm_ferti_soc", NULL, $where, 0);
-            $data['cheqdtl'] = $this->transaction_model->f_select("td_chequedetail",NULL,array('id' =>$id), 1);
+            $data['row']   =   $this->Transaction_model->f_select_fertidb("mm_ferti_soc", NULL, $where, 0);
+            $data['cheqdtl'] = $this->Transaction_model->f_select("td_chequedetail",NULL,array('id' =>$id), 1);
             $this->load->view('post_login/finance_main');
             $this->load->view("transaction/cheqdtl_edit", $data);
             $this->load->view('post_login/footer');
@@ -1570,7 +1575,7 @@ function crn_appview()
     {
         $where = array("id"  =>  $this->input->get('id') );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_chequedetail', $where);
+        $this->Transaction_model->f_delete('td_chequedetail', $where);
         redirect("cheqdtl");
     }
 
@@ -1578,7 +1583,7 @@ function crn_appview()
 
     public function service_charge_list(){
       
-        $data["listData"]=$this->transaction_model->f_select('td_service_charge',NULL,array('fin_yr'=>$this->session->userdata['loggedin']['fin_id']),0);
+        $data["listData"]=$this->Transaction_model->f_select('td_service_charge',NULL,array('fin_yr'=>$this->session->userdata['loggedin']['fin_id']),0);
         $this->load->view("post_login/finance_main");
         $this->load->view("service/service_list", $data);
         $this->load->view("post_login/footer");
@@ -1633,7 +1638,7 @@ function crn_appview()
                     "created_dt"    =>  date("Y-m-d H:i:s"),
                 );
                
-                $this->transaction_model->f_insert('td_service_charge', $data);
+                $this->Transaction_model->f_insert('td_service_charge', $data);
                 // exit();
                 // $this->session->set_flashdata('msg', 'Successfully Added');
 
@@ -1648,7 +1653,7 @@ function crn_appview()
                 'br_id' => $this->session->userdata("loggedin")["branch_id"],
             );
             $data=array(
-               "customer"=>$this->transaction_model->f_select('md_rent_customer',NULL,NULL,0),
+               "customer"=>$this->Transaction_model->f_select('md_rent_customer',NULL,NULL,0),
             );
             $this->load->view("post_login/finance_main");
             $this->load->view("service/service_add",$data);
@@ -1662,7 +1667,7 @@ function crn_appview()
             "trans_no"  =>  $this->input->get('id')
         );
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
-        $this->transaction_model->f_delete('td_service_charge', $where);
+        $this->Transaction_model->f_delete('td_service_charge', $where);
         redirect("transaction/service_charge_list");
     }
 
