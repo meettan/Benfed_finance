@@ -52,7 +52,11 @@
         <h3>
             <a href="<?php echo site_url("rent_collection/entry"); ?>" class="btn btn-primary"
                 style="width: 100px;">Add</a>
-            <span class="confirm-div" style="float:right; color:green;"></span>
+                <a href="<?php echo site_url("dashboard"); ?>" 
+                class="btn btn-danger" 
+                style="width: 100px; margin-left:10px;">
+                Back
+            </a>            <span class="confirm-div" style="float:right; color:green;"></span>
         </h3>
 
         <table class="table table-bordered table-hover">
