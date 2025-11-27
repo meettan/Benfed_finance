@@ -356,7 +356,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
                 v.voucher_id,
                 v.voucher_date,
                 v.voucher_mode,
-                v.narration,
+                v.remarks,
                 h.ac_name AS ledger,
                 v.amount,
                 ROW_NUMBER() OVER (
@@ -377,7 +377,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             r.voucher_date,
             r.voucher_id,
             r.voucher_mode,
-            r.narration,
+            r.remarks,
         
             MAX(CASE WHEN r.rn = 1 THEN r.ledger END) AS ledger_1,
             MAX(CASE WHEN r.rn = 2 THEN r.ledger END) AS ledger_2,
@@ -400,7 +400,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
         
         WHERE r.voucher_id IN (SELECT voucher_id FROM tds_vouchers)
         
-        GROUP BY r.voucher_id, r.voucher_date, r.voucher_mode, r.narration
+        GROUP BY r.voucher_id, r.voucher_date, r.voucher_mode, r.remarks
         ORDER BY r.voucher_date, r.voucher_id;");
 
 return $sql->result();
