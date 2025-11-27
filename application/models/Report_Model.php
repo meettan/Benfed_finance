@@ -346,7 +346,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             FROM td_vouchers v
             JOIN md_achead h ON v.acc_code = h.sl_no
             WHERE h.ac_name = 'TDS PAYBLE'
-              AND h.branch_id = 342           -- TDS PAYBLE must be under branch 342
+              AND h.br_id = 342           -- TDS PAYBLE must be under branch 342
               AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
         ),
