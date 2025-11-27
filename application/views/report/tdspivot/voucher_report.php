@@ -16,6 +16,14 @@
                style="width: 100px; margin-left:10px;">Back</a>
         </div>
 
+        <!-- ROUND HALF UP FUNCTION -->
+        <?php 
+        function round_half_up($number, $precision = 2) {
+            $factor = pow(10, $precision);
+            return ceil($number * $factor - 0.0000001) / $factor;
+        }
+        ?>
+
         <!-- REPORT CONTENT -->
         <div id="report_area">
             <table class="table table-bordered table-striped" id="tdsTable">
@@ -33,9 +41,11 @@
                         <th>Amount 2</th>
                         <th>Amount 3</th>
 
+                        <th>Total Amount</th>
                         <th>CGST</th>
                         <th>SGST</th>
                         <th>TDS PAYBLE</th>
+                        <th>TDS %</th>
 
                         <th>Round Off</th>
                         <th>Bank</th>
@@ -51,10 +61,18 @@
                 $total_tds  = 0;
                 $total_round = 0;
                 $total_bank = 0;
+                $total_sum   = 0;
                 ?>
 
                 <?php if(!empty($tdspivot)) { 
-                    foreach($tdspivot as $r) { ?>
+                    foreach($tdspivot as $r) {
+
+                        $sum_amt = $r->amount_1 + $r->amount_2 + $r->amount_3;
+
+                        // Correct TDS percentage rounding
+                        $raw_percent = ($sum_amt > 0) ? (($r->TDS_PAYBLE / $sum_amt) * 100) : 0;
+                        $tds_percent = round_half_up($raw_percent, 2);
+                ?>
 
                     <tr>
                         <td><?php echo date('d-m-Y', strtotime($r->voucher_date)); ?></td>
@@ -62,15 +80,10 @@
 
                         <td>
                             <?php
-                                if ($r->voucher_mode == 'J') {
-                                    echo 'Journal';
-                                } elseif ($r->voucher_mode == 'B') {
-                                    echo 'Bank';
-                                } elseif ($r->voucher_mode == 'C') {
-                                    echo 'Cash';
-                                } else {
-                                    echo $r->voucher_mode;
-                                }
+                                if ($r->voucher_mode == 'J') echo 'Journal';
+                                elseif ($r->voucher_mode == 'B') echo 'Bank';
+                                elseif ($r->voucher_mode == 'C') echo 'Cash';
+                                else echo $r->voucher_mode;
                             ?>
                         </td>
 
@@ -82,9 +95,13 @@
                         <td><?php echo $r->amount_2; ?></td>
                         <td><?php echo $r->amount_3; ?></td>
 
+                        <td><?php echo number_format($sum_amt,2); ?></td>
+
                         <td><?php echo $r->CGST; ?></td>
                         <td><?php echo $r->SGST; ?></td>
                         <td><?php echo $r->TDS_PAYBLE; ?></td>
+
+                        <td><?php echo $tds_percent; ?></td>
 
                         <td><?php echo $r->ROUND_OFF; ?></td>
                         <td><?php echo $r->bank; ?></td>
@@ -95,10 +112,10 @@
                         $total_amt1 += $r->amount_1;
                         $total_amt2 += $r->amount_2;
                         $total_amt3 += $r->amount_3;
+                        $total_sum  += $sum_amt;
 
                         $total_cgst += $r->CGST;
                         $total_sgst += $r->SGST;
-
                         $total_tds  += $r->TDS_PAYBLE;
 
                         $total_round += $r->ROUND_OFF;
@@ -108,7 +125,7 @@
                 <?php }} else { ?>
 
                     <tr>
-                        <td colspan="14" class="text-center text-danger">
+                        <td colspan="16" class="text-center text-danger">
                             No Records Found
                         </td>
                     </tr>
@@ -124,9 +141,13 @@
                     <td><b><?php echo number_format($total_amt2,2); ?></b></td>
                     <td><b><?php echo number_format($total_amt3,2); ?></b></td>
 
+                    <td><b><?php echo number_format($total_sum,2); ?></b></td>
+
                     <td><b><?php echo number_format($total_cgst,2); ?></b></td>
                     <td><b><?php echo number_format($total_sgst,2); ?></b></td>
                     <td><b><?php echo number_format($total_tds,2); ?></b></td>
+
+                    <td><b>—</b></td>
 
                     <td><b><?php echo number_format($total_round,2); ?></b></td>
                     <td><b><?php echo number_format($total_bank,2); ?></b></td>
