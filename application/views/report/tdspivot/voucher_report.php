@@ -20,7 +20,7 @@
         <?php 
         function round_half_up($number, $precision = 2) {
             $factor = pow(10, $precision);
-            return ceil($number * $factor - 0.0000001) / $factor;
+            return abs(ceil($number * $factor - 0.0000001) / $factor);
         }
         ?>
 
@@ -32,6 +32,7 @@
                         <th>Date</th>
                         <th>Voucher Id</th>
                         <th>Voucher Type</th>
+                        <th>Narration</th> <!-- NEW COLUMN -->
 
                         <th>Ledger 1</th>
                         <th>Ledger 2</th>
@@ -87,6 +88,8 @@
                             ?>
                         </td>
 
+                        <td><?php echo $r->remarks; ?></td> <!-- NEW COLUMN -->
+
                         <td><?php echo $r->ledger_1; ?></td>
                         <td><?php echo $r->ledger_2; ?></td>
                         <td><?php echo $r->ledger_3; ?></td>
@@ -125,7 +128,7 @@
                 <?php }} else { ?>
 
                     <tr>
-                        <td colspan="16" class="text-center text-danger">
+                        <td colspan="17" class="text-center text-danger">
                             No Records Found
                         </td>
                     </tr>
@@ -135,7 +138,7 @@
                 <!-- TOTAL ROW -->
                 <?php if(!empty($tdspivot)) { ?>
                 <tr class="bg-warning font-weight-bold">
-                    <td colspan="6" class="text-right"><b>Total:</b></td>
+                    <td colspan="7" class="text-right"><b>Total:</b></td>
 
                     <td><b><?php echo number_format($total_amt1,2); ?></b></td>
                     <td><b><?php echo number_format($total_amt2,2); ?></b></td>

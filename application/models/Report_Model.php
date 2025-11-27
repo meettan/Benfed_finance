@@ -342,20 +342,20 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
     public function get_tdspivot_vouchers($from_date, $to_date){
        
         $sql = $this->db->query( "WITH tds_vouchers AS (
-            
             SELECT DISTINCT v.voucher_id
             FROM td_vouchers v
             JOIN md_achead h ON v.acc_code = h.sl_no
             WHERE h.ac_name = 'TDS PAYBLE'
-              AND v.branch_id in( 342,0)
+              AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
         ),
+        
         ranked_expense AS (
-
             SELECT
                 v.voucher_id,
                 v.voucher_date,
                 v.voucher_mode,
+                v.remarks,                     -- 🎯 ADDED HERE
                 h.ac_name AS ledger,
                 v.amount,
                 ROW_NUMBER() OVER (
@@ -369,33 +369,44 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
               AND h.ac_name != 'Central GST Input'
               AND h.ac_name != 'State GST Input'
               AND v.voucher_id IN (SELECT voucher_id FROM td_vouchers)
-              AND v.branch_id in( 342,0)
+              AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
         )
+        
         SELECT
             r.voucher_date,
             r.voucher_id,
             r.voucher_mode,
+            r.remarks,                         -- 🎯 NARRATION OUTPUT COLUMN
             
             MAX(CASE WHEN r.rn = 1 THEN r.ledger END) AS ledger_1,
             MAX(CASE WHEN r.rn = 2 THEN r.ledger END) AS ledger_2,
             MAX(CASE WHEN r.rn = 3 THEN r.ledger END) AS ledger_3,
+        
             COALESCE(MAX(CASE WHEN r.rn = 1 THEN r.amount END),0) AS amount_1,
             COALESCE(MAX(CASE WHEN r.rn = 2 THEN r.amount END),0) AS amount_2,
             COALESCE(MAX(CASE WHEN r.rn = 3 THEN r.amount END),0) AS amount_3,
-            
+        
             COALESCE(SUM(CASE WHEN h2.ac_name = 'TDS PAYBLE' THEN v2.amount END),0) AS TDS_PAYBLE,
             COALESCE(SUM(CASE WHEN h2.ac_name = 'Central GST Input' THEN v2.amount END),0) AS CGST,
             COALESCE(SUM(CASE WHEN h2.ac_name = 'State GST Input' THEN v2.amount END),0) AS SGST,
-           
+        
             COALESCE(SUM(CASE WHEN h2.BNK_FLAG='B' THEN v2.amount END),0) AS bank,
-            
+        
             COALESCE(SUM(CASE WHEN h2.ac_name = 'Round Off' THEN v2.amount END),0) AS ROUND_OFF
+        
         FROM ranked_expense r
         JOIN td_vouchers v2 ON r.voucher_id = v2.voucher_id
         JOIN md_achead h2 ON v2.acc_code = h2.sl_no
-        WHERE r.voucher_id IN (SELECT voucher_id FROM tds_vouchers)  -- only vouchers with TDS PAYBLE
-        GROUP BY r.voucher_id, r.voucher_date, r.voucher_mode
+        
+        WHERE r.voucher_id IN (SELECT voucher_id FROM td_vouchers)
+        
+        GROUP BY
+            r.voucher_id,
+            r.voucher_date,
+            r.voucher_mode,
+            r.remarks
+        
         ORDER BY r.voucher_date, r.voucher_id;");
 
 return $sql->result();
