@@ -612,7 +612,7 @@ public function voucher_dtls(){
             $branch_id=$this->session->userdata['loggedin']['branch_id'];
             $v_id   = $this->input->get('voucher_id');
             $voucher_type =   '';
-
+           
             if($voucher_type == 'PUR'){
 			    $data['voucher_type'] = 'Purchase';
 			}elseif($voucher_type == 'A'){
@@ -632,6 +632,7 @@ public function voucher_dtls(){
 			}else{
                 $data['voucher_type'] = '';
             }
+            
 			$where = array('id' => $branch_id );
 			$select = array('branch_name');
 			$data['type']   = $this->input->post('voucher_type');
@@ -940,7 +941,38 @@ public function voucher_dtls(){
             $this->load->view('post_login/footer');
         }
     }
+/******pivot tds report */
 
+
+public function tdspivot()
+    {
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+        $data['title'] = "TDS Voucher Report";
+
+        // default dates
+        $from     =   $_POST['from_date'];
+        $to       =   $_POST['to_date'];
+        $_SESSION["date"]= date('d-m-Y',strtotime($from)).' - '. date('d-m-Y',strtotime($to));
+        // $from = $this->input->POST('from');
+        // $to   = $this->input->POST('to') ;
+        $branch = 342;
+
+        $data['tdspivot'] = $this->Report_Model->get_tdspivot_vouchers($from, $to);
+        // echo $this->db->last_query();
+        // die();
+        $this->load->view('post_login/finance_main');
+        $this->load->view('report/tdspivot/voucher_report.php', $data);
+        // $this->load->view('voucher_report', $data);
+        $this->load->view('post_login/footer');
+        }else{
+            $this->load->view('post_login/finance_main');
+            $this->load->view('report/tdspivot/cashbook_ip.php');
+            $this->load->view('post_login/footer');   
+        }
+    
+}
+
+/********* */
 /***Bank Book Report blocked on 07/10/2022 */
 	public function bankbook(){
 

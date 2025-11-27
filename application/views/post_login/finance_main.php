@@ -281,6 +281,7 @@
                                 </div>
                         </div>
                         <?php if($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
+                            <a href="<?php echo site_url('report/tdspivot'); ?>">TDS Pivot Report</a>
                             <a href="<?php echo site_url('report/trading_account'); ?>">Trading Account</a>
                             <a href="<?php echo site_url('report/profit_loss'); ?>">Profit & Loss(pl)</a>
                         <?php } ?>

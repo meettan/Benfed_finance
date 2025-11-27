@@ -316,7 +316,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
           and a.voucher_type='PUR'
         
           order by a.voucher_id,a.sl_no,a.dr_cr_flag,a.voucher_date ";
-
+  
         $query  = $this->db->query($sql);
 
         return $query->result();
@@ -338,6 +338,71 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
                              ORDER BY a.dr_cr_flag ASC");
         return $sql->result();
     }
+
+    public function get_tdspivot_vouchers($from_date, $to_date){
+       
+        $sql = $this->db->query( "WITH tds_vouchers AS (
+            
+            SELECT DISTINCT v.voucher_id
+            FROM td_vouchers v
+            JOIN md_achead h ON v.acc_code = h.sl_no
+            WHERE h.ac_name = 'TDS PAYBLE'
+              AND v.branch_id in( 342,0)
+              AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
+        ),
+        ranked_expense AS (
+
+            SELECT
+                v.voucher_id,
+                v.voucher_date,
+                v.voucher_mode,
+                h.ac_name AS ledger,
+                v.amount,
+                ROW_NUMBER() OVER (
+                    PARTITION BY v.voucher_id
+                    ORDER BY v.amount DESC
+                ) AS rn
+            FROM td_vouchers v
+            JOIN md_achead h ON v.acc_code = h.sl_no
+            WHERE LEFT(h.benfed_ac_code,1) = '3'
+              AND h.ac_name NOT IN ('TDS PAYBLE', 'Round Off')
+              AND h.ac_name != 'Central GST Input'
+              AND h.ac_name != 'State GST Input'
+              AND v.voucher_id IN (SELECT voucher_id FROM td_vouchers)
+              AND v.branch_id in( 342,0)
+              AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
+        )
+        SELECT
+            r.voucher_date,
+            r.voucher_id,
+            r.voucher_mode,
+            
+            MAX(CASE WHEN r.rn = 1 THEN r.ledger END) AS ledger_1,
+            MAX(CASE WHEN r.rn = 2 THEN r.ledger END) AS ledger_2,
+            MAX(CASE WHEN r.rn = 3 THEN r.ledger END) AS ledger_3,
+            COALESCE(MAX(CASE WHEN r.rn = 1 THEN r.amount END),0) AS amount_1,
+            COALESCE(MAX(CASE WHEN r.rn = 2 THEN r.amount END),0) AS amount_2,
+            COALESCE(MAX(CASE WHEN r.rn = 3 THEN r.amount END),0) AS amount_3,
+            
+            COALESCE(SUM(CASE WHEN h2.ac_name = 'TDS PAYBLE' THEN v2.amount END),0) AS TDS_PAYBLE,
+            COALESCE(SUM(CASE WHEN h2.ac_name = 'Central GST Input' THEN v2.amount END),0) AS CGST,
+            COALESCE(SUM(CASE WHEN h2.ac_name = 'State GST Input' THEN v2.amount END),0) AS SGST,
+           
+            COALESCE(SUM(CASE WHEN h2.BNK_FLAG='B' THEN v2.amount END),0) AS bank,
+            
+            COALESCE(SUM(CASE WHEN h2.ac_name = 'Round Off' THEN v2.amount END),0) AS ROUND_OFF
+        FROM ranked_expense r
+        JOIN td_vouchers v2 ON r.voucher_id = v2.voucher_id
+        JOIN md_achead h2 ON v2.acc_code = h2.sl_no
+        WHERE r.voucher_id IN (SELECT voucher_id FROM tds_vouchers)  -- only vouchers with TDS PAYBLE
+        GROUP BY r.voucher_id, r.voucher_date, r.voucher_mode
+        ORDER BY r.voucher_date, r.voucher_id;");
+
+return $sql->result();
+    
+}
+
+
 
     public function f_get_acccodedtls()
     {
@@ -456,7 +521,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
                                            from td_opening where balance_dt<='$frm_date') 
                        and b.mngr_id = c.sl_no and b.sl_no=d.acc_code 
                        group by b.ac_name,c.type,b.benfed_ac_code,b.mngr_id)b 
-                  group by mngr_id,ac_name,type,benfed_ac_code )a 
+                   group by mngr_id,ac_name,type,benfed_ac_code )a 
                     group by benfed_ac_code 
                     union 
                     SELECT 0 op_dr,0 op_cr,sum(if(dr_cr_flag='Dr',a.amount,0))as dr_amt, sum(if(dr_cr_flag='Cr',a.amount,0))as cr_amt,b.mngr_id , b.ac_name, a.dr_cr_flag,c.type,b.benfed_ac_code 
