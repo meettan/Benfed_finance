@@ -346,6 +346,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             FROM td_vouchers v
             JOIN md_achead h ON v.acc_code = h.sl_no
             WHERE h.ac_name = 'TDS PAYBLE'
+              AND h.branch_id = 342           -- TDS PAYBLE must be under branch 342
               AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
         ),
@@ -355,7 +356,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
                 v.voucher_id,
                 v.voucher_date,
                 v.voucher_mode,
-                v.remarks,                     -- 🎯 ADDED HERE
+                v.narration,
                 h.ac_name AS ledger,
                 v.amount,
                 ROW_NUMBER() OVER (
@@ -366,9 +367,8 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             JOIN md_achead h ON v.acc_code = h.sl_no
             WHERE LEFT(h.benfed_ac_code,1) = '3'
               AND h.ac_name NOT IN ('TDS PAYBLE', 'Round Off')
-              AND h.ac_name != 'Central GST Input'
-              AND h.ac_name != 'State GST Input'
-              AND v.voucher_id IN (SELECT voucher_id FROM td_vouchers)
+              AND h.ac_name NOT IN ('Central GST Input','State GST Input')
+              AND v.voucher_id IN (SELECT voucher_id FROM tds_vouchers)
               AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
         )
@@ -377,8 +377,8 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             r.voucher_date,
             r.voucher_id,
             r.voucher_mode,
-            r.remarks,                         -- 🎯 NARRATION OUTPUT COLUMN
-            
+            r.narration,
+        
             MAX(CASE WHEN r.rn = 1 THEN r.ledger END) AS ledger_1,
             MAX(CASE WHEN r.rn = 2 THEN r.ledger END) AS ledger_2,
             MAX(CASE WHEN r.rn = 3 THEN r.ledger END) AS ledger_3,
@@ -392,21 +392,15 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             COALESCE(SUM(CASE WHEN h2.ac_name = 'State GST Input' THEN v2.amount END),0) AS SGST,
         
             COALESCE(SUM(CASE WHEN h2.BNK_FLAG='B' THEN v2.amount END),0) AS bank,
-        
-            COALESCE(SUM(CASE WHEN h2.ac_name = 'Round Off' THEN v2.amount END),0) AS ROUND_OFF
+            COALESCE(SUM(CASE WHEN h2.ac_name='Round Off' THEN v2.amount END),0) AS ROUND_OFF
         
         FROM ranked_expense r
         JOIN td_vouchers v2 ON r.voucher_id = v2.voucher_id
         JOIN md_achead h2 ON v2.acc_code = h2.sl_no
         
-        WHERE r.voucher_id IN (SELECT voucher_id FROM td_vouchers)
+        WHERE r.voucher_id IN (SELECT voucher_id FROM tds_vouchers)
         
-        GROUP BY
-            r.voucher_id,
-            r.voucher_date,
-            r.voucher_mode,
-            r.remarks
-        
+        GROUP BY r.voucher_id, r.voucher_date, r.voucher_mode, r.narration
         ORDER BY r.voucher_date, r.voucher_id;");
 
 return $sql->result();
