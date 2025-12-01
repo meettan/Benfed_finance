@@ -242,53 +242,53 @@
                         <div class="sub-dropdown">
                             <a class="sub-dropbtn">Print Voucher BR001<i class="fa fa-angle-right" style="float: right;"></i></a>
                             <div class="sub-dropdown-content">
-                                <a href="<?php echo site_url("cashVoucherlst"); ?>">Cash Voucher BR0001A</a>
-                                <a href="<?php echo site_url("bankVoucherlst"); ?>">Bank Voucher BR0001B</a>
-                                <a href="<?php echo site_url("journallst"); ?>">Journal Voucher BR0001C</a>
+                                <a href="<?php echo site_url("cashVoucherlst"); ?>">Cash Voucher BR001A</a>
+                                <a href="<?php echo site_url("bankVoucherlst"); ?>">Bank Voucher BR001B</a>
+                                <a href="<?php echo site_url("journallst"); ?>">Journal Voucher BR001C</a>
 
-                                <a href="<?php echo site_url('advjrnlr'); ?>">All Voucher BR0001D</a>
+                                <a href="<?php echo site_url('advjrnlr'); ?>">All Voucher BR001D</a>
                             </div>
                         </div>
-                        <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details BR0002</a>
+                        <a href="<?php echo site_url('ledgcodedtl'); ?>">Account Heads Details BR002</a>
                         <!-- <a href="<?php echo site_url('daybook'); ?>">Daybook</a> -->
-                        <a href="<?php echo site_url('cashbook'); ?>">Cashbook BR0003</a>
-                        <a href="<?php echo site_url('bankbook'); ?>">Bankbook BR0004</a>
+                        <a href="<?php echo site_url('cashbook'); ?>">Cashbook BR003</a>
+                        <a href="<?php echo site_url('bankbook'); ?>">Bankbook BR004</a>
 
                         
                         <div class="sub-dropdown">
-                                <a class="sub-dropbtn">Trial balance BR0005<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <a class="sub-dropbtn">Trial balance BR005<i class="fa fa-angle-right" style="float: right;"></i></a>
                                 <div class="sub-dropdown-content">
-                                    <a href="<?php echo site_url('trailbal'); ?>">Trial balance BR0005A</a>
+                                    <a href="<?php echo site_url('trailbal'); ?>">Trial balance BR005A</a>
                                 <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
-                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial BR0005B</a>
-                                    <a href="<?php echo site_url('report/groupwise_trailbal'); ?>">Group wise Consolidated Trial BR0005C</a>
+                                    <a href="<?php echo site_url('consolidated-trailbal'); ?>">Consolidated Trial BR005B</a>
+                                    <a href="<?php echo site_url('report/groupwise_trailbal'); ?>">Group wise Consolidated Trial BR005C</a>
                                     <?php }else{ ?>
-                                    <a href="<?php echo site_url('report/groupwise_districtwise_trailbal'); ?>">Group wise Consolidated Trial BR0005D</a>
+                                    <a href="<?php echo site_url('report/groupwise_districtwise_trailbal'); ?>">Group wise Consolidated Trial BR005D</a>
                                     <?php } ?>
                                 </div>
                         </div>
                         <div class="sub-dropdown">
-                                <a class="sub-dropbtn">Balance Sheet BR0006<i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <a class="sub-dropbtn">Balance Sheet BR006<i class="fa fa-angle-right" style="float: right;"></i></a>
                                 <div class="sub-dropdown-content">
                                 <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
-                                <a href="<?php echo site_url('balsh'); ?>">Balance Sheet BR0006A</a>
-                                <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet BR0006B</a>
-                                <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet BR0006C</a>
-                                <a href="<?php echo site_url('report/group_balsh_old'); ?>">Group Wise Balance Sheet(Old) BR0006D</a>
+                                <a href="<?php echo site_url('balsh'); ?>">Balance Sheet BR006A</a>
+                                <a href="<?php echo site_url('con_balsh'); ?>">Consolidated Balance Sheet BR006B</a>
+                                <a href="<?php echo site_url('group_balsh'); ?>">Group Wise Balance Sheet BR006C</a>
+                                <a href="<?php echo site_url('report/group_balsh_old'); ?>">Group Wise Balance Sheet(Old) BR006D</a>
                                 <?php }else{ ?>
-                                <a href="<?php echo site_url('report/group_dist_balsh'); ?>">Group Wise Balance Sheet BR0006E</a>
+                                <a href="<?php echo site_url('report/group_dist_balsh'); ?>">Group Wise Balance Sheet BR006E</a>
                                 <?php } ?>
                                 </div>
                         </div>
                         <?php if($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
-                            <a href="<?php echo site_url('report/tdspivot'); ?>">TDS Pivot Report BR0007</a>
-                            <a href="<?php echo site_url('report/trading_account'); ?>">Trading Account BR0008</a>
-                            <a href="<?php echo site_url('report/profit_loss'); ?>">Profit & Loss(pl) BR0009</a>
+                            <a href="<?php echo site_url('report/tdspivot'); ?>">TDS Pivot Report BR007</a>
+                            <a href="<?php echo site_url('report/trading_account'); ?>">Trading Account BR008</a>
+                            <a href="<?php echo site_url('report/profit_loss'); ?>">Profit & Loss(pl) BR009</a>
                         <?php } ?>
                        
-                        <a href="<?php echo site_url('pl'); ?>">Profit & Loss(old) BR0010</a>
-                        <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details BR0011</a>
-                        <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Acc details BR0012</a>
+                        <a href="<?php echo site_url('pl'); ?>">Profit & Loss(old) BR010</a>
+                        <a href="<?php echo site_url('consolidated-trailbal-group'); ?>">Group Wise Acc details BR011</a>
+                        <a href="<?php echo site_url('consolidated-trailbal-subgroup'); ?>">Sub Group Wise Acc details BR012</a>
                         <?php if ($this->session->userdata['loggedin']['branch_id'] == 342) { ?>
                             
                         <?php } ?>
@@ -313,11 +313,11 @@
 
                         <!-- <a href="<?php //echo site_url('gl'); 
                                         ?>">GL</a> -->
-                        <a href="<?php echo site_url('ac_detail'); ?>">Acount detail BR0013</a>
-                        <a href="<?php echo site_url('redjrnl'); ?>">Mismatch Voucher BR0014</a>
+                        <a href="<?php echo site_url('ac_detail'); ?>">Acount detail BR013</a>
+                        <a href="<?php echo site_url('redjrnl'); ?>">Mismatch Voucher BR014</a>
                         <?php if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
-                            <a href="<?php echo site_url('rent_report'); ?>">Rent Collection BR0015</a>
-                            <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection BR0016</a>
+                            <a href="<?php echo site_url('rent_report'); ?>">Rent Collection BR015</a>
+                            <a href="<?php echo site_url('handling-trandport-charges/rent_report'); ?>">HTC Collection BR016</a>
                         <?php }
                         if ($this->session->userdata['loggedin']['user_type'] == "A" && $this->session->userdata['loggedin']['ho_flag'] == "Y") { ?>
                             <!--  <a href="<?php echo site_url('purjrnlr'); ?>">Purchase Journal</a>-->
