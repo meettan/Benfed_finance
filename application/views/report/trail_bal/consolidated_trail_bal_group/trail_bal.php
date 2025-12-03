@@ -94,8 +94,10 @@ tr:hover {background-color: #f5f5f5;}
 
 
 					</div>
-                    <br>  
-                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
+                    <br> 
+                    
+                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><label> &nbsp;&nbsp;(Code:BR011) </label><br><br>
+                    <!-- <label> &nbsp;&nbsp;(Code:BR0003) </label> -->
                     <table style="width: 100%;" id="example">
 
                         <thead>

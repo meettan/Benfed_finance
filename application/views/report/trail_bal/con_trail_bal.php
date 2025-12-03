@@ -63,7 +63,8 @@ tr:hover {background-color: #f5f5f5;}
                         
                       <?php if($this->uri->segment(1)=="trailbal"){ ?>
                         <h4>Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
-                        <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
+                        <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label><label> &nbsp;&nbsp;(Code:BR005B) </label>
+                     </h5>
 
    
                         <?php }else{ ?>
@@ -83,7 +84,7 @@ tr:hover {background-color: #f5f5f5;}
                         if($value==4){
                             echo"Revenue";
                         }
-                        }; ?></div>
+                        }; ?><label> &nbsp;&nbsp;(Code:BR005B) </label></div>
 						
 
 
