@@ -92,6 +92,7 @@
 					<h5 style="text-align:left"><label>District: </label> <?php echo $branch->branch_name; ?></h5>
 
 				</div>
+				<label> &nbsp;&nbsp;(Code:BR014) </label>
 				<br>
 
 				<?php foreach($voucher as $vou){     ?>

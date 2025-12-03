@@ -65,6 +65,7 @@ tr:hover {background-color: #f5f5f5;}
                       <?php if($this->uri->segment(1)=="trailbal"){ ?>
                         <h4>Trial Balance Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: <?php  echo $this->session->userdata['loggedin']['branch_name']; ?></label> </h5>
+                        <label> &nbsp;&nbsp;(Code:BR005A) </label>
 
    
                         <?php }else{ ?>
@@ -91,7 +92,9 @@ tr:hover {background-color: #f5f5f5;}
 
 					</div>
                     <br>  
-                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><br><br>
+                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><label> &nbsp;&nbsp;(Code:BR012) </label>
+                    <br><br>
+                    
                     <table style="width: 100%;" id="example">
 
                         <thead>

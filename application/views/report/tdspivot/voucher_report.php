@@ -5,9 +5,15 @@
         <h2 class="text-center">THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
         <h4 class="text-center">HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
         <h4 class="text-center">TDS Report Between: <?php echo $_SESSION['date']; ?></h4>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
 
+<!-- LEFT SIDE TEXT -->
+<span style="float:left; font-weight:bold; font-size:16px;">
+    Code: BR007
+</span>
         <!-- ACTION BUTTONS -->
         <div class="mb-3 text-right">
+        
             <button class="btn btn-primary" onclick="printTable()">Print</button>
             <button class="btn btn-warning" onclick="exportToPDF()">Export to PDF</button>
             <button class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
