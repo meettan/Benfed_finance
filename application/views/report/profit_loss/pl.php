@@ -70,7 +70,7 @@ tr:hover {background-color: #f5f5f5;}
 						<div class="leftNo"></div>
 					</div>
                     <br>  
-                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button>
+                    <button id="btnExport" class="btn btn-primary" onclick="exportReportToExcel(this)">EXPORT EXCEL</button><label> &nbsp;&nbsp;(Code:BR009) </label>
                     <br><br>
                     <div class="col-lg-12">
                         <table style="width: 100%;" class="table table-hover" id="example">

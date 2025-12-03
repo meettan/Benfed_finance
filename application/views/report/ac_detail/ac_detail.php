@@ -82,6 +82,7 @@
                 <h5 style="text-align:left"><label>District: </label>
                     <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
             </div>
+            <label> &nbsp;&nbsp;(Code:BR013) </label>
             <br>
             <table id="example" class="display"  style=" width: 100%">
             <thead>

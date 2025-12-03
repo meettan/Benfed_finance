@@ -71,7 +71,7 @@
                 <h4>Ledger Code: <?=$accdetail->benfed_ac_code?></h4>
                 <h4>Bank Book Detail: <?php echo $_SESSION['date']; ?></h4>
                 <h5 style="text-align:left"><label>District: </label>
-                    <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
+                    <?php echo $this->session->userdata['loggedin']['branch_name']; ?><label> &nbsp;&nbsp;(Code:BR004) </label></h5>
             </div>
             <br>
 

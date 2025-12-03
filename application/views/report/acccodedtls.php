@@ -66,11 +66,9 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Account Head Details</h4>
-                        <!-- <h5 style="text-align:right"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company:</label> <?php echo $company->COMP_NAME; ?></h5>
-                        <h5 style="text-align:left"><label>Product:</label> <?php echo $product->PROD_DESC; ?></h5> -->
-
+                        
                     </div>
+<span style="float:left; font-weight:bold; font-size:16px;">Code: BR002</span          
                     <br>  
 
                     <table style="width: 100%;" id="example">
