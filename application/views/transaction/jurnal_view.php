@@ -1,3 +1,13 @@
+<style>
+    .btnSame {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 4px;
+        width: 100px;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
 <div class="wraper">
 
     <div class="row">
@@ -26,21 +36,26 @@
 		    <div class="col-sm-8" style="margin-top:20px">
 			<form method="POST" action="<?php echo site_url("jurnalVoucher") ?>" >
             <label for="voucher_dt" class="col-sm-2 col-form-label">From Date:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="date" name="fr_dt" class="form-control" value="" required />
             </div>
             <label for="voucher_mode" class="col-sm-2 col-form-label">To Date:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                     <input type="date" name="to_dt" class="form-control" value="" required />
             </div>
-			<div class="col-sm-2"><input type="submit" value="Filter">
-            <a href="<?php echo site_url("dashboard"); ?>" 
-                class="btn btn-danger" 
-                style="width: 100px; margin-left:10px;">
-                Back
-            </a>
+			<div class="col-sm-1" style="margin-right: 25px;">   <!-- GAP ADDED HERE -->
+    <input type="submit" value="Search" 
+           class="btnSame" 
+           style="background-color: #007bff; color: white; border: none; cursor: pointer;">
+</div>
 
-            </div>
+<a href="<?php echo site_url('dashboard'); ?>" 
+   class="btnSame" 
+   style="background-color: #dc3545; color: white; text-decoration:none;">
+   Back
+</a>
+
+            <!-- </div> -->
 			</form>
 		</div>	
 

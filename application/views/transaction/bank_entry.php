@@ -286,14 +286,17 @@
 
             <div class="form-group row">
 
-                <div class="col-sm-10">
+            <div class="col-sm-10">
+                  
+                  <a href="<?php echo site_url("cashVoucher"); ?>" 
+                  class="btn btn-danger" 
+                  style="width: 100px; margin-left:10px;">Back
+                  </a>
+                  <input type="submit" 
+                  style="background-color: #007bff; width: 100px;color: white; border: none; cursor: pointer;"
+                  name="submit" id="submit" value="Save" class="btn btn-info" />
+              </div>
 
-                    <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
-                    <a href="<?php echo site_url("bankVoucher"); ?>" 
-                class="btn btn-danger" 
-                style="width: 100px; margin-left:10px;">Back
-            </a>
-                </div>
 
             </div>
 
