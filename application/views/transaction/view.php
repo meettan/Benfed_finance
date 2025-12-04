@@ -43,7 +43,7 @@
             <div class="col-sm-2">
                     <input type="date" name="to_dt" class="form-control" value="" required />
             </div>
-			<div class="col-sm-1" style="margin-right: 25px;">   <!-- GAP ADDED HERE -->
+			<div class="col-sm-2" style="margin-right: 20px;">   <!-- GAP ADDED HERE -->
     <input type="submit" value="Search" 
            class="btnSame" 
            style="background-color: #007bff; color: white; border: none; cursor: pointer;">
