@@ -427,12 +427,13 @@
 
                 <div class="col-sm-10">
 
-                    <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
-                    <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
+                    
+                    <!-- <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" /> -->
                     <a href="<?php echo site_url("jurnalVoucher"); ?>" 
-                    class="btn btn-primary" 
+                    class="btn btn-danger" 
                     style="width: 100px; margin-left:10px;">Back
                     </a>
+                    <input type="button" name="submit" id="submit" value="Save" class="btn btn-info" />
                 </div>
 
             </div>

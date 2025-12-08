@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 <style>
     /* Page Background */
     body {
@@ -43,14 +48,13 @@
 
     /* Back Button */
     .btn-back {
-    background: #007bff;
-    border-radius: 30px;
-    font-weight: bold;
-    padding: 8px 20px;
-    transition: 0.3s;
-    color: #ffffff !important;   /* ← Text color changed */
-}
-
+        background: #007bff;
+        border-radius: 30px;
+        font-weight: bold;
+        padding: 8px 20px;
+        transition: 0.3s;
+        color: #ffffff !important;
+    }
     .btn-back:hover {
         background: #0056b3;
     }
@@ -70,6 +74,7 @@
         <a href="<?php echo site_url("dashboard"); ?>" class="btn btn-back mb-3">⬅ Back</a>
 
         <div id="v_list">
+
             <table class="table table-bordered table-hover" id="example">
                 <thead>
                     <tr>
@@ -118,6 +123,7 @@
                     ?>
                 </tbody>
             </table>
+
         </div>
 
         <center>
@@ -126,5 +132,35 @@
         </center>
 
         <div id="v_lists"></div>
+
     </div>
 </div>
+
+
+<!-- DataTables Initialization -->
+<script>
+$(document).ready(function () {
+
+    // Convert date to proper sorting format (dd-mm-yyyy → yyyy-mm-dd)
+    $('#example tbody tr').each(function() {
+        let dateText = $(this).find('td:eq(2)').text().trim();
+        let parts = dateText.split('/');
+        if(parts.length === 3){
+            let sortableDate = parts[2] + '-' + parts[1] + '-' + parts[0]; // yyyy-mm-dd
+            $(this).find('td:eq(2)').attr('data-order', sortableDate);
+        }
+    });
+
+    $('#example').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "ordering": true,
+        "searching": true,
+        "info": true,
+        "paging": true,
+
+        // Default sort by Voucher Date (DESC)
+        "order": [[2, "desc"]]
+    });
+});
+</script>
