@@ -154,7 +154,7 @@
         </div>
 		    <!-- SEARCH ROW -->
             <div class="search-row row">
-            <form method="POST" action="<?= site_url("transaction") ?>" class="row">
+            <form method="POST" action="<?= site_url("bankVoucher") ?>" class="row">
                 <label class="col-sm-2 col-form-label">From Date:</label>
                 <div class="col-sm-2">
                     <input type="date" name="fr_dt" class="form-control" required />
@@ -224,7 +224,7 @@
                                             $val = "Transfer";
                                         }
                                         echo $val;
-                                        ?></td>
+                                        ?></td> 
                                         
                                     <td><?php echo $value->amount; ?></td>
                                     <td><?php if($value->approval_status=='U'){ ?>

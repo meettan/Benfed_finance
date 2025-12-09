@@ -47,6 +47,7 @@ class Transaction extends CI_Controller
 			"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
             "approval_status IN ('U','H')"=>NULL,
+            "dr_cr_flag"=>'Dr',
 			"1 group by voucher_id,voucher_date,
             voucher_type,
             voucher_mode ,approval_status" => NULL

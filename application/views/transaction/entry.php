@@ -64,7 +64,7 @@
                 var tr_len = $('#vau_tab #add>tr').length;
                 var x = tr_len + 1;
 
-                $("#add").append('<tr class="mb-2"><td><select id="acc_code_' + x + '" name="acc_code[]" class="form-control acc_code select2" style="width: 80%;" onchange="set_gr(' + x + ')" required><option value="">Select</option>' +
+                $("#add").append('<tr class="mb-2"><td><select id="acc_code_' + x + '" name="acc_code[]" class="form-control acc_code select2" style="width: 100%;" onchange="set_gr(' + x + ')" required><option value="">Select</option>' +
                     "<?php
                         foreach ($row as $value) {
 							   
