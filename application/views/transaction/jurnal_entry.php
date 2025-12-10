@@ -1,4 +1,162 @@
 <style>
+
+/* ---- GLOBAL ---- */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f0f4fa;
+}
+
+/* ---- HEADER ---- */
+.billPrintWrapper h2 {
+    color: #002b5c;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.billPrintWrapper h4 {
+    color: #003f7d;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ---- WRAPPER / CARD ---- */
+.contant-wraper {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+    margin-top: 20px;
+}
+
+/* ---- TOP BOXES ---- */
+.printTop023 {
+    background: #eaf3ff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid #0056b3;
+    overflow: auto;
+}
+
+.leftNo, .rightDate {
+    font-size: 15px;
+    font-weight: 600;
+    color: #003567;
+}
+
+/* ---- DROPDOWN ---- */
+.cente select {
+    padding: 7px 10px;
+    border: 1px solid #bcd3f5;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+    background: #f4f9ff;
+    color: #003e7c;
+}
+.cente select:hover {
+    border-color: #007bff;
+}
+
+/* ---- TABLE NEW DESIGN ---- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+table thead th {
+    background: linear-gradient(to right, #1a5fae, #3c7ed6);
+    color: white;
+    padding: 4px;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+}
+
+table tbody tr {
+    background: white;
+    transition: 0.2s;
+}
+
+table tbody tr:hover {
+    background: #eaf4ff;
+    transform: scale(1.01);
+}
+
+table td {
+    padding: 4px;
+    border-bottom: 1px solid #e3e3e3;
+    font-size: 14px;
+}
+
+/* ---- TOTAL ROW ---- */
+.total-error {
+    background: #ffd8d8 !important;
+}
+tfoot tr th {
+    background: #003e7c;
+    color: white;
+    padding: 10px;
+}
+
+.form-header {
+    background: linear-gradient(to right, #1a5fae, #3c7ed6);
+    padding: 12px 18px;
+    border-radius: 6px;
+    color: #fff;
+}
+.form-header h4 {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+/* ---- BUTTONS NEW STYLE ---- */
+.btn-primary {
+    background: #0056b3 !important;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 35px;
+    font-weight: bold;
+    box-shadow: 0px 4px 12px rgba(0,86,179,0.3);
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #003e7c !important;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: #e0303b !important;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 35px;
+    font-weight: bold;
+    box-shadow: 0px 4px 12px rgba(224,48,59,0.3);
+}
+
+.btn-danger:hover {
+    background: #b51e26 !important;
+    transform: translateY(-2px);
+}
+
+/* ---- REMARKS ---- */
+.remarks {
+    font-size: 16px;
+    font-weight: bold;
+    background: #fff7d1;
+    padding: 10px;
+    border-left: 4px solid #ffc107;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+</style>
+
+<style>
     td,
     th {
         padding: 5px;
@@ -310,7 +468,9 @@
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan="3" style="text-align:right;"><strong>Total:</strong> <input name="tot_amt_Debit" type="text" class="transparent_tag" id="tot_amt_Debit" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
+                    <!-- <td colspan="3" style="text-align:right;"> -->
+                    <td colspan="7" style="text-align:right;background-color: #e0e0e0;padding: 0px;">
+                    <strong>Total:</strong> <input name="tot_amt_Debit" type="text" class="transparent_tag" id="tot_amt_Debit" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
                     <td><h4>Debit</h4></td>
                 </tr>
@@ -394,7 +554,9 @@
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan="3" style="text-align:right;"><strong>Total:</strong> <input name="tot_amt" type="text" class="transparent_tag" id="tot_amt" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
+                    <!-- <td colspan="3" style="text-align:right;"> -->
+                    <td colspan="7" style="text-align:right;background-color: #e0e0e0;padding: 0px;">
+                    <strong>Total:</strong> <input name="tot_amt" type="text" class="transparent_tag" id="tot_amt" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
                     <td><h4>Credit</h4></td>
                 </tr>
@@ -406,11 +568,11 @@
                   
                   <a href="<?php echo site_url("cashVoucher"); ?>" 
                   class="btn btn-danger" 
-                  style="width: 100px; margin-left:10px;">Back
+                  style="width: 100px; margin-left:10px;">⬅ Back
                   </a>
                   <input type="submit" 
                   style="background-color: #007bff; width: 100px;color: white; border: none; cursor: pointer;"
-                  name="submit" id="submit" value="Save" class="btn btn-info" />
+                  name="submit" id="submit" value="Save" class="btn btn-primary" />
               </div>
 
             </div>

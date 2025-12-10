@@ -115,12 +115,31 @@
         margin-bottom: 20px;
     }
 </style>
+<style>
+    .container-fluid {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    h2 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .row:first-child {
+        margin-top: 0 !important;
+    }
+
+    body {
+        margin-top: 0 !important;
+    }
+</style>
 
 <div class="wraper">
 
     <div class="row">
         <div class="col-lg-9 col-sm-12">
-            <h1><strong>Unapproved Cash Vouchers</strong></h1>
+            <h2><strong>Unapproved Cash Vouchers</strong></h2>
         </div>
     </div>
 
@@ -133,7 +152,7 @@
             <?php else: ?>
                 <a class="btnSame btn-primary" onclick="alert('Some vouchers are pending for approval')">Add</a>
             <?php endif; ?>
-            <a href="<?= site_url('dashboard'); ?>" class="btnSame btn-danger">Back</a>
+            <a href="<?= site_url('dashboard'); ?>" class="btnSame btn-danger">⬅ Back</a>
         </div>
 
         <!-- SEARCH ROW -->
