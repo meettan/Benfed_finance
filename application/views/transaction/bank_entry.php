@@ -354,7 +354,7 @@ tfoot tr th {
 
                 </div>
 				<div class="col-sm-1">
-						<span style="display: inline;">
+						<span style="display: inline;font-weight: bold; border:none;color:blue">
                         <input type="text" id="dc" title="" class="transparent_tag" name="dr_cr_flag" value="" readonly>
                         </span>
 				</div>
@@ -432,7 +432,7 @@ tfoot tr th {
                             <input type="text" class="form-control amount_cls" id="amt" name="amount[]" style="width: 100%; text-align: right;" oninput="validate(this)" title="" required>
                         </td>
                         <td>
-                            <input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;" readonly>
+                            <input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;font-weight: bold; border:none;color:blue" readonly>
                         </td>
                     </tr>
                 </tbody>

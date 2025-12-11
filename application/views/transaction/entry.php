@@ -386,7 +386,7 @@ tfoot tr th {
                             <input type="text" class="form-control amount_cls" id="amt" name="amount[]" style="width: 100%; text-align: right;" oninput="validate(this)" title="" required>
                         </td>
                         <td>
-                            <input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;" readonly required>
+                            <input type="text" class="transparent_tag" id="dc_flg" name="dc_flg[]" style="width: 100%; text-align: center;font-weight: bold; border:none;color:blue" readonly required>
                         </td>
                     </tr>
                 </tbody>
