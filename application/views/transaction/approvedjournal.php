@@ -158,7 +158,7 @@
             <div class="col-sm-2">
                     <input type="date" name="to_dt" class="form-control" value="" required />
             </div>
-			<div class="col-sm-2"><input class="btnSame btn-primary" type="submit" value="Filter"></div>
+			<div class="col-sm-2"><input class="btnSame btn-primary" type="submit" value="Search"></div>
             <a href="<?php echo site_url("dashboard"); ?>" 
                 class="btnSame btn-danger" 
                 style="width: 100px; margin-left:10px;">
