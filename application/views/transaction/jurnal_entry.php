@@ -19,6 +19,22 @@ body {
     font-size: 16px;
     font-weight: 600;
 }
+/* Status Colors */
+.status-debit {
+        background: #ffebee;
+        color: #c62828;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .status-credit {
+        background: #fff8e1;
+        color: #ff8f00;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
 
 /* ---- WRAPPER / CARD ---- */
 .contant-wraper {
@@ -472,7 +488,7 @@ tfoot tr th {
                     <td colspan="7" style="text-align:right;background-color: #e0e0e0;padding: 0px;">
                     <strong>Total:</strong> <input name="tot_amt_Debit" type="text" class="transparent_tag" id="tot_amt_Debit" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
-                    <td><h4>Debit</h4></td>
+                    <td><span class="status-debit">Debit</span></td>
                 </tr>
                 
 
@@ -558,7 +574,7 @@ tfoot tr th {
                     <td colspan="7" style="text-align:right;background-color: #e0e0e0;padding: 0px;">
                     <strong>Total:</strong> <input name="tot_amt" type="text" class="transparent_tag" id="tot_amt" style="text-align:left; color:#c1264d; font-size: 25px; width:35%;" readonly>
                     </td>
-                    <td><h4>Credit</h4></td>
+                    <td><span class="status-credit">Credit</span></td>
                 </tr>
 
             </table>

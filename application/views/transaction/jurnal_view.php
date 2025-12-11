@@ -146,7 +146,9 @@
 
         <!-- ADD + BACK ON SAME LINE -->
         <div class="top-button-row">
-
+  <!-- BACK BUTTON -->
+  <a href="<?php echo site_url('dashboard'); ?>" 
+               class="btnSame btn-danger">⬅ Back</a>
             <!-- ADD BUTTON -->
             <?php if($count_data <= 0){ ?>
                 <a href="<?php echo site_url("jurnalVoucher/entry"); ?>" 
@@ -157,9 +159,7 @@
                 </a>
             <?php } ?>
 
-            <!-- BACK BUTTON -->
-            <a href="<?php echo site_url('dashboard'); ?>" 
-               class="btnSame btn-danger">⬅ Back</a>
+          
 
         </div>
 

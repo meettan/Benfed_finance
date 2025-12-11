@@ -147,12 +147,13 @@
 
         <!-- ADD + BACK BUTTON -->
         <div class="top-button-row">
+             <a href="<?= site_url('dashboard'); ?>" class="btnSame btn-danger">⬅ Back</a>
             <?php if($count_data <= 0): ?>
                 <a href="<?= site_url("cashVoucher/entry"); ?>" class="btnSame btn-primary">Add</a>
             <?php else: ?>
                 <a class="btnSame btn-primary" onclick="alert('Some vouchers are pending for approval')">Add</a>
             <?php endif; ?>
-            <a href="<?= site_url('dashboard'); ?>" class="btnSame btn-danger">⬅ Back</a>
+           
         </div>
 
         <!-- SEARCH ROW -->
