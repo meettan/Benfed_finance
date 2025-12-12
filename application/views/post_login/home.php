@@ -235,7 +235,7 @@ body.page-loaded {
                 <div class="col-sm-4 float-left">
                     <div class="threeBoxNewSmall">
                         <div class="threeBoxImg darkBlue">
-                            <img src="http://localhost/benfed_finance/assets/images/boxIcon_a.png" alt="">
+                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_a.png" alt="">
                         </div>
                         <div class="threeBoxTxt">
                             <h2>Approved voucher of the day</h2>
@@ -247,7 +247,7 @@ body.page-loaded {
                 <div class="col-sm-4 float-left">
                     <div class="threeBoxNewSmall">
                         <div class="threeBoxImg yellowCol">
-                            <img src="http://localhost/benfed_finance/assets/images/boxIcon_b.png" alt="">
+                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_b.png" alt="">
                         </div>
                         <div class="threeBoxTxt">
                             <h2>Unapproved voucher of the day</h2>
@@ -258,7 +258,7 @@ body.page-loaded {
                 <div class="col-sm-4 float-left">
                     <div class="threeBoxNewSmall">
                         <div class="threeBoxImg pinkCol">
-                            <img src="http://localhost/benfed_fertilizer/assets/images/boxIcon_collec.png" alt="">
+                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_c.png" alt="">
                         </div>
                         <div class="threeBoxTxt">
                             <h2>Voucher on hold for the Day</h2>
