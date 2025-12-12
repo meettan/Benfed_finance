@@ -1,7 +1,159 @@
-    <div class="wraper">      
+<!-- jQuery & DataTables -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<style>
+    body {
+        background: linear-gradient(135deg, #cfd8dc, #fce4ec); /* lighter background */
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .contant-wraper {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    h1 {
+        color: #1565c0; /* dark blue */
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    thead {
+    /* background: linear-gradient(90deg, #1565c0, #1e88e5, #42a5f5); blue gradient */
+    background: linear-gradient(to right, #003e7c, #0056b3);
+    color: white;
+    font-size: 15px;
+}
+
+
+    tbody tr:hover {
+        background: #e3f2fd; /* light hover effect */
+        transition: 0.3s;
+    }
+
+    /* Rounded Buttons */
+    .btnSame {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 25px;
+        width: 120px;
+        display: inline-block;
+        text-align: center;
+        font-weight: 600;
+        box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+        color: white;
+        text-decoration: none;
+    }
+ 
+    .btn-primary {
+        background-color: #1565c0; /* dark blue */
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #d32f2f; /* red for back/delete */
+        border: none;
+    }
+
+    .fa-edit:hover,
+    .fa-trash-o:hover {
+        transform: scale(1.2);
+        transition: 0.2s;
+    }
+
+    label {
+        font-weight: bold;
+        color: #37474f;
+    }
+
+    input[type="date"] {
+        border-radius: 6px;
+        border: 1px solid #1565c0; /* blue border for date */
+    }
+
+    /* Add + Back Parallel Row */
+    .top-button-row {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+	.form-header {
+    background: linear-gradient(135deg, #004e92, #0a85d9, #4fc3f7);
+    padding: 13px 20px;
+    border-radius: 0;   /* RECTANGLE SHAPE */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+.form-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 500;
+	text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+/* Status Colors */
+.status-general {
+        background: #ffebee;
+        color: #c62828;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .status-manager {
+        background: #fff8e1;
+        color: #ff8f00;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+    .status-admin {
+    background: #e6f4e6;  /* light green background */
+    color: #2e7d32;       /* strong green text */
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+</style>
+<style>
+    .container-fluid {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    h2 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .row:first-child {
+        margin-top: 0 !important;
+    }
+
+    body {
+        margin-top: 0 !important;
+    }
+</style>
+<div class="wraper">      
         <div class="row"> 
             <div class="col-lg-9 col-sm-12">
-                <h1><strong>User List</strong></h1>
+                <h2><strong>User List</strong></h2>
             </div>
         </div>
         <div class="col-lg-12 container contant-wraper">    
@@ -16,9 +168,9 @@
 <!-- </center> -->
 <div>
 <a href="<?php echo site_url("dashboard"); ?>" 
-                class="btn btn-danger" 
+                class="btnSame btn-danger" 
                 style="width: 100px; margin-left:10px;">
-                Back
+                ⬅ Back
             </a>
 </div>
 </small>
@@ -38,8 +190,8 @@
 
 <?php //print_r($user_dtls); ?>
 
-            <table class="table table-bordered table-hover">
-
+            <!-- <table class="table table-bordered table-hover"> -->
+            <table class="table table-bordered table-hover" id="example">
                 <thead>
 
                     <tr>
@@ -73,13 +225,13 @@
                                 <td><?php echo $u_dtls->user_name; ?></td>
 								
                                 <td><?php if($u_dtls->user_type == 'A'){
-                                            echo '<span class="badge badge-success">Admin</span>';
+                                            echo '<span class="status-admin">Admin</span>';
                                           }elseif ($u_dtls->user_type == 'M') {
-                                            echo '<span class="badge badge-warning">Manager</span>';
+                                            echo '<span class="status-manager">Manager</span>';
                                           }elseif ($u_dtls->user_type == 'D') {
-                                            echo '<span class="badge badge-warning">Accountant</span>';
+                                            echo '<span class="status-general">Accountant</span>';
                                           }elseif ($u_dtls->user_type == 'U') {
-                                            echo '<span class="badge badge-dark">General User</span>';
+                                            echo '<span class="status-general">General User</span>';
                                           }
                                             ?>
                                 </td>
@@ -165,14 +317,7 @@
 
     });
 	
-	// $(document).ready( function (){
-
-    //     $('input[type=radio][name=user_status]').on('change', function() {
-    //             getData();
-	// 	});
-
-    // });
-
+	
     $('.status').click(function(){
         // alert($(this).val());
         getData();
@@ -205,11 +350,11 @@ function getData(){
 					  var  utype = '';
 					$.each(JSON.parse(result), function( index, value ) {
 						if(value.user_type == 'A'){
-                          utype = '<span class="badge badge-success">Admin</span>';
+                          utype = '<span class="status-admin">Admin</span>';
 					    }else if (value.user_type == 'M') {
-                            utype = '<span class="badge badge-warning">Manager</span>';
+                            utype = '<span class="status-manager">Manager</span>';
                         }else if (value.user_type == 'U') {
-                             utype = '<span class="badge badge-dark">General User</span>';
+                             utype = '<span class="status-general">General User</span>';
                             }else if(value.user_type == '' || value.user_type == null){
                                 var  utype = '';
                             }
@@ -222,4 +367,31 @@ function getData(){
             });
 }
     
+</script>
+<!-- DataTables Initialization -->
+<script>
+$(document).ready(function () {
+
+    // Convert date to proper sorting format (dd-mm-yyyy → yyyy-mm-dd)
+    $('#example tbody tr').each(function() {
+        let dateText = $(this).find('td:eq(2)').text().trim();
+        let parts = dateText.split('/');
+        if(parts.length === 3){
+            let sortableDate = parts[2] + '-' + parts[1] + '-' + parts[0]; // yyyy-mm-dd
+            $(this).find('td:eq(2)').attr('data-order', sortableDate);
+        }
+    });
+
+    $('#example').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "ordering": true,
+        "searching": true,
+        "info": true,
+        "paging": true,
+
+        // Default sort by Voucher Date (DESC)
+        "order": [[2, "desc"]]
+    });
+});
 </script>
