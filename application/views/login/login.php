@@ -29,6 +29,138 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 	<!--font-family: 'Oswald', sans-serif;-->
+	<style>
+		/* ===================== GLOBAL PAGE STYLE ===================== */
+		body {
+			margin: 0;
+			font-family: "Roboto", sans-serif;
+			background: linear-gradient(135deg, #001a33, #003366, #00509e);
+			background-size: 200% 200%;
+			animation: moveGradient 15s ease infinite;
+			color: #fff;
+		}
+
+		@keyframes moveGradient {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+
+		/* ===================== HEADER ===================== */
+		.headerTop_DashLogin {
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(10px);
+			padding: 15px 0;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		}
+
+		.logo_Dash img {
+			max-width: 110px;
+			cursor: pointer;
+		}
+
+		.rightTxt_Dash h2 {
+			font-size: 22px;
+			font-weight: 600;
+			color: #e6f2ff;
+			text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+		}
+
+		.rightTxt_Dash span {
+			font-size: 16px;
+			color: #aad4ff;
+		}
+
+		/* ===================== NAVIGATION ===================== */
+		.navigationSecLogin ul li a {
+			color: #cfe4ff;
+			font-weight: 500;
+		}
+
+		.navigationSecLogin {
+			background: rgba(255, 255, 255, 0.06);
+			backdrop-filter: blur(5px);
+			box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+		}
+
+		.navigationSecLogin ul li a:hover {
+			color: #ffffff;
+		}
+
+		/* ===================== LOGIN BOX ===================== */
+		.wrap-login100 {
+			width: 420px;
+			margin: 50px auto;
+			padding: 40px 40px 50px 40px;
+			background: rgba(255, 255, 255, 0.10);
+			backdrop-filter: blur(15px);
+			border-radius: 18px;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+		}
+
+		.login100_logo h2 {
+			text-align: center;
+			font-size: 28px;
+			margin-bottom: 25px;
+			/* color: #e6f2ff; */
+			color: #000;
+			font-family: "Oswald";
+			letter-spacing: 1px;
+		}
+
+		.txt1 {
+			/* color: #cfe4ff; */
+			color: #000;
+			font-weight: 500;
+		}
+
+		.input100 {
+			background: rgba(255, 255, 255, 0.15);
+			border: none;
+			/* color: #fff; */
+			color:#000;
+		}
+
+		.input100:focus {
+			box-shadow: 0 0 8px #75baff;
+		}
+
+		/* ===================== BUTTON ===================== */
+		.login100-form-btn {
+			background: linear-gradient(135deg, #0077ff, #0099ff);
+			border: none;
+			padding: 12px 0;
+			font-size: 18px;
+			font-weight: 600;
+			color: #fff;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: 0.3s;
+			box-shadow: 0 5px 12px rgba(0, 123, 255, 0.4);
+		}
+
+		.login100-form-btn:hover {
+			background: linear-gradient(135deg, #3399ff, #66ccff);
+			box-shadow: 0 7px 18px rgba(0, 123, 255, 0.6);
+		}
+
+		/* ===================== FOOTER ===================== */
+		.footerSec_Dash {
+			background: rgba(255, 255, 255, 0.06);
+			backdrop-filter: blur(5px);
+			color: #d6e9ff;
+			padding: 25px 0;
+		}
+
+		.footerSec_Dash h2 {
+			color: #ffffff;
+		}
+
+		.footerSec_Dash ul li i {
+			color: #9ecbff;
+		}
+	</style>
 
 </head>
 
