@@ -286,7 +286,12 @@
             <input type="hidden" name="sl_no" value="<?= $voucher_detail->sl_no ?>">
             <div class="form-group row">
                 <div class="col-sm-10">
+                <a href="<?php echo site_url("bankVoucher"); ?>" 
+                  class="btn btn-danger" 
+                  style="width: 100px; margin-left:10px;">⬅ Back
+                  </a>
                     <?php if($voucher_detail->approval_status == 'U'){ ?>
+
                     <input type="submit" name="submit" id="submit" value="Update" class="btn btn-info" />
                     <?php }?>
                     <a href="<?php echo site_url("bankVoucher"); ?>" 
