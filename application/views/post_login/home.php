@@ -18,6 +18,35 @@ body.page-loaded {
 .fade-out {
     opacity: 0;
 }
+/* ===== Voucher Count Badge ===== */
+.voucher-count {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+/* Approved */
+.count-approved {
+    color: #1e7e34; /* dark green */
+}
+
+/* Unapproved */
+.count-unapproved {
+    color: #856404; /* dark yellow */
+}
+
+/* On Hold */
+.count-hold {
+    color: #a71d2a; /* dark pink/red */
+}
+
+/* Sub text */
+.voucher-sub {
+    font-size: 13px;
+    color: #666;
+    margin-top: 2px;
+}
 
 /* ====== LEFT SIDEBAR ====== */
 .left_bar {
@@ -232,39 +261,52 @@ body.page-loaded {
         <div class="row">
             <div class="threeBoxNewmain">
 
-                <div class="col-sm-4 float-left">
-                    <div class="threeBoxNewSmall">
-                        <div class="threeBoxImg darkBlue">
-                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_a.png" alt="">
-                        </div>
-                        <div class="threeBoxTxt">
-                            <h2>Approved voucher of the day</h2>
-                            <p class="price">0</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-4 float-left">
+    <div class="threeBoxNewSmall">
+        <div class="threeBoxImg darkBlue">
+            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_a.png" alt="">
+        </div>
+        <div class="threeBoxTxt">
+            <h2>Approved Voucher</h2>
+            <span class="voucher-count count-approved">
+                <?php echo $approved_today ?? 0; ?>
+            </span>
+            <div class="voucher-sub">Today</div>
+        </div>
+    </div>
+</div>
 
-                <div class="col-sm-4 float-left">
-                    <div class="threeBoxNewSmall">
-                        <div class="threeBoxImg yellowCol">
-                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_b.png" alt="">
-                        </div>
-                        <div class="threeBoxTxt">
-                            <h2>Unapproved voucher of the day</h2>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-4 float-left">
-                    <div class="threeBoxNewSmall">
-                        <div class="threeBoxImg pinkCol">
-                            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_c.png" alt="">
-                        </div>
-                        <div class="threeBoxTxt">
-                            <h2>Voucher on hold for the Day</h2>
-                        </div>
-                    </div>
-                </div>
+<div class="col-sm-4 float-left">
+    <div class="threeBoxNewSmall">
+        <div class="threeBoxImg yellowCol">
+            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_b.png" alt="">
+        </div>
+        <div class="threeBoxTxt">
+            <h2>Unapproved Voucher</h2>
+            <span class="voucher-count count-unapproved">
+                <?php echo $unapproved_today ?? 0; ?>
+            </span>
+            <div class="voucher-sub">Today</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-4 float-left">
+    <div class="threeBoxNewSmall">
+        <div class="threeBoxImg pinkCol">
+            <img src="https://benfed.in/benfed_finance/assets/images/boxIcon_c.png" alt="">
+        </div>
+        <div class="threeBoxTxt">
+            <h2>Voucher on Hold</h2>
+            <span class="voucher-count count-hold">
+                <?php echo $hold_today ?? 0; ?>
+            </span>
+            <div class="voucher-sub">Till Today</div>
+        </div>
+    </div>
+</div>
+
 
             </div>
         </div>

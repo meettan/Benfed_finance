@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -46,7 +47,14 @@
             width: 75px;
         }
 
-
+.dropbtn i.fa {
+    margin-right: 6px;
+    color: #ffffff;
+    font-size: 14px;
+}
+.dropdown:hover .dropbtn i.fa {
+    color: #ffd54f;
+}
         .badge-notify {
             background: red;
             position: relative;
@@ -149,7 +157,7 @@
                 <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] = "A") { ?>
                     <div class="dropdown">
                         <div class="dropbtn">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            <i class="fa fa-database" aria-hidden="true"></i>
                             Master
                             <i class="fa fa-angle-down"></i>
                         </div>
@@ -165,7 +173,7 @@
                 <?php } ?>
                 <div class="dropdown">
                     <div class="dropbtn">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        <i class="fa fa-exchange" aria-hidden="true"></i>
                         Transaction
                         <i class="fa fa-angle-down"></i>
                     </div>
@@ -213,7 +221,7 @@
                 <?php if ($this->session->userdata['loggedin']['ho_flag'] == "Y" || $this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'C' || $this->session->userdata['loggedin']['user_type'] == 'A' || $this->session->userdata['loggedin']['user_type'] == 'S') { ?>
                     <div class="dropdown">
                         <div class="dropbtn">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                             Approve
                             <i class="fa fa-angle-down"></i>
                         </div>
@@ -234,7 +242,7 @@
                 <?php } ?>
                 <div class="dropdown">
                     <div class="dropbtn">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
                         Report
                         <i class="fa fa-angle-down"></i>
                     </div>
@@ -339,7 +347,7 @@
                 <div class="dropdown">
                     <div class="dropbtn">
 
-                        <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
+                        <i class="fa fa-users" aria-hidden="true"></i>
                         User Administration
                         <i class="fa fa-angle-down"></i>
                     </div>
