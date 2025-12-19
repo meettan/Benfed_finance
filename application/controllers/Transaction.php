@@ -740,7 +740,7 @@ function crn_appview()
             {
 
             $data_array = array(
-                          'voucher_date'=> date('Y-m-d'),
+                        //   'voucher_date'=> date('Y-m-d'),
 				          'approval_status'   => $this->input->post('appstatus'),
                           'approved_by'       => $this->session->userdata('loggedin')['user_id'],
                           'approved_dt'       => date('Y-m-d H:i:s')   
