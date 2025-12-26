@@ -343,9 +343,29 @@
 		});
 	</script>
 
-	<script>
+<script>
+    $("#login").on('submit', function () {
 
-	</script>
+        var finYr = $("#fin_yr").val();
+        var branchVisible = $("#test").is(":visible");
+        var branchVal = $("#test").val();
+
+        if (finYr === "") {
+            alert("Please select FIN year");
+            return false;
+        }
+
+        // ✅ Branch validation only when branch dropdown is visible
+        if (branchVisible && branchVal === "") {
+            alert("Please select branch");
+            $("#test").focus();
+            return false;
+        }
+
+        return true;
+    });
+</script>
+
 
 </body>
 
