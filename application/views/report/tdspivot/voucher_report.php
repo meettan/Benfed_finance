@@ -1,3 +1,139 @@
+
+
+<style>
+    body {
+        background: linear-gradient(135deg, #cfd8dc, #fce4ec); /* lighter background */
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .contant-wraper {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    h1 {
+        color: #1565c0; /* dark blue */
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    thead {
+    /* background: linear-gradient(90deg, #1565c0, #1e88e5, #42a5f5); blue gradient */
+    background: linear-gradient(to right, #003e7c, #0056b3);
+    color: white;
+    font-size: 15px;
+}
+
+
+    tbody tr:hover {
+        background: #e3f2fd; /* light hover effect */
+        transition: 0.3s;
+    }
+
+    /* Rounded Buttons */
+    .btnSame {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 25px;
+        width: 120px;
+        display: inline-block;
+        text-align: center;
+        font-weight: 600;
+        box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+        color: white;
+        text-decoration: none;
+    }
+ /* Status Colors */
+ .status-unapproved {
+        background: #ffebee;
+        color: #c62828;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .status-hold {
+        background: #fff8e1;
+        color: #ff8f00;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #1565c0; /* dark blue */
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #d32f2f; /* red for back/delete */
+        border: none;
+    }
+
+    
+    .fa-edit:hover,
+    .fa-trash-o:hover {
+        transform: scale(1.2);
+        transition: 0.2s;
+    }
+
+    label {
+        font-weight: bold;
+        color: #37474f;
+    }
+
+    input[type="date"] {
+        border-radius: 6px;
+        border: 1px solid #1565c0; /* blue border for date */
+    }
+
+    /* Add + Back Parallel Row */
+    .top-button-row {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-row {
+        padding: 15px;
+        background: #e3f2fd; /* light blue background */
+        border-radius: 10px;
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+</style>
+<style>
+    .container-fluid {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    h2 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .row:first-child {
+        margin-top: 0 !important;
+    }
+
+    body {
+        margin-top: 0 !important;
+    }
+</style>
+
 <div class="content-wrapper">
     <div class="container-fluid">
 
@@ -13,13 +149,14 @@
 </span>
         <!-- ACTION BUTTONS -->
         <div class="mb-3 text-right">
-        
-            <button class="btn btn-primary" onclick="printTable()">Print</button>
-            <button class="btn btn-warning" onclick="exportToPDF()">Export to PDF</button>
-            <button class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
+        <a href="<?php echo site_url('dashboard'); ?>" class="btnSame btn-danger" 
+               style="width: 100px; margin-left:10px;">⬅Back</a>
+            <button class="btnSame btn-primary" onclick="printTable()">Print</button>
+            <button class="btnSame btn-warning" onclick="exportToPDF()">PDF</button>
+            <button class="btnSame btn-success" onclick="exportToExcel()">Excel</button>
 
-            <a href="<?php echo site_url('dashboard'); ?>" class="btn btn-danger" 
-               style="width: 100px; margin-left:10px;">Back</a>
+            <!-- <a href="<?php echo site_url('dashboard'); ?>" class="btnSame btn-danger" 
+               style="width: 100px; margin-left:10px;">⬅Back</a> -->
         </div>
 
         <!-- ROUND HALF UP FUNCTION -->
