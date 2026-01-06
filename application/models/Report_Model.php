@@ -195,6 +195,224 @@ class Report_model extends CI_Model
 
         return $query->result();
     }
+
+    public function get_last_3_months_credit_chart($branch_id)
+    {
+        $sql = "SELECT 
+        DATE_FORMAT(v.voucher_date, '%M') AS month_name,
+        SUM(v.amount) AS total_amount
+    FROM td_vouchers v
+    JOIN md_achead a
+        ON v.acc_code = a.sl_no
+    WHERE v.branch_id = 342
+      AND a.mngr_id = 7
+      AND a.subgr_id = 62
+      AND v.dr_cr_flag = 'Cr'
+      AND v.voucher_date >= 
+            IF(MONTH(CURDATE()) >= 4,
+               DATE(CONCAT(YEAR(CURDATE()), '-04-01')),
+               DATE(CONCAT(YEAR(CURDATE()) - 1, '-04-01'))
+            )
+      AND v.voucher_date <= 
+            IF(MONTH(CURDATE()) >= 4,
+               DATE(CONCAT(YEAR(CURDATE()) + 1, '-03-31')),
+               DATE(CONCAT(YEAR(CURDATE()), '-03-31'))
+            )
+    GROUP BY YEAR(v.voucher_date), MONTH(v.voucher_date)
+    ORDER BY 
+        CASE MONTH(v.voucher_date)
+            WHEN 4 THEN 1 WHEN 5 THEN 2 WHEN 6 THEN 3
+            WHEN 7 THEN 4 WHEN 8 THEN 5 WHEN 9 THEN 6
+            WHEN 10 THEN 7 WHEN 11 THEN 8 WHEN 12 THEN 9
+            WHEN 1 THEN 10 WHEN 2 THEN 11 WHEN 3 THEN 12
+        END";
+$query  = $this->db->query($sql);
+
+return $query->result();
+        // return $this->db->query($sql)->result_array();
+    }
+    public function get_closing_balance_chart($branch_id)
+    {
+        $sql = "SELECT 
+            SUM(cr_amt) AS closing_balance,
+            ac_name
+        FROM
+        (SELECT 
+    SUM(op_dr) op_dr,
+    SUM(op_cr) op_cr,
+    SUM(dr_amt) dr_amt,
+    SUM(cr_amt) cr_amt,
+    mngr_id,
+    ac_name,
+    dr_cr_flag,
+    type,
+    benfed_ac_code
+FROM (
+    /* ================= OPENING + PRE-FY TRANSACTIONS ================= */
+    SELECT 
+        SUM(op_dr) op_dr,
+        SUM(op_cr) op_cr,
+        0 dr_amt,
+        0 cr_amt,
+        mngr_id,
+        ac_name,
+        dr_cr_flag,
+        type,
+        benfed_ac_code
+    FROM (
+        SELECT 
+            SUM(op_dr) op_dr,
+            SUM(op_cr) op_cr,
+            mngr_id,
+            ac_name,
+            type,
+            dr_cr_flag,
+            benfed_ac_code
+        FROM (
+            /* ---------- PRE-FY TRANSACTIONS ---------- */
+            SELECT  
+                0 op_dr,
+                0 op_cr,
+                b.mngr_id,
+                b.ac_name,
+                c.type,
+                UPPER(a.dr_cr_flag) dr_cr_flag,
+                b.benfed_ac_code
+            FROM td_vouchers a
+            JOIN md_achead b ON a.acc_code = b.sl_no
+            JOIN mda_subgroub d ON b.subgr_id = d.sl_no
+            JOIN mda_mngroup c ON c.sl_no = d.mngr_id
+            WHERE a.trans_dt >= DATE(
+                    CONCAT(
+                        IF(MONTH(CURDATE()) >= 4, YEAR(CURDATE()), YEAR(CURDATE()) - 1),
+                        '-04-01'
+                    )
+                )
+            AND a.trans_dt <= CURDATE()
+            AND a.branch_id = 342
+            AND a.approval_status = 'A'
+            AND d.sl_no = '62'
+            GROUP BY b.ac_name, c.type, b.benfed_ac_code, b.mngr_id
+
+            UNION ALL
+
+            /* ---------- OPENING BALANCE ---------- */
+            SELECT 
+                IF(d.trans_flag='DR', d.amount, 0),
+                IF(d.trans_flag='CR', d.amount, 0),
+                b.mngr_id,
+                b.ac_name,
+                c.type,
+                UPPER(d.trans_flag),
+                b.benfed_ac_code
+            FROM td_opening d
+            JOIN md_achead b ON b.sl_no = d.acc_code
+            JOIN mda_subgroub e ON b.subgr_id = e.sl_no
+            JOIN mda_mngroup c ON c.sl_no = e.mngr_id
+            WHERE d.balance_dt = (
+                SELECT MAX(balance_dt)
+                FROM td_opening
+                WHERE balance_dt <= DATE(
+                    CONCAT(
+                        IF(MONTH(CURDATE()) >= 4, YEAR(CURDATE()), YEAR(CURDATE()) - 1),
+                        '-04-01'
+                    )
+                )
+            )
+            AND d.br_id = 342
+            AND e.sl_no = '62'
+        ) x
+        GROUP BY mngr_id, ac_name, type, benfed_ac_code
+    ) y
+    GROUP BY benfed_ac_code
+
+    UNION ALL
+
+    /* ================= CURRENT FY VOUCHERS ================= */
+    SELECT 
+        0 op_dr,
+        0 op_cr,
+        SUM(IF(a.dr_cr_flag='DR', a.amount, 0)) dr_amt,
+        SUM(IF(a.dr_cr_flag='CR', a.amount, 0)) cr_amt,
+        b.mngr_id,
+        b.ac_name,
+        a.dr_cr_flag,
+        c.type,
+        b.benfed_ac_code
+    FROM td_vouchers a
+    JOIN md_achead b ON a.acc_code = b.sl_no
+    JOIN mda_subgroub d ON b.subgr_id = d.sl_no
+    JOIN mda_mngroup c ON b.mngr_id = c.sl_no
+    WHERE a.voucher_date >= DATE(
+            CONCAT(
+                IF(MONTH(CURDATE()) >= 4, YEAR(CURDATE()), YEAR(CURDATE()) - 1),
+                '-04-01'
+            )
+        )
+    AND a.voucher_date <= CURDATE()
+    AND a.branch_id = 342
+    AND a.approval_status = 'A'
+    AND d.sl_no = '62'
+    GROUP BY b.ac_name, a.dr_cr_flag, b.mngr_id, b.benfed_ac_code
+) C
+WHERE type IN (1,2,3,4)
+GROUP BY mngr_id, ac_name, type, benfed_ac_code
+) C
+        WHERE type IN (1,2,3,4)
+        AND benfed_ac_code NOT IN (
+            '1901001701',
+            '1901002201',
+            '1901001901',
+            '1901000101',
+            '1901000401'
+        )
+        GROUP BY ac_name";
+    
+        return $this->db->query($sql)->result();
+    }
+    
+public function get_privyr_credit_chart($branch_id)
+    {
+        $sql = "SELECT 
+    DATE_FORMAT(v.voucher_date, '%M') AS month_name,
+    SUM(v.amount) AS total_amount
+FROM td_vouchers v
+JOIN md_achead a
+    ON v.acc_code = a.sl_no
+WHERE v.branch_id = $branch_id
+  AND a.mngr_id = 7
+  AND a.subgr_id = 62
+  AND v.dr_cr_flag = 'Cr'
+
+  -- 🔹 PREVIOUS FINANCIAL YEAR START
+  AND v.voucher_date >= 
+        IF(MONTH(CURDATE()) >= 4,
+           DATE(CONCAT(YEAR(CURDATE()) - 1, '-04-01')),
+           DATE(CONCAT(YEAR(CURDATE()) - 2, '-04-01'))
+        )
+
+  -- 🔹 PREVIOUS FINANCIAL YEAR END
+  AND v.voucher_date <= 
+        IF(MONTH(CURDATE()) >= 4,
+           DATE(CONCAT(YEAR(CURDATE()), '-03-31')),
+           DATE(CONCAT(YEAR(CURDATE()) - 1, '-03-31'))
+        )
+
+GROUP BY YEAR(v.voucher_date), MONTH(v.voucher_date)
+
+ORDER BY 
+    CASE MONTH(v.voucher_date)
+        WHEN 4 THEN 1 WHEN 5 THEN 2 WHEN 6 THEN 3
+        WHEN 7 THEN 4 WHEN 8 THEN 5 WHEN 9 THEN 6
+        WHEN 10 THEN 7 WHEN 11 THEN 8 WHEN 12 THEN 9
+        WHEN 1 THEN 10 WHEN 2 THEN 11 WHEN 3 THEN 12
+    END";
+$query  = $this->db->query($sql);
+
+return $query->result();
+        // return $this->db->query($sql)->result_array();
+    }
+
 /******red voucher **** */
 
 function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
@@ -345,7 +563,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             SELECT DISTINCT v.voucher_id
             FROM td_vouchers v
             JOIN md_achead h ON v.acc_code = h.sl_no
-            WHERE h.ac_name = 'TDS PAYBLE'
+            WHERE h.ac_name = 'TDS PAYABLE'
               AND h.br_id = 342           -- TDS PAYBLE must be under branch 342
               AND v.branch_id IN (342,0)
               AND v.voucher_date BETWEEN '$from_date' AND '$to_date'
@@ -366,7 +584,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             FROM td_vouchers v
             JOIN md_achead h ON v.acc_code = h.sl_no
             WHERE LEFT(h.benfed_ac_code,1) = '3'
-              AND h.ac_name NOT IN ('TDS PAYBLE', 'Round Off')
+              AND h.ac_name NOT IN ('TDS PAYABLE', 'Round Off')
               AND h.ac_name NOT IN ('Central GST Input','State GST Input')
               AND v.voucher_id IN (SELECT voucher_id FROM tds_vouchers)
               AND v.branch_id IN (342,0)
@@ -387,7 +605,7 @@ function f_get_redvoucher($frm_date, $to_date,$fin_id,$branch_id)
             COALESCE(MAX(CASE WHEN r.rn = 2 THEN r.amount END),0) AS amount_2,
             COALESCE(MAX(CASE WHEN r.rn = 3 THEN r.amount END),0) AS amount_3,
         
-            COALESCE(SUM(CASE WHEN h2.ac_name = 'TDS PAYBLE' THEN v2.amount END),0) AS TDS_PAYBLE,
+            COALESCE(SUM(CASE WHEN h2.ac_name = 'TDS PAYABLE' THEN v2.amount END),0) AS TDS_PAYBLE,
             COALESCE(SUM(CASE WHEN h2.ac_name = 'Central GST Input' THEN v2.amount END),0) AS CGST,
             COALESCE(SUM(CASE WHEN h2.ac_name = 'State GST Input' THEN v2.amount END),0) AS SGST,
         
