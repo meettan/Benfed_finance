@@ -137,7 +137,7 @@ body.page-loaded { opacity:1; }
             <div class="col-sm-12">
                 <div style="width:100%; height:380px; background:#fff; padding:10px; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,0.07);">
                     <h4 style="margin-bottom:10px; color:#003e6f;">
-                        Closing Balance (Financial Year)
+                        Branch Wise Collection(Current Financial Year)
                     </h4>
                     <canvas id="closingBalanceChart"></canvas>
                 </div>
