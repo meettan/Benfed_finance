@@ -446,7 +446,7 @@ tfoot tr th {
                 <div class="col-sm-10">
                     
                 
-                    <?php if($voucher_detail->approval_status == 'U'){ ?>
+                    <?php if($voucher_detail->approval_status == 'U' OR $voucher_detail->approval_status == 'H'){ ?>
 
                     <input type="submit" name="submit" id="submit" value="Update" class="btnSame btn-primary" />
                     <?php }?>
