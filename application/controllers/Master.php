@@ -15,6 +15,50 @@ class Master extends CI_Controller
 
         }
     }
+//******* */
+
+
+    public function chq_create()
+    {
+        $this->load->view('cheque/create');
+    }
+
+    public function save()
+    {
+        $this->db->trans_start();
+
+        // MASTER DATA
+        $master = [
+            'cheque_no'    => $this->input->post('cheque_no'),
+            'cheque_date'  => $this->input->post('cheque_date'),
+            'bank_name'    => $this->input->post('bank_name'),
+            'party_name'   => $this->input->post('party_name'),
+            'total_amount' => array_sum($this->input->post('amount'))
+        ];
+
+        $this->db->insert('cheque_master', $master);
+        $master_id = $this->db->insert_id();
+
+        // DETAIL DATA
+        $accounts = $this->input->post('account_head');
+        $desc     = $this->input->post('description');
+        $amounts  = $this->input->post('amount');
+
+        for ($i = 0; $i < count($accounts); $i++) {
+            $this->db->insert('cheque_detail', [
+                'cheque_master_id' => $master_id,
+                'account_head'     => $accounts[$i],
+                'description'      => $desc[$i],
+                'amount'           => $amounts[$i]
+            ]);
+        }
+
+        $this->db->trans_complete();
+
+        redirect('cheque/create');
+    }
+
+//***** */
     // GROUP VIEW //
     function group()
     {
