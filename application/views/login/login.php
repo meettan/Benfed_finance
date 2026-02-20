@@ -318,15 +318,25 @@
 				user_id: $(this).val()
 			}).done(function(data) {
 				if (data) {
-					if (data == 'A' || data == 'O') {
-						$('#test').show();
-					} else {
-						$('#test').hide();
-					}
-				} else {
-					$('#test').hide();
-					//alert('No userId found');
-				}
+
+            if (data == 'A') {
+                // ✅ Admin → show branch & auto select Head Office
+                $('#test').show();
+                $('#test').val('342'); // Head Office branch ID
+
+            } else if (data == 'O') {
+                // existing behaviour remains
+                $('#test').show();
+
+            } else {
+                $('#test').hide();
+                // $('#test').val('');
+            }
+
+        } else {
+            $('#test').hide();
+            // $('#test').val('');
+        }
 				// $(".result").html(data);
 				// alert("Load was performed.");
 			});

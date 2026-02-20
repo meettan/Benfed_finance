@@ -451,7 +451,7 @@ tfoot tr th {
 
             <div class="col-sm-10">
                   
-                  <a href="<?php echo site_url("cashVoucher"); ?>" 
+                  <a href="<?php echo site_url("bankVoucher"); ?>" 
                   class="btnSame btn-danger" 
                   style="width: 100px; margin-left:10px;">⬅ Back
                   </a>&nbsp;&nbsp;&nbsp;&nbsp;
