@@ -845,6 +845,56 @@ if($this->db->insert('td_vouchers', $input_bank) ){
 }  
  }
 
+//  public function delete_voucher_dr(){
+
+//     // Check login
+//     if(!$this->session->userdata('loggedin')){
+//         echo 0;
+//         return;
+//     }
+
+//     // Logged-in user details
+//     $user_id   = $this->session->userdata('user_id');
+//     $branch_id = $this->session->userdata('branch_id');
+
+//     // Read input JSON
+//     $input = file_get_contents("php://input");
+//     $dt = json_decode($input, true);
+
+//     // Voucher ID coming from API
+//     $voucher_id = $dt['data']['paid_id'];
+
+//     // Fetch voucher
+//     $where = array(
+//         'voucher_id' => $voucher_id,
+//         'branch_id'  => $branch_id     // Prevent cross-branch delete
+//     );
+
+//     $data = $this->Transaction_model->f_select('td_vouchers', null, $where, 0);
+
+//     if(empty($data)){
+//         echo 2;  // Voucher not found / not in this branch
+//         return;
+//     }
+
+//     // Move to delete table
+//     foreach ($data as $row){
+
+//         $row->delete_by = $user_id;              // secure
+//         $row->delete_dt = date('Y-m-d H:i:s');   // corrected datetime
+
+//         $this->db->insert('td_vouchers_delete', $row);
+//     }
+
+//     // Delete from main table
+//     if($this->db->delete('td_vouchers', $where)){
+//         echo 1;   // success
+//     } else {
+//         echo 0;   // fail
+//     }
+// }
+
+
  public function delete_voucher_dr(){
     $input = file_get_contents("php://input");
     $dt = json_decode($input, true);
@@ -2352,7 +2402,107 @@ else{
                     echo 0;
                 }
             }
+//             public function delete_voucher_advvance_jrnal(){
 
+//                 // 1. Check if user is logged in
+//                 if(!$this->session->userdata('loggedin')){
+//                     echo 0;
+//                     return;
+//                 }
+            
+//                 // 2. Get logged-in user details
+//                 $user_id   = $this->session->userdata('user_id');
+//                 $branch_id = $this->session->userdata('branch_id');
+            
+//                 // 3. Read incoming JSON
+//                 $input = file_get_contents("php://input");
+//                 $dt = json_decode($input, true);
+            
+//                 // Voucher (receipt) number coming from client
+//                 $trans_no = $dt['data']['receipt_no'];
+            
+//                 // 4. Condition → Prevent cross-branch delete
+//                 $where = array(
+//                     'trans_no'  => $trans_no,
+//                     'branch_id' => $branch_id
+//                 );
+            
+//                 // 5. Fetch voucher
+//                 $data = $this->Transaction_model->f_select('td_vouchers', null, $where, 0);
+            
+//                 // Voucher not found OR wrong branch
+//                 if(empty($data)){
+//                     echo 2;
+//                     return;
+//                 }
+            
+//                 // 6. Move to delete table
+//                 foreach ($data as $row){
+            
+//                     $row->delete_by = $user_id;                // secure
+//                     $row->delete_dt = date('Y-m-d H:i:s');     // correct datetime
+            
+//                     $this->db->insert('td_vouchers_delete', $row);
+//                 }
+            
+//                 // 7. Delete from main table
+//                 if($this->db->delete('td_vouchers', $where)){
+//                     echo 1;
+//                 } else {
+//                     echo 0;
+//                 }
+//             }
+//           public function delete_voucher_advvance_jrnal(){
+
+//     // 1. Check if user is logged in
+//     if(!$this->session->userdata('loggedin')){
+//         echo 0;
+//         return;
+//     }
+
+//     // 2. Get logged-in user details
+//     $user_id   = $this->session->userdata('user_id');
+//     $branch_id = $this->session->userdata('branch_id');
+
+//     // 3. Read incoming JSON
+//     $input = file_get_contents("php://input");
+//     $dt = json_decode($input, true);
+
+//     // Voucher (receipt) number coming from client
+//     $trans_no = $dt['data']['receipt_no'];
+
+//     // 4. Condition → Prevent cross-branch delete
+//     $where = array(
+//         'trans_no'  => $trans_no,
+//         'branch_id' => $branch_id
+//     );
+
+//     // 5. Fetch voucher
+//     $data = $this->Transaction_model->f_select('td_vouchers', null, $where, 0);
+
+//     // Voucher not found OR wrong branch
+//     if(empty($data)){
+//         echo 2;
+//         return;
+//     }
+
+//     // 6. Move to delete table
+//     foreach ($data as $row){
+
+//         $row->delete_by = $user_id;                // secure
+//         $row->delete_dt = date('Y-m-d H:i:s');     // correct datetime
+
+//         $this->db->insert('td_vouchers_delete', $row);
+//     }
+
+//     // 7. Delete from main table
+//     if($this->db->delete('td_vouchers', $where)){
+//         echo 1;
+//     } else {
+//         echo 0;
+//     }
+// }
+  
     public function advtrns_voucher(){
              
                 $input = file_get_contents("php://input");
