@@ -30,69 +30,69 @@ tr:hover {background-color: #f5f5f5;}
 } -->
 </style>
 <script>
-  function printDiv() {
+function printDiv() {
 
-        var divToPrint = document.getElementById('divToPrint');
+    var divToPrint = document.getElementById('divToPrint');
 
-        var WindowObject = window.open('', 'Print-Window');
-        WindowObject.document.open();
-        var printButton = document.getElementById("printbtn");
-        //Set the print button visibility to 'hidden' 
-        printButton.style.visibility = 'hidden';
-        WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln('<html><head><title></title><style type="text/css">');
+    var WindowObject = window.open('', 'Print-Window');
+    WindowObject.document.open();
 
+    var printButton = document.getElementById("printbtn");
+    if (printButton) {
+        printButton.style.display = 'none';
+    }
 
-        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-			'body{margin:0;padding:0;}'+
-			'.pageTitle h3{font-size: 20px;}'+
-			'.logoSec img{max-width: 78px; width: 100%; padding: 0;}'+
-			'.barcodePage img{max-width: 95px; width: 100%; padding: 0;}'+
-            '.inline { display: inline; }' +
-            '.underline { text-decoration: underline; }' +
-            '.left { margin-left: 315px;} ' +
-            '.right { margin-right: 375px; display: inline; }' +
-            'table { border-collapse: collapse; font-size: 12px;}' +
-            /*'th, td { border: 1px solid red; border-collapse: collapse; padding: 6px;}' +*/
-			'th, td { border:none; padding: 0;}' +
-			'.logoSec, .pageTitle, .barcodePage{max-width:33.3%; width:100%; padding-left:15px; padding-right:15px; float:left;	box-sizing:border-box;}'+
-			'.barcodePage img{max-width: 95px; width: 100%; padding: 0;}'+
-			'.barcodePage {text-align: right;}'+
-			'.logoSec{padding-top: 7px; padding-bottom: 7px;}'+
-			'.logoSec img{max-width: 78px; width: 100%; padding: 0;}'+
-			'.tableBottomBorder{border-top: 1px solid #dddddd; padding-top: 0px; margin-top: 5px;}'+
-			'.tableBottomBorder table.table3 tbody tr td.adres_topLeft p {margin:0; padding:0;}'+
-			'.tableBottomBorder table.table3 tbody tr td.adres_topLeft{padding:3px;}'+
-			'.tableBottomBorder table.table2 tbody tr td.adres_topLeft{padding:3px;}'+
-			'.tableBottomBorder .table > thead > tr > td{padding:3px; font-size: 11px;}'+
-			'.tableBottomBorder .table > tbody > tr > td{padding:3px; font-size: 11px;}'+
-			'.tableBottomBorder .table td{font-size: 11px;}'+	  
-			'.noborder{border:none !important;}'+
-			'.border_left{border-left:1px solid #dddddd !important;}'+
-			'.border_right{border-right:1px solid #dddddd !important;}'+
-			'.border_top{border-top:1px solid #dddddd !important;}'+
-			'.border_bottom{border-bottom:1px solid #dddddd !important;}'+
-			'.titleTd {background: #d9d9d9; color: #000;}'+
-			'.formDurkBack {padding: 5px !important; background: #626262 !important; background-color: rgba(247, 202, 24, 0.3) !important; color: #000;}'+
-			'.padding_botNew{padding-bottom: 25px !important;}'+
-			'.padding_topNew{padding-top: 25px !important;}'+
-			'.padding_5{padding: 5px !important;}'+
-            'th, td {background-color:#999;}' +
-            '.border { border: 1px solid black; } ' +
-            '.bottom { bottom: 5px; width: 100%; position: fixed ' +
-            '' +
-            '} } </style>');
-        WindowObject.document.writeln('</head><body onload="window.print()">');
-        WindowObject.document.writeln(divToPrint.innerHTML);
-        WindowObject.document.writeln('</body></html>');
-        WindowObject.document.close();
-        setTimeout(function () {
-            WindowObject.close();
-        }, 10);
+    WindowObject.document.writeln('<!DOCTYPE html>');
+    WindowObject.document.writeln('<html><head><title>Invoice Print</title><style type="text/css">');
 
-  }
+    WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+        'body{margin:0;padding:0;}'+
+        '.pageTitle h3{font-size:20px;}'+
+        '.logoSec img{max-width:78px;width:100%;padding:0;}'+
+        '.barcodePage img{max-width:95px;width:100%;padding:0;}'+
+        '.inline {display:inline;}'+
+        '.underline {text-decoration:underline;}'+
+        '.left {margin-left:315px;}'+
+        '.right {margin-right:375px;display:inline;}'+
+        'table {border-collapse:collapse;font-size:12px;}'+
+        'th,td {border:none;padding:0;}'+
+        '.logoSec,.pageTitle,.barcodePage{max-width:33.3%;width:100%;padding-left:15px;padding-right:15px;float:left;box-sizing:border-box;}'+
+        '.barcodePage{text-align:right;}'+
+        '.logoSec{padding-top:7px;padding-bottom:7px;}'+
+        '.tableBottomBorder{border-top:1px solid #dddddd;padding-top:0;margin-top:5px;}'+
+        '.tableBottomBorder table.table3 tbody tr td.adres_topLeft p{margin:0;padding:0;}'+
+        '.tableBottomBorder table.table3 tbody tr td.adres_topLeft{padding:3px;}'+
+        '.tableBottomBorder table.table2 tbody tr td.adres_topLeft{padding:3px;}'+
+        '.tableBottomBorder .table>thead>tr>td{padding:3px;font-size:11px;}'+
+        '.tableBottomBorder .table>tbody>tr>td{padding:3px;font-size:11px;}'+
+        '.tableBottomBorder .table td{font-size:11px;}'+
+        '.noborder{border:none !important;}'+
+        '.border_left{border-left:1px solid #dddddd !important;}'+
+        '.border_right{border-right:1px solid #dddddd !important;}'+
+        '.border_top{border-top:1px solid #dddddd !important;}'+
+        '.border_bottom{border-bottom:1px solid #dddddd !important;}'+
+        '.titleTd{background:#d9d9d9;color:#000;}'+
+        '.formDurkBack{padding:5px !important;background:#626262 !important;background-color:rgba(247,202,24,0.3) !important;color:#000;}'+
+        '.padding_botNew{padding-bottom:25px !important;}'+
+        '.padding_topNew{padding-top:25px !important;}'+
+        '.padding_5{padding:5px !important;}'+
+        'th,td{background-color:#999;}'+
+        '.border{border:1px solid black;}'+
+        '.bottom{bottom:5px;width:100%;position:fixed;}'+
+    '}');
+
+    WindowObject.document.writeln('</style></head><body onload="window.print()">');
+    WindowObject.document.writeln(divToPrint.innerHTML);
+    WindowObject.document.writeln('</body></html>');
+
+    WindowObject.document.close();
+
+    setTimeout(function () {
+        WindowObject.close();
+    }, 500);
+
+}
 </script>
-
 <div class="wraper"> 
 
   <div class="col-lg-12 container contant-wraper">
@@ -515,8 +515,8 @@ We declare that this invoice shows the actual price of goods described and parti
             
                     <div style="text-align: center;">
     
-                        <button class="btn btn-primary" id=printbtn type="button" onclick="printDiv();">Print</button>
-    
+                        <!-- <button class="btn btn-primary" id=printbtn type="button" onclick="printDiv();">Print</button> -->
+                        <button class="btn btn-primary" id="printbtn" type="button" onclick="printDiv();">Print</button>
                     </div>
    </div>
 </div>

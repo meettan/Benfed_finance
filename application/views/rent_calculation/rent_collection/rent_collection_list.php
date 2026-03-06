@@ -265,12 +265,23 @@
                             <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                         </a>
                     </td>
-                    <td>
+                    <!-- <td>
                                 <button type="button" name="print_<?= $i ?>" class="print" id="print"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
                                 <a href="<?php echo site_url('rentb2c_invoice?invoice_no='.$rent_list->invoice_no.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
-                                </td>
+                                </td> -->
+                                <td>
+<?php if(!$rent_list->irn){ ?>
+    <a href="<?php echo site_url('rentb2c_invoice?invoice_no='.$rent_list->invoice_no); ?>" 
+       target="_blank"
+       data-toggle="tooltip" 
+       data-placement="bottom" 
+       title="Print">
+       <i class="fa fa-print fa-2x" style="color:green; cursor:pointer;"></i>
+    </a>
+<?php } ?>
+</td>
                 </tr>
 
                 <?php
@@ -314,7 +325,7 @@
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -330,11 +341,22 @@ $(document).ready(function() {
         function irn_clk(i, trans_do){
         // alert(i);
         var do_dt=$('#do_dt').text();
-            
+        var today = new Date();
+var parts = do_dt.split('/');
+var doDate = new Date(parts[2], parts[1]-1, parts[0]);
+
+            /******* */
+//             var today = new Date();
+// var parts = do_dt.split('/');
+// var doDate = new Date(parts[2], parts[1]-1, parts[0]);
+
+// if(doDate.toDateString() !== today.toDateString()){
+            /****** */
         var curr_dt=new Date();
         var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
         console.log({'do_dt': do_dt, 'curr_dt': curr});
-        if(do_dt != curr){
+        if(doDate.toDateString() !== today.toDateString()){
+        // if(do_dt != curr){
                     alert('IRN Genaration Not Possible');
                     $('[name="irn_clk_td_'+i+'"]').attr('disabled','disabled');
         }else{
