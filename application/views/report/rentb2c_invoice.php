@@ -473,9 +473,9 @@ function printDiv() {
         Remarks: <strong><?php echo  $sum_data->remarks;?></strong>
       </td>
       <td align="left" valign="top" class="padding_topNew padding_botNew" style="padding-left: 5px; padding-right: 5px;">Company's Bank Details:<br>
-        Bank Name:<br>
-        A/C Number: <br>
-        Branch &amp; IFS Code: </td>
+        Bank Name:HDFC<br>
+        A/C Number: 50100385096908<br>
+        Branch &amp; IFS Code:HDFC0002017 </td>
     </tr>
     <tr>
       <td align="left" valign="top" class="formDurkBack border_bottom border_top"><strong>Declaration:</strong><br>
