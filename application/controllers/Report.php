@@ -670,7 +670,7 @@ public function voucher_dtls(){
 			
             }else{
                 $data['opebalcal'] = $this->Report_Model->get_ope_gl($op_dt,$frm_date,$acc_head);
-				echo $this->db->last_query();
+				// echo $this->db->last_query();
 		
             }
             $data['accdetail'] = $this->Report_Model->f_select('md_achead',array('ac_name','benfed_ac_code'),array('sl_no' => $acc_head ),1);
