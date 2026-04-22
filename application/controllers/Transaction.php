@@ -87,7 +87,7 @@ function approvedjournal()
 					"voucher_id",
 					"voucher_type",
 					"voucher_mode",
-					"amount"
+					"sum(amount) amount"
                  );
 		
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -99,6 +99,7 @@ function approvedjournal()
 			"voucher_mode"      => 'J',
 			"voucher_date >="    => $fr_dt,
 			"voucher_date <="    => $to_dt,
+            "dr_cr_flag"=>'Dr',
 			//"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
            // "approval_status" => 'A',
