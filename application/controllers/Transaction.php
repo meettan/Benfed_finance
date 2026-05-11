@@ -111,6 +111,7 @@ function approvedjournal()
 			$where  = array(
             "voucher_mode"      => 'J',
 			"voucher_date"    => date('Y-m-d'),
+            "dr_cr_flag"=>'Dr',
 			//"voucher_through" => 'M',
 			"branch_id"       =>  $this->session->userdata['loggedin']['branch_id'],
            // "approval_status" => 'A',
