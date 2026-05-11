@@ -64,9 +64,20 @@
         //echo $this->db->last_query();die();
         return $q->result();
     }
-    public function invoice_no(){
-        $q=$this->db->order_by('trans_no','desc')->limit(1)->get('td_rent_collection');
-        return $q->row();
+    public function invoice_no($fin_id){
+        // $q=$this->db->order_by('trans_no','desc')->limit(1)->get('td_rent_collection');
+        // return $q->row();
+        $this->db->where('fin_yr', $fin_id); // use fin_id if relevant
+    $this->db->order_by('trans_no','desc');
+    $this->db->limit(1);
+    $q = $this->db->get('td_rent_collection');
+
+    if($q->num_rows() > 0){
+        $last = $q->row()->trans_no;
+        return $last + 1;
+    } else {
+        return 1; // first invoice
+    }
     }
 
     public function fetch_rent_collection($where=null){

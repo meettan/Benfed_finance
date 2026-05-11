@@ -251,10 +251,10 @@ class Rent_calculation extends CI_Controller{
         $this->load->view("post_login/footer");
     }
     public function rent_collection(){
-        
+        $fin_id         = $this->session->userdata['loggedin']['fin_id'];
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $mode=$this->input->post('mode');
-            $last_invoice_no=$this->Rent_calculation_model->invoice_no();
+            $last_invoice_no=$this->Rent_calculation_model->invoice_no($fin_id);
 
             $select	=	array("acchead");
             $where = array('id' =>$this->input->post('customer'));
