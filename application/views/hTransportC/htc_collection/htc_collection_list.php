@@ -1,317 +1,261 @@
+<!-- Loader -->
+<div id="loader" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
 <style>
-#loader {
-    position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  margin: -76px 0 0 -76px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+#loader{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.7);
+    z-index:9999;
 }
 
-/* #loader.loading { */
-	/* background: <?= base_url() . 'assets/images/ajax-loader.gif' ?> no-repeat center center;
-	width: 32px;
-	margin: auto; */
-    /* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+.spinner{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:80px;
+    height:80px;
+    margin-left:-40px;
+    margin-top:-40px;
+    border:10px solid #f3f3f3;
+    border-top:10px solid #3498db;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes spin{
+    0%{ transform:rotate(0deg); }
+    100%{ transform:rotate(360deg); }
 }
-/* } */
+</style>
+<style>
+
+.top-btn-row{
+    display:flex;
+    gap:15px;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.btnCustom{
+    padding:10px 24px;
+    border-radius:30px;
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    color:#fff !important;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:0.3s ease;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btnBack{
+    background:linear-gradient(to right,#d32f2f,#f44336);
+}
+
+.btnBack:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+
+.btnAdd{
+    background:linear-gradient(to right,#1565c0,#42a5f5);
+}
+
+.btnAdd:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
 
 </style>
-<!-- jQuery & DataTables -->
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<style>
-    body {
-        background: linear-gradient(135deg, #cfd8dc, #fce4ec); /* lighter background */
-        font-family: "Segoe UI", Tahoma, sans-serif;
-    }
 
-    .contant-wraper {
-        background: #ffffff;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        margin-top: 20px;
-    }
-
-    h1 {
-        color: #1565c0; /* dark blue */
-        font-weight: 700;
-        margin-bottom: 20px;
-    }
-
-    table {
-        background: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-top: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-
-    thead {
-    /* background: linear-gradient(90deg, #1565c0, #1e88e5, #42a5f5); blue gradient */
-    background: linear-gradient(to right, #003e7c, #0056b3);
-    color: white;
-    font-size: 15px;
-}
-
-
-    tbody tr:hover {
-        background: #e3f2fd; /* light hover effect */
-        transition: 0.3s;
-    }
-
-    /* Rounded Buttons */
-    .btnSame {
-        padding: 10px 20px;
-        font-size: 14px;
-        border-radius: 25px;
-        width: 120px;
-        display: inline-block;
-        text-align: center;
-        font-weight: 600;
-        box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
-        color: white;
-        text-decoration: none;
-    }
- /* Status Colors */
- .status-unapproved {
-        background: #ffebee;
-        color: #c62828;
-        padding: 3px 8px;
-        border-radius: 8px;
-        font-weight: bold;
-    }
-
-    .status-hold {
-        background: #fff8e1;
-        color: #ff8f00;
-        padding: 3px 8px;
-        border-radius: 8px;
-        font-weight: bold;
-    }
-
-    .btn-primary {
-        background-color: #1565c0; /* dark blue */
-        border: none;
-    }
-
-    .btn-danger {
-        background-color: #d32f2f; /* red for back/delete */
-        border: none;
-    }
-
-    .fa-edit:hover,
-    .fa-trash-o:hover {
-        transform: scale(1.2);
-        transition: 0.2s;
-    }
-
-    label {
-        font-weight: bold;
-        color: #37474f;
-    }
-
-    input[type="date"] {
-        border-radius: 6px;
-        border: 1px solid #1565c0; /* blue border for date */
-    }
-
-    /* Add + Back Parallel Row */
-    .top-button-row {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .search-row {
-        padding: 15px;
-        background: #e3f2fd; /* light blue background */
-        border-radius: 10px;
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-    }
-</style>
-<style>
-    .container-fluid {
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-    }
-
-    h2 {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-
-    .row:first-child {
-        margin-top: 0 !important;
-    }
-
-    body {
-        margin-top: 0 !important;
-    }
-</style>
-
-    <!-- Loader -->
-    <div id="loader" class="loading img-center" style="display: none;"></div>
 <div class="wraper">
 
     <div class="row">
-
         <div class="col-lg-9 col-sm-12">
-
             <h2><strong>HTC Invoice</strong></h2>
-
         </div>
-
     </div>
-    <?php // print_r($this->session->userdata['loggedin']); ?>
 
     <div class="col-lg-12 container contant-wraper">
 
         <h3>
-        <a href="<?php echo site_url("dashboard"); ?>" 
-                class="btnSame btn-danger" 
-                style="width: 100px; margin-left:10px;">
-                ⬅ Back
-            </a>
-            <a href="<?php echo site_url("handling-trandport-charges/htc_raise_invoice"); ?>" class="btnSame btn-primary"
-                style="width: 100px;">Add</a>
-            <span class="confirm-div" style="float:right; color:green;"><?php if($this->session->flashdata('msg')) echo $this->session->flashdata('msg') ?></span>
+        <div class="top-btn-row">
+        <a href="<?php echo site_url('dashboard'); ?>"
+       class="btnCustom btnBack">
+
+        ⬅ Back
+
+    </a>
+    <a href="<?php echo site_url('handling-trandport-charges/htc_raise_invoice'); ?>"
+       class="btnCustom btnAdd">
+
+        ➕ Add Invoice
+
+    </a>
+</div>
         </h3>
 
-        <!-- <table class="table table-bordered table-hover" id="example"> -->
-        <table id="cashVoucherTable" class="table table-bordered table-hover display">
-            <thead>
-                <?php //print_r($this->session->userdata()) ?>
+        <table id="cashVoucherTable"
+               class="table table-bordered table-hover display">
 
+            <thead>
                 <tr>
                     <th>Sl No.</th>
                     <th>Date</th>
                     <th>Invoice No</th>
                     <th>Customer</th>
-                    <!-- <th>Godown</th> -->
                     <th>Amount</th>
                     <th>IRN</th>
                     <th>ACK No</th>
-                    <th>ACT DT</th>
+                    <th>ACK DT</th>
                     <th>DOWNLOAD</th>
-                    <th>View</th>
-                    <th>B2C Print</th>
+                    <th>VIEW</th>
+                    <th>B2C PRINT</th>
                 </tr>
-
             </thead>
 
             <tbody>
 
-                <?php
-    // print_r($listData);
-                if ($listData) {
-                    $i = 1;
-                    foreach ($listData as $rent_list) {
-						$disable_prnt=$rent_list->irn? 'hidden' : '';
-                                $disable_btn = $rent_list->irn ? 'hidden' : '';
-                                $enable_btn = $rent_list->irn ? '' : 'hidden';
-                        
-                ?>
+            <?php
+
+            if($listData){
+
+                $i = 1;
+
+                foreach($listData as $rent_list){
+
+                    $disable_prnt = $rent_list->irn ? 'hidden' : '';
+                    $enable_btn   = $rent_list->irn ? '' : 'hidden';
+
+            ?>
 
                 <tr>
-                    <td><?php echo $i; ?></td>
-                    <td id="do_dt"><?php echo date("d/m/Y",strtotime($rent_list->trans_dt)); ?></td>
-                    <td><?php echo $rent_list->invoice_no; ?></td>
-                    <!-- <td><?php echo $rent_list->product_desc; ?></td> -->
-                    <td><?php echo $rent_list->cust_name; ?></td>
-                    <td><?php echo $rent_list->total_amt; ?></td>
 
+                    <td><?= $i ?></td>
 
-                    
-               
-					
-					<td id="irn_clk_td_<?= $i ?>">
-                                    <?php if($rent_list->irn ){echo ' <i class="fa fa-check fa-2x"  aria-hidden="true" style="color: green"></i>'; }
-                                        else{ ?>
-                                        <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?= $rent_list->invoice_no ?>')">
-                                        <i class="fa fa-upload fa-2x"  aria-hidden="true" style="color: blue"></i>
-                                        </button>
-                                        <?php } ?> 
+                    <td id="do_dt_<?= $i ?>">
+                        <?= date("d/m/Y", strtotime($rent_list->trans_dt)); ?>
                     </td>
 
+                    <td><?= $rent_list->invoice_no ?></td>
 
+                    <td><?= $rent_list->cust_name ?></td>
 
+                    <td><?= $rent_list->total_amt ?></td>
 
+                    <!-- IRN -->
 
-                    <!--  <td><?php echo $rent_list->irn; ?></td>  -->
-                     <td><?php echo $rent_list->ack_no	; ?></td> 
-                    <td><?php echo $rent_list->ack_dt	; ?></td> 
-					 <td>
-                        <button type="button" name="download_<?= $i ?>" class="download_" id="download"                  
-                        data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>    
-                         <a href="<?php echo site_url('api/print_irn?irn='.$rent_list->irn.''); ?>" id="down_clk_td_<?= $i ?>" 										title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
-                     </td>
+                    <td id="irn_clk_td_<?= $i ?>">
 
-                    <td><a href="<?php echo site_url() ?>/handling-trandport-charges/htc_collection_edit/<?php  echo $rent_list->trans_no; ?>"
-                            data-toggle="tooltip" data-placement="bottom" title="Edit">
+                        <?php if($rent_list->irn){ ?>
 
-                            <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
-                        </a>
+                            <i class="fa fa-check fa-2x"
+                               style="color:green;"></i>
+
+                        <?php } else { ?>
+
+                            <button type="button"
+                                    onclick="irn_clk(<?= $i ?>,'<?= $rent_list->invoice_no ?>')">
+
+                                <i class="fa fa-upload fa-2x"
+                                   style="color:blue;"></i>
+
+                            </button>
+
+                        <?php } ?>
+
                     </td>
+
+                    <!-- ACK NO -->
+
+                    <td id="ack_clk_td_<?= $i ?>">
+                        <?= $rent_list->ack_no ?>
+                    </td>
+
+                    <!-- ACK DT -->
+
+                    <td id="ack_dt_td_<?= $i ?>">
+                        <?= $rent_list->ack_dt ?>
+                    </td>
+
+                    <!-- DOWNLOAD -->
+
                     <td>
-                                <button type="button" name="print_<?= $i ?>" class="print" id="print"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
-                                <a href="<?php echo site_url('handling-trandport-charges/rentb2c_rep?invoice_no='.$rent_list->invoice_no.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
-                                </td>
+
+                        <a href="<?= site_url('api/print_irn?irn='.$rent_list->irn) ?>"
+                           id="down_clk_td_<?= $i ?>"
+                           <?= $enable_btn ?>>
+
+                            <i class="fa fa-download fa-2x"
+                               style="color:green;"></i>
+
+                        </a>
+
+                    </td>
+
+                    <!-- VIEW -->
+
+                    <td>
+
+                        <a href="<?= site_url('handling-trandport-charges/htc_collection_edit/'.$rent_list->trans_no) ?>">
+
+                            <i class="fa fa-edit fa-2x"
+                               style="color:#007bff"></i>
+
+                        </a>
+
+                    </td>
+
+                    <!-- PRINT -->
+
+                    <td>
+
+                        <a href="<?= site_url('handling-trandport-charges/rentb2c_rep?invoice_no='.$rent_list->invoice_no) ?>"
+                           <?= $disable_prnt ?>>
+
+                            <i class="fa fa-print fa-2x"
+                               style="color:green;"></i>
+
+                        </a>
+
+                    </td>
+
                 </tr>
 
-                <?php
-                     $i++;  
-                    }
-                } else {
+            <?php
 
-                    echo "<tr><td colspan='10' style='text-align: center;'>No data Found</td></tr>";
+                $i++;
+
                 }
-                ?>
+
+            } else {
+
+                echo "<tr>
+                        <td colspan='11' style='text-align:center'>
+                            No Data Found
+                        </td>
+                      </tr>";
+            }
+
+            ?>
 
             </tbody>
-
-            <tfoot>
-
-                <tr>
-
-                    <th>Sl No.</th>
-                    <th>Date</th>
-                    <th>Invoice No</th>
-                   
-                    <th>Customer</th>
-                    <!-- <th>Godown</th> -->
-                    
-                    <th>Amount</th>
-                    <th>IRN</th>
-                    <th>ACK No</th>
-                    <th>ACT DT</th>
-                    <th>DOWNLOAD</th>
-                    
-                    <th>View</th>
-                    <th>B2C Print</th>
-                </tr>
-
-            </tfoot>
 
         </table>
 
@@ -319,133 +263,156 @@
 
 </div>
 
-<!-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "pagingType": "full_numbers",
-        // "scrollY": 250,
-        // "scrollX": true
-    } );
-} );
-</script> -->
 
-<script>
-        function irn_clk(i, trans_do){
-        // alert(i);
-        var do_dt=$('#do_dt').text();
-            
-        var curr_dt=new Date();
-        var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
-        console.log({'do_dt': do_dt, 'curr_dt': curr});
-        if(do_dt != curr){
-                    alert('IRN Genaration Not Possible');
-                    $('[name="irn_clk_td_'+i+'"]').attr('disabled','disabled');
-        }else{
-            $.ajax({
-            type: "GET",
-            url: "<?php echo site_url('/api/get_api_htc'); ?>",
-            data: {trans_do: trans_do},
-            dataType: 'html',
-            beforeSend: function () {
-                // Show image container
-                $("#loader").show();
-                $('.wraper').hide();
-            },
-            success: function (result) {
-                // console.log(result);
-                var res = JSON.parse(result);
-                var trn_type='';
-                console.log(res['Success']);
-                if(res['Success'] == 'Y'){
-                        save_data(trans_do, res['Irn'],res['AckNo'],res['AckDt'],trn_type='Y');
-                    // if(save_data(trans_do, res['Irn']) > 0){
-                        $('#ack_dt_td_' + i).empty();
-                        $('#ack_clk_td_' + i).empty();
-                        $('#irn_clk_td_' + i).empty();
-                        $('#trn_type_td_' + i).empty();
-                        // $('#irn_clk_td_' + i).text(res['Irn']);
-                        $('#irn_clk_td_' + i).html('<i class="fa fa-check fa-2x"  aria-hidden="true" style="color: blue"></i>');
-                        $('#ack_clk_td_' + i).text(res['AckNo']);
-                        $('#ack_dt_td_' + i).text(res['AckDt']);
-                        $('#down_clk_td_' + i).attr('href', '<?= site_url() ?>api/print_irn?irn='+res['Irn']);
-                        $('#ack_dt_td_' + i).text('Cash/B2B');
-                        // AckNo
-                        //AckDt
-                        $('[name="delete_'+i+'"]').attr('disabled', 'disabled');
-                    // }else{
-                    //     alert('Data Not Inserted');
-                    //     $('[name="delete_'+i+'"]').removeAttr('disabled');
-                    // }
+$(document).ready(function(){
 
-                }else{
-                    // alert('Something Went Wrong');
-                    alert('IRN not generated! Something Went Wrong/This will may be a B2c invoice');
-                    $('[name="delete_'+i+'"]').removeAttr('disabled');
-                }
-            },
-            complete: function (data) {
-                // Hide image container
-                $("#loader").hide();
-                $('.wraper').show();
-            }
-	    });
-
-        }
-        
-    }
-
-    function save_data(trans_do, irn,ack,ack_dt,trn_type){
-        $.ajax({
-            type: "GET",
-            url: "<?php echo site_url('api/save_htc_irn'); ?>",
-            data: {trans_do: trans_do, irn: irn,ack:ack,ack_dt:ack_dt,trn_type:trn_type},
-            dataType: 'html',
-            success: function (result) {
-                // console.log(result);
-                if(result == 1){
-                    return 1;
-                    // alert('IRN GENERATED SUCCESSFULLY');
-                }else{
-                    return 0;
-                }
-               
-            }
-	    });
-    }
-
-</script>
-<script>
-$(document).ready(function() {
-
-    // Initialize DataTables with empty table handling
     $('#cashVoucherTable').DataTable({
-        "pageLength": 10,
-        "lengthMenu": [5, 10, 25, 50, 100],
-        "ordering": true,
-        "searching": true,
-        "info": true,
-        "paging": true,
-        "order": [[0, "desc"]],
-        "language": {
-            "emptyTable": "No data Found"
-        }
+        pageLength:10,
+        lengthMenu:[5,10,25,50,100],
+        ordering:true,
+        searching:true,
+        paging:true,
+        info:true,
+        order:[[0,'desc']]
     });
 
-    // DELETE CONFIRM
-    // $('.delete').click(function() {
-    //     var id = $(this).attr('id');
-    //     if(confirm("Do you really want to delete this record?")){
-    //         window.location = "<?= site_url('transaction/delete?id='); ?>" + id;
-    //     }
-    // });
-
-    // FLASH MESSAGE
-    <?php if ($this->session->flashdata('msg')): ?>
-        alert("<?= $this->session->flashdata('msg'); ?>");
-    <?php endif; ?>
 });
+
+
+
+function irn_clk(i, trans_do){
+
+    var do_dt = $('#do_dt_' + i).text().trim();
+
+    var curr_dt = new Date();
+
+    var curr =
+        ("0" + curr_dt.getDate()).slice(-2)
+        + '/'
+        + ("0" + (curr_dt.getMonth()+1)).slice(-2)
+        + '/'
+        + curr_dt.getFullYear();
+
+    console.log(do_dt);
+    console.log(curr);
+
+    if(do_dt != curr){
+
+        alert('IRN Generation Not Possible');
+
+        return false;
+    }
+
+    $.ajax({
+
+        type:'GET',
+
+        url:"<?php echo site_url('/api/get_api_htc'); ?>",
+
+        data:{
+            trans_do:trans_do
+        },
+
+        dataType:'json',
+
+        beforeSend:function(){
+
+            $('#loader').show();
+            $('.wraper').hide();
+
+        },
+
+        success:function(res){
+
+            console.log(res);
+
+            if(res.Success == 'Y'){
+
+                save_data(
+                    trans_do,
+                    res.Irn,
+                    res.AckNo,
+                    res.AckDt,
+                    'Y'
+                );
+
+                $('#irn_clk_td_' + i).html(
+                    '<i class="fa fa-check fa-2x" style="color:green;"></i>'
+                );
+
+                $('#ack_clk_td_' + i).text(res.AckNo);
+
+                $('#ack_dt_td_' + i).text(res.AckDt);
+
+                $('#down_clk_td_' + i).attr(
+                    'href',
+                    '<?= site_url() ?>api/print_irn?irn=' + res.Irn
+                );
+
+                $('#down_clk_td_' + i).removeAttr('hidden');
+
+                alert('IRN GENERATED SUCCESSFULLY');
+
+            } else {
+
+                alert('IRN NOT GENERATED');
+
+            }
+
+        },
+
+        error:function(xhr){
+
+            console.log(xhr.responseText);
+
+            alert('Server Error');
+
+        },
+
+        complete:function(){
+
+            $('#loader').hide();
+            $('.wraper').show();
+
+        }
+
+    });
+
+}
+
+
+
+function save_data(trans_do, irn, ack, ack_dt, trn_type){
+
+    $.ajax({
+
+        type:'GET',
+
+        url:"<?php echo site_url('api/save_htc_irn'); ?>",
+
+        data:{
+            trans_do:trans_do,
+            irn:irn,
+            ack:ack,
+            ack_dt:ack_dt,
+            trn_type:trn_type
+        },
+
+        success:function(result){
+
+            console.log(result);
+
+        },
+
+        error:function(){
+
+            alert('Save Failed');
+
+        }
+
+    });
+
+}
+
 </script>
