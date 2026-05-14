@@ -260,16 +260,18 @@ class Rent_calculation extends CI_Controller{
             $where = array('id' =>$this->input->post('customer'));
             $dr_acccd =$this->Transaction_model->f_select("md_rent_customer", $select, $where , 1);
             // $dr_acccd = 7154;
-            if(empty($last_invoice_no)){
-                $trans_no=0;
-            }else{
-                $trans_no=$last_invoice_no->trans_no;
-            }
+            // if(empty($last_invoice_no)){
+            //     $trans_no=0;
+            // }else{
+            //     $trans_no=$last_invoice_no->trans_no;
+            // }
             
                 $data=array(
+                    "trans_no"      => $last_invoice_no,
                     "fin_yr"        =>  $this->session->userdata['loggedin']['fin_id'],
                     "trans_dt"      =>  $this->input->post('effectiveDate'),
-                    "invoice_no"    =>  "RNT-".$this->session->userdata['loggedin']['fin_yr']."-".($trans_no+1),
+                    // "invoice_no"    =>  "RNT-".$this->session->userdata['loggedin']['fin_yr']."-".($trans_no+1),
+                    "invoice_no"    =>  "RNT-".$this->session->userdata['loggedin']['fin_yr']."-".($last_invoice_no),
                     "trans_type"    =>  $this->input->post('mode'),
                     "prod_id"       =>  $this->input->post('product'),
                     "cust_id"       =>  $this->input->post('customer'),
